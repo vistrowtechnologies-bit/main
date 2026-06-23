@@ -238,6 +238,12 @@ const products = [
     icon: 'Layers3',
     status: 'Product studio',
     text: 'SaaS products and custom business technology solutions built with product-led thinking.'
+  },
+  {
+    title: 'Upcoming Products',
+    icon: 'Sparkles',
+    status: 'Product roadmap',
+    text: 'New Vistrow tools for AI communication, automation, analytics, and growth operations are being developed for future release.'
   }
 ];
 
@@ -392,6 +398,59 @@ const resources = [
   ['Growth Audit Checklist', 'A checklist to identify gaps in marketing, CRM, and follow-up systems.'],
   ['FAQs', 'Common questions about Vistrow services, products, and implementation.']
 ];
+
+const legalPages = {
+  'privacy-policy': {
+    title: 'Privacy Policy',
+    description: 'How Vistrow Technologies collects, uses, and protects business inquiry information shared through the website.',
+    sections: [
+      ['Information we collect', 'We may collect contact details, company information, service interests, website URLs, and messages submitted through forms or direct communication.'],
+      ['How we use information', 'We use inquiry information to respond to requests, prepare audits, understand business needs, improve website performance, and communicate about relevant Vistrow services.'],
+      ['Data protection', 'We keep business information limited to operational use and do not sell personal information. Access is limited to team members or trusted service providers who support communication, hosting, analytics, or CRM workflows.'],
+      ['Your choices', 'You can request correction, deletion, or a copy of information shared with Vistrow by contacting the team through the contact page.']
+    ]
+  },
+  'terms-and-conditions': {
+    title: 'Terms & Conditions',
+    description: 'The basic terms for using the Vistrow website and discussing services, products, audits, or implementation work.',
+    sections: [
+      ['Website use', 'The website content is provided for general business information about Vistrow services, products, and growth systems. It should not be treated as a guaranteed outcome or formal proposal.'],
+      ['Service engagement', 'Any service, audit, CRM, SaaS, AI calling, or automation project will require a separate scope, commercial agreement, and implementation plan.'],
+      ['Content ownership', 'Vistrow brand, website copy, visuals, product names, and system descriptions remain owned by Vistrow Technologies unless a written agreement says otherwise.'],
+      ['Limitations', 'Vistrow is not responsible for business decisions made only from website content without a formal consultation, audit, or project agreement.']
+    ]
+  },
+  'cookie-policy': {
+    title: 'Cookie Policy',
+    description: 'How Vistrow may use cookies and similar technologies to improve website experience and performance insight.',
+    sections: [
+      ['What cookies support', 'Cookies or similar browser storage may support site preferences, analytics, traffic measurement, form performance, and general website improvement.'],
+      ['Analytics and performance', 'We may use analytics tools to understand which pages visitors use, how campaigns perform, and where website experience can be improved.'],
+      ['Managing cookies', 'You can manage or block cookies through your browser settings. Some preferences or analytics features may not work the same after blocking cookies.'],
+      ['Future updates', 'As Vistrow adds more SaaS, CRM, and customer communication experiences, this policy may be updated to reflect new tools.']
+    ]
+  },
+  'refund-policy': {
+    title: 'Refund Policy',
+    description: 'How refunds are handled for Vistrow audits, services, retainers, product work, and implementation projects.',
+    sections: [
+      ['Project-based work', 'Refund eligibility depends on the approved scope, work already delivered, third-party costs, and the terms agreed before project start.'],
+      ['Audits and consultations', 'Paid audits or consultations are generally non-refundable once the review, meeting, roadmap, or deliverable work has started.'],
+      ['Retainers and services', 'Ongoing service retainers follow the cancellation, notice, and billing terms defined in the service agreement or invoice.'],
+      ['Review process', 'If there is a billing concern, contact Vistrow with invoice details and project context so the team can review it fairly.']
+    ]
+  },
+  disclaimer: {
+    title: 'Disclaimer',
+    description: 'Important context about Vistrow website content, business outcomes, third-party tools, and implementation recommendations.',
+    sections: [
+      ['Business outcomes', 'Growth, lead generation, conversion, CRM adoption, and automation outcomes depend on many factors including offer, market, sales process, budget, and execution quality.'],
+      ['No guaranteed results', 'Website examples, claims, and recommendations are informational and do not guarantee identical results for every business.'],
+      ['Third-party platforms', 'Vistrow may work with advertising platforms, CRM tools, analytics products, AI services, hosting providers, and other third-party systems that have their own terms and limitations.'],
+      ['Professional review', 'Businesses should review technical, legal, financial, and operational decisions with qualified advisors where needed.']
+    ]
+  }
+};
 
 function slugify(value) {
   return value
@@ -1056,6 +1115,51 @@ function resourcesPage(slug) {
   `);
 }
 
+function legalPage(slug) {
+  if (slug) {
+    const selected = legalPages[slug];
+    if (!selected) return notFound();
+
+    setMeta(`${selected.title} | Vistrow Technologies`, selected.description);
+    return shell(`
+      <section class="page-hero legal-hero">
+        <p class="eyebrow">Legal</p>
+        <h1>${selected.title}</h1>
+        <p>${selected.description}</p>
+      </section>
+      <section class="section-pad legal-content">
+        ${selected.sections.map(([heading, text]) => `
+          <article class="legal-card">
+            <h2>${heading}</h2>
+            <p>${text}</p>
+          </article>
+        `).join('')}
+      </section>
+      ${auditCta()}
+    `);
+  }
+
+  setMeta('Legal Information | Vistrow Technologies', 'Read Vistrow legal information including privacy, terms, cookies, refunds, and disclaimers.');
+  return shell(`
+    <section class="page-hero">
+      <p class="eyebrow">Legal</p>
+      <h1>Vistrow legal information.</h1>
+      <p>Review the policies that explain how Vistrow handles website use, business inquiries, cookies, refunds, and general website disclaimers.</p>
+    </section>
+    <section class="section-pad">
+      <div class="resource-grid">
+        ${Object.entries(legalPages).map(([key, page]) => `
+          <a class="service-card" href="#/legal/${key}">
+            <span class="icon-badge">${icon('ShieldCheck')}</span>
+            <h3>${page.title}</h3>
+            <p>${page.description}</p>
+          </a>
+        `).join('')}
+      </div>
+    </section>
+  `);
+}
+
 function solutionsPage(slug) {
   const selected = solutions.find(([title]) => solutionSlug(title) === slug);
   if (selected) {
@@ -1094,11 +1198,18 @@ function solutionsPage(slug) {
 
 function footer() {
   const groups = [
-    ['Services', ['Digital Marketing', 'SaaS Product Development', 'AI Voice Calling Agents', 'CRM & Lead Management', 'Automation Workflows', 'Analytics & Reporting']],
-    ['Products', ['ArthaLeads CRM', 'Vistrow Voice', 'Vistrow Flow', 'Vistrow Labs', 'Upcoming Products']],
-    ['Solutions', ['Growth Systems', 'Lead Generation System', 'Sales Automation', 'AI Customer Communication', 'CRM & Pipeline Management', 'Digital Transformation']],
-    ['Company', ['About Vistrow', 'Our Ecosystem', 'Case Studies', 'Blog', 'Careers', 'Contact']],
-    ['Legal', ['Privacy Policy', 'Terms & Conditions', 'Cookie Policy', 'Refund Policy', 'Disclaimer']]
+    ['Services', services.map((service) => [service.title.replace(' & Performance Ads', ''), `#/services/${service.slug}`])],
+    ['Products', products.map((product) => [product.title, `#/products/${slugify(product.title)}`])],
+    ['Solutions', solutions.map(([title]) => [title.replace(' System', ''), `#/solutions/${solutionSlug(title)}`])],
+    ['Company', [
+      ['About Vistrow', '#/about'],
+      ['Our Ecosystem', '#/company/ecosystem'],
+      ['Case Studies', '#/resources/case-studies'],
+      ['Blog', '#/resources/blog'],
+      ['Careers', '#/company/careers'],
+      ['Contact', '#/contact']
+    ]],
+    ['Legal', Object.entries(legalPages).map(([key, page]) => [page.title, `#/legal/${key}`])]
   ];
   return `
     <footer class="site-footer">
@@ -1110,7 +1221,7 @@ function footer() {
       ${groups.map(([title, items]) => `
         <div class="footer-col">
           <h3>${title}</h3>
-          ${items.map((item) => `<a href="#/${title.toLowerCase()}">${item}</a>`).join('')}
+          ${items.map(([item, href]) => `<a href="${href}">${item}</a>`).join('')}
         </div>
       `).join('')}
       <div class="footer-bottom">© 2026 Vistrow Technologies. All rights reserved. Built for Visionaries. Powered by Intelligence. Engineered for Growth.</div>
@@ -1144,6 +1255,7 @@ function render() {
   else if (base === 'audit') html = contactPage(true);
   else if (base === 'resources') html = resourcesPage(detail);
   else if (base === 'solutions') html = solutionsPage(detail);
+  else if (base === 'legal') html = legalPage(detail);
   else html = notFound();
 
   document.querySelector('#app').innerHTML = html;

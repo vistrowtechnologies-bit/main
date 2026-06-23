@@ -1369,7 +1369,7 @@ textarea {
   display: grid;
   grid-template-columns: 1.6fr repeat(5, 1fr);
   gap: 28px;
-  width: min(var(--max), calc(100% - 32px));
+  width: min(var(--header-max), calc(100% - 32px));
   margin: 96px auto 24px;
   padding: 34px;
   border-radius: 8px;
@@ -1404,6 +1404,31 @@ textarea {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.58);
   font-size: 0.86rem;
+}
+
+.legal-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.legal-card {
+  min-height: 190px;
+  padding: 26px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card-gradient);
+  box-shadow: var(--card-shadow);
+}
+
+.legal-card h2 {
+  margin-bottom: 12px;
+  font-size: 1.35rem;
+}
+
+.legal-card p {
+  color: var(--text-muted);
+  line-height: 1.7;
 }
 
 .reveal {
@@ -1540,6 +1565,7 @@ textarea:focus-visible {
   .career-job-grid,
   .point-grid,
   .check-grid,
+  .legal-content,
   .resource-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1641,9 +1667,10 @@ textarea:focus-visible {
   .resource-grid,
   .process-line,
   .mini-grid,
-  .contact-form,
-  .career-job-grid,
-  .site-footer {
+    .contact-form,
+    .career-job-grid,
+    .legal-content,
+    .site-footer {
     grid-template-columns: 1fr;
   }
 
