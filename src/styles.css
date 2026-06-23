@@ -1683,14 +1683,13 @@ textarea:focus-visible {
   }
 
   .lanyard-react-root {
-    inset: 0;
+    inset: 0 0 -420px;
     z-index: 1;
     cursor: grab;
     touch-action: pan-y;
   }
 
   .careers-hero.lanyard-dragging .lanyard-react-root {
-    inset: 0 0 -420px;
     z-index: 20;
     touch-action: none;
   }

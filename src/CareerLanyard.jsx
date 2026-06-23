@@ -37,14 +37,15 @@ function CareerLanyard() {
 
   return (
     <Lanyard
-      position={[0, 0, 21]}
+      position={isMobile ? [0, 0, 17.5] : [0, 0, 19]}
       gravity={[0, -40, 0]}
       frontImage={theme === 'dark' ? frontImageDark : frontImage}
       backImage={backImage}
       imageFit="cover"
       lanyardImage={lanyardImage}
-      lanyardWidth={isMobile ? 0.28 : 1}
-      cardScale={isMobile ? 3.25 : 2.7}
+      lanyardWidth={isMobile ? 0.62 : 1}
+      cardScale={2.25}
+      segmentLength={isMobile ? 0.62 : 1}
       onDragChange={setDragging}
     />
   );
