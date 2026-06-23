@@ -1644,16 +1644,16 @@ textarea:focus-visible {
   .lanyard-stage {
     justify-self: center;
     width: 100%;
-    min-height: 360px;
+    min-height: 340px;
     margin-top: 0;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .lanyard-react-root {
     inset: 0;
     z-index: 1;
-    cursor: default;
-    touch-action: pan-y;
+    cursor: grab;
+    touch-action: none;
   }
 
   .careers-hero.lanyard-dragging .lanyard-react-root {

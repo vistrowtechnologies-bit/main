@@ -43,7 +43,7 @@ export default function Lanyard({
     <div className="lanyard-wrapper">
       <Canvas
         camera={{ position, fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
+        dpr={[1.5, isMobile ? 2 : 2.5]}
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
@@ -104,8 +104,9 @@ function Band({
     if (!frontImage && !backImage) return baseMap;
 
     const baseImg = baseMap.image;
-    const W = baseImg.width;
-    const H = baseImg.height;
+    const qualityScale = 3;
+    const W = baseImg.width * qualityScale;
+    const H = baseImg.height * qualityScale;
     const canvas = document.createElement('canvas');
     canvas.width = W;
     canvas.height = H;
@@ -139,6 +140,9 @@ function Band({
     composite.colorSpace = THREE.SRGBColorSpace;
     composite.flipY = baseMap.flipY;
     composite.anisotropy = 16;
+    composite.minFilter = THREE.LinearMipmapLinearFilter;
+    composite.magFilter = THREE.LinearFilter;
+    composite.generateMipmaps = true;
     composite.needsUpdate = true;
     return composite;
   }, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
@@ -148,7 +152,6 @@ function Band({
   );
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
-  const isInteractive = !isMobile;
 
   const stopDrag = (e) => {
     if (e?.target?.hasPointerCapture?.(e.pointerId)) {
@@ -159,7 +162,6 @@ function Band({
   };
 
   const startDrag = (e) => {
-    if (!isInteractive) return;
     e.stopPropagation();
     e.target.setPointerCapture(e.pointerId);
     drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
@@ -175,14 +177,14 @@ function Band({
   ]);
 
   useEffect(() => {
-    if (isInteractive && hovered) {
+    if (hovered) {
       document.body.style.cursor = dragged ? 'grabbing' : 'grab';
       return () => {
         document.body.style.cursor = 'auto';
       };
     }
     return undefined;
-  }, [isInteractive, hovered, dragged]);
+  }, [hovered, dragged]);
 
   useFrame((state, delta) => {
     if (dragged) {
@@ -230,7 +232,7 @@ function Band({
           <group
             scale={cardScale}
             position={[0, -1.2, -0.05]}
-            onPointerOver={() => isInteractive && hover(true)}
+            onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={stopDrag}
             onPointerCancel={stopDrag}
