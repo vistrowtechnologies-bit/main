@@ -22,6 +22,51 @@
   --shadow: 0 24px 70px rgba(3, 4, 94, 0.13);
   --max: 1180px;
   --header-max: 1320px;
+
+  /* Semantic theme variables (Default: Light theme) */
+  --bg-glow-1: radial-gradient(circle at 82% 8%, rgba(0, 180, 216, 0.18), transparent 28%);
+  --bg-glow-2: radial-gradient(circle at 12% 30%, rgba(144, 224, 239, 0.36), transparent 24%);
+  --bg-base: linear-gradient(135deg, #ffffff 0%, #f6fdff 46%, #caf0f8 100%);
+  --text-main: var(--charcoal);
+  --text-heading: var(--deep-brown);
+  --text-muted: var(--gray);
+  --bg-card: var(--white);
+  --bg-card-gradient: linear-gradient(180deg, rgba(202, 240, 248, 0.42), rgba(255, 255, 255, 0.96));
+  --border-color: var(--border);
+  --shadow-color: rgba(3, 4, 94, 0.1);
+  --header-bg: rgba(255, 255, 255, 0.82);
+  --submenu-bg: var(--white);
+  --toggle-btn-bg: rgba(202, 240, 248, 0.72);
+  --hover-bg: rgba(202, 240, 248, 0.58);
+  --input-bg: rgba(202, 240, 248, 0.28);
+  --card-shadow: 0 14px 36px rgba(3, 4, 94, 0.07);
+  --dash-bg: linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(202, 240, 248, 0.7)), radial-gradient(circle at top right, rgba(0, 180, 216, 0.22), transparent 38%);
+  --dash-shadow: 0 28px 80px rgba(0, 119, 182, 0.2), 0 0 64px rgba(0, 180, 216, 0.15);
+}
+
+[data-theme="dark"] {
+  --bg-glow-1: radial-gradient(circle at 82% 8%, rgba(0, 180, 216, 0.12), transparent 35%);
+  --bg-glow-2: radial-gradient(circle at 12% 30%, rgba(3, 4, 94, 0.45), transparent 30%);
+  --bg-base: linear-gradient(135deg, #070b16 0%, #0a0f1d 50%, #0c1527 100%);
+  --text-main: #e2e8f0;
+  --text-heading: #ffffff;
+  --text-muted: #94a3b8;
+  --bg-card: rgba(15, 23, 42, 0.65);
+  --bg-card-gradient: linear-gradient(180deg, rgba(15, 23, 42, 0.85), rgba(8, 12, 24, 0.95));
+  --border-color: rgba(0, 180, 216, 0.24);
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --header-bg: rgba(10, 15, 30, 0.82);
+  --submenu-bg: #0f172a;
+  --toggle-btn-bg: rgba(15, 23, 42, 0.85);
+  --hover-bg: rgba(0, 180, 216, 0.18);
+  --input-bg: rgba(15, 23, 42, 0.6);
+  --card-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+  --dash-bg: linear-gradient(140deg, rgba(15, 23, 42, 0.96), rgba(12, 74, 96, 0.3)), radial-gradient(circle at top right, rgba(0, 180, 216, 0.25), transparent 45%);
+  --dash-shadow: 0 28px 80px rgba(0, 0, 0, 0.45), 0 0 64px rgba(0, 180, 216, 0.12);
+  --charcoal: #e2e8f0;
+  --deep-brown: #ffffff;
+  --gray: #94a3b8;
+  --blue: #00b4d8;
 }
 
 * {
@@ -34,11 +79,8 @@ html {
 
 body {
   margin: 0;
-  background:
-    radial-gradient(circle at 82% 8%, rgba(0, 180, 216, 0.18), transparent 28%),
-    radial-gradient(circle at 12% 30%, rgba(144, 224, 239, 0.36), transparent 24%),
-    linear-gradient(135deg, #ffffff 0%, #f6fdff 46%, #caf0f8 100%);
-  color: var(--charcoal);
+  background: var(--bg-glow-1), var(--bg-glow-2), var(--bg-base);
+  color: var(--text-main);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -71,10 +113,10 @@ button {
   width: min(var(--header-max), calc(100% - 32px));
   margin: 16px auto 0;
   padding: 12px 16px;
-  border: 1px solid rgba(0, 119, 182, 0.14);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 18px 44px rgba(3, 4, 94, 0.1);
+  background: var(--header-bg);
+  box-shadow: 0 18px 44px var(--shadow-color);
   backdrop-filter: blur(18px);
 }
 
@@ -188,7 +230,7 @@ button {
 .nav-trigger:hover,
 .nav-item.open .nav-trigger,
 .nav-item:focus-within .nav-trigger {
-  background: rgba(202, 240, 248, 0.72);
+  background: var(--toggle-btn-bg);
 }
 
 .nav-trigger svg {
@@ -208,10 +250,10 @@ button {
   z-index: 50;
   width: min(760px, calc(100vw - 40px));
   padding: 12px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
-  box-shadow: var(--shadow);
+  background: var(--submenu-bg);
+  box-shadow: 0 24px 70px var(--shadow-color);
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, 8px);
@@ -264,7 +306,7 @@ button {
 }
 
 .submenu-link:hover {
-  background: rgba(202, 240, 248, 0.58);
+  background: var(--hover-bg);
 }
 
 .submenu-link strong,
@@ -314,8 +356,8 @@ button {
 }
 
 .btn.secondary {
-  border-color: var(--border);
-  background: var(--white);
+  border-color: var(--border-color);
+  background: var(--bg-card);
   color: var(--blue);
 }
 
@@ -439,14 +481,10 @@ h3 {
   position: relative;
   overflow: hidden;
   padding: 18px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background:
-    linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(202, 240, 248, 0.7)),
-    radial-gradient(circle at top right, rgba(0, 180, 216, 0.22), transparent 38%);
-  box-shadow:
-    0 28px 80px rgba(0, 119, 182, 0.2),
-    0 0 64px rgba(0, 180, 216, 0.15);
+  background: var(--dash-bg);
+  box-shadow: var(--dash-shadow);
 }
 
 .dashboard-visual::before {
@@ -475,9 +513,9 @@ h3 {
 
 .dash-top {
   padding: 15px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
+  background: var(--bg-card);
 }
 
 .tiny-label,
@@ -525,9 +563,9 @@ h3 {
 .metric,
 .workflow-card,
 .call-list div {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--bg-card);
 }
 
 .metric {
@@ -665,9 +703,9 @@ h3 {
 
 .band {
   padding: 64px;
-  border: 1px solid var(--border);
-  background: var(--white);
-  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  box-shadow: 0 24px 70px var(--shadow-color);
 }
 
 .section-head {
@@ -702,9 +740,9 @@ h3 {
   gap: 10px;
   align-items: flex-start;
   padding: 14px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: rgba(202, 240, 248, 0.42);
+  background: var(--hover-bg);
   color: var(--deep-brown);
   font-size: 0.98rem;
   font-weight: 600;
@@ -733,10 +771,10 @@ h3 {
 .industry-card,
 .review-card,
 .mini-grid article {
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
-  box-shadow: 0 14px 36px rgba(3, 4, 94, 0.07);
+  background: var(--bg-card);
+  box-shadow: var(--card-shadow);
 }
 
 .tilt-card {
@@ -881,10 +919,10 @@ h3 {
   gap: 18px;
   margin-top: 16px;
   padding: 22px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
-  box-shadow: 0 14px 36px rgba(3, 4, 94, 0.07);
+  background: var(--bg-card);
+  box-shadow: var(--card-shadow);
 }
 
 .ecosystem-detail {
@@ -962,9 +1000,9 @@ h3 {
 .process-step {
   min-height: 210px;
   padding: 18px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
+  background: var(--bg-card);
   cursor: pointer;
   color: var(--charcoal);
   text-align: left;
@@ -1019,9 +1057,7 @@ h3 {
 
 .product-card {
   min-height: 280px;
-  background:
-    linear-gradient(180deg, rgba(202, 240, 248, 0.42), rgba(255, 255, 255, 0.96)),
-    var(--white);
+  background: var(--bg-card-gradient);
 }
 
 .product-card div {
@@ -1117,10 +1153,10 @@ h3 {
   display: grid;
   gap: 18px;
   padding: 26px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
-  box-shadow: 0 14px 36px rgba(3, 4, 94, 0.07);
+  background: var(--bg-card);
+  box-shadow: var(--card-shadow);
 }
 
 .job-topline {
@@ -1256,10 +1292,10 @@ h3 {
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   padding: 22px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: var(--white);
-  box-shadow: var(--shadow);
+  background: var(--bg-card);
+  box-shadow: 0 24px 70px var(--shadow-color);
 }
 
 label {
@@ -1274,10 +1310,10 @@ input,
 select,
 textarea {
   width: 100%;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background: rgba(202, 240, 248, 0.28);
-  color: var(--charcoal);
+  background: var(--input-bg);
+  color: var(--text-main);
 }
 
 input,
@@ -1575,3 +1611,85 @@ textarea:focus-visible {
     position: static;
   }
 }
+
+/* Theme Switcher Button and Animations */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--header-bg);
+  color: var(--text-heading);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--toggle-btn-bg);
+  transform: scale(1.05);
+}
+
+.theme-toggle svg {
+  stroke-width: 2px;
+}
+
+.theme-toggle .sun-icon {
+  display: none;
+}
+
+.theme-toggle .moon-icon {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle .sun-icon {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+  display: none;
+}
+
+/* Global Transitions for Premium Feel */
+body,
+.site-header,
+.eco-card,
+.service-card,
+.product-card,
+.industry-card,
+.review-card,
+.mini-grid article,
+.process-step,
+.process-detail,
+.ecosystem-detail,
+.contact-form,
+.career-job,
+.nav-link,
+.nav-trigger,
+.submenu,
+.submenu-link,
+input,
+select,
+textarea {
+  transition: background 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (max-width: 1279px) {
+  .site-header {
+    grid-template-columns: auto 1fr auto auto !important;
+  }
+  .theme-toggle {
+    grid-column: 3;
+    grid-row: 1;
+    margin-right: 8px;
+  }
+  .nav-toggle {
+    grid-column: 4;
+    grid-row: 1;
+  }
+}
+

@@ -24,6 +24,8 @@ import {
   Route,
   ShieldCheck,
   Sparkles,
+  Sun,
+  Moon,
   Target,
   Users,
   Workflow,
@@ -450,6 +452,10 @@ function shell(content) {
       <nav class="nav">
         ${nav.map((item) => navItem(item)).join('')}
       </nav>
+      <button class="theme-toggle" aria-label="Toggle theme" id="theme-switcher">
+        <span class="sun-icon">${renderSvg(Sun, 20)}</span>
+        <span class="moon-icon">${renderSvg(Moon, 20)}</span>
+      </button>
       <a class="header-cta" href="#/audit">Book a Growth Audit</a>
     </header>
     <main>${content}</main>
@@ -1144,6 +1150,14 @@ function bindInteractions() {
   const navToggle = document.querySelector('.nav-toggle');
   const header = document.querySelector('.site-header');
   navToggle?.addEventListener('click', () => header.classList.toggle('open'));
+
+  const switcher = document.getElementById('theme-switcher');
+  switcher?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('vistrow-theme', nextTheme);
+  });
 
   document.querySelectorAll('.nav-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
