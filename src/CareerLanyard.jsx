@@ -43,8 +43,8 @@ function CareerLanyard() {
       backImage={backImage}
       imageFit="cover"
       lanyardImage={lanyardImage}
-      lanyardWidth={isMobile ? 0.58 : 1.3}
-      cardScale={isMobile ? 2.08 : 2.35}
+      lanyardWidth={isMobile ? 0.36 : 1.12}
+      cardScale={isMobile ? 2.75 : 2.55}
       onDragChange={setDragging}
     />
   );

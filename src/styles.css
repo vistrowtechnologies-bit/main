@@ -1096,6 +1096,10 @@ h3 {
   z-index: 2;
 }
 
+.careers-hero.lanyard-dragging {
+  z-index: 20;
+}
+
 .lanyard-stage {
   position: relative;
   display: grid;
@@ -1122,11 +1126,11 @@ h3 {
 }
 
 .careers-hero.lanyard-dragging .lanyard-react-root {
-  z-index: 9;
+  z-index: 20;
 }
 
 .careers-hero.lanyard-dragging .lanyard-stage {
-  z-index: 9;
+  z-index: 20;
 }
 
 .lanyard-react-root:active {
@@ -1156,6 +1160,8 @@ h3 {
 }
 
 .careers-intro {
+  position: relative;
+  z-index: 1;
   padding-top: 28px;
 }
 
@@ -1657,7 +1663,8 @@ textarea:focus-visible {
   }
 
   .careers-hero.lanyard-dragging .lanyard-react-root {
-    z-index: 9;
+    inset: 0 0 -420px;
+    z-index: 20;
   }
 
   .pipeline {
