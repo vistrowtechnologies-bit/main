@@ -163,6 +163,7 @@ function Band({
 
   const startDrag = (e) => {
     e.stopPropagation();
+    e.nativeEvent?.preventDefault?.();
     e.target.setPointerCapture(e.pointerId);
     drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
     onDragChange?.(true);
