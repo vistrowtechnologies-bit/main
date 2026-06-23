@@ -8,22 +8,28 @@ import lanyardImage from './assets/lanyard/vistrow-band.svg';
 
 function CareerLanyard() {
   const [theme, setTheme] = useState(() => document.documentElement.getAttribute('data-theme') || 'light');
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 680px)').matches);
   const setDragging = (isDragging) => {
     document.querySelector('.careers-hero')?.classList.toggle('lanyard-dragging', isDragging);
   };
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 680px)');
+    const updateMobileState = () => setIsMobile(mediaQuery.matches);
     const observer = new MutationObserver(() => {
       const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
       setTheme(currentTheme);
     });
 
+    updateMobileState();
+    mediaQuery.addEventListener('change', updateMobileState);
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['data-theme']
     });
 
     return () => {
+      mediaQuery.removeEventListener('change', updateMobileState);
       observer.disconnect();
       setDragging(false);
     };
@@ -37,8 +43,8 @@ function CareerLanyard() {
       backImage={backImage}
       imageFit="cover"
       lanyardImage={lanyardImage}
-      lanyardWidth={1.3}
-      cardScale={2.25}
+      lanyardWidth={isMobile ? 0.9 : 1.3}
+      cardScale={isMobile ? 1.8 : 2.25}
       onDragChange={setDragging}
     />
   );
@@ -46,13 +52,6 @@ function CareerLanyard() {
 
 export function mountCareerLanyard(rootElement) {
   if (!rootElement || rootElement.__vistrowLanyardRoot) return;
-  const setDragging = (isDragging) => {
-    rootElement.closest('.careers-hero')?.classList.toggle('lanyard-dragging', isDragging);
-  };
-  rootElement.addEventListener('pointerdown', () => setDragging(true));
-  rootElement.addEventListener('pointerup', () => setDragging(false));
-  rootElement.addEventListener('pointercancel', () => setDragging(false));
-  rootElement.addEventListener('pointerleave', () => setDragging(false));
   rootElement.__vistrowLanyardRoot = createRoot(rootElement);
   rootElement.__vistrowLanyardRoot.render(<CareerLanyard />);
 }

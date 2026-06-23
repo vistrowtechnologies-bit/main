@@ -148,6 +148,23 @@ function Band({
   );
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
+  const isInteractive = !isMobile;
+
+  const stopDrag = (e) => {
+    if (e?.target?.hasPointerCapture?.(e.pointerId)) {
+      e.target.releasePointerCapture(e.pointerId);
+    }
+    drag(false);
+    onDragChange?.(false);
+  };
+
+  const startDrag = (e) => {
+    if (!isInteractive) return;
+    e.stopPropagation();
+    e.target.setPointerCapture(e.pointerId);
+    drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
+    onDragChange?.(true);
+  };
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
@@ -158,14 +175,14 @@ function Band({
   ]);
 
   useEffect(() => {
-    if (hovered) {
+    if (isInteractive && hovered) {
       document.body.style.cursor = dragged ? 'grabbing' : 'grab';
       return () => {
         document.body.style.cursor = 'auto';
       };
     }
     return undefined;
-  }, [hovered, dragged]);
+  }, [isInteractive, hovered, dragged]);
 
   useFrame((state, delta) => {
     if (dragged) {
@@ -213,18 +230,18 @@ function Band({
           <group
             scale={cardScale}
             position={[0, -1.2, -0.05]}
-            onPointerOver={() => hover(true)}
+            onPointerOver={() => isInteractive && hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={(e) => {
-              e.target.releasePointerCapture(e.pointerId);
-              drag(false);
-              onDragChange?.(false);
+            onPointerUp={stopDrag}
+            onPointerCancel={stopDrag}
+            onPointerLeave={() => {
+              hover(false);
+              if (dragged) {
+                drag(false);
+                onDragChange?.(false);
+              }
             }}
-            onPointerDown={(e) => {
-              e.target.setPointerCapture(e.pointerId);
-              drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
-              onDragChange?.(true);
-            }}
+            onPointerDown={startDrag}
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
