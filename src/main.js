@@ -451,8 +451,13 @@ function shell(content) {
       <button class="nav-toggle" aria-label="Open navigation">${renderSvg(Menu, 22)}</button>
       <nav class="nav">
         ${nav.map((item) => navItem(item)).join('')}
+        <button class="theme-toggle nav-theme-toggle theme-switcher" aria-label="Toggle theme" type="button">
+          <span class="sun-icon">${renderSvg(Sun, 20)}</span>
+          <span class="moon-icon">${renderSvg(Moon, 20)}</span>
+          <span class="theme-label">Theme</span>
+        </button>
       </nav>
-      <button class="theme-toggle" aria-label="Toggle theme" id="theme-switcher">
+      <button class="theme-toggle header-theme-toggle theme-switcher" aria-label="Toggle theme" type="button">
         <span class="sun-icon">${renderSvg(Sun, 20)}</span>
         <span class="moon-icon">${renderSvg(Moon, 20)}</span>
       </button>
@@ -1151,12 +1156,13 @@ function bindInteractions() {
   const header = document.querySelector('.site-header');
   navToggle?.addEventListener('click', () => header.classList.toggle('open'));
 
-  const switcher = document.getElementById('theme-switcher');
-  switcher?.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', nextTheme);
-    localStorage.setItem('vistrow-theme', nextTheme);
+  document.querySelectorAll('.theme-switcher').forEach((switcher) => {
+    switcher.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('vistrow-theme', nextTheme);
+    });
   });
 
   document.querySelectorAll('.nav-trigger').forEach((trigger) => {

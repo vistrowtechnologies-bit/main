@@ -28,7 +28,8 @@ export default function Lanyard({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
-  cardScale = 1.55
+  cardScale = 1.55,
+  onDragChange = null
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -56,6 +57,7 @@ export default function Lanyard({
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
             cardScale={cardScale}
+            onDragChange={onDragChange}
           />
         </Physics>
         <Environment blur={0.75}>
@@ -78,7 +80,8 @@ function Band({
   imageFit = 'cover',
   lanyardImage = null,
   lanyardWidth = 1,
-  cardScale = 1.55
+  cardScale = 1.55,
+  onDragChange = null
 }) {
   const band = useRef();
   const fixed = useRef();
@@ -215,10 +218,12 @@ function Band({
             onPointerUp={(e) => {
               e.target.releasePointerCapture(e.pointerId);
               drag(false);
+              onDragChange?.(false);
             }}
             onPointerDown={(e) => {
               e.target.setPointerCapture(e.pointerId);
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current.translation())));
+              onDragChange?.(true);
             }}
           >
             <mesh geometry={nodes.card.geometry}>
