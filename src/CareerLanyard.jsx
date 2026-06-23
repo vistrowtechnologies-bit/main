@@ -31,7 +31,7 @@ function CareerLanyard() {
 
   return (
     <Lanyard
-      position={[0, 0, 22]}
+      position={[0, 0, 21]}
       gravity={[0, -40, 0]}
       frontImage={theme === 'dark' ? frontImageDark : frontImage}
       backImage={backImage}
