@@ -8,8 +8,8 @@
   <rect width="900" height="1350" rx="48" fill="url(#bg)"/>
   <circle cx="450" cy="126" r="34" fill="#0077b6"/>
   <circle cx="450" cy="126" r="18" fill="#ffffff"/>
-  <text x="450" y="438" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800" fill="#00b4d8">TEAM ACCESS</text>
-  <text x="450" y="610" text-anchor="middle" font-family="Sora, Inter, Arial, sans-serif" font-size="112" font-weight="800" letter-spacing="18" fill="#0077b6">VISTROW</text>
-  <text x="450" y="760" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="700" fill="#07111f">Growth Systems</text>
-  <text x="450" y="980" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" fill="#486173">AI | SaaS | CRM | Automation</text>
+  <text x="450" y="420" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="900" fill="#00b4d8">TEAM ACCESS</text>
+  <text x="450" y="630" text-anchor="middle" font-family="Sora, Inter, Arial, sans-serif" font-size="132" font-weight="900" letter-spacing="4" fill="#0077b6">VISTROW</text>
+  <text x="450" y="810" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" fill="#07111f">Growth Systems</text>
+  <text x="450" y="1010" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="800" fill="#486173">AI | SaaS | CRM</text>
 </svg>

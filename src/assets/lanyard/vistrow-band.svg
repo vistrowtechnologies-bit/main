@@ -8,6 +8,6 @@
   <rect width="1024" height="256" fill="url(#band)"/>
   <rect x="0" y="0" width="1024" height="48" fill="#ffffff" opacity="0.14"/>
   <rect x="0" y="208" width="1024" height="48" fill="#03045e" opacity="0.12"/>
-  <text x="256" y="154" text-anchor="middle" font-family="Sora, Inter, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="12" fill="#ffffff">VISTROW</text>
-  <text x="768" y="154" text-anchor="middle" font-family="Sora, Inter, Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="12" fill="#ffffff">VISTROW</text>
+  <text x="256" y="164" text-anchor="middle" font-family="Sora, Inter, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="8" fill="#ffffff">VISTROW</text>
+  <text x="768" y="164" text-anchor="middle" font-family="Sora, Inter, Arial, sans-serif" font-size="92" font-weight="900" letter-spacing="8" fill="#ffffff">VISTROW</text>
 </svg>

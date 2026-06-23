@@ -25,14 +25,14 @@ function CareerLanyard() {
 
   return (
     <Lanyard
-      position={[0, 0, 24]}
+      position={[0, 0, 22]}
       gravity={[0, -40, 0]}
       frontImage={theme === 'dark' ? frontImageDark : frontImage}
       backImage={backImage}
       imageFit="cover"
       lanyardImage={lanyardImage}
-      lanyardWidth={1}
-      cardScale={1.85}
+      lanyardWidth={1.3}
+      cardScale={2.25}
     />
   );
 }
