@@ -30,6 +30,7 @@ export default function Lanyard({
   lanyardWidth = 1,
   cardScale = 1.55,
   segmentLength = 1,
+  ribbonEndOffset = 0,
   onDragChange = null
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
@@ -59,6 +60,7 @@ export default function Lanyard({
             lanyardWidth={lanyardWidth}
             cardScale={cardScale}
             segmentLength={segmentLength}
+            ribbonEndOffset={ribbonEndOffset}
             onDragChange={onDragChange}
           />
         </Physics>
@@ -84,6 +86,7 @@ function Band({
   lanyardWidth = 1,
   cardScale = 1.55,
   segmentLength = 1,
+  ribbonEndOffset = 0,
   onDragChange = null
 }) {
   const band = useRef();
@@ -205,6 +208,7 @@ function Band({
         ref.current.lerped.lerp(ref.current.translation(), delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed)));
       });
       curve.points[0].copy(j3.current.translation());
+      curve.points[0].y -= ribbonEndOffset;
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());

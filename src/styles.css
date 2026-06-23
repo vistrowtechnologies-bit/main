@@ -1677,13 +1677,13 @@ textarea:focus-visible {
   .lanyard-stage {
     justify-self: center;
     width: 100%;
-    min-height: 260px;
-    margin-top: -6px;
+    min-height: 220px;
+    margin-top: -24px;
     overflow: visible;
   }
 
   .lanyard-react-root {
-    inset: 0 0 -420px;
+    inset: 0 0 -320px;
     z-index: 1;
     cursor: grab;
     touch-action: pan-y;
