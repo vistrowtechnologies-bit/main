@@ -1549,9 +1549,50 @@ textarea:focus-visible {
     padding: 58px 0;
   }
 
+  .site-header {
+    top: 10px;
+    margin-top: 10px;
+  }
+
   .hero {
     min-height: auto;
     padding-top: 42px;
+  }
+
+  .careers-hero {
+    gap: 18px;
+    min-height: auto;
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+
+  .careers-copy {
+    position: relative;
+    z-index: 2;
+  }
+
+  .careers-copy .lede {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin-bottom: 0;
+  }
+
+  .careers-copy h1 {
+    margin-bottom: 16px;
+    font-size: clamp(2.2rem, 10vw, 2.6rem);
+    line-height: 1.02;
+  }
+
+  .careers-copy .cta-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .careers-copy .btn {
+    width: 100%;
+    min-height: 48px;
   }
 
   h1 {
@@ -1585,11 +1626,13 @@ textarea:focus-visible {
   }
 
   .lanyard-stage {
-    min-height: 500px;
+    min-height: 340px;
+    margin-top: 0;
+    overflow: hidden;
   }
 
   .lanyard-react-root {
-    inset: -120px 0 -24px;
+    inset: -190px -18px -12px;
   }
 
   .pipeline {
@@ -1692,4 +1735,3 @@ textarea {
     grid-row: 1;
   }
 }
-
