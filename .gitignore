@@ -4,3 +4,8 @@ dist
 .env.*
 .DS_Store
 *.local
+
+# Generated visual verification screenshots
+/vistrow-*.png
+/playwright-*.png
+/screenshot*.png
