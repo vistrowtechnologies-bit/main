@@ -1758,7 +1758,10 @@ function render() {
 function bindInteractions() {
   const navToggle = document.querySelector('.nav-toggle');
   const header = document.querySelector('.site-header');
-  navToggle?.addEventListener('click', () => header.classList.toggle('open'));
+  navToggle?.addEventListener('click', () => {
+    header.classList.toggle('open');
+    header.scrollLeft = 0;
+  });
 
   document.querySelectorAll('.theme-switcher').forEach((switcher) => {
     switcher.addEventListener('click', () => {
@@ -1780,6 +1783,7 @@ function bindInteractions() {
       if (!isOpen) {
         item.classList.add('open');
         trigger.setAttribute('aria-expanded', 'true');
+        header.scrollLeft = 0;
       }
     });
   });

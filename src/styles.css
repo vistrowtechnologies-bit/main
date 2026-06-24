@@ -1657,6 +1657,7 @@ textarea:focus-visible {
   .site-header.open {
     align-content: start;
     max-height: calc(100dvh - 32px);
+    overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
@@ -1699,6 +1700,7 @@ textarea:focus-visible {
     position: static;
     display: none;
     width: 100%;
+    max-width: 100%;
     margin: 4px 0 8px;
     box-shadow: none;
     opacity: 1;
