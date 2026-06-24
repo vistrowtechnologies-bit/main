@@ -40,6 +40,7 @@ const iconMap = {
   Bot,
   BrainCircuit,
   Building2,
+  Check,
   CircleDollarSign,
   DatabaseZap,
   Factory,
@@ -398,6 +399,93 @@ const resources = [
   ['Growth Audit Checklist', 'A checklist to identify gaps in marketing, CRM, and follow-up systems.'],
   ['FAQs', 'Common questions about Vistrow services, products, and implementation.']
 ];
+
+const digitalMarketingSteps = [
+  ['Audit', 'Review current lead sources, ad accounts, landing pages, tracking setup, CRM usage, and sales follow-up gaps.'],
+  ['Strategy', 'Define audience segments, offers, campaign angles, conversion goals, budget split, and funnel priorities.'],
+  ['Build', 'Create landing pages, ad creatives, tracking events, lead forms, CRM fields, and reporting dashboards.'],
+  ['Launch', 'Run Meta and Google campaigns with source tracking, retargeting, conversion events, and lead routing.'],
+  ['Optimize', 'Improve campaigns using lead quality, cost per qualified lead, conversion rate, and sales feedback.'],
+  ['Scale', 'Move budget into winning audiences, creatives, offers, and channels once pipeline quality is proven.']
+];
+
+const servicePageDetails = {
+  'saas-product-development': {
+    stages: ['Discovery', 'UX Flow', 'MVP Build', 'Dashboard', 'Testing', 'Launch'],
+    outcomes: [
+      'A clear MVP scope tied to business workflow',
+      'User journeys, admin views, and dashboard logic',
+      'Frontend, backend, API, and database implementation',
+      'CRM, automation, payment, or analytics integrations',
+      'Release plan for future product iterations'
+    ],
+    sections: [
+      ['Product planning', 'We convert rough product ideas into feature maps, user roles, workflows, and launch priorities.'],
+      ['Build system', 'The product is structured around dashboards, data visibility, internal operations, and repeatable business processes.'],
+      ['Iteration roadmap', 'After MVP launch, we use user feedback and business signals to improve features in practical release cycles.']
+    ]
+  },
+  'ai-voice-calling': {
+    stages: ['Script', 'Data', 'Call Flow', 'Qualification', 'CRM Update', 'Review'],
+    outcomes: [
+      'AI calling scripts aligned with business context',
+      'Lead qualification rules and objection handling paths',
+      'Appointment, reminder, and follow-up call workflows',
+      'CRM notes, call status, and priority tagging',
+      'Performance reports for calls, outcomes, and missed opportunities'
+    ],
+    sections: [
+      ['Use cases', 'AI voice can support lead qualification, missed-call response, site visit confirmation, reactivation, and reminder calls.'],
+      ['CRM connection', 'Call outcomes are most useful when they update lead records, priorities, tasks, and follow-up workflows.'],
+      ['Human handoff', 'The system is designed to improve speed while keeping serious or sensitive conversations available for human teams.']
+    ]
+  },
+  'crm-lead-management': {
+    stages: ['Lead Sources', 'Pipeline', 'Assignment', 'Follow-up', 'Reporting', 'Improvement'],
+    outcomes: [
+      'Lead source and campaign tracking',
+      'Pipeline stages matched to your sales process',
+      'Team assignment and follow-up reminders',
+      'Lead quality, activity, and conversion reports',
+      'Automation triggers for high-intent leads'
+    ],
+    sections: [
+      ['Pipeline clarity', 'We design stages that show where each lead stands, what action is due, and who owns the next step.'],
+      ['Team adoption', 'A CRM only works when the team can use it daily, so views, fields, and reminders stay practical.'],
+      ['Revenue visibility', 'Reports connect lead source, sales activity, pipeline movement, and conversion outcomes.']
+    ]
+  },
+  'automation-workflows': {
+    stages: ['Map', 'Trigger', 'Route', 'Notify', 'Update', 'Measure'],
+    outcomes: [
+      'Lead routing and task assignment workflows',
+      'Reminder systems for follow-ups and missed actions',
+      'Email, WhatsApp, SMS, or CRM notification flows',
+      'Form-to-CRM and campaign-to-pipeline automation',
+      'Workflow performance and failure checks'
+    ],
+    sections: [
+      ['Workflow map', 'We identify repetitive work across marketing, sales, customer communication, and reporting.'],
+      ['Automation logic', 'Each workflow gets a trigger, conditions, action rules, owner, and reporting view.'],
+      ['Reliability', 'Automation should reduce manual work without creating invisible failure points, so we include checks and visibility.']
+    ]
+  },
+  'analytics-reporting': {
+    stages: ['Metrics', 'Sources', 'Dashboard', 'Insights', 'Review', 'Action'],
+    outcomes: [
+      'Campaign, CRM, and conversion dashboards',
+      'Lead source and quality reporting',
+      'Sales activity and pipeline visibility',
+      'Weekly or monthly performance summaries',
+      'Recommendations based on business outcomes'
+    ],
+    sections: [
+      ['Dashboard structure', 'Reports are organized around decisions, not vanity metrics, so teams know what to improve.'],
+      ['Connected data', 'Campaign, website, CRM, calling, and sales data become more useful when viewed together.'],
+      ['Action rhythm', 'Reporting should create clear next steps for campaigns, follow-ups, sales process, and automation.']
+    ]
+  }
+};
 
 const legalPages = {
   'privacy-policy': {
@@ -786,6 +874,9 @@ function auditCta() {
 function servicesPage(slug) {
   const selected = services.find((service) => service.slug === slug);
   if (selected) {
+    if (selected.slug === 'digital-marketing') return digitalMarketingPage(selected);
+
+    const details = servicePageDetails[selected.slug];
     setMeta(`${selected.title} | Vistrow`, selected.summary);
     return shell(`
       <section class="page-hero">
@@ -793,6 +884,24 @@ function servicesPage(slug) {
         <h1>${selected.headline}</h1>
         <p>${selected.summary}</p>
         <a class="btn primary" href="#/contact">${selected.cta} ${renderSvg(ArrowRight, 18)}</a>
+      </section>
+      <section class="section-pad">
+        <div class="section-head split">
+          <div>
+            <p class="eyebrow">Implementation Steps</p>
+            <h2>A practical path from planning to operating system.</h2>
+          </div>
+          <p>Every service is implemented as part of a larger growth system, so planning, delivery, reporting, and optimization stay connected.</p>
+        </div>
+        <div class="step-grid">
+          ${(details?.stages || ['Plan', 'Build', 'Connect', 'Launch', 'Measure', 'Improve']).map((step, index) => `
+            <article class="step-card">
+              <span>${String(index + 1).padStart(2, '0')}</span>
+              <h3>${step}</h3>
+              <p>${genericStepCopy(step, selected.title)}</p>
+            </article>
+          `).join('')}
+        </div>
       </section>
       <section class="section-pad two-col">
         <div>
@@ -802,6 +911,29 @@ function servicesPage(slug) {
         </div>
         <div class="check-grid">
           ${selected.includes.map((item) => `<div class="point">${renderSvg(Check, 18)}<span>${item}</span></div>`).join('')}
+        </div>
+      </section>
+      <section class="section-pad">
+        <div class="section-head">
+          <p class="eyebrow">Expected Outcomes</p>
+          <h2>What the business should be able to see and manage.</h2>
+        </div>
+        <div class="outcome-grid">
+          ${(details?.outcomes || selected.includes).map((item) => `
+            <article class="outcome-card">
+              <span class="icon-badge">${icon('Check', 18)}</span>
+              <p>${item}</p>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+      <section class="section-pad">
+        <div class="mini-grid service-info-grid">
+          ${(details?.sections || [
+            ['System design', 'We map the service into the business workflow so each activity connects to leads, follow-ups, reporting, and outcomes.'],
+            ['Implementation', 'The setup is built around practical adoption, team usage, automation, and measurable improvement.'],
+            ['Optimization', 'After launch, the service is improved using performance signals and feedback from real business activity.']
+          ]).map(([title, text]) => `<article><h3>${title}</h3><p>${text}</p></article>`).join('')}
         </div>
       </section>
       ${auditCta()}
@@ -822,6 +954,155 @@ function servicesPage(slug) {
     ${processSection()}
     ${auditCta()}
   `);
+}
+
+function digitalMarketingPage(selected) {
+  setMeta(
+    'Digital Marketing & Performance Ads | Vistrow',
+    'Vistrow builds performance marketing systems with strategy, landing pages, Meta and Google ads, CRM tracking, retargeting, reporting, and optimization.'
+  );
+
+  return shell(`
+    <section class="page-hero service-hero">
+      <p class="eyebrow">Digital Marketing</p>
+      <h1>Performance marketing built as a complete lead conversion system.</h1>
+      <p>Vistrow plans and runs digital marketing with campaigns, landing pages, tracking, CRM routing, retargeting, and reporting connected from the start. The goal is not only more leads. The goal is better visibility, faster follow-up, and measurable conversion.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#/audit">${selected.cta} ${renderSvg(ArrowRight, 18)}</a>
+        <a class="btn secondary" href="#/services/crm-lead-management">Connect CRM</a>
+      </div>
+    </section>
+    <section class="section-pad two-col">
+      <div>
+        <p class="eyebrow">Why It Matters</p>
+        <h2>Ads perform better when the whole lead journey is connected.</h2>
+        <p>Most businesses judge marketing only by cost per lead. Vistrow tracks the full journey: ad click, landing page action, lead source, CRM stage, follow-up speed, lead quality, and sales outcome.</p>
+      </div>
+      <div class="check-grid">
+        ${[
+          'Campaigns linked to business offers',
+          'Landing pages built for conversion',
+          'Tracking for sources and events',
+          'CRM-connected lead capture',
+          'Retargeting for warm audiences',
+          'Reporting beyond vanity metrics'
+        ].map((item) => `<div class="point">${renderSvg(Check, 18)}<span>${item}</span></div>`).join('')}
+      </div>
+    </section>
+    <section class="section-pad">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Process</p>
+          <h2>Digital marketing steps we follow.</h2>
+        </div>
+        <p>Each step is designed to move from campaign activity to conversion visibility. This helps teams understand what to improve instead of only spending more on ads.</p>
+      </div>
+      <div class="step-grid">
+        ${digitalMarketingSteps.map(([title, text], index) => `
+          <article class="step-card">
+            <span>${String(index + 1).padStart(2, '0')}</span>
+            <h3>${title}</h3>
+            <p>${text}</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+    <section class="section-pad">
+      <div class="section-head">
+        <p class="eyebrow">Campaign System</p>
+        <h2>What gets built inside the marketing engine.</h2>
+      </div>
+      <div class="service-grid">
+        ${[
+          ['Offer & Audience Strategy', 'Define customer segments, pain points, offers, messaging angles, and campaign goals before launch.', 'Target'],
+          ['Landing Page Funnel', 'Build pages and forms that match the campaign promise and capture useful lead information.', 'PanelRight'],
+          ['Meta & Google Ads', 'Launch structured campaigns across search, social, retargeting, and conversion-focused ad sets.', 'LineChart'],
+          ['Tracking & Analytics', 'Set up events, source tracking, conversion paths, dashboards, and lead quality reporting.', 'BarChart3'],
+          ['CRM Lead Routing', 'Move leads into CRM with source tags, priority, owner, and follow-up status where possible.', 'DatabaseZap'],
+          ['Optimization Loop', 'Improve budget, audience, creative, landing pages, and follow-up using performance and sales feedback.', 'Workflow']
+        ].map(([title, text, iconName]) => `
+          <article class="service-card">
+            <span class="icon-badge">${icon(iconName)}</span>
+            <h3>${title}</h3>
+            <p>${text}</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+    <section class="section-pad two-col">
+      <div>
+        <p class="eyebrow">Deliverables</p>
+        <h2>Clear outputs your team can use.</h2>
+        <p>The work is structured so campaign activity becomes an operating system your team can understand, manage, and improve.</p>
+      </div>
+      <div class="deliverable-list">
+        ${[
+          'Campaign strategy and channel plan',
+          'Landing page and funnel recommendations',
+          'Ad creative direction and campaign setup',
+          'Tracking, pixel, event, and source setup',
+          'CRM lead capture and lead quality feedback loop',
+          'Weekly or monthly performance reporting',
+          'Optimization actions for budget, creative, and funnel improvements'
+        ].map((item) => `<div>${renderSvg(Check, 18)}<span>${item}</span></div>`).join('')}
+      </div>
+    </section>
+    <section class="section-pad">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Reporting</p>
+          <h2>Metrics we care about.</h2>
+        </div>
+        <p>Good marketing reporting should explain what is producing qualified opportunities, not just which ad got the cheapest form submission.</p>
+      </div>
+      <div class="metric-grid service-metrics">
+        ${[
+          ['Lead Volume', 'How many inquiries each channel is producing.'],
+          ['Cost Per Qualified Lead', 'What you are paying for leads that fit the business.'],
+          ['Landing Page Rate', 'How well the offer converts visitors into inquiries.'],
+          ['Follow-up Speed', 'How quickly new leads receive a real response.'],
+          ['Pipeline Movement', 'How leads move from inquiry to opportunity.'],
+          ['Conversion Signal', 'Which campaign sources support revenue outcomes.']
+        ].map(([label, text]) => `<div class="metric"><small>${label}</small><p>${text}</p></div>`).join('')}
+      </div>
+    </section>
+    ${auditCta()}
+  `);
+}
+
+function genericStepCopy(step, serviceTitle) {
+  const copy = {
+    Discovery: `Understand the ${serviceTitle.toLowerCase()} need, users, workflow, and business outcome.`,
+    'UX Flow': 'Map screens, user actions, dashboard views, and operational flows before build.',
+    'MVP Build': 'Build the core version with the features needed to validate usefulness.',
+    Dashboard: 'Create visibility for teams, activity, pipeline, performance, or product usage.',
+    Testing: 'Check workflows, data, handoffs, and edge cases before launch.',
+    Launch: 'Release the system with a practical adoption and improvement plan.',
+    Script: 'Create conversation logic that matches the business, offer, and customer context.',
+    Data: 'Prepare lead fields, source data, CRM structure, and qualification rules.',
+    'Call Flow': 'Define what happens during calls, after calls, and when humans need to take over.',
+    Qualification: 'Score or tag leads based on intent, fit, timeline, and next action.',
+    'CRM Update': 'Push notes, statuses, and next steps into the lead management process.',
+    Review: 'Review performance signals and improve workflows based on real outcomes.',
+    'Lead Sources': 'Identify every lead channel and make sure source visibility is reliable.',
+    Pipeline: 'Design the stages that show where every opportunity stands.',
+    Assignment: 'Route leads to the right person or team with clear ownership.',
+    'Follow-up': 'Set reminders and actions so leads are not lost after inquiry.',
+    Reporting: 'Show the activity, conversion, and quality signals that matter.',
+    Improvement: 'Use the reporting to refine process, automation, and team behavior.',
+    Map: 'Map the manual workflow before deciding what should be automated.',
+    Trigger: 'Define the event that starts the workflow.',
+    Route: 'Send information, tasks, or leads to the right place.',
+    Notify: 'Alert the right person at the right time.',
+    Update: 'Keep CRM, tasks, and records current automatically.',
+    Measure: 'Track whether the workflow is reducing delays and missed actions.',
+    Metrics: 'Choose the numbers that guide better business decisions.',
+    Sources: 'Connect campaign, CRM, website, and sales data sources.',
+    Insights: 'Turn raw data into clear observations.',
+    Action: 'Use reporting to decide what should change next.'
+  };
+
+  return copy[step] || `Plan and improve the ${serviceTitle.toLowerCase()} workflow so it connects to measurable growth outcomes.`;
 }
 
 function detailPage({ eyebrow, title, description, points = [], cta = 'Book a Growth Audit' }) {

@@ -729,7 +729,9 @@ h3 {
 
 .point-grid,
 .check-grid,
-.resource-grid {
+.resource-grid,
+.step-grid,
+.outcome-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
@@ -770,6 +772,8 @@ h3 {
 .product-card,
 .industry-card,
 .review-card,
+.step-card,
+.outcome-card,
 .mini-grid article {
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -855,8 +859,93 @@ h3 {
 .service-card,
 .product-card,
 .industry-card,
-.review-card {
+.review-card,
+.step-card,
+.outcome-card {
   padding: 22px;
+}
+
+.step-card {
+  min-height: 220px;
+  background: var(--bg-card-gradient);
+}
+
+.step-card > span {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--cta-gradient);
+  color: var(--white);
+  font-family: Sora, Inter, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.step-card h3,
+.outcome-card h3 {
+  margin-bottom: 10px;
+}
+
+.step-card p,
+.outcome-card p {
+  color: var(--gray);
+  line-height: 1.62;
+}
+
+.outcome-card {
+  display: flex;
+  min-height: 132px;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.outcome-card .icon-badge {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.deliverable-list {
+  display: grid;
+  gap: 12px;
+}
+
+.deliverable-list div {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--hover-bg);
+  color: var(--deep-brown);
+  font-weight: 650;
+}
+
+.deliverable-list svg {
+  flex: 0 0 auto;
+  color: var(--blue);
+}
+
+.service-info-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.service-metrics {
+  align-items: stretch;
+}
+
+.service-metrics .metric {
+  min-height: 150px;
+}
+
+.service-metrics .metric p {
+  margin-top: 12px;
+  color: var(--gray);
+  line-height: 1.6;
 }
 
 .eco-card {
@@ -1566,6 +1655,9 @@ textarea:focus-visible {
   .point-grid,
   .check-grid,
   .legal-content,
+  .step-grid,
+  .outcome-grid,
+  .service-info-grid,
   .resource-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1662,11 +1754,13 @@ textarea:focus-visible {
   .service-grid,
   .product-grid,
   .industry-grid,
-  .point-grid,
-  .check-grid,
-  .resource-grid,
-  .process-line,
-  .mini-grid,
+    .point-grid,
+    .check-grid,
+    .resource-grid,
+    .step-grid,
+    .outcome-grid,
+    .process-line,
+    .mini-grid,
     .contact-form,
     .career-job-grid,
     .legal-content,
