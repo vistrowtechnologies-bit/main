@@ -11,6 +11,7 @@ import {
   CircleDollarSign,
   DatabaseZap,
   Factory,
+  FileSpreadsheet,
   Gauge,
   Layers3,
   LineChart,
@@ -44,6 +45,7 @@ const iconMap = {
   CircleDollarSign,
   DatabaseZap,
   Factory,
+  FileSpreadsheet,
   Gauge,
   Layers3,
   LineChart,
@@ -539,6 +541,63 @@ const legalPages = {
     ]
   }
 };
+
+const arthaLeadSources = [
+  ['Facebook Lead Ads', 'Auto-capture campaign inquiries with source context and fast routing.'],
+  ['Google Ads', 'Track search and campaign leads into the CRM pipeline.'],
+  ['WhatsApp', 'Manage property conversations and inquiries from WhatsApp-driven sales workflows.'],
+  ['Website Forms', 'Capture website and WordPress form submissions directly into the lead workspace.'],
+  ['Property Portals', 'Organize portal inquiries from platforms such as 99acres, Housing.com, and MagicBricks.'],
+  ['Walk-ins & CSV', 'Add walk-ins manually or import/export bulk leads through CSV or Excel.']
+];
+
+const arthaWorkflow = [
+  ['Capture', 'Bring leads from ads, WhatsApp, website forms, property portals, walk-ins, and spreadsheets into one CRM workspace.'],
+  ['Organize', 'Track leads project-wise with Kanban pipeline stages, source tags, duplicate checks, and lead timelines.'],
+  ['Assign', 'Route inquiries to the right agent or team with manual assignment, auto round-robin, and role-based access.'],
+  ['Follow Up', 'Schedule follow-ups, callbacks, site visits, reminders, calls, tasks, and conversation updates.'],
+  ['Measure', 'Review team performance, booking signals, conversion reports, response tracking, and source-level quality.'],
+  ['Scale', 'Use automations, campaign routing rules, API/webhooks, and reporting to manage larger developer or channel partner teams.']
+];
+
+const arthaFeatureGroups = [
+  {
+    title: 'Lead Management',
+    icon: 'DatabaseZap',
+    points: ['Kanban lead pipeline', 'Project-wise lead views', 'Lead source tracking', 'Duplicate lead detection', 'Activity timeline', 'Bulk import and export']
+  },
+  {
+    title: 'Real Estate Sales Workflow',
+    icon: 'Building2',
+    points: ['Project pipelines', 'Site visit scheduling', 'Booking and conversion tracking', 'Follow-up reminders', 'Tasks and callbacks', 'Call and conversation history']
+  },
+  {
+    title: 'Team Operations',
+    icon: 'Users',
+    points: ['Admin, manager, and agent roles', 'Auto round-robin assignment', 'Attendance tracking', 'Team performance dashboard', 'Individual response tracking', 'Agent-level visibility']
+  },
+  {
+    title: 'Automation & Integrations',
+    icon: 'Workflow',
+    points: ['Facebook and Google lead capture', 'WhatsApp lead handling', 'WordPress form plugin', 'Campaign routing rules', 'REST API access', 'Signed webhook support']
+  },
+  {
+    title: 'Analytics',
+    icon: 'BarChart3',
+    points: ['Conversion reports', 'Booking rate metrics', 'Call-back performance', 'Source quality views', 'Pipeline movement', 'Sales activity insights']
+  },
+  {
+    title: 'Security & Reliability',
+    icon: 'ShieldCheck',
+    points: ['HTTPS/TLS traffic', 'Encryption at rest', 'Tenant isolation by organization', 'Daily backups', 'Role-based permissions', 'OTP and rate-limit protections']
+  }
+];
+
+const arthaPlans = [
+  ['Starter', 'For solo brokers and small channel partner teams up to 3 members.', ['Lead imports', 'Kanban pipeline', 'Follow-up reminders', 'Facebook leads', 'WhatsApp capture', 'WordPress plugin']],
+  ['Growth', 'For active real estate teams up to 20 members that need automation and insights.', ['Multiple project pipelines', 'Duplicate detection', 'Round-robin assignment', 'Role-based access', 'Attendance tracking', 'Advanced analytics']],
+  ['Enterprise', 'For larger developers and channel partner networks that need deeper control.', ['Large team workflows', 'Custom routing', 'API and webhook workflows', 'Advanced reporting', 'Priority implementation', 'Custom support']]
+];
 
 function slugify(value) {
   return value
@@ -1131,6 +1190,8 @@ function detailPage({ eyebrow, title, description, points = [], cta = 'Book a Gr
 function productsPage(slug) {
   const selected = products.find((product) => slugify(product.title) === slug);
   if (selected) {
+    if (selected.title === 'ArthaLeads CRM') return arthaLeadsPage();
+
     return detailPage({
       eyebrow: 'Product',
       title: selected.title,
@@ -1156,6 +1217,156 @@ function productsPage(slug) {
     </section>
     ${productsSection()}
     ${ecosystemSection()}
+  `);
+}
+
+function arthaLeadsPage() {
+  setMeta(
+    'ArthaLeads CRM | Real Estate Lead Management Product by Vistrow',
+    'ArthaLeads CRM helps real estate developers, brokers, and channel partners capture, manage, assign, follow up, and measure property leads from every major source.'
+  );
+
+  return shell(`
+    <section class="page-hero product-hero">
+      <p class="eyebrow">Product</p>
+      <h1>ArthaLeads CRM for real estate sales teams.</h1>
+      <p>ArthaLeads is a real estate CRM workspace built for Indian developers, brokers, and channel partners. It brings property leads from ads, WhatsApp, websites, portals, walk-ins, and spreadsheets into one system for assignment, follow-ups, site visits, pipeline tracking, and performance reporting.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#/contact">Request CRM Demo ${renderSvg(ArrowRight, 18)}</a>
+        <a class="btn secondary" href="https://www.arthaleads.com/" target="_blank" rel="noopener noreferrer">Visit ArthaLeads</a>
+      </div>
+    </section>
+
+    <section class="section-pad two-col">
+      <div>
+        <p class="eyebrow">Built For Property Sales</p>
+        <h2>Every property lead, source, project, and follow-up in one place.</h2>
+        <p>Real estate teams often work across Facebook ads, Google campaigns, WhatsApp, portals, walk-ins, website forms, and spreadsheets. ArthaLeads turns those scattered inquiries into a structured CRM pipeline with ownership, reminders, activity history, and reporting.</p>
+      </div>
+      <div class="check-grid">
+        ${[
+          'Developers and builders',
+          'Real estate brokers',
+          'Channel partner teams',
+          'Project sales teams',
+          'Telecalling teams',
+          'Multi-project organizations'
+        ].map((item) => `<div class="point">${renderSvg(Check, 18)}<span>${item}</span></div>`).join('')}
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Lead Sources</p>
+          <h2>Capture real estate inquiries from every important channel.</h2>
+        </div>
+        <p>ArthaLeads is designed around the way property teams actually receive leads: campaigns, calls, forms, WhatsApp, walk-ins, and property portals all need one clean operating system.</p>
+      </div>
+      <div class="service-grid">
+        ${arthaLeadSources.map(([title, text], index) => `
+          <article class="service-card ${index % 2 === 0 ? 'soft-accent-card' : ''}">
+            <span class="icon-badge">${icon(index < 2 ? 'Target' : index === 2 ? 'Phone' : index === 3 ? 'PanelRight' : index === 4 ? 'Building2' : 'FileSpreadsheet')}</span>
+            <h3>${title}</h3>
+            <p>${text}</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">CRM Workflow</p>
+          <h2>From new inquiry to booking signal.</h2>
+        </div>
+        <p>The system supports the complete sales workflow: lead capture, project-wise organization, assignment, follow-up, site visit tracking, reporting, and scale.</p>
+      </div>
+      <div class="step-grid">
+        ${arthaWorkflow.map(([title, text], index) => `
+          <article class="step-card">
+            <span>${String(index + 1).padStart(2, '0')}</span>
+            <h3>${title}</h3>
+            <p>${text}</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="section-head">
+        <p class="eyebrow">Features</p>
+        <h2>Everything a real estate sales team needs to manage lead movement.</h2>
+      </div>
+      <div class="product-feature-grid">
+        ${arthaFeatureGroups.map((group, index) => `
+          <article class="product-feature-card ${index % 2 === 1 ? 'soft-accent-card' : ''}">
+            <span class="icon-badge">${icon(group.icon)}</span>
+            <h3>${group.title}</h3>
+            <div class="feature-list">
+              ${group.points.map((point) => `<span>${renderSvg(Check, 15)}${point}</span>`).join('')}
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="section-pad two-col">
+      <div>
+        <p class="eyebrow">WordPress Forms</p>
+        <h2>Website enquiries can land directly inside the CRM.</h2>
+        <p>ArthaLeads offers a WordPress integration path for popular form builders so property enquiries from landing pages and websites can move into the CRM without manual spreadsheet handling.</p>
+      </div>
+      <div class="deliverable-list">
+        ${['Contact Form 7', 'WPForms', 'Ninja Forms', 'Elementor Pro Forms', 'Fluent Forms', 'Forminator', 'MetForm', 'Gravity Forms'].map((item) => `<div>${renderSvg(Check, 18)}<span>${item}</span></div>`).join('')}
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Plans</p>
+          <h2>Plans for solo brokers, growing teams, and large networks.</h2>
+        </div>
+        <p>The ArthaLeads product model supports different real estate team sizes, from small broker teams to multi-project sales organizations.</p>
+      </div>
+      <div class="service-grid">
+        ${arthaPlans.map(([name, text, items], index) => `
+          <article class="service-card ${index === 1 ? 'soft-accent-card' : ''}">
+            <span class="icon-badge">${icon(index === 0 ? 'Users' : index === 1 ? 'Rocket' : 'Building2')}</span>
+            <h3>${name}</h3>
+            <p>${text}</p>
+            <div class="job-points">
+              ${items.map((item) => `<span>${renderSvg(Check, 15)}${item}</span>`).join('')}
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="section-pad">
+      <div class="section-head">
+        <p class="eyebrow">Why It Fits Vistrow</p>
+        <h2>ArthaLeads is the CRM layer of the Vistrow growth ecosystem.</h2>
+      </div>
+      <div class="outcome-grid">
+        ${[
+          'Connects marketing campaigns to real sales pipelines',
+          'Gives property teams lead ownership and follow-up visibility',
+          'Supports AI calling, automation, and reporting workflows',
+          'Helps managers see response speed, booking signals, and team activity',
+          'Turns scattered real estate inquiries into structured revenue operations',
+          'Works as a practical CRM foundation for growth systems'
+        ].map((item) => `
+          <article class="outcome-card">
+            <span class="icon-badge">${icon('Check', 18)}</span>
+            <p>${item}</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+
+    ${auditCta()}
   `);
 }
 

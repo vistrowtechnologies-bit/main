@@ -948,6 +948,55 @@ h3 {
   line-height: 1.6;
 }
 
+.soft-accent-card {
+  border-color: rgba(0, 180, 216, 0.34);
+  background:
+    linear-gradient(180deg, rgba(202, 240, 248, 0.82), rgba(255, 255, 255, 0.96)),
+    var(--bg-card);
+}
+
+.product-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.product-feature-card {
+  min-height: 300px;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  box-shadow: var(--card-shadow);
+}
+
+.product-feature-card h3 {
+  margin-bottom: 18px;
+}
+
+.feature-list,
+.job-points {
+  display: grid;
+  gap: 9px;
+}
+
+.feature-list span,
+.job-points span {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: var(--gray);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.feature-list svg,
+.job-points svg {
+  flex: 0 0 auto;
+  color: var(--blue);
+  margin-top: 2px;
+}
+
 .eco-card {
   position: relative;
   min-height: 260px;
@@ -1687,6 +1736,7 @@ textarea:focus-visible {
 
   .service-grid,
   .product-grid,
+  .product-feature-grid,
   .career-job-grid,
   .point-grid,
   .check-grid,
@@ -1789,18 +1839,19 @@ textarea:focus-visible {
   .ecosystem-map,
   .service-grid,
   .product-grid,
+  .product-feature-grid,
   .industry-grid,
-    .point-grid,
-    .check-grid,
-    .resource-grid,
-    .step-grid,
-    .outcome-grid,
-    .process-line,
-    .mini-grid,
-    .contact-form,
-    .career-job-grid,
-    .legal-content,
-    .site-footer {
+  .point-grid,
+  .check-grid,
+  .resource-grid,
+  .step-grid,
+  .outcome-grid,
+  .process-line,
+  .mini-grid,
+  .contact-form,
+  .career-job-grid,
+  .legal-content,
+  .site-footer {
     grid-template-columns: 1fr;
   }
 
