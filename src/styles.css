@@ -958,7 +958,7 @@ h3 {
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
-    transform 180ms ease;
+    filter 180ms ease;
 }
 
 .eco-card.featured {
@@ -970,7 +970,10 @@ h3 {
 .eco-card:hover,
 .eco-card:focus-visible {
   border-color: rgba(0, 180, 216, 0.72);
-  box-shadow: var(--shadow);
+  box-shadow:
+    0 20px 54px rgba(0, 119, 182, 0.18),
+    0 0 0 1px rgba(0, 180, 216, 0.14),
+    0 0 34px rgba(0, 180, 216, 0.2);
 }
 
 .eco-card p,
@@ -1012,6 +1015,39 @@ h3 {
   border-radius: 8px;
   background: var(--bg-card);
   box-shadow: var(--card-shadow);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.band,
+.audit-cta,
+.ecosystem-detail,
+.process-detail,
+.review-card,
+.contact-form {
+  transform: none !important;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .band:hover,
+  .audit-cta:hover,
+  .ecosystem-detail:hover,
+  .process-detail:hover,
+  .review-card:hover,
+  .contact-form:hover {
+    border-color: rgba(0, 180, 216, 0.46);
+    box-shadow:
+      0 28px 84px rgba(3, 4, 94, 0.16),
+      0 0 0 1px rgba(0, 180, 216, 0.12),
+      0 0 48px rgba(0, 180, 216, 0.2);
+    filter: saturate(1.02);
+  }
 }
 
 .ecosystem-detail {

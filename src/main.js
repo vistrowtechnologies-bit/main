@@ -730,7 +730,7 @@ function ecosystemSection() {
       </div>
       <div class="ecosystem-map">
         ${ecosystem.map((item, index) => `
-          <button class="eco-card ${index === 2 ? 'featured' : ''} ${index === 0 ? 'active' : ''}" type="button" data-ecosystem-index="${index}">
+          <button class="eco-card ${index % 2 === 0 ? 'featured' : ''} ${index === 0 ? 'active' : ''}" type="button" data-ecosystem-index="${index}">
             <span class="icon-badge">${icon(item.icon)}</span>
             <h3>${item.title}</h3>
             <p>${item.text}</p>
@@ -1620,18 +1620,11 @@ function bindTiltCards() {
     '.metric',
     '.workflow-card',
     '.point',
-    '.eco-card',
-    '.ecosystem-detail',
     '.service-card',
     '.process-step',
-    '.process-detail',
     '.product-card',
     '.industry-card',
-    '.audit-cta',
-    '.band',
-    '.review-card',
     '.mini-grid article',
-    '.contact-form',
     '.career-job'
   ].join(','));
 
