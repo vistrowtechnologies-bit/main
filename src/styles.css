@@ -1465,6 +1465,7 @@ h3 {
   gap: 56px;
   align-items: center;
   min-height: 520px;
+  overflow: clip;
 }
 
 .page-hero h1 {
@@ -1484,8 +1485,6 @@ h3 {
 .magic-rings-visual {
   position: relative;
   min-height: 420px;
-  overflow: hidden;
-  border-radius: 8px;
   pointer-events: none;
 }
 
@@ -1501,7 +1500,7 @@ h3 {
 
 .magic-rings-visual [data-magic-rings-root] {
   position: absolute;
-  inset: 0;
+  inset: -28% -34%;
 }
 
 .mini-grid {
