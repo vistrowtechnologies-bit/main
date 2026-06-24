@@ -1167,11 +1167,16 @@ function genericStepCopy(step, serviceTitle) {
 function detailPage({ eyebrow, title, description, points = [], cta = 'Book a Growth Audit' }) {
   setMeta(`${title} | Vistrow`, description);
   return shell(`
-    <section class="page-hero">
-      <p class="eyebrow">${eyebrow}</p>
-      <h1>${title}</h1>
-      <p>${description}</p>
-      <a class="btn primary" href="#/audit">${cta} ${renderSvg(ArrowRight, 18)}</a>
+    <section class="page-hero product-hero magic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">${eyebrow}</p>
+        <h1>${title}</h1>
+        <p>${description}</p>
+        <a class="btn primary" href="#/audit">${cta} ${renderSvg(ArrowRight, 18)}</a>
+      </div>
+      <div class="magic-rings-visual" aria-hidden="true">
+        <div data-magic-rings-root></div>
+      </div>
     </section>
     <section class="section-pad two-col">
       <div>
@@ -1227,13 +1232,18 @@ function arthaLeadsPage() {
   );
 
   return shell(`
-    <section class="page-hero product-hero">
-      <p class="eyebrow">Product</p>
-      <h1>ArthaLeads CRM for real estate sales teams.</h1>
-      <p>ArthaLeads is a real estate CRM workspace built for Indian developers, brokers, and channel partners. It brings property leads from ads, WhatsApp, websites, portals, walk-ins, and spreadsheets into one system for assignment, follow-ups, site visits, pipeline tracking, and performance reporting.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#/contact">Request CRM Demo ${renderSvg(ArrowRight, 18)}</a>
-        <a class="btn secondary" href="https://www.arthaleads.com/" target="_blank" rel="noopener noreferrer">Visit ArthaLeads</a>
+    <section class="page-hero product-hero magic-hero">
+      <div class="hero-content">
+        <p class="eyebrow">Product</p>
+        <h1>ArthaLeads CRM for real estate sales teams.</h1>
+        <p>ArthaLeads is a real estate CRM workspace built for Indian developers, brokers, and channel partners. It brings property leads from ads, WhatsApp, websites, portals, walk-ins, and spreadsheets into one system for assignment, follow-ups, site visits, pipeline tracking, and performance reporting.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#/contact">Request CRM Demo ${renderSvg(ArrowRight, 18)}</a>
+          <a class="btn secondary" href="https://www.arthaleads.com/" target="_blank" rel="noopener noreferrer">Visit ArthaLeads</a>
+        </div>
+      </div>
+      <div class="magic-rings-visual" aria-hidden="true">
+        <div data-magic-rings-root></div>
       </div>
     </section>
 
@@ -1821,6 +1831,7 @@ function bindInteractions() {
 
   bindTiltCards();
   bindCareerLanyard();
+  bindMagicRings();
   bindHomepageInteractions();
 }
 
@@ -1911,6 +1922,15 @@ function bindCareerLanyard() {
 
   import('./CareerLanyard.jsx').then(({ mountCareerLanyard }) => {
     mountCareerLanyard(root);
+  });
+}
+
+function bindMagicRings() {
+  const root = document.querySelector('[data-magic-rings-root]');
+  if (!root) return;
+
+  import('./MagicRings.jsx').then(({ mountMagicRings }) => {
+    mountMagicRings(root);
   });
 }
 
