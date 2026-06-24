@@ -1459,15 +1459,6 @@ h3 {
   padding: 96px 0 54px;
 }
 
-.magic-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.72fr);
-  gap: 56px;
-  align-items: center;
-  min-height: 520px;
-  overflow: clip;
-}
-
 .page-hero h1 {
   max-width: 920px;
   font-size: clamp(3.4rem, 5vw, 4.5rem);
@@ -1475,32 +1466,6 @@ h3 {
 
 .page-hero p {
   max-width: 760px;
-}
-
-.magic-hero h1,
-.magic-hero p {
-  max-width: 760px;
-}
-
-.magic-rings-visual {
-  position: relative;
-  min-height: 420px;
-  pointer-events: none;
-}
-
-.magic-rings-visual::before {
-  position: absolute;
-  inset: 12% 0;
-  z-index: -1;
-  border-radius: 999px;
-  background: radial-gradient(circle, rgba(0, 180, 216, 0.26), transparent 64%);
-  content: "";
-  filter: blur(18px);
-}
-
-.magic-rings-visual [data-magic-rings-root] {
-  position: absolute;
-  inset: -28% -34%;
 }
 
 .mini-grid {
@@ -1758,20 +1723,10 @@ textarea:focus-visible {
 
   .hero,
   .careers-hero,
-  .magic-hero,
   .section-head.split,
   .two-col,
   .contact-layout {
     grid-template-columns: 1fr;
-  }
-
-  .magic-hero {
-    gap: 18px;
-    min-height: auto;
-  }
-
-  .magic-rings-visual {
-    min-height: 300px;
   }
 
   .ecosystem-map,
@@ -1828,15 +1783,6 @@ textarea:focus-visible {
   .hero {
     min-height: auto;
     padding-top: 42px;
-  }
-
-  .magic-hero {
-    gap: 12px;
-    padding-bottom: 24px;
-  }
-
-  .magic-rings-visual {
-    min-height: 210px;
   }
 
   .careers-hero {
