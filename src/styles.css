@@ -374,7 +374,7 @@ button {
 
 .section-pad,
 .page-hero {
-  width: min(var(--max), calc(100% - 32px));
+  width: min(var(--header-max), calc(100% - 32px));
   margin: 0 auto;
 }
 
@@ -696,7 +696,7 @@ h3 {
 
 .band,
 .audit-cta {
-  width: min(var(--max), calc(100% - 32px));
+  width: min(var(--header-max), calc(100% - 32px));
   margin: 0 auto;
   border-radius: 8px;
 }
@@ -1050,7 +1050,7 @@ h3 {
 }
 
 .services-band {
-  width: min(var(--max), calc(100% - 32px));
+  width: min(var(--header-max), calc(100% - 32px));
 }
 
 .service-grid {
