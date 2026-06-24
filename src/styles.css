@@ -1654,6 +1654,14 @@ textarea:focus-visible {
     grid-template-columns: auto auto;
   }
 
+  .site-header.open {
+    align-content: start;
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .nav-toggle {
     display: grid;
     justify-self: end;
@@ -1778,6 +1786,10 @@ textarea:focus-visible {
   .site-header {
     top: 10px;
     margin-top: 10px;
+  }
+
+  .site-header.open {
+    max-height: calc(100dvh - 20px);
   }
 
   .hero {
