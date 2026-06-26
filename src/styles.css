@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 :root {
   font-synthesis: none;
@@ -7,7 +7,7 @@
   --yellow: #00b4d8;
   --ivory: #caf0f8;
   --white: #ffffff;
-  --gray: #486173;
+  --gray: #536172;
   --stone: #90e0ef;
   --border: rgba(0, 119, 182, 0.16);
   --blue: #0077b6;
@@ -130,7 +130,7 @@ button {
 
 .brand strong {
   display: block;
-  font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   font-size: 0.98rem;
   font-weight: 700;
   line-height: 1.05;
@@ -147,6 +147,10 @@ button {
   font-size: 0.73rem;
   font-weight: 500;
   line-height: 1.2;
+}
+
+.site-header .brand small {
+  display: none;
 }
 
 .brand.reverse small {
@@ -423,7 +427,7 @@ p {
 }
 
 h1 {
-  font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   max-width: 760px;
   margin-bottom: 22px;
   font-size: clamp(4rem, 5.2vw, 4.5rem);
@@ -433,7 +437,7 @@ h1 {
 }
 
 h2 {
-  font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   margin-bottom: 16px;
   font-size: clamp(2.65rem, 4vw, 3.25rem);
   font-weight: 600;
@@ -442,7 +446,7 @@ h2 {
 }
 
 h3 {
-  font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   margin-bottom: 10px;
   font-size: clamp(1.25rem, 1.8vw, 1.5rem);
   font-weight: 600;
@@ -880,7 +884,7 @@ h3 {
   border-radius: 8px;
   background: var(--cta-gradient);
   color: var(--white);
-  font-family: Sora, Inter, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 0.86rem;
   font-weight: 800;
 }
@@ -1215,7 +1219,7 @@ h3 {
 }
 
 .process-detail strong {
-  font-family: Sora, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   font-size: 1.45rem;
   font-weight: 600;
 }
@@ -1470,9 +1474,9 @@ h3 {
 
 .ecosystem-hero {
   position: relative;
-  min-height: 640px;
+  min-height: 450px;
   overflow: hidden;
-  padding: 118px 0 82px;
+  padding: 64px 0 34px;
 }
 
 .particle-scene {
@@ -1486,15 +1490,15 @@ h3 {
 
 .ecosystem-hero-glow {
   position: absolute;
-  top: 7%;
-  right: 2%;
+  top: 3%;
+  right: 0;
   z-index: 0;
   width: min(560px, 46vw);
   height: min(560px, 46vw);
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(0, 180, 216, 0.34), rgba(144, 224, 239, 0.16) 42%, transparent 68%);
-  filter: blur(34px);
-  opacity: 0.72;
+  background: radial-gradient(circle, rgba(0, 119, 182, 0.34), rgba(0, 180, 216, 0.22) 42%, transparent 68%);
+  filter: blur(24px);
+  opacity: 0.82;
   pointer-events: none;
 }
 
@@ -1841,9 +1845,9 @@ textarea:focus-visible {
   }
 
   .ecosystem-hero {
-    min-height: 560px;
-    padding-top: 82px;
-    padding-bottom: 58px;
+    min-height: 440px;
+    padding-top: 58px;
+    padding-bottom: 34px;
   }
 
   .ecosystem-hero-glow {

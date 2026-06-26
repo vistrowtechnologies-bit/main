@@ -1941,9 +1941,9 @@ function bindParticleScene() {
   if (!canvas) return;
 
   const cleanup = createParticleScene(canvas, {
-    count: window.matchMedia('(max-width: 680px)').matches ? 180 : 260,
-    centerX: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.72,
-    centerY: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.48
+    count: window.matchMedia('(max-width: 680px)').matches ? 220 : 340,
+    centerX: window.matchMedia('(max-width: 680px)').matches ? 0.6 : 0.74,
+    centerY: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.5
   });
 
   window.__vistrowParticleCleanup = cleanup;
@@ -1964,7 +1964,7 @@ function createParticleScene(canvas, options = {}) {
       x: Math.cos(theta) * Math.sin(phi) * radius,
       y: Math.sin(theta) * Math.sin(phi) * radius,
       z: Math.cos(phi) * radius,
-      size: Math.random() * 1.55 + 0.35
+      size: Math.random() * 1.9 + 0.55
     };
   });
 
@@ -2023,11 +2023,11 @@ function createParticleScene(canvas, options = {}) {
     context.globalCompositeOperation = 'lighter';
 
     transformed.forEach((point, index) => {
-      const alpha = Math.max(0.08, (1 - point.z / 350) * 0.32);
+      const alpha = Math.max(0.2, (1 - point.z / 350) * 0.62);
       const cyan = index % 3 === 0;
 
       context.beginPath();
-      context.fillStyle = cyan ? `rgba(0, 180, 216, ${alpha})` : `rgba(144, 224, 239, ${alpha * 0.88})`;
+      context.fillStyle = cyan ? `rgba(0, 119, 182, ${alpha})` : `rgba(0, 180, 216, ${alpha * 0.95})`;
       context.arc(point.x, point.y, point.size * point.scale, 0, Math.PI * 2);
       context.fill();
 
@@ -2037,7 +2037,7 @@ function createParticleScene(canvas, options = {}) {
 
         if (distance < 105) {
           context.beginPath();
-          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.11})`;
+          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.28})`;
           context.moveTo(point.x, point.y);
           context.lineTo(next.x, next.y);
           context.stroke();
