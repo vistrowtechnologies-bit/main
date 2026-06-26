@@ -1968,6 +1968,19 @@ function createParticleScene(canvas, options = {}) {
       size: Math.random() * 1.9 + 0.55
     };
   });
+  const links = points.flatMap((point, index) => {
+    if (index % 6 !== 0) return [];
+
+    return points
+      .map((candidate, candidateIndex) => ({
+        from: index,
+        to: candidateIndex,
+        distance: Math.hypot(point.x - candidate.x, point.y - candidate.y, point.z - candidate.z)
+      }))
+      .filter((link) => link.to !== index && link.distance < 96)
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 2);
+  });
 
   let width = 0;
   let height = 0;
@@ -2024,6 +2037,24 @@ function createParticleScene(canvas, options = {}) {
 
     context.globalCompositeOperation = 'lighter';
 
+    links.forEach((link, linkIndex) => {
+      const start = transformedBySource[link.from];
+      const end = transformedBySource[link.to];
+      const depth = (start.z + end.z) * 0.5;
+      const depthAlpha = Math.max(0.07, (1 - depth / 380) * 0.24);
+      const pulse = reduceMotion ? 0.8 : 0.55 + Math.sin(time * 32 + linkIndex * 0.72) * 0.22;
+      const distance = Math.hypot(start.x - end.x, start.y - end.y);
+
+      if (distance > 130) return;
+
+      context.beginPath();
+      context.strokeStyle = `rgba(3, 4, 94, ${depthAlpha * pulse})`;
+      context.lineWidth = 0.75;
+      context.moveTo(start.x, start.y);
+      context.lineTo(end.x, end.y);
+      context.stroke();
+    });
+
     transformed.forEach((point, index) => {
       const alpha = Math.max(0.2, (1 - point.z / 350) * 0.62);
       const cyan = index % 3 === 0;
@@ -2032,19 +2063,6 @@ function createParticleScene(canvas, options = {}) {
       context.fillStyle = cyan ? `rgba(0, 119, 182, ${alpha})` : `rgba(0, 180, 216, ${alpha * 0.95})`;
       context.arc(point.x, point.y, point.size * point.scale, 0, Math.PI * 2);
       context.fill();
-
-      if (point.sourceIndex % 11 === 0) {
-        const next = transformedBySource[(point.sourceIndex + 21) % transformedBySource.length];
-        const distance = Math.hypot(point.x - next.x, point.y - next.y);
-
-        if (distance < 92) {
-          context.beginPath();
-          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.2})`;
-          context.moveTo(point.x, point.y);
-          context.lineTo(next.x, next.y);
-          context.stroke();
-        }
-      }
     });
 
     context.globalCompositeOperation = 'source-over';
