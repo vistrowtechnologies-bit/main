@@ -1470,13 +1470,22 @@ function contactPage(isAudit = false) {
 
 function companyPage(detail) {
   if (detail === 'ecosystem') {
-    return detailPage({
-      eyebrow: 'Company',
-      title: 'Our Ecosystem',
-      description: 'Vistrow Growth, Vistrow Labs, Vistrow Voice, Vistrow Flow, and ArthaLeads CRM work together as one connected business growth ecosystem.',
-      points: ecosystem.map((item) => `${item.title}: ${item.text}`),
-      cta: 'Explore Ecosystem'
-    });
+    setMeta('Our Ecosystem | Vistrow', 'Vistrow Growth, Vistrow Labs, Vistrow Voice, Vistrow Flow, and ArthaLeads CRM work together as one connected business growth ecosystem.');
+    return shell(`
+      <section class="page-hero ecosystem-hero">
+        <canvas class="particle-scene" data-particle-scene aria-hidden="true"></canvas>
+        <div class="ecosystem-hero-glow" aria-hidden="true"></div>
+        <div class="ecosystem-hero-content">
+          <p class="eyebrow">Company</p>
+          <h1>Our Ecosystem</h1>
+          <p>Vistrow Growth, Vistrow Labs, Vistrow Voice, Vistrow Flow, and ArthaLeads CRM work together as one connected business growth ecosystem.</p>
+          <button class="btn primary" type="button" data-scroll-target="#ecosystem-map">Explore Ecosystem ${renderSvg(ArrowRight, 18)}</button>
+        </div>
+      </section>
+      <section id="ecosystem-map">
+        ${ecosystemSection()}
+      </section>
+    `);
   }
 
   if (detail === 'careers') {
@@ -1750,6 +1759,8 @@ function render() {
   else if (base === 'legal') html = legalPage(detail);
   else html = notFound();
 
+  window.__vistrowParticleCleanup?.();
+  window.__vistrowParticleCleanup = null;
   document.querySelector('#app').innerHTML = html;
   bindInteractions();
   window.scrollTo({ top: 0, behavior: 'instant' });
@@ -1817,6 +1828,12 @@ function bindInteractions() {
     event.currentTarget.reset();
   });
 
+  document.querySelectorAll('[data-scroll-target]').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelector(button.dataset.scrollTarget)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
   document.querySelectorAll('.nav a').forEach((link) => {
     if (link.getAttribute('href') === window.location.hash || (window.location.hash === '' && link.getAttribute('href') === '#/')) {
       link.setAttribute('aria-current', 'page');
@@ -1825,6 +1842,7 @@ function bindInteractions() {
 
   bindTiltCards();
   bindCareerLanyard();
+  bindParticleScene();
   bindHomepageInteractions();
 }
 
@@ -1916,6 +1934,132 @@ function bindCareerLanyard() {
   import('./CareerLanyard.jsx').then(({ mountCareerLanyard }) => {
     mountCareerLanyard(root);
   });
+}
+
+function bindParticleScene() {
+  const canvas = document.querySelector('[data-particle-scene]');
+  if (!canvas) return;
+
+  const cleanup = createParticleScene(canvas, {
+    count: window.matchMedia('(max-width: 680px)').matches ? 180 : 260,
+    centerX: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.72,
+    centerY: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.48
+  });
+
+  window.__vistrowParticleCleanup = cleanup;
+}
+
+function createParticleScene(canvas, options = {}) {
+  const context = canvas.getContext('2d');
+  if (!context) return () => {};
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const count = options.count || 240;
+  const points = Array.from({ length: count }, (_, index) => {
+    const phi = Math.acos(1 - (2 * (index + 0.5)) / count);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * index;
+    const radius = 155 + Math.random() * 85;
+
+    return {
+      x: Math.cos(theta) * Math.sin(phi) * radius,
+      y: Math.sin(theta) * Math.sin(phi) * radius,
+      z: Math.cos(phi) * radius,
+      size: Math.random() * 1.55 + 0.35
+    };
+  });
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let time = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+  let frameId = 0;
+  let disposed = false;
+
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const onPointerMove = (event) => {
+    mouseX = event.clientX / window.innerWidth - 0.5;
+    mouseY = event.clientY / window.innerHeight - 0.5;
+  };
+
+  const frame = () => {
+    if (disposed) return;
+    context.clearRect(0, 0, width, height);
+
+    if (!reduceMotion) time += 0.003;
+
+    const centerX = width * (options.centerX || 0.72);
+    const centerY = height * (options.centerY || 0.48);
+    const rotateY = time + mouseX * 0.4;
+    const rotateX = time * 0.65 + mouseY * 0.35;
+
+    const transformed = points
+      .map((point) => {
+        let x = point.x * Math.cos(rotateY) - point.z * Math.sin(rotateY);
+        let z = point.x * Math.sin(rotateY) + point.z * Math.cos(rotateY);
+        const y = point.y * Math.cos(rotateX) - z * Math.sin(rotateX);
+        z = point.y * Math.sin(rotateX) + z * Math.cos(rotateX);
+        const scale = 520 / (620 + z);
+
+        return {
+          x: centerX + x * scale,
+          y: centerY + y * scale,
+          z,
+          scale,
+          size: point.size
+        };
+      })
+      .sort((a, b) => b.z - a.z);
+
+    context.globalCompositeOperation = 'lighter';
+
+    transformed.forEach((point, index) => {
+      const alpha = Math.max(0.08, (1 - point.z / 350) * 0.32);
+      const cyan = index % 3 === 0;
+
+      context.beginPath();
+      context.fillStyle = cyan ? `rgba(0, 180, 216, ${alpha})` : `rgba(144, 224, 239, ${alpha * 0.88})`;
+      context.arc(point.x, point.y, point.size * point.scale, 0, Math.PI * 2);
+      context.fill();
+
+      if (index % 7 === 0) {
+        const next = transformed[(index + 13) % transformed.length];
+        const distance = Math.hypot(point.x - next.x, point.y - next.y);
+
+        if (distance < 105) {
+          context.beginPath();
+          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.11})`;
+          context.moveTo(point.x, point.y);
+          context.lineTo(next.x, next.y);
+          context.stroke();
+        }
+      }
+    });
+
+    context.globalCompositeOperation = 'source-over';
+    frameId = requestAnimationFrame(frame);
+  };
+
+  resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', onPointerMove);
+  frame();
+
+  return () => {
+    disposed = true;
+    cancelAnimationFrame(frameId);
+    window.removeEventListener('resize', resize);
+    window.removeEventListener('pointermove', onPointerMove);
+  };
 }
 
 function bindHomepageInteractions() {
