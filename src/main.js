@@ -1961,6 +1961,7 @@ function createParticleScene(canvas, options = {}) {
     const radius = 155 + Math.random() * 85;
 
     return {
+      sourceIndex: index,
       x: Math.cos(theta) * Math.sin(phi) * radius,
       y: Math.sin(theta) * Math.sin(phi) * radius,
       z: Math.cos(phi) * radius,
@@ -1995,15 +1996,14 @@ function createParticleScene(canvas, options = {}) {
     if (disposed) return;
     context.clearRect(0, 0, width, height);
 
-    if (!reduceMotion) time += 0.003;
+    if (!reduceMotion) time += 0.00125;
 
     const centerX = width * (options.centerX || 0.72);
     const centerY = height * (options.centerY || 0.48);
-    const rotateY = time + mouseX * 0.4;
-    const rotateX = time * 0.65 + mouseY * 0.35;
+    const rotateY = time + mouseX * 0.16;
+    const rotateX = time * 0.55 + mouseY * 0.12;
 
-    const transformed = points
-      .map((point) => {
+    const transformedBySource = points.map((point) => {
         let x = point.x * Math.cos(rotateY) - point.z * Math.sin(rotateY);
         let z = point.x * Math.sin(rotateY) + point.z * Math.cos(rotateY);
         const y = point.y * Math.cos(rotateX) - z * Math.sin(rotateX);
@@ -2011,14 +2011,16 @@ function createParticleScene(canvas, options = {}) {
         const scale = 520 / (620 + z);
 
         return {
+          sourceIndex: point.sourceIndex,
           x: centerX + x * scale,
           y: centerY + y * scale,
           z,
           scale,
           size: point.size
         };
-      })
-      .sort((a, b) => b.z - a.z);
+      });
+
+    const transformed = [...transformedBySource].sort((a, b) => b.z - a.z);
 
     context.globalCompositeOperation = 'lighter';
 
@@ -2031,13 +2033,13 @@ function createParticleScene(canvas, options = {}) {
       context.arc(point.x, point.y, point.size * point.scale, 0, Math.PI * 2);
       context.fill();
 
-      if (index % 7 === 0) {
-        const next = transformed[(index + 13) % transformed.length];
+      if (point.sourceIndex % 11 === 0) {
+        const next = transformedBySource[(point.sourceIndex + 21) % transformedBySource.length];
         const distance = Math.hypot(point.x - next.x, point.y - next.y);
 
-        if (distance < 105) {
+        if (distance < 92) {
           context.beginPath();
-          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.28})`;
+          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.2})`;
           context.moveTo(point.x, point.y);
           context.lineTo(next.x, next.y);
           context.stroke();
