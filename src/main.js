@@ -1969,7 +1969,7 @@ function createParticleScene(canvas, options = {}) {
     };
   });
   const links = points.flatMap((point, index) => {
-    if (index % 6 !== 0) return [];
+    if (index % 3 !== 0) return [];
 
     return points
       .map((candidate, candidateIndex) => ({
@@ -1977,9 +1977,9 @@ function createParticleScene(canvas, options = {}) {
         to: candidateIndex,
         distance: Math.hypot(point.x - candidate.x, point.y - candidate.y, point.z - candidate.z)
       }))
-      .filter((link) => link.to !== index && link.distance < 96)
+      .filter((link) => link.to !== index && link.distance < 138)
       .sort((a, b) => a.distance - b.distance)
-      .slice(0, 2);
+      .slice(0, 3);
   });
 
   let width = 0;
@@ -2041,18 +2041,28 @@ function createParticleScene(canvas, options = {}) {
       const start = transformedBySource[link.from];
       const end = transformedBySource[link.to];
       const depth = (start.z + end.z) * 0.5;
-      const depthAlpha = Math.max(0.07, (1 - depth / 380) * 0.24);
-      const pulse = reduceMotion ? 0.8 : 0.55 + Math.sin(time * 32 + linkIndex * 0.72) * 0.22;
+      const depthAlpha = Math.max(0.12, (1 - depth / 390) * 0.34);
       const distance = Math.hypot(start.x - end.x, start.y - end.y);
 
-      if (distance > 130) return;
+      if (distance > 180) return;
 
       context.beginPath();
-      context.strokeStyle = `rgba(3, 4, 94, ${depthAlpha * pulse})`;
-      context.lineWidth = 0.75;
+      context.strokeStyle = `rgba(0, 119, 182, ${depthAlpha})`;
+      context.lineWidth = 0.95;
       context.moveTo(start.x, start.y);
       context.lineTo(end.x, end.y);
       context.stroke();
+
+      if (!reduceMotion && linkIndex % 5 === 0) {
+        const flow = (Math.sin(time * 22 + linkIndex * 0.38) + 1) * 0.5;
+        const x = start.x + (end.x - start.x) * flow;
+        const y = start.y + (end.y - start.y) * flow;
+
+        context.beginPath();
+        context.fillStyle = `rgba(0, 180, 216, ${Math.min(depthAlpha * 2.2, 0.55)})`;
+        context.arc(x, y, 1.35, 0, Math.PI * 2);
+        context.fill();
+      }
     });
 
     transformed.forEach((point, index) => {
