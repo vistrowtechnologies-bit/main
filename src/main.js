@@ -1941,7 +1941,7 @@ function bindParticleScene() {
   if (!canvas) return;
 
   const cleanup = createParticleScene(canvas, {
-    count: window.matchMedia('(max-width: 680px)').matches ? 220 : 340,
+    count: window.matchMedia('(max-width: 680px)').matches ? 190 : 300,
     centerX: window.matchMedia('(max-width: 680px)').matches ? 0.6 : 0.74,
     centerY: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.5
   });
@@ -1958,28 +1958,14 @@ function createParticleScene(canvas, options = {}) {
   const points = Array.from({ length: count }, (_, index) => {
     const phi = Math.acos(1 - (2 * (index + 0.5)) / count);
     const theta = Math.PI * (1 + Math.sqrt(5)) * index;
-    const radius = 155 + Math.random() * 85;
+    const radius = 160 + Math.random() * 90;
 
     return {
-      sourceIndex: index,
       x: Math.cos(theta) * Math.sin(phi) * radius,
       y: Math.sin(theta) * Math.sin(phi) * radius,
       z: Math.cos(phi) * radius,
-      size: Math.random() * 1.9 + 0.55
+      size: Math.random() * 1.6 + 0.35
     };
-  });
-  const links = points.flatMap((point, index) => {
-    if (index % 3 !== 0) return [];
-
-    return points
-      .map((candidate, candidateIndex) => ({
-        from: index,
-        to: candidateIndex,
-        distance: Math.hypot(point.x - candidate.x, point.y - candidate.y, point.z - candidate.z)
-      }))
-      .filter((link) => link.to !== index && link.distance < 138)
-      .sort((a, b) => a.distance - b.distance)
-      .slice(0, 3);
   });
 
   let width = 0;
@@ -2009,70 +1995,55 @@ function createParticleScene(canvas, options = {}) {
     if (disposed) return;
     context.clearRect(0, 0, width, height);
 
-    if (!reduceMotion) time += 0.00125;
+    if (!reduceMotion) time += 0.0022;
 
     const centerX = width * (options.centerX || 0.72);
     const centerY = height * (options.centerY || 0.48);
-    const rotateY = time + mouseX * 0.16;
-    const rotateX = time * 0.55 + mouseY * 0.12;
+    const rotateY = time + mouseX * 0.28;
+    const rotateX = time * 0.65 + mouseY * 0.22;
 
-    const transformedBySource = points.map((point) => {
-        let x = point.x * Math.cos(rotateY) - point.z * Math.sin(rotateY);
+    const transformed = points
+      .map((point) => {
+        const x = point.x * Math.cos(rotateY) - point.z * Math.sin(rotateY);
         let z = point.x * Math.sin(rotateY) + point.z * Math.cos(rotateY);
         const y = point.y * Math.cos(rotateX) - z * Math.sin(rotateX);
         z = point.y * Math.sin(rotateX) + z * Math.cos(rotateX);
         const scale = 520 / (620 + z);
 
         return {
-          sourceIndex: point.sourceIndex,
           x: centerX + x * scale,
           y: centerY + y * scale,
           z,
           scale,
           size: point.size
         };
-      });
-
-    const transformed = [...transformedBySource].sort((a, b) => b.z - a.z);
+      })
+      .sort((a, b) => b.z - a.z);
 
     context.globalCompositeOperation = 'lighter';
 
-    links.forEach((link, linkIndex) => {
-      const start = transformedBySource[link.from];
-      const end = transformedBySource[link.to];
-      const depth = (start.z + end.z) * 0.5;
-      const depthAlpha = Math.max(0.12, (1 - depth / 390) * 0.34);
-      const distance = Math.hypot(start.x - end.x, start.y - end.y);
-
-      if (distance > 180) return;
-
-      context.beginPath();
-      context.strokeStyle = `rgba(0, 119, 182, ${depthAlpha})`;
-      context.lineWidth = 0.95;
-      context.moveTo(start.x, start.y);
-      context.lineTo(end.x, end.y);
-      context.stroke();
-
-      if (!reduceMotion && linkIndex % 5 === 0) {
-        const flow = (Math.sin(time * 22 + linkIndex * 0.38) + 1) * 0.5;
-        const x = start.x + (end.x - start.x) * flow;
-        const y = start.y + (end.y - start.y) * flow;
-
-        context.beginPath();
-        context.fillStyle = `rgba(0, 180, 216, ${Math.min(depthAlpha * 2.2, 0.55)})`;
-        context.arc(x, y, 1.35, 0, Math.PI * 2);
-        context.fill();
-      }
-    });
-
     transformed.forEach((point, index) => {
-      const alpha = Math.max(0.2, (1 - point.z / 350) * 0.62);
+      const alpha = Math.max(0.1, (1 - point.z / 350) * 0.42);
       const cyan = index % 3 === 0;
 
       context.beginPath();
       context.fillStyle = cyan ? `rgba(0, 119, 182, ${alpha})` : `rgba(0, 180, 216, ${alpha * 0.95})`;
       context.arc(point.x, point.y, point.size * point.scale, 0, Math.PI * 2);
       context.fill();
+
+      if (index % 7 === 0) {
+        const next = transformed[(index + 13) % transformed.length];
+        const distance = Math.hypot(point.x - next.x, point.y - next.y);
+
+        if (distance < 105) {
+          context.beginPath();
+          context.strokeStyle = `rgba(3, 4, 94, ${alpha * 0.16})`;
+          context.lineWidth = 0.75;
+          context.moveTo(point.x, point.y);
+          context.lineTo(next.x, next.y);
+          context.stroke();
+        }
+      }
     });
 
     context.globalCompositeOperation = 'source-over';
