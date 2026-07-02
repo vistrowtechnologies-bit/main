@@ -25,8 +25,6 @@ import {
   Route,
   ShieldCheck,
   Sparkles,
-  Sun,
-  Moon,
   Target,
   Users,
   Workflow,
@@ -657,16 +655,7 @@ function shell(content) {
       <button class="nav-toggle" aria-label="Open navigation">${renderSvg(Menu, 22)}</button>
       <nav class="nav">
         ${nav.map((item) => navItem(item)).join('')}
-        <button class="theme-toggle nav-theme-toggle theme-switcher" aria-label="Toggle theme" type="button">
-          <span class="sun-icon">${renderSvg(Sun, 20)}</span>
-          <span class="moon-icon">${renderSvg(Moon, 20)}</span>
-          <span class="theme-label">Theme</span>
-        </button>
       </nav>
-      <button class="theme-toggle header-theme-toggle theme-switcher" aria-label="Toggle theme" type="button">
-        <span class="sun-icon">${renderSvg(Sun, 20)}</span>
-        <span class="moon-icon">${renderSvg(Moon, 20)}</span>
-      </button>
       <a class="header-cta" href="#/audit">Book a Growth Audit</a>
     </header>
     <main>${content}</main>
@@ -1772,15 +1761,6 @@ function bindInteractions() {
   navToggle?.addEventListener('click', () => {
     header.classList.toggle('open');
     header.scrollLeft = 0;
-  });
-
-  document.querySelectorAll('.theme-switcher').forEach((switcher) => {
-    switcher.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', nextTheme);
-      localStorage.setItem('vistrow-theme', nextTheme);
-    });
   });
 
   document.querySelectorAll('.nav-trigger').forEach((trigger) => {
