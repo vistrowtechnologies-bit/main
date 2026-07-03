@@ -281,43 +281,12 @@ const industries = [
 const nav = [
   { label: 'Home', path: '#/' },
   {
-    label: 'Solutions',
-    path: '#/solutions',
-    children: [
-      ['Growth Systems', 'Complete marketing, CRM, automation, and AI setup for business growth.', '#/solutions/growth-systems'],
-      ['Lead Generation System', 'Campaigns, landing pages, tracking, CRM, and follow-up automation.', '#/solutions/lead-generation-system'],
-      ['Sales Automation System', 'Automated workflows that help teams follow up faster and close more deals.', '#/solutions/sales-automation-system'],
-      ['AI Customer Communication', 'AI voice calling and automated customer engagement systems.', '#/solutions/ai-customer-communication'],
-      ['CRM & Pipeline Management', 'Lead tracking, pipeline visibility, team views, and performance insights.', '#/solutions/crm-pipeline-management'],
-      ['Digital Transformation for SMBs', 'Modern systems for businesses moving from manual operations to automated growth.', '#/solutions/digital-transformation-smbs']
-    ]
-  },
-  {
     label: 'Services',
     path: '#/services',
     children: services.map((service) => [service.title, service.summary, `#/services/${service.slug}`])
   },
-  {
-    label: 'Products',
-    path: '#/products',
-    children: products.map((product) => [product.title, product.text, `#/products/${slugify(product.title)}`])
-  },
-  {
-    label: 'Industries',
-    path: '#/industries',
-    children: industries.map((industry) => [industry.title, industry.text, `#/industries/${slugify(industry.title)}`])
-  },
-  {
-    label: 'Resources',
-    path: '#/resources',
-    children: [
-      ['Blog', 'Insights on growth systems, CRM, automation, AI, and digital marketing.', '#/resources/blog'],
-      ['Case Studies', 'Real examples of systems, campaigns, and growth outcomes.', '#/resources/case-studies'],
-      ['Guides', 'Practical guides for CRM, lead generation, AI calling, and automation.', '#/resources/guides'],
-      ['Growth Audit Checklist', 'Identify gaps in marketing, CRM, and follow-up systems.', '#/resources/growth-audit-checklist'],
-      ['FAQs', 'Common questions about Vistrow services, products, and implementation.', '#/resources/faqs']
-    ]
-  },
+  { label: 'Products', path: '#/products' },
+  { label: 'Industries', path: '#/industries' },
   {
     label: 'Company',
     path: '#/about',
@@ -325,7 +294,7 @@ const nav = [
       ['About Vistrow', 'Our story, mission, and approach to building growth systems.', '#/about'],
       ['Our Ecosystem', 'Vistrow Growth, Labs, Voice, Flow, and ArthaLeads CRM.', '#/company/ecosystem'],
       ['Careers', 'Join the team building modern growth systems.', '#/company/careers'],
-      ['Contact', 'Talk to Vistrow about your business growth system.', '#/contact']
+      ['FAQs', 'Common questions about Vistrow services, products, and implementation.', '#/resources/faqs']
     ]
   },
   { label: 'Contact', path: '#/contact' }
@@ -385,20 +354,7 @@ const dashboardStages = [
   }
 ];
 
-const solutions = [
-  ['Growth Systems', 'Complete marketing, CRM, automation, and AI setup for business growth.'],
-  ['Lead Generation System', 'Campaigns, landing pages, tracking, CRM, and follow-up automation.'],
-  ['Sales Automation System', 'Automated workflows that help teams follow up faster and close more deals.'],
-  ['AI Customer Communication', 'AI voice calling and automated customer engagement systems.'],
-  ['CRM & Pipeline Management', 'Organized lead tracking, sales pipeline, team visibility, and performance insights.'],
-  ['Digital Transformation for SMBs', 'Modern systems for businesses moving from manual operations to automated growth.']
-];
-
 const resources = [
-  ['Blog', 'Insights on growth systems, CRM, automation, AI, and digital marketing.'],
-  ['Case Studies', 'Real examples of systems, campaigns, and growth outcomes.'],
-  ['Guides', 'Practical guides for CRM, lead generation, AI calling, and automation.'],
-  ['Growth Audit Checklist', 'A checklist to identify gaps in marketing, CRM, and follow-up systems.'],
   ['FAQs', 'Common questions about Vistrow services, products, and implementation.']
 ];
 
@@ -607,13 +563,6 @@ function slugify(value) {
     .replace(/^-|-$/g, '');
 }
 
-function solutionSlug(title) {
-  return {
-    'CRM & Pipeline Management': 'crm-pipeline-management',
-    'Digital Transformation for SMBs': 'digital-transformation-smbs'
-  }[title] || slugify(title);
-}
-
 function icon(name, size = 22) {
   const Icon = iconMap[name] || Sparkles;
   return renderSvg(Icon, size);
@@ -768,9 +717,9 @@ function home() {
         ${['Leads come from many channels', 'Follow-ups happen manually', 'Sales teams lose track of conversations', 'Campaign performance is not connected to revenue', 'Marketing spend leaks without a conversion system'].map((point) => `<div class="point">${renderSvg(Check, 18)}<span>${point}</span></div>`).join('')}
       </div>
     </section>
-    ${ecosystemSection()}
     ${servicesSection()}
     ${processSection()}
+    ${ecosystemSection()}
     ${productsSection()}
     ${industriesSection()}
     ${auditCta()}
@@ -882,16 +831,21 @@ function productsSection() {
         <p>SaaS and AI products that help businesses manage leads, automate communication, and scale operations.</p>
       </div>
       <div class="product-grid">
-        ${products.map((product) => `
-          <article class="product-card">
+        ${products.map((product) => {
+          const isArtha = product.title === 'ArthaLeads CRM';
+          const tag = isArtha ? 'a' : 'article';
+          const href = isArtha ? ` href="#/products/${slugify(product.title)}"` : '';
+          return `
+          <${tag} class="product-card"${href}>
             <div>
               <span class="icon-badge">${icon(product.icon)}</span>
               <small>${product.status}</small>
             </div>
             <h3>${product.title}</h3>
             <p>${product.text}</p>
-          </article>
-        `).join('')}
+          </${tag}>
+        `;
+        }).join('')}
       </div>
     </section>
   `;
@@ -1188,35 +1142,16 @@ function detailPage({ eyebrow, title, description, points = [], cta = 'Book a Gr
 }
 
 function productsPage(slug) {
-  const selected = products.find((product) => slugify(product.title) === slug);
-  if (selected) {
-    if (selected.title === 'ArthaLeads CRM') return arthaLeadsPage();
-
-    return detailPage({
-      eyebrow: 'Product',
-      title: selected.title,
-      description: selected.text,
-      points: [
-        selected.status,
-        'Lead and customer workflow visibility',
-        'Dashboard-first product experience',
-        'Built for Vistrow growth systems',
-        'Ready to connect with CRM and automation workflows',
-        'Designed for scale and measurable outcomes'
-      ],
-      cta: selected.title === 'ArthaLeads CRM' ? 'Request CRM Demo' : 'Explore Product'
-    });
-  }
+  if (slug === 'arthaleads-crm') return arthaLeadsPage();
 
   setMeta('Products Built for Growth Operations | Vistrow', 'Explore Vistrow products including ArthaLeads CRM, Vistrow Voice, Vistrow Flow, and Vistrow Labs.');
   return shell(`
     <section class="page-hero">
       <p class="eyebrow">Products</p>
       <h1>Products built from real business problems.</h1>
-      <p>Vistrow creates SaaS and AI products that help businesses manage leads, automate communication, and scale operations.</p>
+      <p>Vistrow creates SaaS and AI products that help businesses manage leads, automate communication, and scale operations. ArthaLeads CRM is available today; the rest of the ecosystem is rolling out alongside our growth systems work.</p>
     </section>
     ${productsSection()}
-    ${ecosystemSection()}
   `);
 }
 
@@ -1370,25 +1305,7 @@ function arthaLeadsPage() {
   `);
 }
 
-function industriesPage(slug) {
-  const selected = industries.find((industry) => slugify(industry.title) === slug);
-  if (selected) {
-    return detailPage({
-      eyebrow: 'Industry',
-      title: `${selected.title} Solutions`,
-      description: selected.text,
-      points: [
-        'Lead capture and source tracking',
-        'CRM pipeline visibility',
-        'AI calling and follow-up support',
-        'Automation for reminders and task routing',
-        'Campaign and conversion reporting',
-        'Growth audit roadmap for the industry'
-      ],
-      cta: 'Plan My Industry System'
-    });
-  }
-
+function industriesPage() {
   setMeta('Growth Systems for Lead-Driven Industries | Vistrow', 'Vistrow builds CRM, AI calling, automation, and marketing systems for real estate, local businesses, sales teams, agencies, and startups.');
   return shell(`
     <section class="page-hero">
@@ -1661,53 +1578,16 @@ function legalPage(slug) {
   `);
 }
 
-function solutionsPage(slug) {
-  const selected = solutions.find(([title]) => solutionSlug(title) === slug);
-  if (selected) {
-    const [title, description] = selected;
-    return detailPage({
-      eyebrow: 'Solution',
-      title,
-      description,
-      points: [
-        'Marketing and lead capture setup',
-        'CRM pipeline structure',
-        'AI calling and customer communication',
-        'Follow-up automation workflows',
-        'Dashboard and reporting visibility',
-        'Conversion improvement roadmap'
-      ],
-      cta: 'Build This System'
-    });
-  }
-
-  setMeta('Growth Systems Solutions | Vistrow', 'Vistrow connects lead generation, sales automation, AI communication, CRM, and digital transformation systems.');
-  return shell(`
-    <section class="page-hero">
-      <p class="eyebrow">Solutions</p>
-      <h1>Connected systems for the full growth journey.</h1>
-      <p>Vistrow helps businesses connect marketing, CRM, AI customer communication, sales automation, and reporting into one clear operating system.</p>
-    </section>
-    <section class="section-pad">
-      <div class="service-grid">
-        ${solutions.map(([title, text]) => `<a class="service-card" href="#/solutions/${solutionSlug(title)}"><span class="icon-badge">${icon('Network')}</span><h3>${title}</h3><p>${text}</p></a>`).join('')}
-      </div>
-    </section>
-    ${processSection()}
-  `);
-}
-
 function footer() {
   const groups = [
     ['Services', services.map((service) => [service.title.replace(' & Performance Ads', ''), `#/services/${service.slug}`])],
-    ['Products', products.map((product) => [product.title, `#/products/${slugify(product.title)}`])],
-    ['Solutions', solutions.map(([title]) => [title.replace(' System', ''), `#/solutions/${solutionSlug(title)}`])],
+    ['Products', [['ArthaLeads CRM', '#/products/arthaleads-crm'], ['All Products', '#/products']]],
     ['Company', [
       ['About Vistrow', '#/about'],
       ['Our Ecosystem', '#/company/ecosystem'],
-      ['Case Studies', '#/resources/case-studies'],
-      ['Blog', '#/resources/blog'],
+      ['Industries', '#/industries'],
       ['Careers', '#/company/careers'],
+      ['FAQs', '#/resources/faqs'],
       ['Contact', '#/contact']
     ]],
     ['Legal', Object.entries(legalPages).map(([key, page]) => [page.title, `#/legal/${key}`])]
@@ -1749,13 +1629,12 @@ function render() {
   if (!base) html = home();
   else if (base === 'services') html = servicesPage(detail);
   else if (base === 'products') html = productsPage(detail);
-  else if (base === 'industries') html = industriesPage(detail);
+  else if (base === 'industries') html = industriesPage();
   else if (base === 'about') html = aboutPage();
   else if (base === 'company') html = companyPage(detail);
   else if (base === 'contact') html = contactPage();
   else if (base === 'audit') html = contactPage(true);
   else if (base === 'resources') html = resourcesPage(detail);
-  else if (base === 'solutions') html = solutionsPage(detail);
   else if (base === 'legal') html = legalPage(detail);
   else html = notFound();
 
