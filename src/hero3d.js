@@ -1,12 +1,31 @@
 import * as THREE from 'three';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 const palettes = {
-  light: { primary: 0x0077b6, secondary: 0x00b4d8, accent: 0x03045e, soft: 0x0096c7 },
-  dark: { primary: 0x00b4d8, secondary: 0x90e0ef, accent: 0x48cae4, soft: 0x0096c7 }
+  light: { primary: 0x0077b6, secondary: 0x00b4d8, accent: 0x03045e, soft: 0x0096c7, glow: 0x2fd8ff },
+  dark: { primary: 0x00b4d8, secondary: 0x90e0ef, accent: 0x48cae4, soft: 0x0096c7, glow: 0x7ee9ff }
 };
 
 function currentTheme() {
   return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+let glowTexture = null;
+function getGlowTexture() {
+  if (glowTexture) return glowTexture;
+  const size = 128;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  gradient.addColorStop(0, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.35, 'rgba(255,255,255,0.55)');
+  gradient.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  glowTexture = new THREE.CanvasTexture(canvas);
+  return glowTexture;
 }
 
 function lineMat(mats, role, opacity = 0.9) {
@@ -15,8 +34,19 @@ function lineMat(mats, role, opacity = 0.9) {
   return material;
 }
 
-function fillMat(mats, role, opacity = 0.1) {
-  const material = new THREE.MeshBasicMaterial({ transparent: true, opacity, depthWrite: false });
+/* Metal/glass PBR material — lit by the environment + key/rim lights. */
+function fillMat(mats, role, opacity = 0.16) {
+  const material = new THREE.MeshPhysicalMaterial({
+    transparent: true,
+    opacity,
+    depthWrite: opacity > 0.4,
+    metalness: 0.72,
+    roughness: 0.24,
+    envMapIntensity: 1.25,
+    clearcoat: 0.4,
+    clearcoatRoughness: 0.3,
+    side: THREE.DoubleSide
+  });
   mats.push([material, role]);
   return material;
 }
@@ -27,7 +57,23 @@ function pointsMat(mats, role, size = 0.055) {
   return material;
 }
 
-function edgedBox(mats, w, h, d, fillRole = 'primary', edgeRole = 'secondary', fillOpacity = 0.08) {
+/* Additive glow billboard placed at bright accent points to fake bloom without postprocessing. */
+function attachGlow(mats, target, role, size = 0.55) {
+  const material = new THREE.SpriteMaterial({
+    map: getGlowTexture(),
+    transparent: true,
+    opacity: 0.85,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+  mats.push([material, role]);
+  const sprite = new THREE.Sprite(material);
+  sprite.scale.setScalar(size);
+  target.add(sprite);
+  return sprite;
+}
+
+function edgedBox(mats, w, h, d, fillRole = 'primary', edgeRole = 'secondary', fillOpacity = 0.16) {
   const geometry = new THREE.BoxGeometry(w, h, d);
   const mesh = new THREE.Mesh(geometry, fillMat(mats, fillRole, fillOpacity));
   const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geometry), lineMat(mats, edgeRole));
@@ -64,6 +110,10 @@ function buildFunnel(mats) {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   const points = new THREE.Points(geometry, pointsMat(mats, 'secondary'));
   group.add(points);
+  const inlet = new THREE.Group();
+  inlet.position.y = 2.15;
+  attachGlow(mats, inlet, 'glow', 0.7);
+  group.add(inlet);
 
   return {
     group,
@@ -97,6 +147,7 @@ function buildStack(mats) {
   }
   const beacon = new THREE.Mesh(new THREE.OctahedronGeometry(0.34), fillMat(mats, 'accent', 0.85));
   beacon.position.y = 1.85;
+  attachGlow(mats, beacon, 'glow', 1.1);
   group.add(beacon);
   group.rotation.x = 0.32;
 
@@ -130,6 +181,9 @@ function buildWaveform(mats) {
   }
   const halo = new THREE.Mesh(new THREE.TorusGeometry(2.9, 0.016, 8, 90), fillMat(mats, 'soft', 0.5));
   group.add(halo);
+  const core = new THREE.Group();
+  attachGlow(mats, core, 'glow', 0.85);
+  group.add(core);
 
   return {
     group,
@@ -158,7 +212,10 @@ function buildNodes(mats) {
     const size = i === 0 ? 0.3 : 0.07 + Math.random() * 0.1;
     const mesh = new THREE.Mesh(sphereGeo, fillMat(mats, i === 0 ? 'accent' : i % 2 ? 'secondary' : 'primary', i === 0 ? 0.9 : 0.8));
     mesh.scale.setScalar(size);
-    if (i === 0) base.set(0, 0, 0);
+    if (i === 0) {
+      base.set(0, 0, 0);
+      attachGlow(mats, mesh, 'glow', 2.4);
+    }
     mesh.position.copy(base);
     group.add(mesh);
     nodes.push({ mesh, base, phase: Math.random() * Math.PI * 2, speed: 0.5 + Math.random() * 0.7 });
@@ -217,6 +274,7 @@ function buildFlow(mats) {
   const packets = [];
   for (let i = 0; i < 9; i += 1) {
     const packet = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 10), fillMat(mats, 'accent', 0.95));
+    attachGlow(mats, packet, 'glow', 0.4);
     group.add(packet);
     packets.push({ mesh: packet, offset: i / 9, speed: 0.045 + (i % 3) * 0.012 });
   }
@@ -256,6 +314,10 @@ function buildBars(mats) {
   }
   const trend = new THREE.Line(new THREE.BufferGeometry().setFromPoints(trendPoints), lineMat(mats, 'accent', 0.95));
   group.add(trend);
+  const tip = new THREE.Group();
+  tip.position.copy(trendPoints[trendPoints.length - 1]);
+  attachGlow(mats, tip, 'glow', 0.6);
+  group.add(tip);
   group.rotation.x = 0.34;
   group.position.y = -0.5;
 
@@ -278,6 +340,7 @@ function buildOrbit(mats) {
   const group = new THREE.Group();
   const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.02, 1), fillMat(mats, 'primary', 0.1));
   core.add(new THREE.LineSegments(new THREE.EdgesGeometry(core.geometry), lineMat(mats, 'primary')));
+  attachGlow(mats, core, 'glow', 1.4);
   group.add(core);
 
   const rings = [];
@@ -289,6 +352,7 @@ function buildOrbit(mats) {
     const ring = new THREE.Group();
     const track = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.012, 8, 90), fillMat(mats, 'soft', 0.55));
     const moon = new THREE.Mesh(new THREE.SphereGeometry(0.14 - i * 0.02, 12, 12), fillMat(mats, i % 2 ? 'secondary' : 'accent', 0.95));
+    if (!(i % 2)) attachGlow(mats, moon, 'glow', 1.5);
     moon.position.x = radius;
     ring.add(track, moon);
     ring.rotation.set(tiltX, 0, tiltZ);
@@ -325,6 +389,7 @@ function buildModules(mats) {
     card.rotation.set(tilt * 0.4, tilt, 0);
     const chip = new THREE.Mesh(new THREE.SphereGeometry(0.07, 10, 10), fillMat(mats, 'accent', 0.9));
     chip.position.set(-(i === 0 ? 0.75 : 0.5), (i === 0 ? 0.4 : 0.28), 0.08);
+    attachGlow(mats, chip, 'glow', i === 0 ? 0.6 : 0.4);
     card.add(chip);
     group.add(card);
     modules.push({ card, baseY: y, phase: i * 1.3 });
@@ -359,6 +424,7 @@ function buildKanban(mats) {
   });
 
   const mover = edgedBox(mats, 1.35, 0.55, 0.07, 'accent', 'accent', 0.22);
+  attachGlow(mats, mover, 'glow', 1.1);
   group.add(mover);
   group.rotation.set(0.16, -0.35, 0);
 
@@ -395,6 +461,7 @@ function buildGlobe(mats) {
     const pin = new THREE.Group();
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.09, 10, 10), fillMat(mats, i % 2 ? 'accent' : 'secondary', 0.95));
     head.position.copy(dir.clone().multiplyScalar(2.28));
+    if (i % 2) attachGlow(mats, head, 'glow', 0.5);
     const stemGeo = new THREE.BufferGeometry().setFromPoints([
       dir.clone().multiplyScalar(2.05),
       dir.clone().multiplyScalar(2.28)
@@ -435,10 +502,26 @@ export function mountHero3D(canvas, variant) {
 
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setClearColor(0x000000, 0);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 60);
   camera.position.set(0, 0, 8.6);
+
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envTexture = pmrem.fromScene(new RoomEnvironment(), 0.035).texture;
+  scene.environment = envTexture;
+
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.35);
+  keyLight.position.set(3.2, 4, 5);
+  scene.add(keyLight);
+  const rimLight = new THREE.DirectionalLight(0xffffff, 1.1);
+  rimLight.position.set(-4, -1.5, -3.5);
+  scene.add(rimLight);
+  const fillLight = new THREE.AmbientLight(0xffffff, 0.22);
+  scene.add(fillLight);
 
   const mats = [];
   const built = build(mats);
@@ -449,6 +532,7 @@ export function mountHero3D(canvas, variant) {
   const applyTheme = () => {
     const palette = palettes[currentTheme()];
     mats.forEach(([material, role]) => material.color.set(palette[role] || palette.primary));
+    rimLight.color.set(palette.secondary);
   };
   applyTheme();
   const themeObserver = new MutationObserver(() => {
@@ -511,6 +595,8 @@ export function mountHero3D(canvas, variant) {
       if (Array.isArray(object.material)) object.material.forEach((m) => m.dispose());
       else object.material?.dispose();
     });
+    envTexture.dispose();
+    pmrem.dispose();
     renderer.dispose();
   };
 }

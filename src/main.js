@@ -661,10 +661,58 @@ const serviceHeroVariants = {
   'analytics-reporting': 'bars'
 };
 
+const heroSceneLabels = {
+  funnel: [
+    ['Lead capture', '18%'],
+    ['Conversion rate', 'live']
+  ],
+  stack: [
+    ['Product layer', 'synced'],
+    ['Deploy status', 'live']
+  ],
+  waveform: [
+    ['Call in progress', 'live'],
+    ['Response time', '2s']
+  ],
+  nodes: [
+    ['Pipeline sync', 'active'],
+    ['Lead score', '94']
+  ],
+  flow: [
+    ['Workflow trigger', 'live'],
+    ['Automation', '6 steps']
+  ],
+  bars: [
+    ['Growth signal', '+28%'],
+    ['Reporting', 'live']
+  ],
+  orbit: [
+    ['Connected systems', '6'],
+    ['Uptime', '99.9%']
+  ],
+  modules: [
+    ['Products live', '5'],
+    ['Ecosystem', 'synced']
+  ],
+  kanban: [
+    ['Pipeline stage', 'moving'],
+    ['Follow-up', 'due']
+  ],
+  globe: [
+    ['Industries served', '5+'],
+    ['Coverage', 'growing']
+  ]
+};
+
 function hero3dStage(variant) {
+  const labels = heroSceneLabels[variant] || [];
   return `
     <div class="hero-3d-stage" aria-hidden="true">
+      <div class="hero-3d-backdrop"></div>
       <canvas data-hero-scene="${variant}"></canvas>
+      ${labels.map(([text, stat], i) => `
+        <span class="hero-chip hero-chip-${i + 1}"><strong>${stat}</strong>${text}</span>
+      `).join('')}
     </div>
   `;
 }
