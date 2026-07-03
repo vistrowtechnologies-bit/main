@@ -652,6 +652,23 @@ function navItem(item) {
   `;
 }
 
+const serviceHeroVariants = {
+  'digital-marketing': 'funnel',
+  'saas-product-development': 'stack',
+  'ai-voice-calling': 'waveform',
+  'crm-lead-management': 'nodes',
+  'automation-workflows': 'flow',
+  'analytics-reporting': 'bars'
+};
+
+function hero3dStage(variant) {
+  return `
+    <div class="hero-3d-stage" aria-hidden="true">
+      <canvas data-hero-scene="${variant}"></canvas>
+    </div>
+  `;
+}
+
 function heroDashboard() {
   return `
     <div class="dashboard-visual" aria-label="Growth system dashboard preview">
@@ -892,11 +909,14 @@ function servicesPage(slug) {
     const details = servicePageDetails[selected.slug];
     setMeta(`${selected.title} | Vistrow`, selected.summary);
     return shell(`
-      <section class="page-hero">
-        <p class="eyebrow">Service</p>
-        <h1>${selected.headline}</h1>
-        <p>${selected.summary}</p>
-        <a class="btn primary" href="#/contact">${selected.cta} ${renderSvg(ArrowRight, 18)}</a>
+      <section class="page-hero has-3d">
+        <div class="page-hero-copy">
+          <p class="eyebrow">Service</p>
+          <h1>${selected.headline}</h1>
+          <p>${selected.summary}</p>
+          <a class="btn primary" href="#/contact">${selected.cta} ${renderSvg(ArrowRight, 18)}</a>
+        </div>
+        ${hero3dStage(serviceHeroVariants[selected.slug] || 'orbit')}
       </section>
       <section class="section-pad">
         <div class="section-head split">
@@ -958,10 +978,14 @@ function servicesPage(slug) {
     'Explore Vistrow services including performance marketing, CRM systems, AI voice calling agents, SaaS product development, automation workflows, and analytics.'
   );
   return shell(`
-    <section class="page-hero">
-      <p class="eyebrow">Services</p>
-      <h1>Services that connect marketing, technology, and growth.</h1>
-      <p>Vistrow provides end-to-end services for businesses that want more than campaigns. They want systems that capture leads, automate follow-ups, manage pipelines, and scale revenue.</p>
+    <section class="page-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Services</p>
+        <h1>Services that connect marketing, technology, and growth.</h1>
+        <p>Vistrow provides end-to-end services for businesses that want more than campaigns. They want systems that capture leads, automate follow-ups, manage pipelines, and scale revenue.</p>
+        <a class="btn primary" href="#/audit">Book a Growth Audit ${renderSvg(ArrowRight, 18)}</a>
+      </div>
+      ${hero3dStage('orbit')}
     </section>
     ${servicesSection()}
     ${processSection()}
@@ -976,14 +1000,17 @@ function digitalMarketingPage(selected) {
   );
 
   return shell(`
-    <section class="page-hero service-hero">
-      <p class="eyebrow">Digital Marketing</p>
-      <h1>Performance marketing built as a complete lead conversion system.</h1>
-      <p>Vistrow plans and runs digital marketing with campaigns, landing pages, tracking, CRM routing, retargeting, and reporting connected from the start. The goal is not only more leads. The goal is better visibility, faster follow-up, and measurable conversion.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#/audit">${selected.cta} ${renderSvg(ArrowRight, 18)}</a>
-        <a class="btn secondary" href="#/services/crm-lead-management">Connect CRM</a>
+    <section class="page-hero service-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Digital Marketing</p>
+        <h1>Performance marketing built as a complete lead conversion system.</h1>
+        <p>Vistrow plans and runs digital marketing with campaigns, landing pages, tracking, CRM routing, retargeting, and reporting connected from the start. The goal is not only more leads. The goal is better visibility, faster follow-up, and measurable conversion.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#/audit">${selected.cta} ${renderSvg(ArrowRight, 18)}</a>
+          <a class="btn secondary" href="#/services/crm-lead-management">Connect CRM</a>
+        </div>
       </div>
+      ${hero3dStage('funnel')}
     </section>
     <section class="section-pad two-col">
       <div>
@@ -1146,10 +1173,14 @@ function productsPage(slug) {
 
   setMeta('Products Built for Growth Operations | Vistrow', 'Explore Vistrow products including ArthaLeads CRM, Vistrow Voice, Vistrow Flow, and Vistrow Labs.');
   return shell(`
-    <section class="page-hero">
-      <p class="eyebrow">Products</p>
-      <h1>Products built from real business problems.</h1>
-      <p>Vistrow creates SaaS and AI products that help businesses manage leads, automate communication, and scale operations. ArthaLeads CRM is available today; the rest of the ecosystem is rolling out alongside our growth systems work.</p>
+    <section class="page-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Products</p>
+        <h1>Products built from real business problems.</h1>
+        <p>Vistrow creates SaaS and AI products that help businesses manage leads, automate communication, and scale operations. ArthaLeads CRM is available today; the rest of the ecosystem is rolling out alongside our growth systems work.</p>
+        <a class="btn primary" href="#/products/arthaleads-crm">Explore ArthaLeads CRM ${renderSvg(ArrowRight, 18)}</a>
+      </div>
+      ${hero3dStage('modules')}
     </section>
     ${productsSection()}
   `);
@@ -1162,14 +1193,17 @@ function arthaLeadsPage() {
   );
 
   return shell(`
-    <section class="page-hero product-hero">
-      <p class="eyebrow">Product</p>
-      <h1>ArthaLeads CRM for real estate sales teams.</h1>
-      <p>ArthaLeads is a real estate CRM workspace built for Indian developers, brokers, and channel partners. It brings property leads from ads, WhatsApp, websites, portals, walk-ins, and spreadsheets into one system for assignment, follow-ups, site visits, pipeline tracking, and performance reporting.</p>
-      <div class="cta-row">
-        <a class="btn primary" href="#/contact">Request CRM Demo ${renderSvg(ArrowRight, 18)}</a>
-        <a class="btn secondary" href="https://www.arthaleads.com/" target="_blank" rel="noopener noreferrer">Visit ArthaLeads</a>
+    <section class="page-hero product-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Product</p>
+        <h1>ArthaLeads CRM for real estate sales teams.</h1>
+        <p>ArthaLeads is a real estate CRM workspace built for Indian developers, brokers, and channel partners. It brings property leads from ads, WhatsApp, websites, portals, walk-ins, and spreadsheets into one system for assignment, follow-ups, site visits, pipeline tracking, and performance reporting.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#/contact">Request CRM Demo ${renderSvg(ArrowRight, 18)}</a>
+          <a class="btn secondary" href="https://www.arthaleads.com/" target="_blank" rel="noopener noreferrer">Visit ArthaLeads</a>
+        </div>
       </div>
+      ${hero3dStage('kanban')}
     </section>
 
     <section class="section-pad two-col">
@@ -1308,10 +1342,14 @@ function arthaLeadsPage() {
 function industriesPage() {
   setMeta('Growth Systems for Lead-Driven Industries | Vistrow', 'Vistrow builds CRM, AI calling, automation, and marketing systems for real estate, local businesses, sales teams, agencies, and startups.');
   return shell(`
-    <section class="page-hero">
-      <p class="eyebrow">Industries</p>
-      <h1>Systems for businesses where speed-to-lead matters.</h1>
-      <p>From real estate to local service businesses, Vistrow helps teams capture leads, manage conversations, automate follow-ups, and measure conversion.</p>
+    <section class="page-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Industries</p>
+        <h1>Systems for businesses where speed-to-lead matters.</h1>
+        <p>From real estate to local service businesses, Vistrow helps teams capture leads, manage conversations, automate follow-ups, and measure conversion.</p>
+        <a class="btn primary" href="#/audit">Plan My Industry System ${renderSvg(ArrowRight, 18)}</a>
+      </div>
+      ${hero3dStage('globe')}
     </section>
     ${industriesSection()}
     ${auditCta()}
@@ -1321,10 +1359,16 @@ function industriesPage() {
 function aboutPage() {
   setMeta('About Vistrow Technologies | Growth Systems Company', 'Vistrow Technologies helps businesses move from scattered marketing to connected growth infrastructure.');
   return shell(`
-    <section class="page-hero">
-      <p class="eyebrow">About Vistrow</p>
-      <h1>We are building the operating system for modern business growth.</h1>
-      <p>Vistrow Technologies is an AI, SaaS, CRM, automation, and digital growth systems company helping businesses move from scattered marketing to connected growth infrastructure.</p>
+    <section class="page-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">About Vistrow</p>
+        <h1>We are building the operating system for modern business growth.</h1>
+        <p>Vistrow Technologies is an AI, SaaS, CRM, automation, and digital growth systems company helping businesses move from scattered marketing to connected growth infrastructure.</p>
+        <a class="btn primary" href="#/company/ecosystem">Explore Our Ecosystem ${renderSvg(ArrowRight, 18)}</a>
+      </div>
+      <div class="hero-3d-stage" aria-hidden="true">
+        <canvas class="particle-scene contained" data-particle-scene data-particle-contained></canvas>
+      </div>
     </section>
     <section class="section-pad two-col">
       <div>
@@ -1354,10 +1398,19 @@ function contactPage(isAudit = false) {
     isAudit ? 'Get a roadmap to improve your marketing, CRM, follow-ups, automation, and conversion system.' : 'Tell Vistrow about your business and the growth system you want to build.'
   );
   return shell(`
-    <section class="page-hero contact-hero">
-      <p class="eyebrow">${isAudit ? 'Growth Audit' : 'Contact'}</p>
-      <h1>${isAudit ? 'Book your Vistrow Growth Audit.' : 'Let’s build your growth system.'}</h1>
-      <p>${isAudit ? 'Get a clear roadmap to improve your marketing, CRM, follow-ups, automation, and conversion system.' : 'Tell us about your business, your current challenges, and the systems you want to build. Our team will help you identify the best starting point.'}</p>
+    <section class="page-hero contact-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">${isAudit ? 'Growth Audit' : 'Contact'}</p>
+        <h1>${isAudit ? 'Book your Vistrow Growth Audit.' : 'Let’s build your growth system.'}</h1>
+        <p>${isAudit ? 'Get a clear roadmap to improve your marketing, CRM, follow-ups, automation, and conversion system.' : 'Tell us about your business, your current challenges, and the systems you want to build. Our team will help you identify the best starting point.'}</p>
+      </div>
+      <div class="hero-3d-stage signal-stage" aria-hidden="true">
+        <span class="signal-core"></span>
+        <span class="signal-ring"></span>
+        <span class="signal-ring delay-1"></span>
+        <span class="signal-ring delay-2"></span>
+        <span class="signal-orbit"><i></i></span>
+      </div>
     </section>
     <section class="section-pad contact-layout">
       <form class="contact-form">
@@ -1640,6 +1693,8 @@ function render() {
 
   window.__vistrowParticleCleanup?.();
   window.__vistrowParticleCleanup = null;
+  window.__vistrowHero3DCleanup?.();
+  window.__vistrowHero3DCleanup = null;
   document.querySelector('#app').innerHTML = html;
   bindInteractions();
   window.scrollTo({ top: 0, behavior: 'instant' });
@@ -1722,7 +1777,18 @@ function bindInteractions() {
   bindTiltCards();
   bindCareerLanyard();
   bindParticleScene();
+  bindHero3D();
   bindHomepageInteractions();
+}
+
+function bindHero3D() {
+  const canvas = document.querySelector('[data-hero-scene]');
+  if (!canvas) return;
+
+  import('./hero3d.js').then(({ mountHero3D }) => {
+    if (!document.contains(canvas) || window.__vistrowHero3DCleanup) return;
+    window.__vistrowHero3DCleanup = mountHero3D(canvas, canvas.dataset.heroScene);
+  });
 }
 
 function bindTiltCards() {
@@ -1819,11 +1885,15 @@ function bindParticleScene() {
   const canvas = document.querySelector('[data-particle-scene]');
   if (!canvas) return;
 
-  const cleanup = createParticleScene(canvas, {
-    count: window.matchMedia('(max-width: 680px)').matches ? 190 : 300,
-    centerX: window.matchMedia('(max-width: 680px)').matches ? 0.6 : 0.74,
-    centerY: window.matchMedia('(max-width: 680px)').matches ? 0.58 : 0.5
-  });
+  const isMobile = window.matchMedia('(max-width: 680px)').matches;
+  const contained = 'particleContained' in canvas.dataset;
+  const cleanup = createParticleScene(canvas, contained
+    ? { count: isMobile ? 150 : 230, centerX: 0.5, centerY: 0.5 }
+    : {
+      count: isMobile ? 190 : 300,
+      centerX: isMobile ? 0.6 : 0.74,
+      centerY: isMobile ? 0.58 : 0.5
+    });
 
   window.__vistrowParticleCleanup = cleanup;
 }
@@ -1994,7 +2064,23 @@ function bindHomepageInteractions() {
     });
   });
 
-  const revealItems = document.querySelectorAll('.service-card, .product-card, .industry-card, .point, .eco-card, .process-step, .audit-cta, .band');
+  const revealItems = document.querySelectorAll([
+    '.service-card',
+    '.product-card',
+    '.industry-card',
+    '.point',
+    '.eco-card',
+    '.process-step',
+    '.audit-cta',
+    '.band',
+    '.step-card',
+    '.outcome-card',
+    '.career-job',
+    '.legal-card',
+    '.mini-grid article',
+    '.deliverable-list > div',
+    '.service-metrics .metric'
+  ].join(','));
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -2006,6 +2092,8 @@ function bindHomepageInteractions() {
     }, { threshold: 0.14 });
     revealItems.forEach((item) => {
       item.classList.add('reveal');
+      const siblingIndex = Array.prototype.indexOf.call(item.parentElement?.children || [], item);
+      item.style.setProperty('--reveal-delay', `${Math.max(siblingIndex, 0) % 8 * 70}ms`);
       observer.observe(item);
     });
   } else {
