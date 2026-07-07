@@ -17,5 +17,5 @@ export const siteConfig = {
   phoneNumber: '',
 
   // GA4 Measurement ID, e.g. 'G-XXXXXXXXXX'.
-  gaMeasurementId: ''
+  gaMeasurementId: 'G-89YNYQBBB3'
 };
