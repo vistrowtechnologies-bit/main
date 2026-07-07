@@ -5,7 +5,7 @@
  */
 export const siteConfig = {
   // Formspree form endpoint, e.g. 'https://formspree.io/f/abcdwxyz'.
-  formspreeEndpoint: '',
+  formspreeEndpoint: 'https://formspree.io/f/xqevjjqw',
 
   // Inbox that should receive leads — also used as a fallback contact line.
   contactEmail: '',
