@@ -1582,6 +1582,10 @@ textarea {
   font-weight: 600;
 }
 
+.form-note[data-state="error"] {
+  color: #e0575d;
+}
+
 .review-card {
   position: sticky;
   top: 110px;
@@ -2415,4 +2419,136 @@ textarea {
   .page-hero h1 {
     font-size: clamp(2.35rem, 11vw, 3rem);
   }
+}
+
+/* Floating WhatsApp / call buttons — only rendered once configured in site-config.js */
+.fab-group {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fab-btn {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--cta-gradient);
+  color: #ffffff;
+  box-shadow: 0 14px 32px rgba(0, 119, 182, 0.35);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.fab-btn:hover,
+.fab-btn:focus-visible {
+  box-shadow: 0 18px 40px rgba(0, 119, 182, 0.45);
+  transform: translateY(-3px);
+}
+
+.fab-whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  box-shadow: 0 14px 32px rgba(18, 140, 126, 0.35);
+}
+
+/* Client results — honest "in progress" state instead of fabricated proof */
+.results-draft-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.results-draft-card {
+  position: relative;
+  padding: 26px;
+  border: 1.5px dashed var(--border-color);
+  border-radius: 8px;
+  background: transparent;
+}
+
+.results-draft-card h3 {
+  color: var(--text-muted);
+}
+
+.results-draft-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.draft-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--hover-bg);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.results-draft-card .icon-badge {
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .results-draft-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* FAQ accordion */
+.faq-list {
+  display: grid;
+  gap: 12px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  padding: 6px 22px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  box-shadow: var(--card-shadow);
+}
+
+.faq-item summary {
+  padding: 16px 0;
+  color: var(--text-heading);
+  cursor: pointer;
+  font-weight: 650;
+  font-size: 1rem;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  float: right;
+  content: "+";
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.faq-item[open] summary::after {
+  content: "\2212";
+}
+
+.faq-item p {
+  margin: 0;
+  padding-bottom: 18px;
+  color: var(--text-muted);
+  line-height: 1.7;
 }

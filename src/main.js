@@ -17,6 +17,7 @@ import {
   LineChart,
   Mail,
   Menu,
+  MessageCircle,
   MessageSquareText,
   Network,
   PanelRight,
@@ -33,6 +34,7 @@ import {
   X
 } from 'lucide';
 import './styles.css';
+import { siteConfig } from './site-config.js';
 
 const iconMap = {
   Activity,
@@ -90,7 +92,7 @@ const ecosystem = [
     icon: 'DatabaseZap',
     text: 'Real estate CRM for brokers, developers, and sales teams to manage leads and pipelines.',
     signal: 'Structure every lead',
-    stat: '₹82L pipeline'
+    stat: '142 active deals'
   },
   {
     title: 'Vistrow Flow',
@@ -326,8 +328,8 @@ const dashboardStages = [
   },
   {
     stage: 'Manage',
-    label: 'Pipeline value',
-    metric: '₹82L',
+    label: 'Pipeline size',
+    metric: '142',
     assist: '+17% active',
     workflow: 'CRM stage update to sales task to manager view'
   },
@@ -596,6 +598,26 @@ function setMeta(title, description) {
   document.querySelector('meta[name="description"]').setAttribute('content', description);
 }
 
+function floatingContactButtons() {
+  const buttons = [];
+  if (siteConfig.whatsappNumber) {
+    buttons.push(`
+      <a class="fab-btn fab-whatsapp" href="https://wa.me/${siteConfig.whatsappNumber}" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        ${renderSvg(MessageCircle, 22)}
+      </a>
+    `);
+  }
+  if (siteConfig.phoneNumber) {
+    buttons.push(`
+      <a class="fab-btn fab-call" href="tel:${siteConfig.phoneNumber}" aria-label="Call Vistrow">
+        ${renderSvg(Phone, 20)}
+      </a>
+    `);
+  }
+  if (!buttons.length) return '';
+  return `<div class="fab-group">${buttons.join('')}</div>`;
+}
+
 function shell(content) {
   return `
     <header class="site-header">
@@ -620,6 +642,7 @@ function shell(content) {
     </header>
     <main>${content}</main>
     ${footer()}
+    ${floatingContactButtons()}
   `;
 }
 
@@ -730,7 +753,7 @@ function heroDashboard() {
       <div class="metric-grid">
         <div class="metric is-primary"><small data-dashboard-label>Campaign sync</small><strong data-dashboard-metric>1,284</strong><span class="up" data-dashboard-assist>+28% captured</span></div>
         <div class="metric"><small>AI call activity</small><strong>342</strong><span class="blue">94 qualified</span></div>
-        <div class="metric"><small>Pipeline value</small><strong>₹82L</strong><span class="up">+17%</span></div>
+        <div class="metric"><small>Pipeline size</small><strong>142</strong><span class="up">+17%</span></div>
       </div>
       <div class="pipeline">
         ${dashboardStages.map((item, i) => `
@@ -787,6 +810,7 @@ function home() {
     ${ecosystemSection()}
     ${productsSection()}
     ${industriesSection()}
+    ${clientResultsSection()}
     ${auditCta()}
   `);
 }
@@ -936,6 +960,27 @@ function industriesSection() {
   `;
 }
 
+function clientResultsSection() {
+  return `
+    <section class="section-pad">
+      <div class="section-head">
+        <p class="eyebrow">Client Results</p>
+        <h2>Real project outcomes, published as engagements complete.</h2>
+      </div>
+      <div class="results-draft-grid">
+        ${['Digital Marketing', 'CRM & Automation', 'AI Voice Calling'].map((title) => `
+          <article class="results-draft-card">
+            <span class="draft-badge">In progress</span>
+            <span class="icon-badge">${icon('BarChart3')}</span>
+            <h3>${title} case study</h3>
+            <p>We publish real client outcomes here as engagements complete. Ask us for examples directly during your growth audit.</p>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
 function auditCta() {
   return `
     <section class="audit-cta">
@@ -1037,6 +1082,7 @@ function servicesPage(slug) {
     </section>
     ${servicesSection()}
     ${processSection()}
+    ${clientResultsSection()}
     ${auditCta()}
   `);
 }
@@ -1599,7 +1645,42 @@ function careersPage() {
   `);
 }
 
+const faqEntries = [
+  ['What does Vistrow actually do?', 'Vistrow builds connected growth systems: digital marketing campaigns, CRM setup, AI voice calling, automation workflows, and reporting, tied together so leads are captured, followed up, and tracked in one place instead of scattered across disconnected tools. Digital marketing is our core service; SaaS products like ArthaLeads CRM support that work.'],
+  ['How does the Growth Audit work?', 'We review your current lead sources, landing pages, CRM or lead-tracking process, follow-up speed, and reporting. You get a clear picture of what is working, what is leaking, and what to fix first. It is a starting point, not a sales pitch.'],
+  ['How much does a project cost?', 'It depends on scope: campaign complexity, CRM setup, number of automations, and ongoing management all affect it. We do not publish flat rates because most engagements are scoped to the business, not a fixed package. Pricing is discussed after your Growth Audit once we understand what you actually need.'],
+  ['How long does onboarding take?', 'A typical Digital Marketing or CRM engagement starts with a 1-2 week audit and planning phase, followed by build and launch. AI Voice Calling and automation projects usually take longer since they depend on call scripts, lead data, and integration points.'],
+  ['Does AI Voice Calling replace our sales team?', 'No. It is built to speed up first response and qualification, not replace human judgment. Serious or sensitive conversations are designed to hand off to your team, not stay fully automated.'],
+  ['Can ArthaLeads CRM work with our existing ad accounts?', 'Yes. ArthaLeads is built around real estate lead sources: Facebook and Google Ads, WhatsApp, website forms, property portals, and manual walk-ins or CSV imports all feed into one pipeline.'],
+  ['Do you offer ongoing support after launch?', 'Yes. Campaigns, CRM, and automation work is monitored and adjusted based on performance rather than treated as a one-time setup. The specific cadence is agreed on a per-engagement basis.'],
+  ['How is our data handled?', 'Business and lead information is used only to deliver the service you engage us for. See our Privacy Policy for the full detail on what we collect and how it is used.']
+];
+
+function faqPage() {
+  setMeta('FAQs | Vistrow Technologies', 'Common questions about Vistrow services, products, onboarding, and how engagements work.');
+  return shell(`
+    <section class="page-hero">
+      <p class="eyebrow">Resource</p>
+      <h1>FAQs</h1>
+      <p>Common questions about Vistrow services, products, and implementation.</p>
+    </section>
+    <section class="section-pad">
+      <div class="faq-list">
+        ${faqEntries.map(([question, answer]) => `
+          <details class="faq-item">
+            <summary>${question}</summary>
+            <p>${answer}</p>
+          </details>
+        `).join('')}
+      </div>
+    </section>
+    ${auditCta()}
+  `);
+}
+
 function resourcesPage(slug) {
+  if (slug === 'faqs') return faqPage();
+
   const selected = resources.find(([title]) => slugify(title) === slug);
   if (selected) {
     const [title, description] = selected;
@@ -1748,6 +1829,49 @@ function render() {
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
+async function handleContactSubmit(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const note = form.querySelector('.form-note');
+  const button = form.querySelector('button[type="submit"]');
+  const originalLabel = button.innerHTML;
+
+  if (!siteConfig.formspreeEndpoint) {
+    note.textContent = siteConfig.contactEmail
+      ? `This form isn't connected yet — please email us directly at ${siteConfig.contactEmail}.`
+      : "This form isn't connected yet. Please try again soon.";
+    note.dataset.state = 'error';
+    return;
+  }
+
+  button.disabled = true;
+  button.innerHTML = 'Sending…';
+  note.textContent = '';
+  note.dataset.state = '';
+
+  try {
+    const response = await fetch(siteConfig.formspreeEndpoint, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form)
+    });
+
+    if (!response.ok) throw new Error('submission failed');
+
+    note.textContent = 'Thanks — your message has been sent. Our team will get back to you shortly.';
+    note.dataset.state = 'success';
+    form.reset();
+  } catch (error) {
+    note.textContent = siteConfig.contactEmail
+      ? `Something went wrong. Please email us directly at ${siteConfig.contactEmail}.`
+      : 'Something went wrong. Please try again in a moment.';
+    note.dataset.state = 'error';
+  } finally {
+    button.disabled = false;
+    button.innerHTML = originalLabel;
+  }
+}
+
 function bindInteractions() {
   const navToggle = document.querySelector('.nav-toggle');
   const header = document.querySelector('.site-header');
@@ -1803,12 +1927,7 @@ function bindInteractions() {
     });
   });
 
-  document.querySelector('.contact-form')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const note = event.currentTarget.querySelector('.form-note');
-    note.textContent = 'Thanks. Your inquiry is ready to connect with a backend or CRM endpoint.';
-    event.currentTarget.reset();
-  });
+  document.querySelector('.contact-form')?.addEventListener('submit', handleContactSubmit);
 
   document.querySelectorAll('[data-scroll-target]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -2149,5 +2268,37 @@ function bindHomepageInteractions() {
   }
 }
 
-window.addEventListener('hashchange', render);
-render();
+function initAnalytics() {
+  if (!siteConfig.gaMeasurementId || window.__vistrowAnalyticsLoaded) return;
+  window.__vistrowAnalyticsLoaded = true;
+
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${siteConfig.gaMeasurementId}`;
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', siteConfig.gaMeasurementId);
+}
+
+function trackPageView() {
+  if (!siteConfig.gaMeasurementId || !window.gtag) return;
+  window.gtag('event', 'page_view', {
+    page_path: window.location.hash.replace(/^#/, '') || '/',
+    page_title: document.title
+  });
+}
+
+function renderAndTrack() {
+  render();
+  trackPageView();
+}
+
+initAnalytics();
+window.addEventListener('hashchange', renderAndTrack);
+renderAndTrack();
