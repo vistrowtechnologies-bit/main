@@ -30,6 +30,29 @@ export const digitalMarketingOverview: OverviewContent = {
     { label: "Conversion Tracking", href: "/digital-marketing/conversion-tracking", body: "Marketing tied directly to pipeline and revenue.", icon: BarChart3 },
     { label: "Marketing Automation", href: "/digital-marketing/marketing-automation", body: "Scale what works with connected, automated journeys.", icon: Workflow },
   ],
+  intro: {
+    eyebrow: "Beyond campaign management",
+    title: "Demand generation is only valuable when it reaches revenue.",
+    body:
+      "We plan media, creative, landing pages, tracking, and lead handoff as one operating system. That means every campaign has a clear audience, offer, conversion path, and measurement model before budget is scaled.",
+    points: [
+      "Channel strategy tied to commercial goals",
+      "Creative and landing pages built around one offer",
+      "Lead capture connected directly to CRM",
+      "Campaign reporting linked to qualified pipeline",
+    ],
+  },
+  process: [
+    { title: "Audit demand", body: "Review positioning, channels, spend, pages, tracking, and lead quality." },
+    { title: "Design the journey", body: "Define audiences, offers, conversion paths, and the measurement plan." },
+    { title: "Launch connected", body: "Ship campaigns with landing pages, CRM routing, and attribution in place." },
+    { title: "Improve on revenue", body: "Optimise against qualified opportunities and business outcomes." },
+  ],
+  faqs: [
+    { q: "Can you manage only one channel?", a: "Yes. We can improve a single priority channel or manage a connected multi-channel programme, depending on your goals and internal team." },
+    { q: "Do you create landing pages and creative?", a: "Yes. Strategy, creative, landing pages, tracking, and CRM handoff can be delivered together so the campaign does not depend on disconnected suppliers." },
+    { q: "What do you report on?", a: "We report on spend and campaign performance, but the main focus is lead quality, opportunities created, pipeline movement, and revenue attribution where the CRM data allows it." },
+  ],
 };
 
 const cta = "Book a Growth Audit";

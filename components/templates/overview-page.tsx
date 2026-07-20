@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
+import { Steps } from "@/components/sections/steps";
+import { Faq } from "@/components/sections/faq";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { OverviewContent } from "@/lib/content-types";
@@ -28,7 +30,32 @@ export function OverviewPage({
         secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
       />
 
-      <section className="py-section">
+      {content.intro && (
+        <section className="py-section">
+          <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <SectionHeading
+              eyebrow={content.intro.eyebrow ?? "The connected system"}
+              title={content.intro.title}
+              description={content.intro.body}
+            />
+            <Reveal delay={0.08}>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {content.intro.points.map((point) => (
+                  <li
+                    key={point}
+                    className="flex items-start gap-3 rounded-lg border border-line bg-card p-5"
+                  >
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" strokeWidth={2} />
+                    <span className="font-sans text-[15px] leading-relaxed text-ink-2">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      <section className="bg-surface py-section">
         <div className="container-edge">
           {content.cardsTitle && (
             <SectionHeading eyebrow="Explore" title={content.cardsTitle} className="mb-12" />
@@ -59,6 +86,16 @@ export function OverviewPage({
           </div>
         </div>
       </section>
+
+      {content.process && (
+        <Steps
+          eyebrow="How it comes together"
+          title="A clear route from first step to measurable outcome"
+          steps={content.process}
+        />
+      )}
+
+      {content.faqs && <Faq items={content.faqs} />}
 
       <CtaBand />
     </>

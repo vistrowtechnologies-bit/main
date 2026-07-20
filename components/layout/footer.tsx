@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Globe, AtSign, Linkedin } from "lucide-react";
+import { AtSign, Database, Globe, PhoneCall } from "lucide-react";
 import { Wordmark } from "@/components/ui/wordmark";
 
 const columns: { title: string; links: { label: string; href: string }[] }[] = [
@@ -39,6 +39,13 @@ const legal = [
 ];
 
 export function Footer() {
+  const externalLinks = [
+    { icon: Globe, label: "Vistrow website", href: "https://www.vistrow.com" },
+    { icon: PhoneCall, label: "Vistrow Voice", href: "https://voice-three-flax.vercel.app/" },
+    { icon: Database, label: "ArthaLeads", href: "https://www.arthaleads.com/" },
+    { icon: AtSign, label: "Email Vistrow", href: "mailto:hello@vistrow.com" },
+  ];
+
   return (
     <footer className="border-t border-line bg-surface">
       <div className="container-edge py-16">
@@ -50,14 +57,12 @@ export function Footer() {
               turn opportunities into revenue.
             </p>
             <div className="mt-6 flex gap-2.5">
-              {[
-                { icon: Linkedin, label: "LinkedIn" },
-                { icon: Globe, label: "Website" },
-                { icon: AtSign, label: "Email" },
-              ].map(({ icon: Icon, label }) => (
+              {externalLinks.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noreferrer" : undefined}
                   aria-label={label}
                   className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent hover:text-ink"
                 >

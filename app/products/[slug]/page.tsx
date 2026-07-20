@@ -20,7 +20,14 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <ProductPage
       content={content}
-      preview={<ProductPreview name={content.name} tagline={content.tagline} />}
+      preview={
+        <ProductPreview
+          name={content.name}
+          tagline={content.tagline}
+          stats={content.preview?.stats}
+          rows={content.preview?.rows}
+        />
+      }
     />
   );
 }

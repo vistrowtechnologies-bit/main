@@ -15,43 +15,46 @@ export function Hero() {
       <div className="container-edge grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
         <div className="max-w-2xl">
           <Reveal direction="right" distance={18} duration={0.5}>
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-tint/40 px-3 py-1">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent-strong" />
-            <span className="font-sans text-xs font-semibold text-accent-strong">
-              Marketing + systems, connected
-            </span>
-          </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-tint/40 px-3 py-1">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-accent-strong" />
+              <span className="font-sans text-xs font-semibold text-accent-strong">
+                Marketing + systems, connected
+              </span>
+            </div>
           </Reveal>
 
           <Reveal delay={0.08} direction="right" distance={30}>
-          <h1 className="mt-6 font-display text-hero-lg text-ink">
-            Digital marketing that connects directly to{" "}
-            <span className="relative whitespace-nowrap text-accent-strong">
-              business growth
-              <span className="absolute -bottom-1 left-0 h-[6px] w-full rounded-full bg-accent/50" />
-            </span>
-            .
-          </h1>
+            <h1 className="mt-6 font-display text-hero-lg text-ink">
+              Digital marketing that connects directly to{" "}
+              <span className="relative isolate inline-block whitespace-nowrap px-[0.08em] text-accent-ink">
+                <span
+                  aria-hidden
+                  className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
+                />
+                business growth
+              </span>
+              .
+            </h1>
           </Reveal>
 
           <Reveal delay={0.16} direction="right" distance={24}>
-          <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
-            Vistrow combines performance marketing, landing pages, CRM, AI voice,
-            automation, and conversion tracking to help businesses generate more
-            opportunities—and manage them more effectively.
-          </p>
+            <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
+              Vistrow combines performance marketing, landing pages, CRM, AI voice,
+              automation, and conversion tracking to help businesses generate more
+              opportunities—and manage them more effectively.
+            </p>
           </Reveal>
 
           <Reveal delay={0.24} direction="right" distance={18}>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
-              Book a Growth Audit
-              <ArrowRight className="h-5 w-5" strokeWidth={2} />
-            </Link>
-            <Link href="/digital-marketing" className="btn-secondary px-8 py-4 text-base">
-              Explore Services
-            </Link>
-          </div>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
+                Book a Growth Audit
+                <ArrowRight className="h-5 w-5" strokeWidth={2} />
+              </Link>
+              <Link href="/digital-marketing" className="btn-secondary px-8 py-4 text-base">
+                Explore Services
+              </Link>
+            </div>
           </Reveal>
         </div>
 

@@ -63,8 +63,8 @@ export function WorkPage({ content }: { content: WorkContent }) {
             ))}
           </div>
           <p className="mt-8 text-center font-sans text-xs text-muted">
-            Representative examples shown to illustrate our approach. Replace with verified,
-            named client results before publishing.
+            Solution examples describe Vistrow&apos;s delivery approach. Named client results are
+            published only when the underlying data and permission are verified.
           </p>
         </div>
       </section>

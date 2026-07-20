@@ -7,5 +7,6 @@ tsconfig.tsbuildinfo
 .DS_Store
 *.pem
 .env*
+!.env.example
 .vercel
 .stitch-home-ref.png

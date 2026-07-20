@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, ArrowRight, ArrowLeft } from "lucide-react";
+import { AlertCircle, CheckCircle2, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,6 +19,8 @@ export function GrowthAuditForm() {
   const [services, setServices] = useState<string[]>([]);
   const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   const set = (k: string, v: string) => setValues((p) => ({ ...p, [k]: v }));
 
@@ -36,12 +38,41 @@ export function GrowthAuditForm() {
     if (validateStep1()) setStep(1);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const err: Record<string, string> = {};
     if (!consent) err.consent = "Please agree to be contacted.";
     setErrors(err);
-    if (Object.keys(err).length === 0) setSubmitted(true);
+    if (Object.keys(err).length > 0) return;
+
+    setSubmitting(true);
+    setServerError("");
+    try {
+      const response = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "growth-audit",
+          ...values,
+          message: values.challenge || "Growth Audit requested",
+          channels,
+          services,
+          preferredContact: values.contact,
+          consent,
+        }),
+      });
+      const result = (await response.json()) as { ok?: boolean; error?: string };
+      if (!response.ok || !result.ok) throw new Error(result.error || "Request delivery failed.");
+      setSubmitted(true);
+    } catch (error) {
+      setServerError(
+        error instanceof Error
+          ? error.message
+          : "We couldn't send your request. Please email hello@vistrow.com.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const toggle = (list: string[], setList: (v: string[]) => void, item: string) =>
@@ -185,11 +216,31 @@ export function GrowthAuditForm() {
               <ArrowLeft className="h-4 w-4" strokeWidth={2} />
               Back
             </button>
-            <button type="submit" className="btn-primary flex-1 py-4 text-base">
-              Book my Growth Audit
-              <ArrowRight className="h-4 w-4" strokeWidth={2} />
+            <button
+              type="submit"
+              disabled={submitting}
+              className="btn-primary flex-1 py-4 text-base disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {submitting ? "Sending request" : "Book my Growth Audit"}
+              {submitting ? (
+                <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
+              ) : (
+                <ArrowRight className="h-4 w-4" strokeWidth={2} />
+              )}
             </button>
           </div>
+          {serverError && (
+            <div className="flex items-start gap-3 rounded-lg border border-error/30 bg-error/5 p-4 sm:col-span-2" role="alert">
+              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
+              <p className="font-sans text-sm text-ink-2">
+                {serverError} You can also email{" "}
+                <a href="mailto:hello@vistrow.com" className="font-semibold text-accent-strong hover:underline">
+                  hello@vistrow.com
+                </a>
+                .
+              </p>
+            </div>
+          )}
         </div>
       )}
     </form>

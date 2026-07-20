@@ -18,6 +18,29 @@ export const workOverview: OverviewContent = {
     { label: "Product Work", href: "/work/product-work", body: "Custom tools and products built in Vistrow Labs.", icon: AppWindow },
     { label: "Client Results", href: "/work/client-results", body: "Outcomes and metrics from ongoing partnerships.", icon: LineChart },
   ],
+  intro: {
+    eyebrow: "What this section shows",
+    title: "Systems, products, and delivery patterns—not invented success stories.",
+    body:
+      "Until named client case studies are approved for publication, this section documents the kinds of systems Vistrow builds and the operational outcomes they are designed to improve. Any future performance claim will be labelled and supported by verified data.",
+    points: [
+      "Connected lead-response and CRM workflows",
+      "Performance campaigns with end-to-end tracking",
+      "Live products including Vistrow Voice and ArthaLeads",
+      "Custom tools built through Vistrow Labs",
+    ],
+  },
+  process: [
+    { title: "Define the problem", body: "Start with the commercial or operational gap, not a preferred tactic." },
+    { title: "Design the system", body: "Map the journey, tools, owners, data, and handoffs." },
+    { title: "Build and connect", body: "Implement campaigns, products, CRM, automation, and reporting." },
+    { title: "Measure honestly", body: "Publish only outcomes that can be traced to verified data." },
+  ],
+  faqs: [
+    { q: "Are the examples on these pages named client case studies?", a: "Not yet. They are clearly presented as solution and delivery examples until clients approve named case studies and verified metrics for publication." },
+    { q: "Can we see a relevant demonstration?", a: "Yes. Contact Vistrow with your industry and workflow, and we can show the closest product or system pattern in a private walkthrough." },
+    { q: "How are future results verified?", a: "Through campaign platforms, CRM stage history, call and workflow logs, and agreed attribution rules." },
+  ],
 };
 
 export const workPages: Record<string, WorkContent> = {

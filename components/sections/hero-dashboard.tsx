@@ -25,20 +25,20 @@ export function HeroDashboard() {
           <div className="flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-accent" />
             <span className="font-sans text-[13px] font-semibold text-ink">
-              Growth Overview
+              Connected Growth Demo
             </span>
           </div>
           <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-ink">
-            Live
+            Illustrative
           </span>
         </div>
 
         {/* KPI row */}
         <div className="mt-4 grid grid-cols-3 gap-3">
           {[
-            { label: "New leads", end: 1284, decimals: 0, suffix: "", icon: Users },
-            { label: "Conversion", end: 6.4, decimals: 1, suffix: "%", icon: TrendingUp },
-            { label: "AI calls", end: 312, decimals: 0, suffix: "", icon: Phone },
+            { label: "Indian languages", end: 10, decimals: 0, suffix: "", icon: Users },
+            { label: "Calling channels", end: 3, decimals: 0, suffix: "", icon: TrendingUp },
+            { label: "Always active", end: 24, decimals: 0, suffix: "/7", icon: Phone },
           ].map((kpi, i) => (
             <motion.div
               key={kpi.label}
@@ -60,9 +60,9 @@ export function HeroDashboard() {
         <div className="mt-3 rounded-sm border border-line/70 bg-card/70 p-4">
           <div className="flex items-center justify-between">
             <span className="font-sans text-[12px] font-medium text-ink-2">
-              Campaign performance
+              Connected workflow activity
             </span>
-            <span className="font-sans text-[11px] font-semibold text-success">+18.2%</span>
+            <span className="font-sans text-[11px] font-semibold text-success">All systems connected</span>
           </div>
           <div className="mt-4 flex h-24 items-end gap-1.5">
             {bars.map((h, i) => (
@@ -89,9 +89,9 @@ export function HeroDashboard() {
             <p className="font-sans text-[11px] text-muted">Pipeline</p>
             <div className="mt-2 space-y-2">
               {[
-                { stage: "Qualified", w: "82%" },
-                { stage: "Proposal", w: "54%" },
-                { stage: "Won", w: "36%" },
+                { stage: "Inbound", w: "82%" },
+                { stage: "Outbound", w: "54%" },
+                { stage: "Website", w: "36%" },
               ].map((row) => (
                 <div key={row.stage}>
                   <div className="flex justify-between">
@@ -129,8 +129,8 @@ export function HeroDashboard() {
           <TrendingUp className="h-5 w-5 text-accent-ink" strokeWidth={2} />
         </div>
         <div>
-          <p className="font-sans text-[11px] text-muted">Conversion lift</p>
-          <p className="font-display text-base font-extrabold text-ink">+42% avg.</p>
+          <p className="font-sans text-[11px] text-muted">Always-on response</p>
+          <p className="font-display text-base font-extrabold text-ink">24/7 coverage</p>
         </div>
       </div>
     </div>

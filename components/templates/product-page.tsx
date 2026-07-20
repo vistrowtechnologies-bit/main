@@ -27,8 +27,16 @@ export function ProductPage({
         eyebrow="Product"
         title={content.name}
         subtitle={content.subtitle}
-        primaryCta={{ label: content.demoCta ?? "Book a Demo", href: "/growth-audit" }}
-        secondaryCta={{ label: "All products", href: "/products" }}
+        primaryCta={
+          content.externalUrl
+            ? {
+                label: content.externalLabel ?? `Visit ${content.name}`,
+                href: content.externalUrl,
+                external: true,
+              }
+            : { label: content.demoCta ?? "Book a Demo", href: "/contact" }
+        }
+        secondaryCta={{ label: "Book a walkthrough", href: "/contact" }}
         aside={preview}
       />
 
@@ -40,12 +48,12 @@ export function ProductPage({
 
       <Chips eyebrow="Integrations" title="Connects to your stack" items={content.integrations} />
 
-      {/* Security / reliability */}
+      {/* Trust / reliability */}
       <section className="py-section">
         <div className="container-edge">
           <SectionHeading
-            eyebrow="Security & reliability"
-            title="Built to be trusted with your pipeline"
+            eyebrow="Trust & control"
+            title="Built to stay observable, governed, and dependable"
             align="center"
             className="mb-12"
           />
@@ -70,8 +78,17 @@ export function ProductPage({
 
       <CtaBand
         title={`See ${content.name} in action.`}
-        subtitle="Book a short demo and we'll show it running against a real workflow."
-        primaryCta={{ label: content.demoCta ?? "Book a Demo", href: "/growth-audit" }}
+        subtitle="Explore the live product or book a walkthrough to see how it fits your workflow."
+        primaryCta={
+          content.externalUrl
+            ? {
+                label: content.externalLabel ?? `Visit ${content.name}`,
+                href: content.externalUrl,
+                external: true,
+              }
+            : { label: content.demoCta ?? "Book a Demo", href: "/contact" }
+        }
+        secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
       />
     </>
   );

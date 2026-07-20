@@ -1,19 +1,18 @@
-// Placeholder wordmarks — replace with real, verified client/platform logos.
-const logos = ["Northwind", "Aperture", "Meridian", "Quanta", "Voxel", "Lumen"];
+const platforms = ["Google Ads", "Meta", "HubSpot", "WhatsApp", "Twilio", "Pipedrive"];
 
 export function TrustStrip() {
   return (
     <section className="overflow-hidden border-y border-line bg-surface">
       <div className="container-edge py-12">
         <p className="text-center font-sans text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-          Powering growth for teams that take pipeline seriously
+          Platforms we connect across the growth system
         </p>
         <div className="logo-marquee mt-8 [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
           <div className="logo-marquee-track">
-            {[...logos, ...logos].map((name, i) => (
+            {[...platforms, ...platforms].map((name, i) => (
               <span
                 key={`${name}-${i}`}
-                aria-hidden={i >= logos.length}
+                aria-hidden={i >= platforms.length}
                 className="shrink-0 px-8 font-display text-xl font-bold tracking-tight text-muted/70 grayscale transition-colors hover:text-ink sm:px-12"
               >
                 {name}

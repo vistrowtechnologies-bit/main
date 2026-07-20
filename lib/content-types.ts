@@ -51,6 +51,12 @@ export type ProductContent = {
   integrations: string[];
   security: Feature[];
   demoCta?: string;
+  externalUrl?: string;
+  externalLabel?: string;
+  preview?: {
+    stats: { value: string; label: string }[];
+    rows: { label: string; value: string }[];
+  };
 };
 
 export type OverviewCard = {
@@ -69,6 +75,9 @@ export type OverviewContent = {
   metaDescription: string;
   cards: OverviewCard[];
   cardsTitle?: string;
+  intro?: { eyebrow?: string; title: string; body: string; points: string[] };
+  process?: Step[];
+  faqs?: QA[];
 };
 
 export type LegalContent = {

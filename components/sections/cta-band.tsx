@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import type { CtaLink } from "@/components/sections/page-hero";
 
@@ -24,18 +24,43 @@ export function CtaBand({
               <h2 className="font-display text-h2 text-ink">{title}</h2>
               <p className="mt-5 font-sans text-lg leading-relaxed text-muted">{subtitle}</p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Link href={primaryCta.href} className="btn-primary px-8 py-4 text-base">
-                  {primaryCta.label}
-                  <ArrowRight className="h-5 w-5" strokeWidth={2} />
-                </Link>
-                <Link href={secondaryCta.href} className="btn-secondary px-8 py-4 text-base">
-                  {secondaryCta.label}
-                </Link>
+                <CtaAction cta={primaryCta} primary />
+                <CtaAction cta={secondaryCta} />
               </div>
             </div>
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function CtaAction({ cta, primary = false }: { cta: CtaLink; primary?: boolean }) {
+  const className = primary
+    ? "btn-primary px-8 py-4 text-base"
+    : "btn-secondary px-8 py-4 text-base";
+  const content = (
+    <>
+      {cta.label}
+      {primary &&
+        (cta.external ? (
+          <ExternalLink className="h-4 w-4" strokeWidth={2} />
+        ) : (
+          <ArrowRight className="h-5 w-5" strokeWidth={2} />
+        ))}
+    </>
+  );
+
+  if (cta.external) {
+    return (
+      <a href={cta.href} target="_blank" rel="noreferrer" className={className}>
+        {content}
+      </a>
+    );
+  }
+  return (
+    <Link href={cta.href} className={className}>
+      {content}
+    </Link>
   );
 }

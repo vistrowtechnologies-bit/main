@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { Breadcrumb, type Crumb } from "@/components/ui/breadcrumb";
 
-export type CtaLink = { label: string; href: string };
+export type CtaLink = { label: string; href: string; external?: boolean };
 
 export function PageHero({
   breadcrumb,
@@ -44,7 +44,13 @@ export function PageHero({
             {highlight && (
               <>
                 {" "}
-                <span className="text-accent-strong">{highlight}</span>
+                <span className="relative isolate inline-block px-[0.08em] text-accent-ink">
+                  <span
+                    aria-hidden
+                    className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.6deg] rounded-[0.12em] bg-accent shadow-[0_0_22px_rgb(var(--accent)/0.18)]"
+                  />
+                  {highlight}
+                </span>
               </>
             )}
           </h1>
@@ -56,19 +62,41 @@ export function PageHero({
             {subtitle}
           </p>
           <div className={`mt-8 flex flex-col gap-3 sm:flex-row ${aside ? "" : "justify-center"}`}>
-            <Link href={primaryCta.href} className="btn-primary px-7 py-3.5 text-base">
-              {primaryCta.label}
-              <ArrowRight className="h-5 w-5" strokeWidth={2} />
-            </Link>
+            <ActionLink cta={primaryCta} className="btn-primary px-7 py-3.5 text-base" />
             {secondaryCta && (
-              <Link href={secondaryCta.href} className="btn-secondary px-7 py-3.5 text-base">
-                {secondaryCta.label}
-              </Link>
+              <ActionLink cta={secondaryCta} className="btn-secondary px-7 py-3.5 text-base" />
             )}
           </div>
         </div>
         {aside && <div className="relative lg:pl-4">{aside}</div>}
       </div>
     </section>
+  );
+}
+
+function ActionLink({ cta, className }: { cta: CtaLink; className: string }) {
+  const content = (
+    <>
+      {cta.label}
+      {cta.external ? (
+        <ExternalLink className="h-4 w-4" strokeWidth={2} />
+      ) : (
+        <ArrowRight className="h-5 w-5" strokeWidth={2} />
+      )}
+    </>
+  );
+
+  if (cta.external) {
+    return (
+      <a href={cta.href} target="_blank" rel="noreferrer" className={className}>
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={cta.href} className={className}>
+      {content}
+    </Link>
   );
 }

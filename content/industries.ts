@@ -19,6 +19,29 @@ export const industriesOverview: OverviewContent = {
     { label: "Agencies", href: "/industries/agencies", body: "White-label systems and automation to serve more clients.", icon: Users },
     { label: "Education", href: "/industries/education", body: "Enrolment pipelines and timely applicant follow-up.", icon: GraduationCap },
   ],
+  intro: {
+    eyebrow: "Industry context matters",
+    title: "The engine stays connected. The workflow changes by market.",
+    body:
+      "A property enquiry, a B2B opportunity, and a course applicant should not enter the same generic funnel. We adapt channel mix, qualification, response, follow-up, and reporting to the real buying journey in each industry.",
+    points: [
+      "Channel selection based on how the market buys",
+      "Qualification designed around real sales criteria",
+      "Follow-up timing matched to the decision cycle",
+      "Reporting aligned to meaningful commercial stages",
+    ],
+  },
+  process: [
+    { title: "Understand the market", body: "Map buyers, demand sources, seasonality, and the real decision process." },
+    { title: "Define qualification", body: "Agree what makes an enquiry valuable and when it becomes sales-ready." },
+    { title: "Build the journey", body: "Connect acquisition, response, nurture, CRM, and human handoff." },
+    { title: "Optimise by outcome", body: "Improve the stages that matter: visits, appointments, opportunities, or enrolments." },
+  ],
+  faqs: [
+    { q: "Do you only work with the industries listed here?", a: "No. These are common starting points, but the same audit and system-design approach can be adapted to other lead- and appointment-driven businesses." },
+    { q: "Will we get an industry-specific strategy?", a: "Yes. We start from your market, margins, buying cycle, team, and tools rather than applying a prebuilt campaign template." },
+    { q: "Can you work with our existing sales process?", a: "Yes. We map the current process first and preserve what works before recommending changes." },
+  ],
 };
 
 const dmServices = [
