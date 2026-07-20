@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { ScrollParallax } from "@/components/ui/motion-primitives";
 
 export function FinalCta() {
   return (
     <section className="px-5 pb-section sm:px-8">
       <div className="mx-auto max-w-container">
         <Reveal>
+          <ScrollParallax distance={16}>
           <div className="glass relative overflow-hidden rounded-2xl border-2 border-accent/20 p-10 sm:p-14 lg:p-20">
             <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-accent/20 blur-[100px]" />
             <div className="relative z-10 max-w-2xl">
@@ -28,6 +30,7 @@ export function FinalCta() {
               </div>
             </div>
           </div>
+          </ScrollParallax>
         </Reveal>
       </div>
     </section>

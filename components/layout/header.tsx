@@ -131,7 +131,7 @@ function NavTrigger({
   onFocus: () => void;
 }) {
   const base =
-    "relative flex items-center gap-1 whitespace-nowrap rounded-sm px-2.5 py-2 font-sans text-[15px] font-medium transition-colors";
+    "nav-link-motion relative flex items-center gap-1 whitespace-nowrap rounded-sm px-2.5 py-2 font-sans text-[15px] font-medium transition-colors";
   const tone = active ? "text-ink" : open ? "text-ink" : "text-ink-2 hover:text-ink";
   const indicator = active ? (
     <span className="absolute -bottom-[3px] left-2.5 right-2.5 h-[2px] rounded-full bg-accent" />

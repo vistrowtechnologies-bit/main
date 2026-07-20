@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HeroDashboard } from "@/components/sections/hero-dashboard";
+import { Reveal } from "@/components/ui/reveal";
+import { ScrollParallax } from "@/components/ui/motion-primitives";
 
 export function Hero() {
   return (
@@ -11,14 +13,17 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.5] [background-image:radial-gradient(rgb(var(--muted)/0.18)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
       />
       <div className="container-edge grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
-        <div className="max-w-2xl animate-rise-in">
+        <div className="max-w-2xl">
+          <Reveal direction="right" distance={18} duration={0.5}>
           <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-tint/40 px-3 py-1">
             <span className="h-2 w-2 animate-pulse rounded-full bg-accent-strong" />
             <span className="font-sans text-xs font-semibold text-accent-strong">
               Marketing + systems, connected
             </span>
           </div>
+          </Reveal>
 
+          <Reveal delay={0.08} direction="right" distance={30}>
           <h1 className="mt-6 font-display text-hero-lg text-ink">
             Digital marketing that connects directly to{" "}
             <span className="relative whitespace-nowrap text-accent-strong">
@@ -27,13 +32,17 @@ export function Hero() {
             </span>
             .
           </h1>
+          </Reveal>
 
+          <Reveal delay={0.16} direction="right" distance={24}>
           <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
             Vistrow combines performance marketing, landing pages, CRM, AI voice,
             automation, and conversion tracking to help businesses generate more
             opportunities—and manage them more effectively.
           </p>
+          </Reveal>
 
+          <Reveal delay={0.24} direction="right" distance={18}>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
               Book a Growth Audit
@@ -43,11 +52,14 @@ export function Hero() {
               Explore Services
             </Link>
           </div>
+          </Reveal>
         </div>
 
-        <div className="relative lg:pl-4">
-          <HeroDashboard />
-        </div>
+        <Reveal delay={0.14} direction="left" distance={36} className="relative lg:pl-4">
+          <ScrollParallax distance={28}>
+            <HeroDashboard />
+          </ScrollParallax>
+        </Reveal>
       </div>
     </section>
   );

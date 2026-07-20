@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LineChart, Cog, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { AnimatedBar, TiltCard } from "@/components/ui/motion-primitives";
 
 const smallCards = [
   {
@@ -38,6 +39,7 @@ export function Services() {
         <div className="mt-12 grid grid-cols-1 gap-gutter md:grid-cols-12">
           {/* Digital Marketing — large glass card */}
           <Reveal className="md:col-span-8">
+            <TiltCard className="h-full">
             <div className="glass glass-hover group relative flex h-full flex-col overflow-hidden rounded-lg p-8 sm:p-10">
               <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-accent shadow-soft">
                 <LineChart className="h-7 w-7 text-accent-ink" strokeWidth={1.75} />
@@ -60,10 +62,12 @@ export function Services() {
                 ))}
               </ul>
             </div>
+            </TiltCard>
           </Reveal>
 
           {/* Business Automation — inverse (carbon) card */}
           <Reveal delay={0.08} className="md:col-span-4">
+            <TiltCard className="h-full">
             <div className="group flex h-full flex-col overflow-hidden rounded-lg bg-inverse p-8 sm:p-10">
               <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-white/10">
                 <Cog className="h-7 w-7 text-accent" strokeWidth={1.75} />
@@ -77,24 +81,27 @@ export function Services() {
               </p>
               <div className="mt-auto space-y-3 pt-8">
                 <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-3/4 rounded-full bg-accent" />
+                  <AnimatedBar width="75%" className="h-full rounded-full bg-accent" />
                 </div>
                 <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-1/2 rounded-full bg-accent/70" />
+                  <AnimatedBar width="50%" delay={0.12} className="h-full rounded-full bg-accent/70" />
                 </div>
               </div>
             </div>
+            </TiltCard>
           </Reveal>
 
           {/* three small glass cards */}
           {smallCards.map((card, i) => (
             <Reveal key={card.title} delay={0.05 * i} className="md:col-span-4">
+              <TiltCard className="h-full">
               <div className="glass glass-hover h-full rounded-lg p-7">
                 <h4 className="font-display text-lg font-bold text-ink">{card.title}</h4>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
                   {card.body}
                 </p>
               </div>
+              </TiltCard>
             </Reveal>
           ))}
         </div>

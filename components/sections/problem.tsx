@@ -25,16 +25,19 @@ export function Problem() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1} className="mx-auto mt-12 flex max-w-3xl flex-wrap justify-center gap-2.5">
+        <div className="mx-auto mt-12 flex max-w-3xl flex-wrap justify-center gap-2.5">
           {gaps.map((gap) => (
-            <span
+            <Reveal
               key={gap}
-              className="rounded-full border border-line bg-card px-4 py-2 font-sans text-sm font-medium text-ink-2"
+              direction="scale"
+              delay={0.08 + gaps.indexOf(gap) * 0.055}
             >
-              {gap}
-            </span>
+              <span className="block rounded-full border border-line bg-card px-4 py-2 font-sans text-sm font-medium text-ink-2 shadow-soft transition-all hover:-translate-y-1 hover:border-accent/50 hover:text-ink">
+                {gap}
+              </span>
+            </Reveal>
           ))}
-        </Reveal>
+        </div>
       </div>
     </section>
   );

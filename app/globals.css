@@ -124,6 +124,26 @@
     border-color: rgb(var(--accent) / 0.5);
   }
 
+  .nav-link-motion::after {
+    content: "";
+    position: absolute;
+    left: 0.625rem;
+    right: 0.625rem;
+    bottom: 0.15rem;
+    height: 2px;
+    border-radius: 999px;
+    background: rgb(var(--accent));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-link-motion:hover::after,
+  .nav-link-motion:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
   /* Gradient ink for large display headings (carbon → graphite). */
   .text-gradient-ink {
     background: linear-gradient(
@@ -144,6 +164,22 @@
       active:scale-[0.97] focus-visible:outline-2;
   }
 
+  .btn-primary:hover {
+    box-shadow: 0 0 0 1px rgb(var(--accent) / 0.25),
+      0 14px 34px rgb(var(--accent) / 0.18);
+    transform: translateY(-2px);
+  }
+
+  .btn-primary svg,
+  .btn-secondary svg {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-primary:hover svg,
+  .btn-secondary:hover svg {
+    transform: translateX(3px);
+  }
+
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-sm border border-line/80
       bg-card/60 px-6 py-3 font-sans text-sm font-semibold text-ink
@@ -157,6 +193,26 @@
 
   .eyebrow {
     @apply font-sans text-xs font-semibold uppercase tracking-[0.16em] text-accent-strong;
+  }
+}
+
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: logo-marquee 24s linear infinite;
+}
+
+.logo-marquee:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 

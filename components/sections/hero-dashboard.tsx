@@ -1,4 +1,9 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Phone, TrendingUp, Users, CheckCircle2 } from "lucide-react";
+import { CountUp } from "@/components/ui/motion-primitives";
 
 /**
  * Connected marketing + lead-management interface mock.
@@ -6,8 +11,11 @@ import { Phone, TrendingUp, Users, CheckCircle2 } from "lucide-react";
  */
 export function HeroDashboard() {
   const bars = [38, 52, 44, 66, 58, 78, 72, 90];
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reduce = useReducedMotion();
   return (
-    <div className="relative w-full">
+    <div ref={ref} className="relative w-full">
       {/* soft accent bloom behind the panel */}
       <div className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-accent/10 blur-[90px]" />
 
@@ -28,15 +36,23 @@ export function HeroDashboard() {
         {/* KPI row */}
         <div className="mt-4 grid grid-cols-3 gap-3">
           {[
-            { label: "New leads", value: "1,284", icon: Users },
-            { label: "Conversion", value: "6.4%", icon: TrendingUp },
-            { label: "AI calls", value: "312", icon: Phone },
-          ].map((kpi) => (
-            <div key={kpi.label} className="rounded-sm border border-line/70 bg-card/70 p-3">
+            { label: "New leads", end: 1284, decimals: 0, suffix: "", icon: Users },
+            { label: "Conversion", end: 6.4, decimals: 1, suffix: "%", icon: TrendingUp },
+            { label: "AI calls", end: 312, decimals: 0, suffix: "", icon: Phone },
+          ].map((kpi, i) => (
+            <motion.div
+              key={kpi.label}
+              className="rounded-sm border border-line/70 bg-card/70 p-3"
+              initial={reduce ? false : { opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : undefined}
+              transition={{ delay: 0.28 + i * 0.08, duration: 0.45 }}
+            >
               <kpi.icon className="h-4 w-4 text-accent-strong" strokeWidth={1.75} />
-              <p className="mt-2 font-display text-lg font-extrabold text-ink">{kpi.value}</p>
+              <p className="mt-2 font-display text-lg font-extrabold text-ink">
+                <CountUp end={kpi.end} decimals={kpi.decimals} suffix={kpi.suffix} />
+              </p>
               <p className="font-sans text-[11px] text-muted">{kpi.label}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -50,12 +66,18 @@ export function HeroDashboard() {
           </div>
           <div className="mt-4 flex h-24 items-end gap-1.5">
             {bars.map((h, i) => (
-              <div
+              <motion.div
                 key={i}
                 className={`flex-1 rounded-t-[3px] ${
                   i === bars.length - 1 ? "bg-accent" : "bg-accent/25"
                 }`}
-                style={{ height: `${h}%` }}
+                initial={reduce ? false : { height: 0 }}
+                animate={inView ? { height: `${h}%` } : undefined}
+                transition={{
+                  duration: 0.65,
+                  delay: 0.35 + i * 0.055,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               />
             ))}
           </div>
@@ -76,7 +98,12 @@ export function HeroDashboard() {
                     <span className="font-sans text-[11px] text-ink-2">{row.stage}</span>
                   </div>
                   <div className="mt-1 h-1.5 w-full rounded-full bg-line/70">
-                    <div className="h-full rounded-full bg-accent-strong" style={{ width: row.w }} />
+                    <motion.div
+                      className="h-full rounded-full bg-accent-strong"
+                      initial={reduce ? false : { width: 0 }}
+                      animate={inView ? { width: row.w } : undefined}
+                      transition={{ duration: 0.7, delay: 0.65 }}
+                    />
                   </div>
                 </div>
               ))}

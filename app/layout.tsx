@@ -4,6 +4,7 @@ import "./globals.css";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { RouteTransition, ScrollProgress } from "@/components/ui/motion-primitives";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -74,6 +75,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="font-sans antialiased">
+        <ScrollProgress />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:font-semibold focus:text-accent-ink"
@@ -82,7 +84,9 @@ export default function RootLayout({
         </a>
         <AnnouncementBar />
         <Header />
-        <main id="main">{children}</main>
+        <main id="main">
+          <RouteTransition>{children}</RouteTransition>
+        </main>
         <Footer />
       </body>
     </html>
