@@ -11,7 +11,7 @@ export function ProductPreview({ name, tagline }: { name: string; tagline: strin
             <span className="h-2.5 w-2.5 rounded-full bg-accent" />
             <span className="font-sans text-[13px] font-semibold text-ink">{name}</span>
           </div>
-          <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-strong">
+          <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-ink">
             {tagline}
           </span>
         </div>

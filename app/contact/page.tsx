@@ -38,7 +38,7 @@ export default function Page() {
               {details.map((d) => (
                 <li key={d.label} className="flex items-center gap-4">
                   <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-accent-tint">
-                    <d.icon className="h-5 w-5 text-accent-strong" strokeWidth={1.75} />
+                    <d.icon className="h-5 w-5 text-accent-ink" strokeWidth={1.75} />
                   </div>
                   <div>
                     <p className="font-sans text-[13px] text-muted">{d.label}</p>

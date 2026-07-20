@@ -56,7 +56,7 @@ export function ProductPage({
                   <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-accent-tint">
                     {(() => {
                       const Icon = item.icon ?? ShieldCheck;
-                      return <Icon className="h-5 w-5 text-accent-strong" strokeWidth={1.75} />;
+                      return <Icon className="h-5 w-5 text-accent-ink" strokeWidth={1.75} />;
                     })()}
                   </div>
                   <h3 className="mt-4 font-display text-lg font-bold text-ink">{item.title}</h3>

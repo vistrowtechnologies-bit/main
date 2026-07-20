@@ -75,7 +75,7 @@ export function Products() {
           <div className="glass overflow-hidden rounded-xl p-5 shadow-lift">
             <div className="flex items-center justify-between border-b border-line/70 pb-3">
               <span className="font-sans text-[13px] font-semibold text-ink">Vistrow Voice</span>
-              <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-strong">
+              <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-ink">
                 On call
               </span>
             </div>

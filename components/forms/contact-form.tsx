@@ -29,7 +29,7 @@ export function ContactForm() {
     return (
       <div className="glass rounded-xl p-8 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-accent-tint">
-          <CheckCircle2 className="h-7 w-7 text-accent-strong" strokeWidth={2} />
+          <CheckCircle2 className="h-7 w-7 text-accent-ink" strokeWidth={2} />
         </div>
         <h3 className="mt-5 font-display text-h3 text-ink">Thanks—message received</h3>
         <p className="mx-auto mt-3 max-w-md font-sans text-muted">

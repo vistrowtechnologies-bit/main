@@ -33,7 +33,7 @@ export function FeatureCards({
               <div className="glass glass-hover h-full rounded-lg p-7">
                 {item.icon && (
                   <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-accent-tint">
-                    <item.icon className="h-6 w-6 text-accent-strong" strokeWidth={1.75} />
+                    <item.icon className="h-6 w-6 text-accent-ink" strokeWidth={1.75} />
                   </div>
                 )}
                 <h3 className="mt-5 font-display text-lg font-bold text-ink">{item.title}</h3>

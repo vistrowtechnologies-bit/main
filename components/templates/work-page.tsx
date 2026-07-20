@@ -44,7 +44,7 @@ export function WorkPage({ content }: { content: WorkContent }) {
             {content.items.map((item, i) => (
               <Reveal key={item.title} delay={(i % 2) * 0.08}>
                 <article className="glass glass-hover flex h-full flex-col rounded-lg p-8">
-                  <span className="w-fit rounded-full bg-accent-tint px-3 py-1 font-sans text-xs font-semibold text-accent-strong">
+                  <span className="w-fit rounded-full bg-accent-tint px-3 py-1 font-sans text-xs font-semibold text-accent-ink">
                     {item.tag}
                   </span>
                   <h3 className="mt-5 font-display text-h3 text-ink">{item.title}</h3>

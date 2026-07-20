@@ -33,7 +33,7 @@ export default function Page() {
               {whatYouGet.map((item) => (
                 <li key={item.title} className="flex items-start gap-4">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm bg-accent-tint">
-                    <item.icon className="h-5 w-5 text-accent-strong" strokeWidth={1.75} />
+                    <item.icon className="h-5 w-5 text-accent-ink" strokeWidth={1.75} />
                   </div>
                   <div>
                     <p className="font-sans text-[15px] font-semibold text-ink">{item.title}</p>

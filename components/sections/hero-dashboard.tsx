@@ -20,7 +20,7 @@ export function HeroDashboard() {
               Growth Overview
             </span>
           </div>
-          <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-strong">
+          <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-ink">
             Live
           </span>
         </div>

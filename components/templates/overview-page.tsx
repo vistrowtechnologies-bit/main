@@ -43,7 +43,7 @@ export function OverviewPage({
                   <div className="flex items-start justify-between">
                     {card.icon && (
                       <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-accent-tint">
-                        <card.icon className="h-6 w-6 text-accent-strong" strokeWidth={1.75} />
+                        <card.icon className="h-6 w-6 text-accent-ink" strokeWidth={1.75} />
                       </div>
                     )}
                     <ArrowUpRight

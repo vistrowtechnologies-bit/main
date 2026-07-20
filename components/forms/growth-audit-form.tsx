@@ -51,7 +51,7 @@ export function GrowthAuditForm() {
     return (
       <div className="glass rounded-xl p-8 text-center sm:p-12">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent-tint">
-          <CheckCircle2 className="h-8 w-8 text-accent-strong" strokeWidth={2} />
+          <CheckCircle2 className="h-8 w-8 text-accent-ink" strokeWidth={2} />
         </div>
         <h3 className="mt-6 font-display text-h3 text-ink">Your Growth Audit is requested</h3>
         <p className="mx-auto mt-3 max-w-md font-sans text-muted">
@@ -212,7 +212,7 @@ function Chip({
       aria-pressed={active}
       className={`rounded-full border px-4 py-2 font-sans text-sm font-medium transition-colors ${
         active
-          ? "border-accent bg-accent-tint text-accent-strong"
+          ? "border-accent bg-accent-tint text-accent-ink"
           : "border-line bg-card text-ink-2 hover:border-accent/50"
       }`}
     >
