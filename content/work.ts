@@ -1,0 +1,81 @@
+import { FileText, Megaphone, AppWindow, LineChart } from "lucide-react";
+import type { OverviewContent } from "@/lib/content-types";
+import type { WorkContent } from "@/components/templates/work-page";
+
+export const workOverview: OverviewContent = {
+  eyebrow: "Work",
+  title: "Proof over",
+  highlight: "promises",
+  subtitle:
+    "How we connect marketing to conversion in the real world—case studies, campaigns, product builds, and the results they produced.",
+  metaTitle: "Our Work",
+  metaDescription:
+    "Case studies, campaign portfolio, product work, and client results from Vistrow.",
+  cardsTitle: "Explore our work",
+  cards: [
+    { label: "Case Studies", href: "/work/case-studies", body: "Deep dives into connected growth systems we've built.", icon: FileText },
+    { label: "Campaign Portfolio", href: "/work/campaign-portfolio", body: "Marketing campaigns and the creative behind them.", icon: Megaphone },
+    { label: "Product Work", href: "/work/product-work", body: "Custom tools and products built in Vistrow Labs.", icon: AppWindow },
+    { label: "Client Results", href: "/work/client-results", body: "Outcomes and metrics from ongoing partnerships.", icon: LineChart },
+  ],
+};
+
+export const workPages: Record<string, WorkContent> = {
+  "case-studies": {
+    slug: "case-studies",
+    title: "Case Studies",
+    eyebrow: "Work",
+    subtitle:
+      "Detailed looks at how we connected marketing, CRM, AI voice, and automation into systems that convert.",
+    metaTitle: "Case Studies",
+    metaDescription: "In-depth case studies of connected growth systems built by Vistrow.",
+    items: [
+      { title: "Real estate: speed-to-lead system", tag: "Real Estate", summary: "Connected portal leads to AI voice qualification and calendar booking, cutting response time from hours to seconds.", metric: "< 30s", metricLabel: "Median lead response" },
+      { title: "B2B: pipeline from paid + nurture", tag: "B2B", summary: "Rebuilt tracking and nurture so marketing spend mapped directly to qualified pipeline and closed revenue.", metric: "Clear", metricLabel: "Revenue attribution" },
+      { title: "Local services: never miss a job", tag: "Local", summary: "Instant response and automated quote follow-up turned missed calls into booked work.", metric: "More", metricLabel: "Booked jobs" },
+      { title: "SaaS: efficient acquisition + activation", tag: "SaaS", summary: "Measurable acquisition paired with onboarding automation improved activation without extra spend.", metric: "Lower", metricLabel: "Cost per activated user" },
+    ],
+  },
+  "campaign-portfolio": {
+    slug: "campaign-portfolio",
+    title: "Campaign Portfolio",
+    eyebrow: "Work",
+    subtitle: "Performance campaigns and the creative and offers that made them work.",
+    metaTitle: "Campaign Portfolio",
+    metaDescription: "A portfolio of Vistrow marketing campaigns and creative.",
+    items: [
+      { title: "Lead-gen campaign: local demand", tag: "Performance", summary: "Offer-led paid social campaign built to generate qualified local enquiries at a controlled cost.", metric: "Lower", metricLabel: "Cost per qualified lead" },
+      { title: "Creative testing sprint", tag: "Creative", summary: "A structured batch of hooks and formats to find winning angles fast.", metric: "Higher", metricLabel: "Click-through rate" },
+      { title: "Search + PMax rebuild", tag: "Google Ads", summary: "Restructured account and tracking to optimise toward pipeline, not clicks.", metric: "Better", metricLabel: "Lead quality" },
+      { title: "Multi-channel launch", tag: "Integrated", summary: "Coordinated paid, organic, and email around a single offer and funnel.", metric: "Unified", metricLabel: "Funnel & tracking" },
+    ],
+  },
+  "product-work": {
+    slug: "product-work",
+    title: "Product Work",
+    eyebrow: "Work",
+    subtitle: "Custom SaaS and internal tools built in Vistrow Labs to fit real workflows.",
+    metaTitle: "Product Work",
+    metaDescription: "Custom products and internal tools built by Vistrow Labs.",
+    items: [
+      { title: "AI voice qualification agent", tag: "Vistrow Voice", summary: "A voice agent that calls, qualifies, and books—wired into CRM and calendar.", metric: "24/7", metricLabel: "Lead coverage" },
+      { title: "Unified lead dashboard", tag: "ArthaLeads", summary: "Consolidated multi-channel leads into one clean, scored, CRM-ready view.", metric: "One", metricLabel: "Source of truth" },
+      { title: "Client reporting portal", tag: "Vistrow Labs", summary: "A branded portal giving clients live visibility into performance.", metric: "Live", metricLabel: "Client reporting" },
+      { title: "Internal ops tool", tag: "Vistrow Labs", summary: "Custom tooling that removed manual steps from a client's operations.", metric: "Less", metricLabel: "Manual work" },
+    ],
+  },
+  "client-results": {
+    slug: "client-results",
+    title: "Client Results",
+    eyebrow: "Work",
+    subtitle: "Outcomes and metrics from ongoing partnerships—measured, not promised.",
+    metaTitle: "Client Results",
+    metaDescription: "Measured results from Vistrow client partnerships.",
+    items: [
+      { title: "Faster response, more meetings", tag: "Outcome", summary: "Instant lead response lifted the share of enquiries that became booked meetings.", metric: "More", metricLabel: "Meetings booked" },
+      { title: "Marketing tied to revenue", tag: "Outcome", summary: "End-to-end tracking gave a clear view of which campaigns created pipeline.", metric: "Clear", metricLabel: "Attribution" },
+      { title: "Lower cost per qualified lead", tag: "Outcome", summary: "Optimising to pipeline signals reduced the cost of a genuinely qualified lead.", metric: "Lower", metricLabel: "Cost per qualified lead" },
+      { title: "Scaled without new hires", tag: "Outcome", summary: "Automation absorbed rising volume without adding headcount.", metric: "Scalable", metricLabel: "Without headcount" },
+    ],
+  },
+};

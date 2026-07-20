@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Vistrow design tokens.
+ * Values are space-separated RGB channels so Tailwind can apply /opacity.
+ * Locked brand palette: white-first, carbon/graphite structure, neon-lime accent.
+ */
+:root {
+  --bg: 255 255 255;            /* Pure White */
+  --surface: 247 248 250;      /* Soft White #F7F8FA */
+  --card: 255 255 255;
+  --ink: 13 13 13;             /* Carbon Black #0D0D0D */
+  --ink-2: 28 28 30;           /* Graphite #1C1C1E */
+  --muted: 107 114 128;        /* Muted Grey #6B7280 */
+  --line: 229 231 235;         /* Light Border #E5E7EB */
+
+  --accent: 198 255 0;         /* Neon Lime #C6FF00 */
+  --accent-ink: 13 13 13;      /* Carbon text on lime */
+  --accent-tint: 233 255 166;  /* Lime Tint #E9FFA6 */
+  --accent-strong: 78 103 0;   /* Olive #4E6700 — accessible lime-family text on white */
+
+  --inverse: 13 13 13;         /* Carbon panel in light mode */
+  --inverse-ink: 245 247 250;  /* Light text on dark #F5F7FA */
+  --inverse-ink-2: 167 173 184;/* Muted text on dark #A7ADB8 */
+
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+
+  --glass-bg: 255 255 255;
+  --glass-alpha: 0.72;
+  --glass-border: 13 13 13;
+  --glass-border-alpha: 0.08;
+  --glass-shadow: 0 12px 40px rgba(13, 13, 13, 0.08);
+
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 13 13 13;              /* Carbon Black */
+  --surface: 28 28 30;         /* Graphite */
+  --card: 28 28 30;
+  --ink: 255 255 255;
+  --ink-2: 245 247 250;
+  --muted: 167 173 184;        /* Muted text on dark */
+  --line: 255 255 255;         /* used at low opacity for dark borders */
+
+  --accent: 198 255 0;
+  --accent-ink: 13 13 13;
+  --accent-tint: 233 255 166;
+  --accent-strong: 198 255 0;  /* lime reads fine on carbon */
+
+  --inverse: 244 244 245;      /* light panel in dark mode */
+  --inverse-ink: 13 13 13;
+  --inverse-ink-2: 82 82 91;
+
+  --glass-bg: 28 28 30;
+  --glass-alpha: 0.72;
+  --glass-border: 255 255 255;
+  --glass-border-alpha: 0.10;
+  --glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    border-color: rgb(var(--line) / 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth, non-jarring theme transition on color-bearing properties only. */
+  body,
+  body * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 220ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  ::selection {
+    background: rgb(var(--accent));
+    color: rgb(var(--accent-ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-strong));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-edge {
+    @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Restrained glassmorphism — light & dark via tokens. */
+  .glass {
+    background: rgb(var(--glass-bg) / var(--glass-alpha));
+    border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .glass-hover {
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms ease, box-shadow 220ms ease;
+  }
+  .glass-hover:hover {
+    transform: translateY(-3px);
+    border-color: rgb(var(--accent) / 0.5);
+  }
+
+  /* Gradient ink for large display headings (carbon → graphite). */
+  .text-gradient-ink {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--ink)) 0%,
+      rgb(var(--muted)) 130%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-6 py-3
+      font-sans text-sm font-semibold text-accent-ink shadow-soft
+      transition-all duration-200 ease-premium hover:brightness-95
+      active:scale-[0.97] focus-visible:outline-2;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm border border-line/80
+      bg-card/60 px-6 py-3 font-sans text-sm font-semibold text-ink
+      transition-all duration-200 ease-premium hover:bg-surface active:scale-[0.97];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-accent-strong
+      transition-all duration-200 hover:gap-2.5;
+  }
+
+  .eyebrow {
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.16em] text-accent-strong;
+  }
+}
+
+/* Respect reduced-motion for all custom animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
