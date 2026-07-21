@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ProductPage } from "@/components/templates/product-page";
 import { ProductPreview } from "@/components/sections/product-preview";
 import { products } from "@/content/products";
+import { buildMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return Object.keys(products).map((slug) => ({ slug }));
@@ -11,7 +12,11 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const c = products[params.slug];
   if (!c) return {};
-  return { title: c.metaTitle, description: c.metaDescription };
+  return buildMetadata({
+    title: c.metaTitle,
+    description: c.metaDescription,
+    path: `/products/${c.slug}`,
+  });
 }
 
 export default function Page({ params }: { params: { slug: string } }) {

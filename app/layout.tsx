@@ -5,6 +5,9 @@ import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { RouteTransition, ScrollProgress } from "@/components/ui/motion-primitives";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildMetadata } from "@/lib/seo";
+import { graph, websiteSchema } from "@/lib/structured-data";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -21,27 +24,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  ...buildMetadata({
+    title: "Vistrow | Digital Marketing and Business Automation",
+    description:
+      "Vistrow connects performance marketing, lead generation, CRM, AI voice agents, automation, and conversion tracking into one measurable growth system.",
+    path: "/",
+  }),
   metadataBase: new URL("https://vistrow.com"),
   title: {
-    default: "Vistrow | Digital marketing connected to business growth",
+    default: "Vistrow | Digital Marketing and Business Automation",
     template: "%s | Vistrow",
-  },
-  description:
-    "Vistrow combines performance marketing, landing pages, CRM, AI voice, automation, and conversion tracking to help businesses generate more opportunities and manage them more effectively.",
-  keywords: [
-    "digital marketing",
-    "business automation",
-    "CRM",
-    "AI voice calling",
-    "lead generation",
-    "conversion tracking",
-  ],
-  openGraph: {
-    type: "website",
-    siteName: "Vistrow",
-    title: "Vistrow | Digital marketing connected to business growth",
-    description:
-      "Generate demand. Manage leads. Automate follow-ups. Improve conversions.",
   },
 };
 
@@ -73,6 +65,7 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <JsonLd data={graph([websiteSchema])} />
       </head>
       <body className="font-sans antialiased">
         <ScrollProgress />

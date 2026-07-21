@@ -5,11 +5,14 @@ import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Careers",
-  description: "Build the systems that connect marketing to growth. Join Vistrow.",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Careers at Vistrow Technologies",
+  description:
+    "Explore remote-first careers at Vistrow across performance marketing, business automation, AI voice, product design, and software engineering.",
+  path: "/careers",
+});
 
 const perks = [
   { icon: Globe2, title: "Remote-first", body: "Work from where you do your best thinking." },

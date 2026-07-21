@@ -4,12 +4,14 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Steps } from "@/components/sections/steps";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { CtaBand } from "@/components/sections/cta-band";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our Approach",
+export const metadata: Metadata = buildMetadata({
+  title: "Our Growth System Approach",
   description:
-    "How Vistrow works: audit, plan, build, improve - connecting marketing to the systems that convert.",
-};
+    "See how Vistrow audits, plans, builds, and improves connected digital marketing, CRM, automation, AI voice, and conversion tracking systems.",
+  path: "/approach",
+});
 
 const principles = [
   { icon: Search, title: "Start with the gaps", body: "We audit before we act, so effort goes where it matters." },

@@ -8,7 +8,7 @@ export const workOverview: OverviewContent = {
   highlight: "promises",
   subtitle:
     "How we connect marketing to conversion in the real world - case studies, campaigns, product builds, and the results they produced.",
-  metaTitle: "Our Work",
+  metaTitle: "Digital Marketing and Automation Work",
   metaDescription:
     "Case studies, campaign portfolio, product work, and client results from Vistrow.",
   cardsTitle: "Explore our work",
@@ -50,8 +50,8 @@ export const workPages: Record<string, WorkContent> = {
     eyebrow: "Work",
     subtitle:
       "Detailed looks at how we connected marketing, CRM, AI voice, and automation into systems that convert.",
-    metaTitle: "Case Studies",
-    metaDescription: "In-depth case studies of connected growth systems built by Vistrow.",
+    metaTitle: "Growth System Case Studies",
+    metaDescription: "Explore Vistrow delivery examples connecting digital marketing, CRM, AI voice, automation, and lead follow-up into measurable growth systems.",
     items: [
       { title: "Real estate: speed-to-lead system", tag: "Real Estate", summary: "Connected portal leads to AI voice qualification and calendar booking, cutting response time from hours to seconds.", metric: "< 30s", metricLabel: "Median lead response" },
       { title: "B2B: pipeline from paid + nurture", tag: "B2B", summary: "Rebuilt tracking and nurture so marketing spend mapped directly to qualified pipeline and closed revenue.", metric: "Clear", metricLabel: "Revenue attribution" },
@@ -64,8 +64,8 @@ export const workPages: Record<string, WorkContent> = {
     title: "Campaign Portfolio",
     eyebrow: "Work",
     subtitle: "Performance campaigns and the creative and offers that made them work.",
-    metaTitle: "Campaign Portfolio",
-    metaDescription: "A portfolio of Vistrow marketing campaigns and creative.",
+    metaTitle: "Performance Marketing Campaign Portfolio",
+    metaDescription: "Explore Vistrow performance marketing campaign patterns across paid social, Google Ads, creative testing, offers, funnels, and conversion tracking.",
     items: [
       { title: "Lead-gen campaign: local demand", tag: "Performance", summary: "Offer-led paid social campaign built to generate qualified local enquiries at a controlled cost.", metric: "Lower", metricLabel: "Cost per qualified lead" },
       { title: "Creative testing sprint", tag: "Creative", summary: "A structured batch of hooks and formats to find winning angles fast.", metric: "Higher", metricLabel: "Click-through rate" },
@@ -78,8 +78,8 @@ export const workPages: Record<string, WorkContent> = {
     title: "Product Work",
     eyebrow: "Work",
     subtitle: "Custom SaaS and internal tools built in Vistrow Labs to fit real workflows.",
-    metaTitle: "Product Work",
-    metaDescription: "Custom products and internal tools built by Vistrow Labs.",
+    metaTitle: "Custom SaaS and Product Work",
+    metaDescription: "Explore AI voice agents, lead dashboards, reporting portals, and custom internal business tools built through Vistrow Labs.",
     items: [
       { title: "AI voice qualification agent", tag: "Vistrow Voice", summary: "A voice agent that calls, qualifies, and books - wired into CRM and calendar.", metric: "24/7", metricLabel: "Lead coverage" },
       { title: "Unified lead dashboard", tag: "ArthaLeads", summary: "Consolidated multi-channel leads into one clean, scored, CRM-ready view.", metric: "One", metricLabel: "Source of truth" },
@@ -92,8 +92,8 @@ export const workPages: Record<string, WorkContent> = {
     title: "Client Results",
     eyebrow: "Work",
     subtitle: "Outcomes and metrics from ongoing partnerships - measured, not promised.",
-    metaTitle: "Client Results",
-    metaDescription: "Measured results from Vistrow client partnerships.",
+    metaTitle: "Marketing and Automation Outcomes",
+    metaDescription: "See the commercial outcomes Vistrow systems are designed to improve, including lead response, attribution, qualified lead cost, and operational scale.",
     items: [
       { title: "Faster response, more meetings", tag: "Outcome", summary: "Instant lead response lifted the share of enquiries that became booked meetings.", metric: "More", metricLabel: "Meetings booked" },
       { title: "Marketing tied to revenue", tag: "Outcome", summary: "End-to-end tracking gave a clear view of which campaigns created pipeline.", metric: "Clear", metricLabel: "Attribution" },

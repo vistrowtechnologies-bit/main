@@ -6,11 +6,14 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Faq } from "@/components/sections/faq";
 import { Reveal } from "@/components/ui/reveal";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Talk to Vistrow about connecting your marketing to CRM, automation, and conversion.",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Contact Vistrow Technologies",
+  description:
+    "Contact Vistrow about digital marketing, lead generation, CRM, AI voice calling, business automation, ArthaLeads, or a custom software project.",
+  path: "/contact",
+});
 
 const details = [
   { icon: Mail, label: "Email", value: "hello@vistrow.com", href: "mailto:hello@vistrow.com" },

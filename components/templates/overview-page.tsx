@@ -6,7 +6,9 @@ import { Steps } from "@/components/sections/steps";
 import { Faq } from "@/components/sections/faq";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
 import type { OverviewContent } from "@/lib/content-types";
+import { breadcrumbSchema, collectionSchema, faqSchema, graph } from "@/lib/structured-data";
 
 export function OverviewPage({
   content,
@@ -15,12 +17,32 @@ export function OverviewPage({
   content: OverviewContent;
   parent?: { label: string; href: string };
 }) {
+  const path = parent?.href ?? "/";
   const breadcrumb = parent
     ? [{ label: "Home", href: "/" }, { label: parent.label }]
     : [{ label: "Home", href: "/" }];
 
   return (
     <>
+      <JsonLd
+        data={graph([
+          breadcrumbSchema(
+            parent
+              ? [
+                  { name: "Home", path: "/" },
+                  { name: parent.label, path },
+                ]
+              : [{ name: "Home", path: "/" }],
+          ),
+          collectionSchema({
+            name: content.metaTitle,
+            description: content.metaDescription,
+            path,
+            items: content.cards.map((card) => ({ name: card.label, path: card.href })),
+          }),
+          ...(content.faqs ? [faqSchema(content.faqs)] : []),
+        ])}
+      />
       <PageHero
         breadcrumb={breadcrumb}
         eyebrow={content.eyebrow}

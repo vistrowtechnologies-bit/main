@@ -4,12 +4,14 @@ import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Steps } from "@/components/sections/steps";
 import { CtaBand } from "@/components/sections/cta-band";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Partners",
+export const metadata: Metadata = buildMetadata({
+  title: "Agency and Technology Partnerships",
   description:
-    "Partner with Vistrow to deliver connected marketing and automation - white-label systems, AI voice, and custom builds.",
-};
+    "Partner with Vistrow for white-label digital marketing, CRM automation, AI voice agents, referrals, integrations, and custom software delivery.",
+  path: "/partners",
+});
 
 const partnerTypes = [
   { icon: Users, title: "Agencies", body: "White-label our automation, CRM, and AI voice to serve more clients." },

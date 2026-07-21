@@ -16,7 +16,7 @@ export const digitalMarketingOverview: OverviewContent = {
   highlight: "business growth",
   subtitle:
     "Performance marketing built to generate qualified demand - then wired into the CRM, follow-up, and tracking that turn attention into revenue.",
-  metaTitle: "Digital Marketing Services",
+  metaTitle: "Digital Marketing Services in India",
   metaDescription:
     "Performance advertising, lead generation, landing pages, creative, social, SEO, conversion tracking, and marketing automation - connected to your sales system.",
   cardsTitle: "Digital marketing services",
@@ -64,7 +64,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Paid media managed for ROI, not vanity metrics. We buy attention where your best customers are and connect every click to your pipeline.",
-    metaTitle: "Performance Advertising",
+    metaTitle: "Performance Advertising Agency",
     metaDescription:
       "ROI-focused paid advertising across Google, Meta, LinkedIn, and more - tracked end to end from click to closed deal.",
     problem: {
@@ -113,7 +113,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "A predictable flow of high-intent leads - captured, qualified, and delivered into your CRM ready for follow-up.",
-    metaTitle: "Lead Generation",
+    metaTitle: "Lead Generation Services",
     metaDescription:
       "High-intent lead generation across paid, organic, and outbound - captured and routed into your CRM with instant follow-up.",
     problem: {
@@ -161,7 +161,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Fast, focused pages and funnels engineered to turn campaign traffic into qualified leads and booked calls.",
-    metaTitle: "Landing Pages & Funnels",
+    metaTitle: "Landing Page and Funnel Design",
     metaDescription:
       "High-converting landing pages and funnels - fast, accessible, and built to capture and route leads into your CRM.",
     problem: {
@@ -209,7 +209,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Messaging and creative that earns attention and drives action - grounded in what your buyers actually respond to.",
-    metaTitle: "Creative Strategy",
+    metaTitle: "Creative Strategy for Performance Marketing",
     metaDescription:
       "Ad creative and messaging strategy that improves click-through and conversion - tested and iterated on real performance data.",
     problem: {
@@ -257,7 +257,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Build demand and trust across the platforms your audience actually uses - organic and paid working together.",
-    metaTitle: "Social Media Marketing",
+    metaTitle: "Social Media Marketing Services",
     metaDescription:
       "Social media strategy, content, and paid amplification that builds demand and feeds your pipeline.",
     problem: {
@@ -305,7 +305,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Compounding organic growth - technical SEO, content, and internal linking that earn qualified search traffic over time.",
-    metaTitle: "SEO & Content Marketing",
+    metaTitle: "SEO and Content Marketing Services",
     metaDescription:
       "Technical SEO, content strategy, and on-page optimisation that build durable, qualified organic traffic.",
     problem: {
@@ -353,7 +353,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Trustworthy measurement that connects marketing activity to pipeline and revenue - so you can invest with confidence.",
-    metaTitle: "Conversion Tracking",
+    metaTitle: "Conversion Tracking and Attribution",
     metaDescription:
       "End-to-end conversion tracking and attribution that ties every campaign to pipeline and revenue.",
     problem: {
@@ -401,7 +401,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Automated journeys that nurture, score, and route leads - so the right message reaches the right person at the right time.",
-    metaTitle: "Marketing Automation",
+    metaTitle: "Marketing Automation Services",
     metaDescription:
       "Marketing automation and lifecycle journeys - nurture, scoring, and routing that scale what works without adding headcount.",
     problem: {

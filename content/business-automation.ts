@@ -7,7 +7,7 @@ export const businessAutomationOverview: OverviewContent = {
   highlight: "lead is generated",
   subtitle:
     "CRM, AI voice, follow-up, and custom workflows that respond in seconds and convert more of the demand you already create - without adding headcount.",
-  metaTitle: "Business Automation",
+  metaTitle: "Business Automation Services",
   metaDescription:
     "CRM and lead management, AI voice calling, sales automation, communication automation, follow-up systems, and custom automation.",
   cardsTitle: "Business automation services",
@@ -51,7 +51,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     eyebrow: "Business Automation",
     subtitle:
       "One clean, connected source of truth for every lead and deal - set up, integrated, and automated around your sales process.",
-    metaTitle: "CRM & Lead Management",
+    metaTitle: "CRM Implementation and Lead Management",
     metaDescription:
       "CRM setup, cleanup, and automation - lead capture, scoring, routing, and pipeline visibility connected to your marketing.",
     problem: {
@@ -99,7 +99,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     eyebrow: "Business Automation",
     subtitle:
       "Vistrow Voice handles inbound, outbound, and website calls in 10 Indian languages - answering questions, qualifying intent, booking next steps, and pushing outcomes into your workflow 24/7.",
-    metaTitle: "AI Voice Calling",
+    metaTitle: "AI Voice Calling Agents for India",
     metaDescription:
       "Vistrow Voice provides inbound, outbound, and website AI calling in 10 Indian languages, with knowledge-grounded answers and CRM webhooks.",
     problem: {
@@ -148,7 +148,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     eyebrow: "Business Automation",
     subtitle:
       "Take the manual, repetitive work out of selling - so your team spends time on conversations, not admin.",
-    metaTitle: "Sales Automation",
+    metaTitle: "Sales Automation Services",
     metaDescription:
       "Automate repetitive sales tasks - data entry, reminders, sequences, and handoffs - so reps focus on closing.",
     problem: {
@@ -196,7 +196,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     eyebrow: "Business Automation",
     subtitle:
       "Reach leads and customers where they actually reply - coordinated across WhatsApp, email, and SMS, triggered by behaviour.",
-    metaTitle: "WhatsApp, Email & SMS Automation",
+    metaTitle: "WhatsApp, Email and SMS Automation",
     metaDescription:
       "Multi-channel communication automation across WhatsApp, email, and SMS - coordinated, behaviour-triggered follow-up.",
     problem: {
@@ -244,7 +244,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     eyebrow: "Business Automation",
     subtitle:
       "Persistent, automated follow-up that keeps working every lead until they respond, book, or opt out - so nothing slips.",
-    metaTitle: "Lead Follow-Up Systems",
+    metaTitle: "Automated Lead Follow-Up Systems",
     metaDescription:
       "Automated, persistent lead follow-up across channels - so every lead is worked until it converts or opts out.",
     problem: {
@@ -292,7 +292,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     eyebrow: "Business Automation",
     subtitle:
       "When off-the-shelf tools don't fit, we build the workflows and integrations that match how your business actually runs.",
-    metaTitle: "Custom Automation",
+    metaTitle: "Custom Business Automation Services",
     metaDescription:
       "Custom business automation and integrations - connecting your tools and building workflows around your real process.",
     problem: {

@@ -4,8 +4,7 @@ import { businessAutomationServices } from "@/content/business-automation";
 import { products } from "@/content/products";
 import { industries } from "@/content/industries";
 import { workPages } from "@/content/work";
-
-const base = "https://vistrow.com";
+import { siteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
@@ -36,8 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({
-    url: `${base}${route}`,
-    changeFrequency: "monthly",
-    priority: route === "" ? 1 : 0.7,
+    url: `${siteUrl}${route}`,
+    changeFrequency: route.includes("policy") || route === "/terms" || route === "/disclaimer" ? "yearly" : "monthly",
+    priority: route === "" ? 1 : route.split("/").length === 2 ? 0.8 : 0.7,
   }));
 }

@@ -7,7 +7,7 @@ export const industriesOverview: OverviewContent = {
   highlight: "industry",
   subtitle:
     "The same connected engine - marketing, CRM, AI voice, and automation - shaped around the way your industry actually generates and closes business.",
-  metaTitle: "Industries",
+  metaTitle: "Industry-Specific Growth Systems",
   metaDescription:
     "Vistrow growth systems for real estate, local businesses, B2B, startups & SaaS, agencies, and education.",
   cardsTitle: "Industries we serve",

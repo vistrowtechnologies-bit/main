@@ -5,9 +5,12 @@ import { Steps } from "@/components/sections/steps";
 import { Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
+import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
 import type { ProductContent } from "@/lib/content-types";
+import { breadcrumbSchema, graph, productSchema } from "@/lib/structured-data";
 
 export function ProductPage({
   content,
@@ -16,8 +19,25 @@ export function ProductPage({
   content: ProductContent;
   preview?: React.ReactNode;
 }) {
+  const path = `/products/${content.slug}`;
+
   return (
     <>
+      <JsonLd
+        data={graph([
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Products", path: "/products" },
+            { name: content.name, path },
+          ]),
+          productSchema({
+            name: content.name,
+            description: content.metaDescription,
+            path,
+            externalUrl: content.externalUrl,
+          }),
+        ])}
+      />
       <PageHero
         breadcrumb={[
           { label: "Home", href: "/" },
@@ -38,6 +58,16 @@ export function ProductPage({
         }
         secondaryCta={{ label: "Book a walkthrough", href: "/contact" }}
         aside={preview}
+      />
+
+      <AnswerSummary
+        question={`What is ${content.name}?`}
+        answer={content.subtitle}
+        groups={[
+          { label: "Best-fit uses", items: content.useCases.map((item) => item.title) },
+          { label: "Key capabilities", items: content.features.slice(0, 3).map((item) => item.title) },
+          { label: "Connects with", items: content.integrations.slice(0, 3) },
+        ]}
       />
 
       <FeatureCards eyebrow="Use cases" title="Where it earns its place" items={content.useCases} surface />

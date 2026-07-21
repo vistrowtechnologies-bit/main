@@ -5,13 +5,34 @@ import { FeatureCards } from "@/components/sections/feature-cards";
 import { Steps } from "@/components/sections/steps";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
+import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
 import type { IndustryContent } from "@/lib/content-types";
+import { breadcrumbSchema, faqSchema, graph, serviceSchema } from "@/lib/structured-data";
 
 export function IndustryPage({ content }: { content: IndustryContent }) {
+  const path = `/industries/${content.slug}`;
+
   return (
     <>
+      <JsonLd
+        data={graph([
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Industries", path: "/industries" },
+            { name: content.title, path },
+          ]),
+          serviceSchema({
+            name: `${content.title} growth systems`,
+            description: content.metaDescription,
+            path,
+            category: `${content.title} digital marketing and automation`,
+          }),
+          faqSchema(content.faqs),
+        ])}
+      />
       <PageHero
         breadcrumb={[
           { label: "Home", href: "/" },
@@ -23,6 +44,16 @@ export function IndustryPage({ content }: { content: IndustryContent }) {
         highlight={content.highlight}
         subtitle={content.subtitle}
         secondaryCta={{ label: "All industries", href: "/industries" }}
+      />
+
+      <AnswerSummary
+        question={`How does Vistrow help ${content.title.toLowerCase()} teams grow?`}
+        answer={content.solution.body}
+        groups={[
+          { label: "Common growth gaps", items: content.challenges.slice(0, 3).map((item) => item.title) },
+          { label: "Connected workflow", items: content.workflow.slice(0, 3).map((item) => item.title) },
+          { label: "Relevant capabilities", items: content.services.slice(0, 3).map((item) => item.label) },
+        ]}
       />
 
       <FeatureCards

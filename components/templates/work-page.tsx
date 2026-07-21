@@ -2,6 +2,9 @@ import { TrendingUp } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/ui/reveal";
+import { AnswerSummary } from "@/components/sections/answer-summary";
+import { JsonLd } from "@/components/seo/json-ld";
+import { breadcrumbSchema, collectionSchema, graph } from "@/lib/structured-data";
 
 export type WorkItem = {
   title: string;
@@ -23,8 +26,25 @@ export type WorkContent = {
 };
 
 export function WorkPage({ content }: { content: WorkContent }) {
+  const path = `/work/${content.slug}`;
+
   return (
     <>
+      <JsonLd
+        data={graph([
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+            { name: content.title, path },
+          ]),
+          collectionSchema({
+            name: content.title,
+            description: content.metaDescription,
+            path,
+            items: content.items.map((item) => ({ name: item.title, path })),
+          }),
+        ])}
+      />
       <PageHero
         breadcrumb={[
           { label: "Home", href: "/" },
@@ -36,6 +56,16 @@ export function WorkPage({ content }: { content: WorkContent }) {
         highlight={content.highlight}
         subtitle={content.subtitle}
         secondaryCta={{ label: "All work", href: "/work" }}
+      />
+
+      <AnswerSummary
+        question={`What does Vistrow's ${content.title.toLowerCase()} show?`}
+        answer={content.subtitle}
+        groups={[
+          { label: "Problems addressed", items: content.items.slice(0, 3).map((item) => item.title) },
+          { label: "Systems involved", items: content.items.slice(0, 3).map((item) => item.tag) },
+          { label: "Outcomes measured", items: content.items.slice(0, 3).map((item) => item.metricLabel) },
+        ]}
       />
 
       <section className="py-section">

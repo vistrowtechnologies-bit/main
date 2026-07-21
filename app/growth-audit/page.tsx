@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Search, GitCompareArrows, ClipboardList } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { GrowthAuditForm } from "@/components/forms/growth-audit-form";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Book a Growth Audit",
+export const metadata: Metadata = buildMetadata({
+  title: "Digital Marketing and Sales Growth Audit",
   description:
-    "A deep-dive into your funnel, spend, and tech stack - mapping exactly where opportunities leak between marketing and sales.",
-};
+    "Book a Vistrow growth audit to identify gaps across ad spend, landing pages, CRM, lead response, follow-up, sales automation, and revenue tracking.",
+  path: "/growth-audit",
+});
 
 const whatYouGet = [
   { icon: Search, title: "Funnel & spend review", body: "Where budget goes and where it leaks." },

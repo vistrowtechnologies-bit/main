@@ -27,8 +27,8 @@ export const productsOverview: OverviewContent = {
   highlight: "system",
   subtitle:
     "Software built to plug into your marketing and sales - so you respond faster, qualify smarter, and convert more of what you already generate.",
-  metaTitle: "Products",
-  metaDescription: "Vistrow Voice, ArthaLeads, and Vistrow Labs - products that connect marketing to conversion.",
+  metaTitle: "AI Voice, Real Estate CRM, and Custom Software",
+  metaDescription: "Explore Vistrow Voice AI calling agents, ArthaLeads real estate CRM, and custom SaaS and internal software from Vistrow Labs.",
   cardsTitle: "Our products",
   cards: [
     { label: "Vistrow Voice", href: "/products/vistrow-voice", body: "India-native AI voice agents for inbound, outbound, and web calls in 10 languages.", icon: Phone },
@@ -118,7 +118,7 @@ export const products: Record<string, ProductContent> = {
     tagline: "Real estate CRM",
     subtitle:
       "A premium real-estate CRM for Indian developers, brokers, and channel partners - bringing Facebook Ads, Google Ads, WhatsApp enquiries, and website leads into one actionable workspace.",
-    metaTitle: "ArthaLeads - Real Estate CRM",
+    metaTitle: "ArthaLeads - Real Estate CRM for India",
     metaDescription:
       "ArthaLeads is a real-estate CRM for Indian developers and channel partners, with multi-channel lead capture, team assignment, site visits, follow-ups, and analytics.",
     useCases: [

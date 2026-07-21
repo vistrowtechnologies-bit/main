@@ -5,12 +5,14 @@ import { FeatureCards } from "@/components/sections/feature-cards";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Vistrow",
+export const metadata: Metadata = buildMetadata({
+  title: "About Vistrow Technologies",
   description:
-    "Vistrow is a digital-marketing-first technology company connecting marketing to the CRM, AI voice, and automation systems that convert.",
-};
+    "Meet Vistrow Technologies, an India-based digital marketing and automation company connecting campaigns, CRM, AI voice, follow-up, and revenue tracking.",
+  path: "/about",
+});
 
 const values = [
   { icon: LineChart, title: "Outcomes over activity", body: "We optimise for pipeline and revenue, not vanity metrics." },

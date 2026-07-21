@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { OverviewPage } from "@/components/templates/overview-page";
 import { businessAutomationOverview } from "@/content/business-automation";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: businessAutomationOverview.metaTitle,
   description: businessAutomationOverview.metaDescription,
-};
+  path: "/business-automation",
+});
 
 export default function Page() {
   return (

@@ -5,8 +5,11 @@ import { Steps } from "@/components/sections/steps";
 import { Outcomes, Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
+import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
+import { JsonLd } from "@/components/seo/json-ld";
 import type { ServiceContent } from "@/lib/content-types";
+import { breadcrumbSchema, faqSchema, graph, serviceSchema } from "@/lib/structured-data";
 
 export function ServicePage({
   content,
@@ -15,8 +18,26 @@ export function ServicePage({
   content: ServiceContent;
   section: { label: string; href: string };
 }) {
+  const path = `${section.href}/${content.slug}`;
+
   return (
     <>
+      <JsonLd
+        data={graph([
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: section.label, path: section.href },
+            { name: content.title, path },
+          ]),
+          serviceSchema({
+            name: content.title,
+            description: content.metaDescription,
+            path,
+            category: section.label,
+          }),
+          faqSchema(content.faqs),
+        ])}
+      />
       <PageHero
         breadcrumb={[
           { label: "Home", href: "/" },
@@ -28,6 +49,16 @@ export function ServicePage({
         highlight={content.highlight}
         subtitle={content.subtitle}
         secondaryCta={{ label: `All ${section.label}`, href: section.href }}
+      />
+
+      <AnswerSummary
+        question={`What is ${content.title}?`}
+        answer={content.subtitle}
+        groups={[
+          { label: "Problems it addresses", items: content.problem.points.slice(0, 3) },
+          { label: "Core deliverables", items: content.included.slice(0, 3) },
+          { label: "What success looks like", items: content.outcomes.map((item) => `${item.label}: ${item.body}`) },
+        ]}
       />
 
       {/* Problem */}
