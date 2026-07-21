@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { HeroDashboard } from "@/components/sections/hero-dashboard";
 import { Reveal } from "@/components/ui/reveal";
 import { RotatingWord, ScrollParallax } from "@/components/ui/motion-primitives";
+import BlurText from "@/components/ui/blur-text";
 
 const heroRotatingWords = ["business growth", "qualified leads", "real revenue", "closed deals"];
 
@@ -25,21 +26,25 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} direction="right" distance={30}>
-            <h1 className="mt-6 font-display text-hero-lg text-ink">
-              Digital marketing that connects directly to{" "}
-              <span className="whitespace-nowrap">
-                <span className="relative isolate inline-block px-[0.08em] text-accent-ink">
-                  <span
-                    aria-hidden
-                    className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
-                  />
-                  <RotatingWord words={heroRotatingWords} />
-                </span>
-                .
+          <h1 className="mt-6 font-display text-hero-lg text-ink">
+            <BlurText
+              as="span"
+              text="Digital marketing that connects directly to"
+              delay={72}
+              stepDuration={0.32}
+              direction="top"
+            />{" "}
+            <span className="whitespace-nowrap">
+              <span className="relative isolate inline-block px-[0.08em] text-accent-ink">
+                <span
+                  aria-hidden
+                  className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
+                />
+                <RotatingWord words={heroRotatingWords} />
               </span>
-            </h1>
-          </Reveal>
+              .
+            </span>
+          </h1>
 
           <Reveal delay={0.16} direction="right" distance={24}>
             <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">

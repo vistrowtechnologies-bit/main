@@ -4,6 +4,7 @@ import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/seo/json-ld";
+import BlurText from "@/components/ui/blur-text";
 import type { BlogPost } from "@/lib/content-types";
 import { articleSchema, breadcrumbSchema, graph } from "@/lib/structured-data";
 
@@ -48,7 +49,7 @@ export function BlogPostPage({
 
             <span className="eyebrow mt-6 inline-block">{post.category}</span>
             <h1 className="mt-4 font-display text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink">
-              {post.title}
+              <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
             </h1>
             <div className="mt-5 flex items-center gap-2 font-sans text-sm text-muted">
               <span>{post.author}</span>

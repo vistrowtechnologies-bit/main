@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Breadcrumb, type Crumb } from "@/components/ui/breadcrumb";
+import BlurText from "@/components/ui/blur-text";
 
 export type CtaLink = { label: string; href: string; external?: boolean };
 
@@ -23,6 +24,8 @@ export function PageHero({
   secondaryCta?: CtaLink;
   aside?: React.ReactNode;
 }) {
+  const titleWordCount = title.trim().split(/\s+/).length;
+
   return (
     <section className="relative overflow-hidden border-b border-line">
       <div
@@ -40,7 +43,14 @@ export function PageHero({
           </div>
           {eyebrow && <p className="eyebrow mt-6">{eyebrow}</p>}
           <h1 className="mt-4 font-display text-[clamp(2.25rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink">
-            {title}
+            <BlurText
+              as="span"
+              text={title}
+              delay={65}
+              stepDuration={0.3}
+              direction="top"
+              rootMargin="0px 0px -8% 0px"
+            />
             {highlight && (
               <>
                 {" "}
@@ -49,7 +59,15 @@ export function PageHero({
                     aria-hidden
                     className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.6deg] rounded-[0.12em] bg-accent shadow-[0_0_22px_rgb(var(--accent)/0.18)]"
                   />
-                  {highlight}
+                  <BlurText
+                    as="span"
+                    text={highlight}
+                    delay={65}
+                    startDelay={titleWordCount * 65}
+                    stepDuration={0.3}
+                    direction="top"
+                    rootMargin="0px 0px -8% 0px"
+                  />
                 </span>
               </>
             )}

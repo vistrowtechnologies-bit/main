@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import BlurText from "@/components/ui/blur-text";
 
 export default function NotFound() {
   return (
@@ -8,7 +9,9 @@ export default function NotFound() {
         <p className="font-display text-[clamp(4rem,12vw,8rem)] font-extrabold leading-none tracking-tight text-accent-strong">
           404
         </p>
-        <h1 className="mt-4 font-display text-h2 text-ink">This page took a wrong turn.</h1>
+        <h1 className="mt-4 font-display text-h2 text-ink">
+          <BlurText as="span" text="This page took a wrong turn." delay={70} stepDuration={0.3} />
+        </h1>
         <p className="mx-auto mt-4 max-w-md font-sans text-lg text-muted">
           The page you&apos;re looking for doesn&apos;t exist or has moved. Let&apos;s get you
           back on track.
