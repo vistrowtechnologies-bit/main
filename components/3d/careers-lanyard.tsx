@@ -84,8 +84,8 @@ export function CareersLanyard() {
         fov={20}
         frontImage={brandTheme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
         imageFit="contain"
-        lanyardImage="/logo-dark.png"
-        lanyardWidth={0.82}
+        lanyardImage={brandTheme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
+        lanyardWidth={0.94}
         brandCard
         brandTheme={brandTheme}
       />

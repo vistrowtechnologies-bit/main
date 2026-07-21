@@ -543,6 +543,48 @@ function Band({
     };
   }, [cardMap, materials.base.map]);
 
+  const ribbonMap = useMemo(() => {
+    if (!brandCard || !frontTex.image) return texture;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 256;
+    const context = canvas.getContext("2d");
+    if (!context) return texture;
+
+    const dark = brandTheme === "dark";
+    context.fillStyle = dark ? "#0d0d0d" : "#f7f8fa";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#c6ff00";
+    context.fillRect(0, 0, canvas.width, 10);
+    context.fillRect(0, canvas.height - 10, canvas.width, 10);
+
+    [42, 554].forEach((x) => {
+      drawContainedImage(context, frontTex.image, x, 42, 350, 116);
+      context.fillStyle = dark ? "#a7adb8" : "#596273";
+      context.font = "700 24px Inter, sans-serif";
+      context.textAlign = "left";
+      context.textBaseline = "middle";
+      context.fillText("CAREERS / BUILD WHAT GROWS", x + 8, 196);
+      context.fillStyle = "#c6ff00";
+      context.beginPath();
+      context.arc(x + 430, 128, 8, 0, Math.PI * 2);
+      context.fill();
+    });
+
+    const themedTexture = new THREE.CanvasTexture(canvas);
+    themedTexture.colorSpace = THREE.SRGBColorSpace;
+    themedTexture.anisotropy = 16;
+    themedTexture.needsUpdate = true;
+    return themedTexture;
+  }, [brandCard, brandTheme, frontTex, texture]);
+
+  useEffect(() => {
+    return () => {
+      if (ribbonMap !== texture) ribbonMap.dispose();
+    };
+  }, [ribbonMap, texture]);
+
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([
@@ -607,7 +649,7 @@ function Band({
   });
 
   curve.curveType = "chordal";
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  ribbonMap.wrapS = ribbonMap.wrapT = THREE.RepeatWrapping;
 
   return (
     <>
@@ -673,8 +715,8 @@ function Band({
           depthTest={false}
           resolution={isMobile ? [1000, 2000] : [1000, 1000]}
           useMap
-          map={texture}
-          repeat={[-4, 1]}
+          map={ribbonMap}
+          repeat={brandCard ? [-2, 1] : [-4, 1]}
           lineWidth={lanyardWidth}
         />
       </mesh>
