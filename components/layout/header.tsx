@@ -172,8 +172,8 @@ function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
   if (item.groups) {
     return (
       <div className="absolute left-0 top-full z-50 pt-3">
-        <div className="dropdown-glass w-[min(94vw,720px)] overflow-hidden rounded-lg p-5 animate-rise-in">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="dropdown-glass w-[min(92vw,580px)] overflow-hidden rounded-lg p-5 animate-rise-in">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {item.groups.map((group) => (
               <div key={group.title}>
                 <p className="mb-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted">
@@ -195,12 +195,21 @@ function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
               </div>
             ))}
           </div>
-          <div className="mt-5 flex items-center justify-between rounded-sm border border-line/50 bg-surface/75 px-4 py-3">
-            <span className="font-sans text-[13px] text-muted">Not sure where to start?</span>
-            <Link href="/growth-audit" onClick={onClose} className="btn-ghost">
-              Book a Growth Audit <ArrowRight className="h-4 w-4" strokeWidth={2} />
-            </Link>
-          </div>
+          {item.linkRows && (
+            <div className="mt-5 space-y-2">
+              {item.linkRows.map((row) => (
+                <div
+                  key={row.href}
+                  className="flex items-center justify-between rounded-sm border border-line/50 bg-surface/75 px-4 py-3"
+                >
+                  <span className="font-sans text-[13px] text-muted">{row.label}</span>
+                  <Link href={row.href} onClick={onClose} className="btn-ghost">
+                    {row.cta} <ArrowRight className="h-4 w-4" strokeWidth={2} />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     );
@@ -345,6 +354,20 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
                   ))}
                 </ul>
               )}
+          {item.linkRows && (
+            <div className="space-y-1.5 pt-1">
+              {item.linkRows.map((row) => (
+                <Link
+                  key={row.href}
+                  href={row.href}
+                  onClick={onClose}
+                  className="block rounded-sm bg-surface px-2.5 py-2 font-sans text-[13px] font-semibold text-accent-strong"
+                >
+                  {row.cta}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </li>

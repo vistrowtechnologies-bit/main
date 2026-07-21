@@ -1,10 +1,13 @@
 export type NavChild = { label: string; href: string; desc?: string };
 export type NavGroup = { title: string; items: NavChild[] };
+export type NavLinkRow = { label: string; cta: string; href: string };
 export type NavItem = {
   label: string;
   href: string;
   children?: NavChild[];
   groups?: NavGroup[];
+  /** Extra compact link rows shown under a grouped mega-menu (e.g. "Browse by industry"). */
+  linkRows?: NavLinkRow[];
   /** Extra path prefixes that should also mark this item active (defaults to [href]). */
   activeMatch?: string[];
 };
@@ -14,7 +17,11 @@ export const primaryNav: NavItem[] = [
   {
     label: "Services",
     href: "/services",
-    activeMatch: ["/services", "/digital-marketing", "/business-automation", "/industries"],
+    activeMatch: ["/services", "/digital-marketing", "/business-automation"],
+    linkRows: [
+      { label: "Browse services by industry", cta: "Explore Industries", href: "/industries" },
+      { label: "Not sure where to start?", cta: "Book a Growth Audit", href: "/growth-audit" },
+    ],
     groups: [
       {
         title: "Marketing",
@@ -38,17 +45,6 @@ export const primaryNav: NavItem[] = [
           { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
           { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up" },
           { label: "Custom Automation", href: "/business-automation/custom-automation" },
-        ],
-      },
-      {
-        title: "Industries",
-        items: [
-          { label: "Real Estate", href: "/industries/real-estate" },
-          { label: "Local Businesses", href: "/industries/local-businesses" },
-          { label: "B2B Companies", href: "/industries/b2b-companies" },
-          { label: "Startups & SaaS", href: "/industries/startups-saas" },
-          { label: "Agencies", href: "/industries/agencies" },
-          { label: "Education", href: "/industries/education" },
         ],
       },
     ],
