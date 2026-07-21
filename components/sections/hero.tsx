@@ -55,7 +55,7 @@ export function Hero() {
                 Book a Growth Audit
                 <ArrowRight className="h-5 w-5" strokeWidth={2} />
               </Link>
-              <Link href="/digital-marketing" className="btn-secondary px-8 py-4 text-base">
+              <Link href="/services" className="btn-secondary px-8 py-4 text-base">
                 Explore Services
               </Link>
             </div>

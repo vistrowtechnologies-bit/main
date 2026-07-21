@@ -15,8 +15,12 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+  const isActive = (item: NavItem) => {
+    const paths = item.activeMatch ?? [item.href];
+    return paths.some((path) =>
+      path === "/" ? pathname === "/" : pathname === path || pathname.startsWith(path + "/"),
+    );
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -71,19 +75,19 @@ export function Header() {
               <li
                 key={item.label}
                 className="relative"
-                onMouseEnter={() => item.children && openWith(item.label)}
+                onMouseEnter={() => (item.children || item.groups) && openWith(item.label)}
                 onMouseLeave={scheduleClose}
               >
                 <NavTrigger
                   item={item}
                   open={openMenu === item.label}
-                  active={isActive(item.href)}
-                  onFocus={() => item.children && openWith(item.label)}
+                  active={isActive(item)}
+                  onFocus={() => (item.children || item.groups) && openWith(item.label)}
                   onClick={() =>
                     setOpenMenu((cur) => (cur === item.label ? null : item.label))
                   }
                 />
-                {item.children && openMenu === item.label && (
+                {(item.children || item.groups) && openMenu === item.label && (
                   <MegaMenu item={item} onClose={() => setOpenMenu(null)} />
                 )}
               </li>
@@ -137,7 +141,7 @@ function NavTrigger({
     <span className="absolute -bottom-[3px] left-2.5 right-2.5 h-[2px] rounded-full bg-accent" />
   ) : null;
 
-  if (!item.children) {
+  if (!item.children && !item.groups) {
     return (
       <Link href={item.href} aria-current={active ? "page" : undefined} className={`${base} ${tone}`}>
         {item.label}
@@ -165,6 +169,43 @@ function NavTrigger({
 }
 
 function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
+  if (item.groups) {
+    return (
+      <div className="absolute left-0 top-full z-50 pt-3">
+        <div className="dropdown-glass w-[min(94vw,720px)] overflow-hidden rounded-lg p-5 animate-rise-in">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {item.groups.map((group) => (
+              <div key={group.title}>
+                <p className="mb-1.5 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+                  {group.title}
+                </p>
+                <ul className="space-y-0.5">
+                  {group.items.map((child) => (
+                    <li key={child.href}>
+                      <Link
+                        href={child.href}
+                        onClick={onClose}
+                        className="block rounded-sm px-2.5 py-2 font-sans text-sm font-medium text-ink-2 transition-colors hover:bg-surface/80 hover:text-ink"
+                      >
+                        {child.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 flex items-center justify-between rounded-sm border border-line/50 bg-surface/75 px-4 py-3">
+            <span className="font-sans text-[13px] text-muted">Not sure where to start?</span>
+            <Link href="/growth-audit" onClick={onClose} className="btn-ghost">
+              Book a Growth Audit <ArrowRight className="h-4 w-4" strokeWidth={2} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="absolute left-0 top-full z-50 pt-3">
       <div className="dropdown-glass w-[min(92vw,560px)] overflow-hidden rounded-lg p-2 animate-rise-in">
@@ -238,7 +279,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
 function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }) {
   const [open, setOpen] = useState(false);
 
-  if (!item.children) {
+  if (!item.children && !item.groups) {
     return (
       <li>
         <Link
@@ -267,19 +308,44 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
         />
       </button>
       {open && (
-        <ul className="mb-2 ml-3 space-y-0.5 border-l border-line pl-3 animate-rise-in">
-          {item.children.map((child) => (
-            <li key={child.href}>
-              <Link
-                href={child.href}
-                onClick={onClose}
-                className="block rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
-              >
-                {child.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="mb-2 ml-3 space-y-3 border-l border-line pl-3 animate-rise-in">
+          {item.groups
+            ? item.groups.map((group) => (
+                <div key={group.title}>
+                  <p className="px-2 py-1 font-sans text-xs font-semibold uppercase tracking-[0.1em] text-muted">
+                    {group.title}
+                  </p>
+                  <ul className="space-y-0.5">
+                    {group.items.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          onClick={onClose}
+                          className="block rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            : (
+                <ul className="space-y-0.5">
+                  {item.children!.map((child) => (
+                    <li key={child.href}>
+                      <Link
+                        href={child.href}
+                        onClick={onClose}
+                        className="block rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
+                      >
+                        {child.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+        </div>
       )}
     </li>
   );

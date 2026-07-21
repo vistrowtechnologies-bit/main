@@ -30,7 +30,7 @@ export function Services() {
             </h2>
           </Reveal>
           <Reveal delay={0.05}>
-            <Link href="/digital-marketing" className="btn-ghost">
+            <Link href="/services" className="btn-ghost">
               Explore all services <ChevronRight className="h-4 w-4" strokeWidth={2} />
             </Link>
           </Reveal>

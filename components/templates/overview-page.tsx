@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
+import { LinkCardGrid } from "@/components/sections/link-card-grid";
 import { Steps } from "@/components/sections/steps";
 import { Faq } from "@/components/sections/faq";
 import { Reveal } from "@/components/ui/reveal";
@@ -77,37 +77,7 @@ export function OverviewPage({
         </section>
       )}
 
-      <section className="bg-surface py-section">
-        <div className="container-edge">
-          {content.cardsTitle && (
-            <SectionHeading eyebrow="Explore" title={content.cardsTitle} className="mb-12" />
-          )}
-          <div className="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3">
-            {content.cards.map((card, i) => (
-              <Reveal key={card.href} delay={(i % 3) * 0.06}>
-                <Link
-                  href={card.href}
-                  className="glass glass-hover group flex h-full flex-col rounded-lg p-7"
-                >
-                  <div className="flex items-start justify-between">
-                    {card.icon && (
-                      <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-accent-tint">
-                        <card.icon className="h-6 w-6 text-accent-ink" strokeWidth={1.75} />
-                      </div>
-                    )}
-                    <ArrowUpRight
-                      className="h-5 w-5 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      strokeWidth={2}
-                    />
-                  </div>
-                  <h3 className="mt-5 font-display text-lg font-bold text-ink">{card.label}</h3>
-                  <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{card.body}</p>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <LinkCardGrid title={content.cardsTitle} cards={content.cards} surface />
 
       {content.process && (
         <Steps

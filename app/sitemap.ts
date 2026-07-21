@@ -9,6 +9,7 @@ import { siteUrl } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
+    "/services",
     "/digital-marketing",
     "/business-automation",
     "/products",
