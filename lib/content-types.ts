@@ -87,3 +87,18 @@ export type LegalContent = {
   intro: string;
   sections: { heading: string; body: string[] }[];
 };
+
+export type BlogSection = { heading?: string; paragraphs: string[]; points?: string[] };
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  author: string;
+  date: string;
+  readTime: string;
+  metaTitle: string;
+  metaDescription: string;
+  sections: BlogSection[];
+};

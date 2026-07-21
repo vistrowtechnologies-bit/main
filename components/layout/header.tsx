@@ -67,35 +67,39 @@ export function Header() {
           : "border-transparent bg-bg/60 backdrop-blur-md"
       }`}
     >
-      <nav className="container-edge flex h-[72px] items-center justify-between gap-4" aria-label="Primary">
-        <div className="flex min-w-0 items-center gap-4 xl:gap-8">
+      <nav
+        className="container-edge grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]"
+        aria-label="Primary"
+      >
+        <div className="flex min-w-0 items-center">
           <Wordmark className="shrink-0" priority />
-          <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
-            {primaryNav.map((item) => (
-              <li
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => (item.children || item.groups) && openWith(item.label)}
-                onMouseLeave={scheduleClose}
-              >
-                <NavTrigger
-                  item={item}
-                  open={openMenu === item.label}
-                  active={isActive(item)}
-                  onFocus={() => (item.children || item.groups) && openWith(item.label)}
-                  onClick={() =>
-                    setOpenMenu((cur) => (cur === item.label ? null : item.label))
-                  }
-                />
-                {(item.children || item.groups) && openMenu === item.label && (
-                  <MegaMenu item={item} onClose={() => setOpenMenu(null)} />
-                )}
-              </li>
-            ))}
-          </ul>
         </div>
 
-        <div className="flex items-center gap-1.5 sm:gap-2">
+        <ul className="hidden items-center justify-self-center gap-0.5 lg:flex xl:gap-1">
+          {primaryNav.map((item) => (
+            <li
+              key={item.label}
+              className="relative"
+              onMouseEnter={() => (item.children || item.groups) && openWith(item.label)}
+              onMouseLeave={scheduleClose}
+            >
+              <NavTrigger
+                item={item}
+                open={openMenu === item.label}
+                active={isActive(item)}
+                onFocus={() => (item.children || item.groups) && openWith(item.label)}
+                onClick={() =>
+                  setOpenMenu((cur) => (cur === item.label ? null : item.label))
+                }
+              />
+              {(item.children || item.groups) && openMenu === item.label && (
+                <MegaMenu item={item} onClose={() => setOpenMenu(null)} />
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center justify-self-end gap-1.5 sm:gap-2">
           <ThemeToggle />
           <Link
             href="/growth-audit"

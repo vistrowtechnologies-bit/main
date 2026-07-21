@@ -4,6 +4,7 @@ import { businessAutomationServices } from "@/content/business-automation";
 import { products } from "@/content/products";
 import { industries } from "@/content/industries";
 import { workPages } from "@/content/work";
+import { blogPosts } from "@/content/blog";
 import { siteUrl } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products",
     "/industries",
     "/work",
+    "/blog",
     "/about",
     "/approach",
     "/careers",
@@ -33,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...Object.keys(products).map((s) => `/products/${s}`),
     ...Object.keys(industries).map((s) => `/industries/${s}`),
     ...Object.keys(workPages).map((s) => `/work/${s}`),
+    ...blogPosts.map((post) => `/blog/${post.slug}`),
   ];
 
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({

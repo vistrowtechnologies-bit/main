@@ -71,10 +71,11 @@ export const primaryNav: NavItem[] = [
   {
     label: "About Us",
     href: "/about",
-    activeMatch: ["/about", "/approach", "/careers", "/partners", "/contact"],
+    activeMatch: ["/about", "/approach", "/careers", "/partners", "/contact", "/blog"],
     children: [
       { label: "About Vistrow", href: "/about" },
       { label: "Our Approach", href: "/approach" },
+      { label: "Blog", href: "/blog" },
       { label: "Careers", href: "/careers" },
       { label: "Partners", href: "/partners" },
       { label: "Contact", href: "/contact" },

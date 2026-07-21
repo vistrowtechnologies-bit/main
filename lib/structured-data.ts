@@ -103,6 +103,28 @@ export function productSchema(input: {
   };
 }
 
+export function articleSchema(input: {
+  title: string;
+  description: string;
+  path: string;
+  author: string;
+  datePublished: string;
+}): JsonLdValue {
+  return {
+    "@type": "BlogPosting",
+    "@id": `${siteUrl}${input.path}#article`,
+    headline: input.title,
+    description: input.description,
+    url: `${siteUrl}${input.path}`,
+    datePublished: input.datePublished,
+    dateModified: input.datePublished,
+    author: { "@type": "Organization", name: input.author },
+    publisher: { "@id": `${siteUrl}/#organization` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    mainEntityOfPage: `${siteUrl}${input.path}`,
+  };
+}
+
 export function collectionSchema(input: {
   name: string;
   description: string;
