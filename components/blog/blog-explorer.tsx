@@ -54,6 +54,13 @@ export function BlogExplorer({
       .slice(0, 4);
   }, [category, currentCategory, currentSlug, posts, query]);
 
+  const isBrowsing = query.trim().length > 0 || category !== "All";
+
+  const resetFilters = () => {
+    setQuery("");
+    setCategory("All");
+  };
+
   const content = (
     <div className="space-y-6">
       <div>
@@ -123,23 +130,16 @@ export function BlogExplorer({
         </div>
       )}
 
-      <div className="border-t border-line pt-5">
+      {isBrowsing && <div className="border-t border-line pt-5">
         <div className="flex items-center justify-between gap-3">
-          <p className="font-sans text-xs font-semibold text-ink">
-            {query || category !== "All" ? "Matching articles" : "Suggested reading"}
-          </p>
-          {(query || category !== "All") && (
-            <button
-              type="button"
-              onClick={() => {
-                setQuery("");
-                setCategory("All");
-              }}
-              className="font-sans text-[11px] font-semibold text-accent-strong hover:underline"
-            >
-              Reset
-            </button>
-          )}
+          <p className="font-sans text-xs font-semibold text-ink">Matching articles</p>
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="font-sans text-[11px] font-semibold text-accent-strong hover:underline"
+          >
+            Reset
+          </button>
         </div>
         {results.length > 0 ? (
           <ul className="mt-3 space-y-2">
@@ -170,7 +170,7 @@ export function BlogExplorer({
             <p className="font-sans text-xs text-muted">No articles match this search yet.</p>
           </div>
         )}
-      </div>
+      </div>}
     </div>
   );
 
@@ -183,7 +183,125 @@ export function BlogExplorer({
         </summary>
         <div className="mt-5 border-t border-line pt-5">{content}</div>
       </details>
-      <div className="glass hidden rounded-lg p-5 lg:block">{content}</div>
+
+      <div className="glass hidden overflow-hidden rounded-xl lg:block">
+        <div className="grid grid-cols-[minmax(0,290px)_1fr] items-end gap-8 p-6">
+          <div>
+            <p className="font-sans text-xs font-semibold text-ink">Search the blog</p>
+            <div className="mt-2 flex items-center gap-2 rounded-sm border border-line bg-bg/80 px-3 py-2.5 focus-within:border-accent">
+              <Search className="h-4 w-4 shrink-0 text-muted" strokeWidth={1.8} />
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search topics..."
+                aria-label="Search blog topics"
+                className="min-w-0 flex-1 bg-transparent font-sans text-sm text-ink outline-none placeholder:text-muted"
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear blog search"
+                  className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-ink"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between gap-4">
+              <p className="font-sans text-xs font-semibold text-ink">Browse by category</p>
+              {isBrowsing && (
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="font-sans text-[11px] font-semibold text-accent-strong hover:underline"
+                >
+                  Reset filters
+                </button>
+              )}
+            </div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <CategoryButton
+                label="All"
+                count={posts.length}
+                active={category === "All"}
+                onClick={() => setCategory("All")}
+              />
+              {categories.map(([label, count]) => (
+                <CategoryButton
+                  key={label}
+                  label={label}
+                  count={count}
+                  active={category === label}
+                  onClick={() => setCategory(label)}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="border-t border-line bg-surface/55 px-6 py-5">
+          {isBrowsing ? (
+            <div>
+              <p className="font-sans text-xs font-semibold text-ink">Matching articles</p>
+              {results.length > 0 ? (
+                <ul className="mt-3 grid grid-cols-2 gap-3">
+                  {results.map((post) => (
+                    <li key={post.slug}>
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="group flex h-full items-center justify-between gap-4 rounded-sm border border-line bg-bg/75 p-4 transition-all hover:border-accent hover:bg-card"
+                      >
+                        <div className="min-w-0">
+                          <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-accent-strong">
+                            {post.category}
+                          </span>
+                          <p className="mt-1 line-clamp-2 font-display text-sm font-bold leading-snug text-ink">
+                            {post.title}
+                          </p>
+                        </div>
+                        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 font-sans text-sm text-muted">No articles match this search yet.</p>
+              )}
+            </div>
+          ) : headings.length > 0 ? (
+            <div className="flex items-start gap-8">
+              <div className="w-[190px] shrink-0">
+                <p className="eyebrow">In this article</p>
+                <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
+                  Jump directly to the section you need.
+                </p>
+              </div>
+              <ol className="grid min-w-0 flex-1 grid-cols-2 gap-x-8 gap-y-3">
+                {headings.map((heading, index) => (
+                  <li key={heading.id}>
+                    <a
+                      href={`#${heading.id}`}
+                      className="group flex items-start gap-3 font-sans text-sm leading-snug text-muted transition-colors hover:text-ink"
+                    >
+                      <span className="font-semibold text-accent-strong">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span>{heading.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : (
+            <p className="font-sans text-sm text-muted">Explore more practical insights using search or categories.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

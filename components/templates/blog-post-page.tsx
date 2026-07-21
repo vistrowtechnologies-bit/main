@@ -61,36 +61,37 @@ export function BlogPostPage({
               items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title }]}
             />
 
-            <span className="mt-7 inline-flex rounded-full border border-accent/45 bg-accent/10 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
-              {post.category}
-            </span>
-            <h1 className="mt-5 max-w-4xl font-display text-[clamp(2.15rem,4.4vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-ink">
-              <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
-            </h1>
-            <div className="mt-6 flex flex-wrap items-center gap-2 font-sans text-sm text-muted">
-              <span>{post.author}</span>
-              <span aria-hidden>·</span>
-              <time dateTime={post.date}>{displayDate}</time>
-              <span aria-hidden>·</span>
-              <span>{post.readTime}</span>
+            <div className="mx-auto mt-8 max-w-[880px]">
+              <span className="inline-flex rounded-full border border-accent/45 bg-accent/10 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
+                {post.category}
+              </span>
+              <h1 className="mt-5 font-display text-[clamp(2.15rem,4.4vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-ink">
+                <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
+              </h1>
+              <div className="mt-6 flex flex-wrap items-center gap-2 font-sans text-sm text-muted">
+                <span>{post.author}</span>
+                <span aria-hidden>·</span>
+                <time dateTime={post.date}>{displayDate}</time>
+                <span aria-hidden>·</span>
+                <span>{post.readTime}</span>
+              </div>
+              <p className="mt-7 max-w-3xl border-l-2 border-accent pl-5 font-sans text-lg leading-relaxed text-muted">
+                {post.excerpt}
+              </p>
             </div>
-            <p className="mt-7 max-w-3xl border-l-2 border-accent pl-5 font-sans text-lg leading-relaxed text-muted">
-              {post.excerpt}
-            </p>
           </header>
 
-          <div className="mx-auto mt-12 grid max-w-[1080px] grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,720px)_300px] lg:gap-14">
-            <aside className="order-1 lg:order-2 lg:sticky lg:top-28">
-              <BlogExplorer
-                posts={explorerPosts}
-                currentSlug={post.slug}
-                currentCategory={post.category}
-                headings={headings}
-              />
-            </aside>
+          <div className="mx-auto mt-10 max-w-[1080px]">
+            <BlogExplorer
+              posts={explorerPosts}
+              currentSlug={post.slug}
+              currentCategory={post.category}
+              headings={headings}
+            />
+          </div>
 
-            <div className="order-2 min-w-0 lg:order-1">
-              <div className="space-y-10">
+          <div className="mx-auto mt-12 max-w-[720px]">
+            <div className="space-y-10">
               {post.sections.map((section, i) => (
                 <Reveal key={i} delay={Math.min(i, 3) * 0.05}>
                   <section id={section.heading ? headingId(section.heading) : undefined} className="scroll-mt-32">
@@ -117,18 +118,17 @@ export function BlogPostPage({
                   </section>
                 </Reveal>
               ))}
-              </div>
+            </div>
 
-              <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
-                <Link href="/blog" className="btn-ghost">
-                  <ArrowLeft className="h-4 w-4" strokeWidth={2} />
-                  Back to all posts
-                </Link>
-                <Link href="/growth-audit" className="btn-secondary px-5 py-2.5">
-                  Apply this to your business
-                  <ArrowRight className="h-4 w-4" strokeWidth={2} />
-                </Link>
-              </div>
+            <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
+              <Link href="/blog" className="btn-ghost">
+                <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+                Back to all posts
+              </Link>
+              <Link href="/growth-audit" className="btn-secondary px-5 py-2.5">
+                Apply this to your business
+                <ArrowRight className="h-4 w-4" strokeWidth={2} />
+              </Link>
             </div>
           </div>
         </div>
@@ -163,7 +163,7 @@ export function BlogPostPage({
                   <div className="mt-5 flex items-center justify-between gap-3 border-t border-line pt-4">
                     <span className="font-sans text-xs text-muted">{related.readTime}</span>
                     <span className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-accent-strong">
-                    Read more <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+                      Read more <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
                     </span>
                   </div>
                 </Link>
