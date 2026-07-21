@@ -8,6 +8,7 @@ Marketing website for **Vistrow Technologies** - a digital-marketing-first techn
 - [Tailwind CSS](https://tailwindcss.com/) with a token-based design system
 - [Framer Motion](https://www.framer.com/motion/) for controlled motion
 - [lucide-react](https://lucide.dev/) icons
+- [Sanity](https://www.sanity.io/) for blog content management
 
 ## Getting started
 
@@ -18,6 +19,8 @@ npm run dev      # http://localhost:3000
 
 Copy `.env.example` to `.env.local` and add a Resend API key to deliver Contact and Growth Audit submissions. Add the same variables in Vercel for production.
 
+The Sanity project and dataset are already configured with public project identifiers. Start the standalone content Studio with `npm run studio:dev`, then open the local URL printed by Sanity.
+
 ## Scripts
 
 | Command         | Description                        |
@@ -26,6 +29,9 @@ Copy `.env.example` to `.env.local` and add a Resend API key to deliver Contact 
 | `npm run build` | Production build                   |
 | `npm run start` | Serve the production build         |
 | `npm run lint`  | Lint the project                   |
+| `npm run studio:dev` | Start Sanity Studio locally   |
+| `npm run studio:build` | Build Sanity Studio          |
+| `npm run sanity:import` | Import the current blog posts into Sanity |
 
 ## Structure
 
@@ -40,6 +46,7 @@ components/
 content/                 Typed content data driving the templates
 lib/                     Nav + content types
 public/                  Logos and static assets
+studio/                  Standalone Sanity Studio and blog schema
 ```
 
 ## Design system

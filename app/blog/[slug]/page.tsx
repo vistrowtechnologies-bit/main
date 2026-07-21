@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPostPage } from "@/components/templates/blog-post-page";
-import { blogPosts } from "@/content/blog";
 import { buildMetadata } from "@/lib/seo";
+import { getBlogPost, getBlogPosts } from "@/lib/sanity/blog";
 
-export function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const posts = await getBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const post = await getBlogPost(params.slug);
   if (!post) return {};
   return buildMetadata({
     title: post.metaTitle,
@@ -18,8 +21,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   });
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const [post, blogPosts] = await Promise.all([
+    getBlogPost(params.slug),
+    getBlogPosts(),
+  ]);
   if (!post) notFound();
   const morePosts = blogPosts
     .filter((p) => p.slug !== post.slug)

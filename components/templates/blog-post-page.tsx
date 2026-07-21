@@ -106,7 +106,7 @@ export function BlogPostPage({
                           <p key={j}>{p}</p>
                         ))}
                       </div>
-                      {section.points && (
+                      {section.points && section.points.length > 0 && (
                         <ul className="mt-5 space-y-3 rounded-lg border border-line bg-surface/70 p-5">
                           {section.points.map((point) => (
                             <li key={point} className="flex items-start gap-3 font-sans text-[15px] leading-relaxed text-ink-2">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { BlogIndexPage } from "@/components/templates/blog-index-page";
-import { blogPosts } from "@/content/blog";
 import { buildMetadata } from "@/lib/seo";
+import { getBlogPosts } from "@/lib/sanity/blog";
 
 export const metadata: Metadata = buildMetadata({
   title: "Blog",
@@ -10,7 +10,9 @@ export const metadata: Metadata = buildMetadata({
   path: "/blog",
 });
 
-export default function Page() {
-  const posts = [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
+export const revalidate = 60;
+
+export default async function Page() {
+  const posts = await getBlogPosts();
   return <BlogIndexPage posts={posts} />;
 }

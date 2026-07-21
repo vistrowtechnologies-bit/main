@@ -4,10 +4,11 @@ import { businessAutomationServices } from "@/content/business-automation";
 import { products } from "@/content/products";
 import { industries } from "@/content/industries";
 import { workPages } from "@/content/work";
-import { blogPosts } from "@/content/blog";
 import { siteUrl } from "@/lib/seo";
+import { getBlogPosts } from "@/lib/sanity/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const blogPosts = await getBlogPosts();
   const staticRoutes = [
     "",
     "/services",

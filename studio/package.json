@@ -1,0 +1,23 @@
+{
+  "name": "vistrow-sanity-studio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "import:blogs": "sanity datasets import migrations/blog-posts.ndjson --dataset production --replace"
+  },
+  "dependencies": {
+    "@sanity/vision": "^6.5.0",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
+    "sanity": "^6.5.0",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "typescript": "^5.9.3"
+  }
+}
