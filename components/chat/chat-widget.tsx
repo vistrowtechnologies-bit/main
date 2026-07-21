@@ -133,9 +133,10 @@ export function ChatWidget() {
   const messageIdRef = useRef(1);
 
   useEffect(() => {
-    if (open) {
-      window.setTimeout(() => inputRef.current?.focus(), reduceMotion ? 0 : 350);
-    }
+    if (!open) return;
+    const isSmallOrTouch = window.matchMedia("(pointer: coarse), (max-width: 639px)").matches;
+    if (isSmallOrTouch) return;
+    window.setTimeout(() => inputRef.current?.focus(), reduceMotion ? 0 : 350);
   }, [open, reduceMotion]);
 
   useEffect(() => {
@@ -210,7 +211,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="dropdown-glass flex h-[min(650px,calc(100dvh-2rem))] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-xl border border-line/70 bg-card/95 shadow-[0_24px_80px_rgb(0_0_0/0.24)] sm:h-[610px] sm:w-[390px]"
+            className="dropdown-glass flex h-[min(72dvh,650px)] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-xl border border-line/70 bg-card/95 shadow-[0_24px_80px_rgb(0_0_0/0.24)] sm:h-[610px] sm:w-[390px]"
           >
             <header className="relative overflow-hidden border-b border-line/70 bg-ink px-5 py-4 text-bg">
               <div
