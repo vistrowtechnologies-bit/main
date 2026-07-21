@@ -245,11 +245,6 @@ export function ConversionEngine() {
                 />
                 <motion.div
                   aria-hidden
-                  className="pointer-events-none absolute bottom-5 left-[29%] top-5 z-20 w-px origin-top bg-gradient-to-b from-accent/10 via-accent/70 to-accent/10"
-                  style={{ scaleY: smoothProgress }}
-                />
-                <motion.div
-                  aria-hidden
                   className="pointer-events-none absolute left-[29%] top-0 z-30 -ml-1.5 h-3 w-3 rounded-full border border-white/60 bg-accent shadow-[0_0_8px_rgb(var(--accent)),0_0_24px_rgb(var(--accent)/0.8)]"
                   style={{ y: particleY }}
                 >
@@ -340,12 +335,6 @@ export function ConversionEngine() {
                 />
                 Revenue connected back to source
               </motion.div>
-              <motion.div
-                aria-hidden
-                className="absolute -bottom-16 left-1/2 h-14 w-px origin-top bg-gradient-to-b from-accent via-accent/45 to-transparent shadow-[0_0_12px_rgb(var(--accent)/0.5)]"
-                animate={{ scaleY: activeIndex === steps.length - 1 ? 1 : 0, opacity: activeIndex === steps.length - 1 ? 1 : 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              />
             </div>
           </div>
         </div>
