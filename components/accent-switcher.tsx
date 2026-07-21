@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Palette } from "lucide-react";
 
-type AccentKey = "lime" | "orange" | "cyan" | "pink";
+type AccentKey = "lime" | "orange" | "cyan" | "pink" | "purple";
 
 const accents: { key: AccentKey; label: string; swatch: string }[] = [
   { key: "lime", label: "Neon Lime", swatch: "#C6FF00" },
   { key: "orange", label: "Neon Orange", swatch: "#FF6A00" },
   { key: "cyan", label: "Neon Cyan", swatch: "#00E5FF" },
   { key: "pink", label: "Neon Pink", swatch: "#FF0099" },
+  { key: "purple", label: "Neon Violet", swatch: "#B026FF" },
 ];
 
 export function AccentSwitcher({ className = "" }: { className?: string }) {

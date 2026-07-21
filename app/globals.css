@@ -101,6 +101,16 @@
   --accent-strong: 255 62 165; /* softened neon pink for readable text on carbon */
 }
 
+[data-accent="purple"] {
+  --accent: 176 38 255;        /* Neon Violet #B026FF */
+  --accent-ink: 255 255 255;
+  --accent-tint: 232 208 255;  /* Violet Tint #E8D0FF */
+  --accent-strong: 122 18 176; /* Deep Violet #7A12B0 - accessible on white */
+}
+.dark[data-accent="purple"] {
+  --accent-strong: 191 92 255; /* softened neon violet for readable text on carbon */
+}
+
 @layer base {
   * {
     border-color: rgb(var(--line) / 1);
