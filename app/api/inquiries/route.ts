@@ -138,9 +138,11 @@ export async function POST(request: Request) {
     );
   }
 
-  sendConfirmationEmail({ apiKey, from, replyTo: to, type, name, email, company }).catch((error) => {
+  try {
+    await sendConfirmationEmail({ apiKey, from, replyTo: to, type, name, email, company });
+  } catch (error) {
     console.error("Confirmation email failed", error);
-  });
+  }
 
   return NextResponse.json({ ok: true });
 }
