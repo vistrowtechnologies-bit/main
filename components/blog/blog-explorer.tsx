@@ -32,6 +32,7 @@ export function BlogExplorer({
     return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
   }, [posts]);
 
+  const isBrowsing = query.trim().length > 0 || category !== "All";
   const results = useMemo(() => {
     const normalisedQuery = query.trim().toLowerCase();
     const browsing = normalisedQuery.length > 0 || category !== "All";
@@ -51,10 +52,8 @@ export function BlogExplorer({
         }
         return a.date < b.date ? 1 : -1;
       })
-      .slice(0, 4);
+      .slice(0, 3);
   }, [category, currentCategory, currentSlug, posts, query]);
-
-  const isBrowsing = query.trim().length > 0 || category !== "All";
 
   const resetFilters = () => {
     setQuery("");
@@ -62,115 +61,113 @@ export function BlogExplorer({
   };
 
   const content = (
-    <div className="space-y-6">
-      <div>
-        <p className="font-sans text-xs font-semibold text-ink">
-          Search the blog
-        </p>
-        <div className="mt-2 flex items-center gap-2 rounded-sm border border-line bg-bg px-3 py-2.5 focus-within:border-accent">
-          <Search className="h-4 w-4 shrink-0 text-muted" strokeWidth={1.8} />
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search topics..."
-            aria-label="Search blog topics"
-            className="min-w-0 flex-1 bg-transparent font-sans text-sm text-ink outline-none placeholder:text-muted"
-          />
-          {query && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label="Clear blog search"
-              className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-ink"
-            >
-              <X className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </div>
+    <div>
+      <p className="eyebrow">Explore the blog</p>
+      <div className="mt-4 flex items-center gap-2 rounded-sm border border-line bg-bg/80 px-3 py-2.5 focus-within:border-accent">
+        <Search className="h-4 w-4 shrink-0 text-muted" strokeWidth={1.8} />
+        <input
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search articles..."
+          aria-label="Search blog articles"
+          className="min-w-0 flex-1 bg-transparent font-sans text-sm text-ink outline-none placeholder:text-muted"
+        />
+        {query && (
+          <button
+            type="button"
+            onClick={() => setQuery("")}
+            aria-label="Clear blog search"
+            className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-ink"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
 
-      <div>
-        <p className="font-sans text-xs font-semibold text-ink">Browse categories</p>
-        <div className="mt-2 flex flex-wrap gap-2">
-          <CategoryButton
-            label="All"
-            count={posts.length}
-            active={category === "All"}
-            onClick={() => setCategory("All")}
-          />
+      <p className="mt-4 font-sans text-xs font-semibold text-ink">Category</p>
+      <div className="relative mt-2">
+        <select
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+          aria-label="Filter blog articles by category"
+          className="w-full appearance-none rounded-sm border border-line bg-bg/80 px-3 py-2.5 pr-9 font-sans text-sm text-ink outline-none transition-colors focus:border-accent"
+        >
+          <option value="All">All categories ({posts.length})</option>
           {categories.map(([label, count]) => (
-            <CategoryButton
-              key={label}
-              label={label}
-              count={count}
-              active={category === label}
-              onClick={() => setCategory(label)}
-            />
+            <option key={label} value={label}>
+              {label} ({count})
+            </option>
           ))}
-        </div>
+        </select>
+        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
       </div>
 
-      {headings.length > 0 && !query && category === "All" && (
-        <div className="border-t border-line pt-5">
+      {!isBrowsing && headings.length > 0 && (
+        <nav className="mt-6 border-t border-line pt-5" aria-label="Article sections">
           <p className="font-sans text-xs font-semibold text-ink">In this article</p>
           <ol className="mt-3 space-y-2.5">
             {headings.map((heading, index) => (
               <li key={heading.id}>
                 <a
                   href={`#${heading.id}`}
-                  className="group flex items-start gap-2 font-sans text-[13px] leading-snug text-muted transition-colors hover:text-ink"
+                  className="group flex items-start gap-2.5 font-sans text-[13px] leading-snug text-muted transition-colors hover:text-ink"
                 >
-                  <span className="font-semibold text-accent-strong">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="font-semibold text-accent-strong">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <span>{heading.label}</span>
                 </a>
               </li>
             ))}
           </ol>
-        </div>
+        </nav>
       )}
 
-      {isBrowsing && <div className="border-t border-line pt-5">
+      <div className="mt-6 border-t border-line pt-5">
         <div className="flex items-center justify-between gap-3">
-          <p className="font-sans text-xs font-semibold text-ink">Matching articles</p>
-          <button
-            type="button"
-            onClick={resetFilters}
-            className="font-sans text-[11px] font-semibold text-accent-strong hover:underline"
-          >
-            Reset
-          </button>
+          <p className="font-sans text-xs font-semibold text-ink">
+            {isBrowsing ? "Matching articles" : "Suggested reading"}
+          </p>
+          {isBrowsing && (
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="font-sans text-[11px] font-semibold text-accent-strong hover:underline"
+            >
+              Reset
+            </button>
+          )}
         </div>
+
         {results.length > 0 ? (
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-3 divide-y divide-line">
             {results.map((post) => (
               <li key={post.slug}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group block rounded-sm border border-line/70 bg-bg/70 p-3 transition-all hover:border-accent hover:bg-card"
+                  className="group flex items-start justify-between gap-3 py-3 first:pt-0"
                 >
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
                     <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-accent-strong">
                       {post.category}
                     </span>
-                    <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                    <p className="mt-1 line-clamp-2 font-display text-[13px] font-bold leading-snug text-ink transition-colors group-hover:text-accent-strong">
+                      {post.title}
+                    </p>
+                    <p className="mt-1.5 font-sans text-[11px] text-muted">{post.readTime}</p>
                   </div>
-                  <p className="mt-1.5 font-display text-[13px] font-bold leading-snug text-ink">
-                    {post.title}
-                  </p>
-                  <p className="mt-2 font-sans text-[11px] text-muted">
-                    {post.readTime}{post.slug === currentSlug ? " · Current article" : ""}
-                  </p>
+                  <ArrowUpRight className="mt-1 h-3.5 w-3.5 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </Link>
               </li>
             ))}
           </ul>
         ) : (
-          <div className="mt-3 rounded-sm border border-dashed border-line p-4 text-center">
-            <p className="font-sans text-xs text-muted">No articles match this search yet.</p>
-          </div>
+          <p className="mt-3 font-sans text-xs leading-relaxed text-muted">
+            No articles match this search yet.
+          </p>
         )}
-      </div>}
+      </div>
     </div>
   );
 
@@ -183,153 +180,7 @@ export function BlogExplorer({
         </summary>
         <div className="mt-5 border-t border-line pt-5">{content}</div>
       </details>
-
-      <div className="glass hidden overflow-hidden rounded-xl lg:block">
-        <div className="grid grid-cols-[minmax(0,290px)_1fr] items-end gap-8 p-6">
-          <div>
-            <p className="font-sans text-xs font-semibold text-ink">Search the blog</p>
-            <div className="mt-2 flex items-center gap-2 rounded-sm border border-line bg-bg/80 px-3 py-2.5 focus-within:border-accent">
-              <Search className="h-4 w-4 shrink-0 text-muted" strokeWidth={1.8} />
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search topics..."
-                aria-label="Search blog topics"
-                className="min-w-0 flex-1 bg-transparent font-sans text-sm text-ink outline-none placeholder:text-muted"
-              />
-              {query && (
-                <button
-                  type="button"
-                  onClick={() => setQuery("")}
-                  aria-label="Clear blog search"
-                  className="inline-flex h-6 w-6 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-ink"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between gap-4">
-              <p className="font-sans text-xs font-semibold text-ink">Browse by category</p>
-              {isBrowsing && (
-                <button
-                  type="button"
-                  onClick={resetFilters}
-                  className="font-sans text-[11px] font-semibold text-accent-strong hover:underline"
-                >
-                  Reset filters
-                </button>
-              )}
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              <CategoryButton
-                label="All"
-                count={posts.length}
-                active={category === "All"}
-                onClick={() => setCategory("All")}
-              />
-              {categories.map(([label, count]) => (
-                <CategoryButton
-                  key={label}
-                  label={label}
-                  count={count}
-                  active={category === label}
-                  onClick={() => setCategory(label)}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-line bg-surface/55 px-6 py-5">
-          {isBrowsing ? (
-            <div>
-              <p className="font-sans text-xs font-semibold text-ink">Matching articles</p>
-              {results.length > 0 ? (
-                <ul className="mt-3 grid grid-cols-2 gap-3">
-                  {results.map((post) => (
-                    <li key={post.slug}>
-                      <Link
-                        href={`/blog/${post.slug}`}
-                        className="group flex h-full items-center justify-between gap-4 rounded-sm border border-line bg-bg/75 p-4 transition-all hover:border-accent hover:bg-card"
-                      >
-                        <div className="min-w-0">
-                          <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.1em] text-accent-strong">
-                            {post.category}
-                          </span>
-                          <p className="mt-1 line-clamp-2 font-display text-sm font-bold leading-snug text-ink">
-                            {post.title}
-                          </p>
-                        </div>
-                        <ArrowUpRight className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-3 font-sans text-sm text-muted">No articles match this search yet.</p>
-              )}
-            </div>
-          ) : headings.length > 0 ? (
-            <div className="flex items-start gap-8">
-              <div className="w-[190px] shrink-0">
-                <p className="eyebrow">In this article</p>
-                <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
-                  Jump directly to the section you need.
-                </p>
-              </div>
-              <ol className="grid min-w-0 flex-1 grid-cols-2 gap-x-8 gap-y-3">
-                {headings.map((heading, index) => (
-                  <li key={heading.id}>
-                    <a
-                      href={`#${heading.id}`}
-                      className="group flex items-start gap-3 font-sans text-sm leading-snug text-muted transition-colors hover:text-ink"
-                    >
-                      <span className="font-semibold text-accent-strong">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span>{heading.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ) : (
-            <p className="font-sans text-sm text-muted">Explore more practical insights using search or categories.</p>
-          )}
-        </div>
-      </div>
+      <div className="glass hidden rounded-lg p-5 lg:block">{content}</div>
     </div>
-  );
-}
-
-function CategoryButton({
-  label,
-  count,
-  active,
-  onClick,
-}: {
-  label: string;
-  count: number;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 font-sans text-[11px] font-semibold transition-colors ${
-        active
-          ? "border-accent bg-accent text-accent-ink"
-          : "border-line bg-bg text-muted hover:border-accent hover:text-ink"
-      }`}
-    >
-      {label}
-      <span className={active ? "text-accent-ink/65" : "text-muted/70"}>{count}</span>
-    </button>
   );
 }

@@ -56,12 +56,12 @@ export function BlogPostPage({
 
       <article className="py-12 lg:py-20">
         <div className="container-edge">
-          <header className="mx-auto max-w-[1080px]">
+          <header className="mx-auto max-w-[1110px]">
             <Breadcrumb
               items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title }]}
             />
 
-            <div className="mx-auto mt-8 max-w-[880px]">
+            <div className="mt-8 max-w-[760px]">
               <span className="inline-flex rounded-full border border-accent/45 bg-accent/10 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
                 {post.category}
               </span>
@@ -81,17 +81,9 @@ export function BlogPostPage({
             </div>
           </header>
 
-          <div className="mx-auto mt-10 max-w-[1080px]">
-            <BlogExplorer
-              posts={explorerPosts}
-              currentSlug={post.slug}
-              currentCategory={post.category}
-              headings={headings}
-            />
-          </div>
-
-          <div className="mx-auto mt-12 max-w-[720px]">
-            <div className="space-y-10">
+          <div className="mx-auto mt-12 grid max-w-[1110px] grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,760px)_300px] lg:gap-12">
+            <div className="min-w-0">
+              <div className="space-y-10">
               {post.sections.map((section, i) => (
                 <Reveal key={i} delay={Math.min(i, 3) * 0.05}>
                   <section id={section.heading ? headingId(section.heading) : undefined} className="scroll-mt-32">
@@ -118,18 +110,28 @@ export function BlogPostPage({
                   </section>
                 </Reveal>
               ))}
+              </div>
+
+              <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
+                <Link href="/blog" className="btn-ghost">
+                  <ArrowLeft className="h-4 w-4" strokeWidth={2} />
+                  Back to all posts
+                </Link>
+                <Link href="/growth-audit" className="btn-secondary px-5 py-2.5">
+                  Apply this to your business
+                  <ArrowRight className="h-4 w-4" strokeWidth={2} />
+                </Link>
+              </div>
             </div>
 
-            <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
-              <Link href="/blog" className="btn-ghost">
-                <ArrowLeft className="h-4 w-4" strokeWidth={2} />
-                Back to all posts
-              </Link>
-              <Link href="/growth-audit" className="btn-secondary px-5 py-2.5">
-                Apply this to your business
-                <ArrowRight className="h-4 w-4" strokeWidth={2} />
-              </Link>
-            </div>
+            <aside className="order-first lg:order-last lg:sticky lg:top-28" aria-label="Blog navigation">
+              <BlogExplorer
+                posts={explorerPosts}
+                currentSlug={post.slug}
+                currentCategory={post.category}
+                headings={headings}
+              />
+            </aside>
           </div>
         </div>
       </article>
