@@ -6,6 +6,7 @@ import { FeatureCards } from "@/components/sections/feature-cards";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { buildMetadata } from "@/lib/seo";
+import { CareersLanyard } from "@/components/3d/careers-lanyard";
 
 export const metadata: Metadata = buildMetadata({
   title: "Careers at Vistrow Technologies",
@@ -32,6 +33,7 @@ export default function Page() {
         subtitle="We're a small, senior team building the marketing and technology systems that turn attention into revenue. If that sounds like your kind of work, we'd like to hear from you."
         primaryCta={{ label: "Introduce yourself", href: "/contact" }}
         secondaryCta={{ label: "About Vistrow", href: "/about" }}
+        aside={<CareersLanyard />}
       />
 
       <FeatureCards eyebrow="Why Vistrow" title="What it's like to work here" items={perks} columns={4} surface />
