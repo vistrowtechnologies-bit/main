@@ -167,14 +167,14 @@ function NavTrigger({
 function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
   return (
     <div className="absolute left-0 top-full z-50 pt-3">
-      <div className="glass w-[min(92vw,560px)] rounded-lg p-2 animate-rise-in">
+      <div className="dropdown-glass w-[min(92vw,560px)] overflow-hidden rounded-lg p-2 animate-rise-in">
         <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
           {item.children!.map((child) => (
             <Link
               key={child.href}
               href={child.href}
               onClick={onClose}
-              className="group rounded-sm px-3 py-2.5 transition-colors hover:bg-surface"
+              className="group rounded-sm px-3 py-2.5 transition-colors hover:bg-surface/80"
             >
               <div className="flex items-center gap-2">
                 <span className="font-sans text-sm font-semibold text-ink">
@@ -187,7 +187,7 @@ function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
             </Link>
           ))}
         </div>
-        <div className="mt-1 flex items-center justify-between rounded-sm bg-surface px-3 py-2.5">
+        <div className="mt-1 flex items-center justify-between rounded-sm border border-line/50 bg-surface/75 px-3 py-2.5">
           <span className="font-sans text-[13px] text-muted">Explore all {item.label}</span>
           <Link href={item.href} onClick={onClose} className="btn-ghost">
             View overview <ArrowRight className="h-4 w-4" strokeWidth={2} />

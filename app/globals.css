@@ -124,6 +124,42 @@
     border-color: rgb(var(--accent) / 0.5);
   }
 
+  .dropdown-glass {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(
+      145deg,
+      rgb(var(--glass-bg) / 0.94) 0%,
+      rgb(var(--glass-bg) / 0.84) 100%
+    );
+    border: 1px solid rgb(var(--glass-border) / 0.13);
+    -webkit-backdrop-filter: blur(32px) saturate(165%);
+    backdrop-filter: blur(32px) saturate(165%);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.24) inset,
+      0 24px 70px rgb(13 13 13 / 0.16),
+      0 8px 24px rgb(13 13 13 / 0.08);
+  }
+
+  .dark .dropdown-glass {
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.1) inset,
+      0 24px 70px rgb(0 0 0 / 0.48),
+      0 8px 24px rgb(0 0 0 / 0.32);
+  }
+
+  .dropdown-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 8% 0%, rgb(255 255 255 / 0.2), transparent 34%),
+      radial-gradient(circle at 92% 100%, rgb(var(--accent) / 0.06), transparent 30%);
+  }
+
   .nav-link-motion::after {
     content: "";
     position: absolute;
