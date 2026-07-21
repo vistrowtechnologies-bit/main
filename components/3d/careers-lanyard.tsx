@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Move3D } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 type LanyardProps = {
   position?: [number, number, number];
@@ -15,6 +16,8 @@ type LanyardProps = {
   imageFit?: "cover" | "contain";
   lanyardImage?: string | null;
   lanyardWidth?: number;
+  brandCard?: boolean;
+  brandTheme?: "light" | "dark";
 };
 
 const Lanyard = dynamic<LanyardProps>(() => import("@/components/3d/lanyard"), {
@@ -24,6 +27,16 @@ const Lanyard = dynamic<LanyardProps>(() => import("@/components/3d/lanyard"), {
 
 export function CareersLanyard() {
   const reduceMotion = useReducedMotion();
+  const [brandTheme, setBrandTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const updateTheme = () => setBrandTheme(root.classList.contains("dark") ? "dark" : "light");
+    updateTheme();
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   if (reduceMotion) {
     return (
@@ -35,13 +48,20 @@ export function CareersLanyard() {
             alt="Vistrow"
             width={470}
             height={120}
-            className="h-auto w-full"
+            className="h-auto w-full dark:hidden"
           />
-          <div className="mt-7 border-t border-white/15 pt-5">
-            <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-accent">
+          <Image
+            src="/logo-light.png"
+            alt=""
+            width={470}
+            height={120}
+            className="hidden h-auto w-full dark:block"
+          />
+          <div className="mt-7 border-t border-inverse-ink/15 pt-5">
+            <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-strong">
               Careers
             </p>
-            <p className="mt-2 font-display text-xl font-bold text-white">Build what grows.</p>
+            <p className="mt-2 font-display text-xl font-bold text-inverse-ink">Build what grows.</p>
           </div>
         </div>
       </div>
@@ -62,11 +82,12 @@ export function CareersLanyard() {
         position={[0, 0, 23]}
         gravity={[0, -40, 0]}
         fov={20}
-        frontImage="/logo-dark.png"
-        backImage="/logo-light.png"
+        frontImage={brandTheme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
         imageFit="contain"
         lanyardImage="/logo-dark.png"
         lanyardWidth={0.82}
+        brandCard
+        brandTheme={brandTheme}
       />
     </div>
   );

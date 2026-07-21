@@ -36,6 +36,8 @@ const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
  * @property {"cover" | "contain"=} imageFit
  * @property {string | null=} lanyardImage
  * @property {number=} lanyardWidth
+ * @property {boolean=} brandCard
+ * @property {"light" | "dark"=} brandTheme
  */
 
 /** @param {LanyardProps} props */
@@ -49,6 +51,8 @@ export default function Lanyard({
   imageFit = "cover",
   lanyardImage = null,
   lanyardWidth = 1,
+  brandCard = false,
+  brandTheme = "light",
 }) {
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768,
@@ -79,6 +83,8 @@ export default function Lanyard({
             imageFit={imageFit}
             lanyardImage={lanyardImage}
             lanyardWidth={lanyardWidth}
+            brandCard={brandCard}
+            brandTheme={brandTheme}
           />
         </Physics>
         <Environment blur={0.75}>
@@ -116,6 +122,323 @@ export default function Lanyard({
   );
 }
 
+function roundedRect(context, x, y, width, height, radius) {
+  const safeRadius = Math.min(radius, width / 2, height / 2);
+  context.beginPath();
+  context.moveTo(x + safeRadius, y);
+  context.lineTo(x + width - safeRadius, y);
+  context.quadraticCurveTo(x + width, y, x + width, y + safeRadius);
+  context.lineTo(x + width, y + height - safeRadius);
+  context.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - safeRadius,
+    y + height,
+  );
+  context.lineTo(x + safeRadius, y + height);
+  context.quadraticCurveTo(x, y + height, x, y + height - safeRadius);
+  context.lineTo(x, y + safeRadius);
+  context.quadraticCurveTo(x, y, x + safeRadius, y);
+  context.closePath();
+}
+
+function drawContainedImage(context, image, x, y, width, height) {
+  const scale = Math.min(width / image.width, height / image.height);
+  const drawWidth = image.width * scale;
+  const drawHeight = image.height * scale;
+  context.drawImage(
+    image,
+    x + (width - drawWidth) / 2,
+    y + (height - drawHeight) / 2,
+    drawWidth,
+    drawHeight,
+  );
+}
+
+function drawQrPattern(context, x, y, size, ink, background) {
+  const cells = 9;
+  const cell = size / cells;
+  const pattern = [
+    "111011101",
+    "101010101",
+    "111010111",
+    "000111000",
+    "101101101",
+    "010010010",
+    "111011111",
+    "101110101",
+    "111010111",
+  ];
+
+  context.fillStyle = background;
+  roundedRect(context, x, y, size, size, cell * 0.8);
+  context.fill();
+  context.fillStyle = ink;
+  pattern.forEach((row, rowIndex) => {
+    [...row].forEach((value, columnIndex) => {
+      if (value === "1") {
+        context.fillRect(
+          x + columnIndex * cell + cell * 0.14,
+          y + rowIndex * cell + cell * 0.14,
+          cell * 0.72,
+          cell * 0.72,
+        );
+      }
+    });
+  });
+}
+
+function drawVistrowCardFaces(context, canvasWidth, canvasHeight, logo, theme) {
+  const dark = theme === "dark";
+  const palette = dark
+    ? {
+        background: "#0d0d0d",
+        panel: "#1c1c1e",
+        ink: "#f7f8fa",
+        muted: "#a7adb8",
+        line: "#37373b",
+        accent: "#c6ff00",
+        accentInk: "#0d0d0d",
+      }
+    : {
+        background: "#f7f8fa",
+        panel: "#ffffff",
+        ink: "#0d0d0d",
+        muted: "#6b7280",
+        line: "#dfe2e8",
+        accent: "#c6ff00",
+        accentInk: "#0d0d0d",
+      };
+
+  const getFace = (rect) => ({
+    x: rect.x * canvasWidth,
+    y: rect.y * canvasHeight,
+    width: rect.w * canvasWidth,
+    height: rect.h * canvasHeight,
+  });
+  const front = getFace(FRONT_UV_RECT);
+  const back = getFace(BACK_UV_RECT);
+
+  const paintBase = (face) => {
+    context.fillStyle = palette.background;
+    context.fillRect(face.x, face.y, face.width, face.height);
+    const glow = context.createRadialGradient(
+      face.x + face.width * 0.82,
+      face.y + face.height * 0.1,
+      0,
+      face.x + face.width * 0.82,
+      face.y + face.height * 0.1,
+      face.width * 0.8,
+    );
+    glow.addColorStop(0, dark ? "rgba(198,255,0,0.16)" : "rgba(198,255,0,0.26)");
+    glow.addColorStop(1, "rgba(198,255,0,0)");
+    context.fillStyle = glow;
+    context.fillRect(face.x, face.y, face.width, face.height);
+  };
+
+  paintBase(front);
+  context.fillStyle = palette.accent;
+  context.fillRect(front.x, front.y, front.width, front.height * 0.018);
+
+  context.save();
+  context.globalAlpha = dark ? 0.13 : 0.2;
+  context.fillStyle = palette.accent;
+  const dotRadius = front.width * 0.006;
+  for (let row = 0; row < 8; row += 1) {
+    for (let column = 0; column < 6; column += 1) {
+      context.beginPath();
+      context.arc(
+        front.x + front.width * (0.66 + column * 0.055),
+        front.y + front.height * (0.68 + row * 0.035),
+        dotRadius,
+        0,
+        Math.PI * 2,
+      );
+      context.fill();
+    }
+  }
+  context.restore();
+
+  drawContainedImage(
+    context,
+    logo,
+    front.x + front.width * 0.1,
+    front.y + front.height * 0.12,
+    front.width * 0.8,
+    front.height * 0.16,
+  );
+
+  context.fillStyle = palette.accent;
+  roundedRect(
+    context,
+    front.x + front.width * 0.1,
+    front.y + front.height * 0.36,
+    front.width * 0.38,
+    front.height * 0.07,
+    front.height * 0.035,
+  );
+  context.fill();
+  context.fillStyle = palette.accentInk;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.font = `700 ${front.width * 0.032}px Inter, sans-serif`;
+  context.fillText(
+    "CAREERS PASS",
+    front.x + front.width * 0.29,
+    front.y + front.height * 0.395,
+  );
+
+  context.textAlign = "left";
+  context.textBaseline = "alphabetic";
+  context.fillStyle = palette.ink;
+  context.font = `800 ${front.width * 0.115}px Manrope, sans-serif`;
+  context.fillText("BUILD", front.x + front.width * 0.1, front.y + front.height * 0.56);
+  context.fillText("WHAT", front.x + front.width * 0.1, front.y + front.height * 0.67);
+  context.fillStyle = palette.accent;
+  context.fillText("GROWS.", front.x + front.width * 0.1, front.y + front.height * 0.78);
+
+  context.fillStyle = palette.muted;
+  context.font = `600 ${front.width * 0.027}px Inter, sans-serif`;
+  context.fillText(
+    "VST / REMOTE / 2026",
+    front.x + front.width * 0.1,
+    front.y + front.height * 0.93,
+  );
+
+  paintBase(back);
+  context.fillStyle = palette.accent;
+  context.fillRect(back.x, back.y, back.width, back.height * 0.018);
+  drawContainedImage(
+    context,
+    logo,
+    back.x + back.width * 0.07,
+    back.y + back.height * 0.065,
+    back.width * 0.5,
+    back.height * 0.105,
+  );
+
+  context.fillStyle = palette.muted;
+  context.textAlign = "right";
+  context.textBaseline = "middle";
+  context.font = `700 ${back.width * 0.027}px Inter, sans-serif`;
+  context.fillText(
+    "TEAM ID",
+    back.x + back.width * 0.91,
+    back.y + back.height * 0.117,
+  );
+
+  context.fillStyle = palette.panel;
+  roundedRect(
+    context,
+    back.x + back.width * 0.07,
+    back.y + back.height * 0.22,
+    back.width * 0.86,
+    back.height * 0.31,
+    back.width * 0.035,
+  );
+  context.fill();
+  context.strokeStyle = palette.line;
+  context.lineWidth = back.width * 0.003;
+  context.stroke();
+
+  context.fillStyle = palette.accent;
+  roundedRect(
+    context,
+    back.x + back.width * 0.11,
+    back.y + back.height * 0.275,
+    back.width * 0.25,
+    back.width * 0.25,
+    back.width * 0.045,
+  );
+  context.fill();
+  context.fillStyle = palette.accentInk;
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.font = `800 ${back.width * 0.095}px Manrope, sans-serif`;
+  context.fillText(
+    "V",
+    back.x + back.width * 0.235,
+    back.y + back.height * 0.275 + back.width * 0.125,
+  );
+
+  context.textAlign = "left";
+  context.fillStyle = palette.muted;
+  context.font = `700 ${back.width * 0.024}px Inter, sans-serif`;
+  context.fillText(
+    "CANDIDATE",
+    back.x + back.width * 0.42,
+    back.y + back.height * 0.3,
+  );
+  context.fillStyle = palette.ink;
+  context.font = `800 ${back.width * 0.054}px Manrope, sans-serif`;
+  context.fillText(
+    "FUTURE",
+    back.x + back.width * 0.42,
+    back.y + back.height * 0.365,
+  );
+  context.fillText(
+    "BUILDER",
+    back.x + back.width * 0.42,
+    back.y + back.height * 0.425,
+  );
+  context.fillStyle = palette.accent;
+  context.beginPath();
+  context.arc(
+    back.x + back.width * 0.435,
+    back.y + back.height * 0.485,
+    back.width * 0.012,
+    0,
+    Math.PI * 2,
+  );
+  context.fill();
+  context.fillStyle = palette.muted;
+  context.font = `600 ${back.width * 0.022}px Inter, sans-serif`;
+  context.fillText(
+    "OPEN TO GREAT WORK",
+    back.x + back.width * 0.46,
+    back.y + back.height * 0.485,
+  );
+
+  const details = [
+    ["PASS TYPE", "CAREERS"],
+    ["ACCESS", "ALL IDEAS"],
+    ["LOCATION", "REMOTE"],
+  ];
+  details.forEach(([label, value], index) => {
+    const rowY = back.y + back.height * (0.61 + index * 0.095);
+    context.fillStyle = palette.muted;
+    context.font = `700 ${back.width * 0.022}px Inter, sans-serif`;
+    context.textAlign = "left";
+    context.fillText(label, back.x + back.width * 0.08, rowY);
+    context.fillStyle = palette.ink;
+    context.font = `700 ${back.width * 0.028}px Inter, sans-serif`;
+    context.fillText(value, back.x + back.width * 0.34, rowY);
+    context.strokeStyle = palette.line;
+    context.lineWidth = back.width * 0.002;
+    context.beginPath();
+    context.moveTo(back.x + back.width * 0.08, rowY + back.height * 0.035);
+    context.lineTo(back.x + back.width * 0.66, rowY + back.height * 0.035);
+    context.stroke();
+  });
+
+  drawQrPattern(
+    context,
+    back.x + back.width * 0.72,
+    back.y + back.height * 0.655,
+    back.width * 0.2,
+    palette.ink,
+    palette.panel,
+  );
+  context.fillStyle = palette.muted;
+  context.textAlign = "right";
+  context.font = `600 ${back.width * 0.019}px Inter, sans-serif`;
+  context.fillText(
+    "VST-CAREERS-01",
+    back.x + back.width * 0.92,
+    back.y + back.height * 0.9,
+  );
+}
+
 function Band({
   maxSpeed = 50,
   minSpeed = 0,
@@ -125,6 +448,8 @@ function Band({
   imageFit = "cover",
   lanyardImage = null,
   lanyardWidth = 1,
+  brandCard = false,
+  brandTheme = "light",
 }) {
   const band = useRef();
   const fixed = useRef();
@@ -150,7 +475,7 @@ function Band({
 
   const cardMap = useMemo(() => {
     const baseMap = materials.base.map;
-    if (!frontImage && !backImage) return baseMap;
+    if (!brandCard && !frontImage && !backImage) return baseMap;
 
     const baseImg = baseMap.image;
     const width = baseImg.width;
@@ -181,8 +506,18 @@ function Band({
       context.restore();
     };
 
-    if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT);
-    if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT);
+    if (brandCard && frontTex.image) {
+      drawVistrowCardFaces(
+        context,
+        width,
+        height,
+        frontTex.image,
+        brandTheme,
+      );
+    } else {
+      if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT);
+      if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT);
+    }
 
     const composite = new THREE.CanvasTexture(canvas);
     composite.colorSpace = THREE.SRGBColorSpace;
@@ -190,7 +525,23 @@ function Band({
     composite.anisotropy = 16;
     composite.needsUpdate = true;
     return composite;
-  }, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
+  }, [
+    frontImage,
+    backImage,
+    imageFit,
+    frontTex,
+    backTex,
+    materials.base.map,
+    brandCard,
+    brandTheme,
+  ]);
+
+  useEffect(() => {
+    const baseMap = materials.base.map;
+    return () => {
+      if (cardMap !== baseMap) cardMap.dispose();
+    };
+  }, [cardMap, materials.base.map]);
 
   const [curve] = useState(
     () =>
