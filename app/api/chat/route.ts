@@ -223,18 +223,7 @@ async function sendChatLead({
 
   const subject = `Chat lead via Artha - ${name}`;
   const text = `${details.map(([label, value]) => `${label}: ${value}`).join("\n")}\n\nConversation:\n${transcriptText}`;
-  const html = `
-    <div style="font-family:Inter,Arial,sans-serif;color:#111;line-height:1.6">
-      <h1 style="font-size:22px;margin:0 0 20px">${escapeHtml(subject)}</h1>
-      ${details
-        .map(
-          ([label, value]) =>
-            `<p style="margin:0 0 14px"><strong>${escapeHtml(label)}</strong><br>${escapeHtml(value)}</p>`,
-        )
-        .join("")}
-      <p style="margin:20px 0 8px"><strong>Conversation</strong></p>
-      <pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;background:#f7f8fa;padding:14px;border-radius:8px;">${escapeHtml(transcriptText)}</pre>
-    </div>`;
+  const html = renderChatLeadEmail({ subject, details, transcript });
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -248,6 +237,116 @@ async function sendChatLead({
   if (!response.ok) {
     console.error("Resend chat-lead delivery failed", response.status, await response.text());
   }
+}
+
+function renderChatLeadEmail({
+  subject,
+  details,
+  transcript,
+}: {
+  subject: string;
+  details: [string, string][];
+  transcript: { role: "user" | "assistant"; content: string }[];
+}) {
+  const detailsHtml = details
+    .map(
+      ([label, value]) => `
+        <tr>
+          <td style="padding:0 0 14px;vertical-align:top;width:140px;">
+            <span style="font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#6B7280;">${escapeHtml(label)}</span>
+          </td>
+          <td style="padding:0 0 14px;vertical-align:top;">
+            <span style="font-family:Helvetica,Arial,sans-serif;font-size:15px;font-weight:600;color:#0D0D0D;">${escapeHtml(value)}</span>
+          </td>
+        </tr>`,
+    )
+    .join("");
+
+  const actions: string[] = [];
+  const phone = details.find(([label]) => label === "Phone")?.[1];
+  const email = details.find(([label]) => label === "Email")?.[1];
+  if (phone) {
+    actions.push(
+      `<a href="tel:${encodeURIComponent(phone)}" style="display:inline-block;background:#C6FF00;color:#0D0D0D;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;text-decoration:none;padding:11px 20px;border-radius:999px;margin:0 8px 0 0;">Call ${escapeHtml(phone)}</a>`,
+    );
+  }
+  if (email) {
+    actions.push(
+      `<a href="mailto:${encodeURIComponent(email)}" style="display:inline-block;background:#F7F8FA;color:#0D0D0D;font-family:Helvetica,Arial,sans-serif;font-size:13px;font-weight:700;text-decoration:none;padding:11px 20px;border-radius:999px;border:1px solid #E5E7EB;">Email ${escapeHtml(email)}</a>`,
+    );
+  }
+
+  const transcriptHtml = transcript
+    .map((message) => {
+      const isVisitor = message.role === "user";
+      return `
+        <tr>
+          <td style="padding:0 0 14px;">
+            <p style="margin:0 0 3px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:${isVisitor ? "#0D0D0D" : "#4E6700"};">${isVisitor ? "Visitor" : "Artha"}</p>
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#1C1C1E;background:${isVisitor ? "#F7F8FA" : "#FFFFFF"};border:1px solid #E5E7EB;border-radius:10px;padding:10px 14px;">${escapeHtml(message.content)}</p>
+          </td>
+        </tr>`;
+    })
+    .join("");
+
+  return `<!doctype html>
+<html>
+  <body style="margin:0;padding:32px 16px;background:#F7F8FA;font-family:Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;overflow:hidden;">
+            <tr>
+              <td style="height:4px;background:#C6FF00;line-height:4px;font-size:0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="padding:32px 40px 0;">
+                <img src="https://vistrow.com/logo-light.png" width="118" height="32" alt="Vistrow" style="display:block;height:32px;width:auto;border:0;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 40px 0;">
+                <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4E6700;">New chat lead</p>
+                <h1 style="margin:10px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:22px;font-weight:800;color:#0D0D0D;line-height:1.3;">${escapeHtml(subject)}</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 40px 0;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F7F8FA;border-radius:12px;">
+                  <tr>
+                    <td style="padding:20px 22px 6px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                        ${detailsHtml}
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            ${
+              actions.length
+                ? `<tr><td style="padding:20px 40px 0;">${actions.join("")}</td></tr>`
+                : ""
+            }
+            <tr>
+              <td style="padding:28px 40px 8px;">
+                <p style="margin:0 0 12px;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#6B7280;">Conversation</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  ${transcriptHtml}
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 40px;background:#0D0D0D;">
+                <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#A7ADB8;line-height:1.6;">Vistrow Technologies &middot; Captured automatically by Artha on vistrow.com</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
 }
 
 function escapeHtml(value: string) {
