@@ -24,7 +24,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Why response time collapses so fast",
         paragraphs: [
           "A lead who fills out a form is in an unusually short window of high intent. They're actively comparing options right now. An hour later, they may have already spoken to two other businesses. A day later, the moment has often passed entirely.",
-          "Manual follow-up can't reliably hit that window, especially outside business hours or during busy periods. It's not a discipline problem — it's a structural one. No team can staff for instant response to every channel, every hour.",
+          "Manual follow-up can't reliably hit that window, especially outside business hours or during busy periods. It's not a discipline problem - it's a structural one. No team can staff for instant response to every channel, every hour.",
         ],
       },
       {
@@ -42,7 +42,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "The honest caveat",
         paragraphs: [
-          "Speed alone doesn't fix a weak offer or poor targeting. If the lead was never a good fit, responding in ten seconds instead of ten minutes won't change the outcome. Speed to lead is a multiplier on demand you're already generating — not a replacement for generating the right demand in the first place.",
+          "Speed alone doesn't fix a weak offer or poor targeting. If the lead was never a good fit, responding in ten seconds instead of ten minutes won't change the outcome. Speed to lead is a multiplier on demand you're already generating - not a replacement for generating the right demand in the first place.",
         ],
       },
     ],
@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     slug: "why-most-crm-implementations-fail",
     title: "Why most CRM implementations fail (and it's rarely the software)",
     excerpt:
-      "Teams blame the CRM when adoption stalls. In most cases the tool was fine — the process it was supposed to encode was never actually defined.",
+      "Teams blame the CRM when adoption stalls. In most cases the tool was fine - the process it was supposed to encode was never actually defined.",
     category: "CRM & Automation",
     author: "Vistrow Team",
     date: "2026-05-14",
@@ -66,7 +66,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
       {
-        heading: "The CRM isn't the process — it's the record of the process",
+        heading: "The CRM isn't the process - it's the record of the process",
         paragraphs: [
           "A CRM can only reflect a sales process that already exists and is well understood. If your team doesn't agree on what counts as a qualified lead, what happens at each pipeline stage, or who owns follow-up after a demo, no software configuration fixes that. It just gives everyone a new place to disagree.",
           "Implementations that stick almost always start with the process, not the tool: map the stages, define exit criteria for each one, agree on ownership, and only then decide how the CRM should encode it.",
@@ -87,7 +87,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What we do differently",
         paragraphs: [
-          "Before we touch configuration, we map how deals actually move today — including the informal workarounds. Then we design the pipeline around that reality, automate the repetitive steps, and only migrate data once the structure is agreed. It's slower up front and considerably faster to get real adoption.",
+          "Before we touch configuration, we map how deals actually move today - including the informal workarounds. Then we design the pipeline around that reality, automate the repetitive steps, and only migrate data once the structure is agreed. It's slower up front and considerably faster to get real adoption.",
         ],
       },
     ],
@@ -96,14 +96,14 @@ export const blogPosts: BlogPost[] = [
     slug: "ai-voice-calling-what-it-can-and-cant-do",
     title: "AI voice calling: what it can and can't do for your pipeline",
     excerpt:
-      "AI voice gets pitched as a replacement for sales teams. In practice it's a qualification layer — useful for a specific job, not a general-purpose rep.",
+      "AI voice gets pitched as a replacement for sales teams. In practice it's a qualification layer - useful for a specific job, not a general-purpose rep.",
     category: "AI Voice",
     author: "Vistrow Team",
     date: "2026-04-22",
     readTime: "5 min read",
     metaTitle: "AI Voice Calling: What It Can and Can't Do",
     metaDescription:
-      "A realistic look at where AI voice calling helps pipeline — instant response and qualification — and where it isn't the right tool.",
+      "A realistic look at where AI voice calling helps pipeline - instant response and qualification - and where it isn't the right tool.",
     sections: [
       {
         paragraphs: [
@@ -112,7 +112,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         heading: "Where it earns its place",
-        paragraphs: ["AI voice is strongest as the very first touch on a new lead — the job that's hardest for humans to do consistently:"],
+        paragraphs: ["AI voice is strongest as the very first touch on a new lead - the job that's hardest for humans to do consistently:"],
         points: [
           "Calling within seconds of a lead arriving, at any hour",
           "Asking consistent qualifying questions without skipping steps",
@@ -123,7 +123,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Where it isn't the right tool",
         paragraphs: [
-          "Complex negotiation, objection handling that requires judgment, and relationship-building conversations still need a person. We design AI voice to hand off to a human once a lead is qualified — not to carry the whole conversation end to end.",
+          "Complex negotiation, objection handling that requires judgment, and relationship-building conversations still need a person. We design AI voice to hand off to a human once a lead is qualified - not to carry the whole conversation end to end.",
           "It also depends entirely on what happens after the call. An AI agent that qualifies a lead and then drops it into a CRM nobody checks hasn't solved anything. The value comes from the system around it, not the call in isolation.",
         ],
       },
@@ -156,7 +156,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "The trust gap",
         paragraphs: [
-          "When marketing reports leads and sales reports revenue, and the two numbers don't reconcile, sales defaults to trusting their own pipeline view. That's usually correct — the CRM has more accurate downstream data. The fix isn't a better chart. It's making the marketing report and the CRM pipeline the same source of truth.",
+          "When marketing reports leads and sales reports revenue, and the two numbers don't reconcile, sales defaults to trusting their own pipeline view. That's usually correct - the CRM has more accurate downstream data. The fix isn't a better chart. It's making the marketing report and the CRM pipeline the same source of truth.",
         ],
       },
       {
@@ -172,7 +172,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What to expect honestly",
         paragraphs: [
-          "Attribution will never be perfectly clean — multi-touch journeys and offline influence make that impossible. The goal is directionally reliable data sales trusts enough to act on, not a perfect model. That's a lower bar than most attribution projects aim for, and a far more useful one.",
+          "Attribution will never be perfectly clean - multi-touch journeys and offline influence make that impossible. The goal is directionally reliable data sales trusts enough to act on, not a perfect model. That's a lower bar than most attribution projects aim for, and a far more useful one.",
         ],
       },
     ],
@@ -186,7 +186,7 @@ export const blogPosts: BlogPost[] = [
     author: "Vistrow Team",
     date: "2026-03-08",
     readTime: "5 min read",
-    metaTitle: "When to Automate a Process — and When Not To",
+    metaTitle: "When to Automate a Process - and When Not To",
     metaDescription:
       "A practical framework for deciding which parts of your operations are worth automating, and which aren't ready yet.",
     sections: [
@@ -207,7 +207,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Good automation candidates",
         paragraphs: [
-          "Lead routing, follow-up sequences, data entry between systems, reminders, and status updates are usually safe to automate — they're repetitive, well-defined, and low-judgment.",
+          "Lead routing, follow-up sequences, data entry between systems, reminders, and status updates are usually safe to automate - they're repetitive, well-defined, and low-judgment.",
         ],
       },
       {
@@ -220,7 +220,7 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "connected-marketing-system-what-it-actually-means",
-    title: "\"Connected marketing system\" is a vague phrase — here's what we actually mean by it",
+    title: "\"Connected marketing system\" is a vague phrase - here's what we actually mean by it",
     excerpt:
       "We use the phrase a lot, so it's worth being concrete about what connects to what, and what breaks when it doesn't.",
     category: "Strategy",
@@ -247,7 +247,7 @@ export const blogPosts: BlogPost[] = [
         paragraphs: ["In practice, we mean these systems share data automatically, in both directions:"],
         points: [
           "Ad platforms and landing pages feed leads directly into the CRM with source data attached",
-          "The CRM triggers instant follow-up — AI voice, SMS, or email — the moment a lead is qualified",
+          "The CRM triggers instant follow-up - AI voice, SMS, or email - the moment a lead is qualified",
           "Deal outcomes flow back to the ad platforms as conversion signals, improving targeting over time",
           "Reporting reads from one shared source instead of reconciling exports from four tools",
         ],

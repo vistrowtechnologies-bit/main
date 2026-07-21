@@ -8,6 +8,7 @@ import { RouteTransition, ScrollProgress } from "@/components/ui/motion-primitiv
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo";
 import { graph, websiteSchema } from "@/lib/structured-data";
+import { ChatWidget } from "@/components/chat/chat-widget";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -81,6 +82,7 @@ export default function RootLayout({
           <RouteTransition>{children}</RouteTransition>
         </main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );

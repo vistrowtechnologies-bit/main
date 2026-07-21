@@ -29,7 +29,7 @@ export function BlogIndexPage({ posts }: { posts: BlogPost[] }) {
         eyebrow="Blog"
         title="Notes on marketing,"
         highlight="CRM, and automation"
-        subtitle="Specific, unhyped write-ups on what actually moves pipeline—from the team building the systems behind it."
+        subtitle="Specific, unhyped write-ups on what actually moves pipeline - from the team building the systems behind it."
         secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
       />
 
