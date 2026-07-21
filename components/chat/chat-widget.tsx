@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
-  Bot,
   ExternalLink,
-  MessageCircle,
   Send,
   Sparkles,
   X,
@@ -220,8 +219,14 @@ export function ChatWidget() {
               />
               <div className="relative flex items-center justify-between gap-4">
                 <div className="flex min-w-0 items-center gap-3">
-                  <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_0_22px_rgb(var(--accent)/0.35)]">
-                    <Bot className="h-5 w-5" strokeWidth={2} />
+                  <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-accent/70 bg-black shadow-[0_0_22px_rgb(var(--accent)/0.35)]">
+                    <Image
+                      src="/vistrow-guide-avatar.png"
+                      alt=""
+                      fill
+                      sizes="40px"
+                      className="scale-[1.1] object-cover"
+                    />
                     <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-ink bg-success" />
                   </span>
                   <div className="min-w-0">
@@ -374,8 +379,14 @@ export function ChatWidget() {
             className="group flex items-center gap-3 rounded-full border border-accent/50 bg-ink px-2.5 py-2.5 text-bg shadow-[0_14px_44px_rgb(0_0_0/0.22),0_0_0_1px_rgb(var(--accent)/0.08)] sm:pl-4"
           >
             <span className="hidden font-sans text-sm font-semibold sm:inline">Ask Vistrow</span>
-            <span className="relative flex h-11 w-11 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_0_20px_rgb(var(--accent)/0.3)]">
-              <MessageCircle className="h-5 w-5" strokeWidth={2} />
+            <span className="relative h-11 w-11 overflow-hidden rounded-full border border-accent/70 bg-black shadow-[0_0_20px_rgb(var(--accent)/0.3)]">
+              <Image
+                src="/vistrow-guide-avatar.png"
+                alt=""
+                fill
+                sizes="44px"
+                className="scale-[1.1] object-cover"
+              />
               <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-ink bg-success" />
             </span>
           </motion.button>
