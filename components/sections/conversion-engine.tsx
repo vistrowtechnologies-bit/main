@@ -112,7 +112,9 @@ function ProcessStep({
           className="absolute inset-[-2px] rounded-full border-2 border-accent bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.4)]"
           style={{ opacity: reduce ? 1 : activeOpacity, scale: reduce ? 1 : activeScale }}
         />
-        <Icon className="relative z-10 h-6 w-6 text-accent-ink" strokeWidth={1.75} />
+        <span className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-accent shadow-[0_0_20px_rgb(var(--accent)/0.2)]">
+          <Icon className="h-6 w-6 text-accent-ink" strokeWidth={2} />
+        </span>
       </motion.div>
       <motion.h3
         className="mt-4 font-sans text-sm font-bold text-ink"

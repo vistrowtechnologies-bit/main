@@ -69,8 +69,8 @@ export function Services() {
           <Reveal delay={0.08} className="md:col-span-4">
             <TiltCard className="h-full">
             <div className="group flex h-full flex-col overflow-hidden rounded-lg bg-inverse p-8 sm:p-10">
-              <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-white/10">
-                <Cog className="h-7 w-7 text-accent" strokeWidth={1.75} />
+              <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.24)]">
+                <Cog className="h-7 w-7 text-accent-ink" strokeWidth={2} />
               </div>
               <h3 className="mt-6 font-display text-h3 text-inverse-ink">
                 Business Automation
