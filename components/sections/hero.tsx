@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HeroDashboard } from "@/components/sections/hero-dashboard";
 import { Reveal } from "@/components/ui/reveal";
-import { ScrollParallax } from "@/components/ui/motion-primitives";
+import { RotatingWord, ScrollParallax } from "@/components/ui/motion-primitives";
+
+const heroRotatingWords = ["business growth", "qualified leads", "real revenue", "closed deals"];
 
 export function Hero() {
   return (
@@ -31,7 +33,7 @@ export function Hero() {
                   aria-hidden
                   className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
                 />
-                business growth
+                <RotatingWord words={heroRotatingWords} />
               </span>
               .
             </h1>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import {
+  AnimatePresence,
   motion,
   useInView,
   useMotionValue,
@@ -184,5 +185,55 @@ export function AnimatedBar({
       animate={inView ? { width } : undefined}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     />
+  );
+}
+
+/**
+ * Cycles through `words` with a slide/fade transition. Reserves width for
+ * the longest word (via an invisible sizer sharing the same grid cell) so
+ * surrounding text never reflows as the word changes.
+ */
+export function RotatingWord({
+  words,
+  interval = 2600,
+  className = "",
+}: {
+  words: string[];
+  interval?: number;
+  className?: string;
+}) {
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduce || words.length < 2) return;
+    const id = setInterval(() => {
+      setIndex((current) => (current + 1) % words.length);
+    }, interval);
+    return () => clearInterval(id);
+  }, [reduce, words, interval]);
+
+  const longest = words.reduce((a, b) => (a.length >= b.length ? a : b), "");
+
+  return (
+    <span className={`relative inline-grid align-baseline ${className}`}>
+      <span aria-hidden className="invisible col-start-1 row-start-1">
+        {longest}
+      </span>
+      <AnimatePresence initial={false}>
+        <motion.span
+          key={words[index]}
+          aria-hidden
+          className="col-start-1 row-start-1"
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? undefined : { opacity: 0, y: -14 }}
+          transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {words[index]}
+        </motion.span>
+      </AnimatePresence>
+      <span className="sr-only">{words[0]}</span>
+    </span>
   );
 }
