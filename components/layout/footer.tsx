@@ -1,12 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
-  AtSign,
-  Database,
+  ExternalLink,
   Facebook,
-  Globe,
   Instagram,
   Linkedin,
-  PhoneCall,
+  Mail,
 } from "lucide-react";
 import { Wordmark } from "@/components/ui/wordmark";
 import { socialProfiles } from "@/lib/social-links";
@@ -50,16 +49,25 @@ const legal = [
 
 export function Footer() {
   const socialIcons = { Instagram, Facebook, LinkedIn: Linkedin };
-  const externalLinks = [
+  const socialLinks = [
     ...socialProfiles.map((profile) => ({
       icon: socialIcons[profile.platform],
       label: profile.label,
       href: profile.href,
     })),
-    { icon: Globe, label: "Vistrow website", href: "https://www.vistrow.com" },
-    { icon: PhoneCall, label: "Vistrow Voice", href: "https://voice-three-flax.vercel.app/" },
-    { icon: Database, label: "ArthaLeads", href: "https://www.arthaleads.com/" },
-    { icon: AtSign, label: "Email Vistrow", href: "mailto:hello@vistrow.com" },
+    { icon: Mail, label: "Email Vistrow", href: "mailto:hello@vistrow.com" },
+  ];
+  const productLinks = [
+    {
+      label: "Vistrow Voice",
+      href: "https://voice-three-flax.vercel.app/",
+      logo: "/brands/vistrow-voice.png",
+    },
+    {
+      label: "ArthaLeads",
+      href: "https://www.arthaleads.com/",
+      logo: "/brands/arthaleads.png",
+    },
   ];
 
   return (
@@ -72,19 +80,54 @@ export function Footer() {
               Digital marketing connected to the CRM, automation, and AI systems that
               turn opportunities into revenue.
             </p>
-            <div className="mt-6 flex flex-wrap gap-2.5">
-              {externalLinks.map(({ icon: Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noreferrer" : undefined}
-                  aria-label={label}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent hover:text-ink"
-                >
-                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
-                </a>
-              ))}
+            <div className="mt-6">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                Follow Vistrow
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                {socialLinks.map(({ icon: Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    aria-label={label}
+                    title={label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent hover:bg-accent/10 hover:text-ink"
+                  >
+                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
+                Our products
+              </p>
+              <div className="mt-3 flex flex-col gap-2">
+                {productLinks.map((product) => (
+                  <a
+                    key={product.label}
+                    href={product.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex w-full max-w-[230px] items-center gap-3 rounded-sm border border-line bg-card/60 p-2 text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-card"
+                  >
+                    <Image
+                      src={product.logo}
+                      alt={`${product.label} logo`}
+                      width={34}
+                      height={34}
+                      className="h-[34px] w-[34px] shrink-0 rounded-[9px] object-cover"
+                    />
+                    <span className="min-w-0 flex-1 font-sans text-sm font-semibold">
+                      {product.label}
+                    </span>
+                    <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted transition-colors group-hover:text-accent-strong" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
