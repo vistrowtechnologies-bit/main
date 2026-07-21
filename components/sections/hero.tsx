@@ -28,14 +28,16 @@ export function Hero() {
           <Reveal delay={0.08} direction="right" distance={30}>
             <h1 className="mt-6 font-display text-hero-lg text-ink">
               Digital marketing that connects directly to{" "}
-              <span className="relative isolate inline-block whitespace-nowrap px-[0.08em] text-accent-ink">
-                <span
-                  aria-hidden
-                  className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
-                />
-                <RotatingWord words={heroRotatingWords} />
+              <span className="whitespace-nowrap">
+                <span className="relative isolate inline-block px-[0.08em] text-accent-ink">
+                  <span
+                    aria-hidden
+                    className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
+                  />
+                  <RotatingWord words={heroRotatingWords} />
+                </span>
+                .
               </span>
-              .
             </h1>
           </Reveal>
 

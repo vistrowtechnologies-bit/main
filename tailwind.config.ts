@@ -44,7 +44,7 @@ const config: Config = {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "hero-lg": ["clamp(2.75rem, 5.5vw, 4.75rem)", { lineHeight: "1.04", letterSpacing: "-0.04em", fontWeight: "800" }],
+        "hero-lg": ["clamp(2.5rem, 4.4vw, 3.75rem)", { lineHeight: "1.08", letterSpacing: "-0.035em", fontWeight: "800" }],
         "hero": ["clamp(2.5rem, 4.5vw, 4rem)", { lineHeight: "1.05", letterSpacing: "-0.035em", fontWeight: "800" }],
         "h2": ["clamp(1.9rem, 3.4vw, 3rem)", { lineHeight: "1.1", letterSpacing: "-0.03em", fontWeight: "700" }],
         "h3": ["clamp(1.4rem, 2vw, 1.75rem)", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
