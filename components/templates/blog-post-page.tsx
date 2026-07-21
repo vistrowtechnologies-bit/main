@@ -56,60 +56,69 @@ export function BlogPostPage({
 
       <article className="py-12 lg:py-20">
         <div className="container-edge">
-          <header className="mx-auto max-w-[1110px]">
+          <div className="mx-auto max-w-[1110px]">
             <Breadcrumb
               items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title }]}
             />
 
-            <div className="mt-8 max-w-[760px]">
-              <span className="inline-flex rounded-full border border-accent/45 bg-accent/10 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
-                {post.category}
-              </span>
-              <h1 className="mt-5 font-display text-[clamp(2.15rem,4.4vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-ink">
-                <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
-              </h1>
-              <div className="mt-6 flex flex-wrap items-center gap-2 font-sans text-sm text-muted">
-                <span>{post.author}</span>
-                <span aria-hidden>·</span>
-                <time dateTime={post.date}>{displayDate}</time>
-                <span aria-hidden>·</span>
-                <span>{post.readTime}</span>
-              </div>
-              <p className="mt-7 max-w-3xl border-l-2 border-accent pl-5 font-sans text-lg leading-relaxed text-muted">
-                {post.excerpt}
-              </p>
-            </div>
-          </header>
+            <span className="mt-8 inline-flex rounded-full border border-accent/45 bg-accent/10 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
+              {post.category}
+            </span>
 
-          <div className="mx-auto mt-12 grid max-w-[1110px] grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,760px)_300px] lg:gap-12">
-            <div className="min-w-0">
-              <div className="space-y-10">
-              {post.sections.map((section, i) => (
-                <Reveal key={i} delay={Math.min(i, 3) * 0.05}>
-                  <section id={section.heading ? headingId(section.heading) : undefined} className="scroll-mt-32">
-                    {section.heading && (
-                      <h2 className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
-                        {section.heading}
-                      </h2>
-                    )}
-                    <div className={`space-y-5 font-sans text-[17px] leading-[1.8] text-ink-2 ${section.heading ? "mt-4" : ""}`}>
-                      {section.paragraphs.map((p, j) => (
-                        <p key={j}>{p}</p>
-                      ))}
-                    </div>
-                    {section.points && (
-                      <ul className="mt-5 space-y-3 rounded-lg border border-line bg-surface/70 p-5">
-                        {section.points.map((point) => (
-                          <li key={point} className="flex items-start gap-3 font-sans text-[15px] leading-relaxed text-ink-2">
-                            <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent)/0.45)]" />
-                            {point}
-                          </li>
+            <div className="mt-5 grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,760px)_300px] lg:gap-12">
+              <div className="min-w-0">
+                <header>
+                <h1 className="font-display text-[clamp(2.15rem,4.4vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-ink">
+                  <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
+                </h1>
+                <div className="mt-6 flex flex-wrap items-center gap-2 font-sans text-sm text-muted">
+                  <span>{post.author}</span>
+                  <span aria-hidden>·</span>
+                  <time dateTime={post.date}>{displayDate}</time>
+                  <span aria-hidden>·</span>
+                  <span>{post.readTime}</span>
+                </div>
+                <p className="mt-7 border-l-2 border-accent pl-5 font-sans text-lg leading-relaxed text-muted">
+                  {post.excerpt}
+                </p>
+                </header>
+
+              <div className="mt-8 lg:hidden">
+                <BlogExplorer
+                  posts={explorerPosts}
+                  currentSlug={post.slug}
+                  currentCategory={post.category}
+                  headings={headings}
+                />
+              </div>
+
+              <div className="mt-12 space-y-10">
+                {post.sections.map((section, i) => (
+                  <Reveal key={i} delay={Math.min(i, 3) * 0.05}>
+                    <section id={section.heading ? headingId(section.heading) : undefined} className="scroll-mt-32">
+                      {section.heading && (
+                        <h2 className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
+                          {section.heading}
+                        </h2>
+                      )}
+                      <div className={`space-y-5 font-sans text-[17px] leading-[1.8] text-ink-2 ${section.heading ? "mt-4" : ""}`}>
+                        {section.paragraphs.map((p, j) => (
+                          <p key={j}>{p}</p>
                         ))}
-                      </ul>
-                    )}
-                  </section>
-                </Reveal>
-              ))}
+                      </div>
+                      {section.points && (
+                        <ul className="mt-5 space-y-3 rounded-lg border border-line bg-surface/70 p-5">
+                          {section.points.map((point) => (
+                            <li key={point} className="flex items-start gap-3 font-sans text-[15px] leading-relaxed text-ink-2">
+                              <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent)/0.45)]" />
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </section>
+                  </Reveal>
+                ))}
               </div>
 
               <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
@@ -122,16 +131,17 @@ export function BlogPostPage({
                   <ArrowRight className="h-4 w-4" strokeWidth={2} />
                 </Link>
               </div>
-            </div>
+              </div>
 
-            <aside className="order-first lg:order-last lg:sticky lg:top-28" aria-label="Blog navigation">
-              <BlogExplorer
-                posts={explorerPosts}
-                currentSlug={post.slug}
-                currentCategory={post.category}
-                headings={headings}
-              />
-            </aside>
+              <aside className="hidden lg:sticky lg:top-28 lg:block" aria-label="Blog navigation">
+                <BlogExplorer
+                  posts={explorerPosts}
+                  currentSlug={post.slug}
+                  currentCategory={post.category}
+                  headings={headings}
+                />
+              </aside>
+            </div>
           </div>
         </div>
       </article>
