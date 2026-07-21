@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
+  ChevronRight,
   ExternalLink,
   Home,
   Send,
@@ -34,10 +35,17 @@ const topics: Topic[] = [
   { label: "Book a Growth Audit", prompt: "I would like to book a Growth Audit." },
 ];
 
+const faqs: Topic[] = [
+  { label: "What makes Vistrow different?", prompt: "What makes Vistrow different from other agencies?" },
+  { label: "How much does it cost?", prompt: "How much does working with Vistrow cost?" },
+  { label: "Do you work with small businesses?", prompt: "Do you work with small businesses, or only large companies?" },
+  { label: "How fast can I get started?", prompt: "How fast can I get started with Vistrow?" },
+];
+
 const initialMessage: ChatMessage = {
   id: 1,
   sender: "bot",
-  text: "Hi, I’m Artha. Ask me anything about Vistrow's services, products, or how we work — I’ll point you in the right direction.",
+  text: "Hi, I’m Artha. Ask me anything about Vistrow's services, products, or how we work, and I’ll point you in the right direction.",
 };
 
 const fallbackReply: Omit<ChatMessage, "id"> = {
@@ -246,18 +254,39 @@ export function ChatWidget() {
                 ))}
 
                 {messages.length === 1 && !typing && (
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    {topics.map((topic) => (
-                      <button
-                        key={topic.label}
-                        type="button"
-                        onClick={() => sendMessage(topic.prompt)}
-                        className="min-h-14 rounded-lg border border-line/80 bg-card px-3 py-2.5 text-left font-sans text-xs font-semibold leading-snug text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10"
-                      >
-                        {topic.label}
-                      </button>
-                    ))}
-                  </div>
+                  <>
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      {topics.map((topic) => (
+                        <button
+                          key={topic.label}
+                          type="button"
+                          onClick={() => sendMessage(topic.prompt)}
+                          className="min-h-14 rounded-lg border border-line/80 bg-card px-3 py-2.5 text-left font-sans text-xs font-semibold leading-snug text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10"
+                        >
+                          {topic.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="pt-2">
+                      <p className="px-1 font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-muted">
+                        Frequently asked
+                      </p>
+                      <div className="mt-2 divide-y divide-line rounded-lg border border-line/80 bg-card">
+                        {faqs.map((faq) => (
+                          <button
+                            key={faq.label}
+                            type="button"
+                            onClick={() => sendMessage(faq.prompt)}
+                            className="group flex w-full items-center justify-between gap-3 px-3.5 py-3 text-left font-sans text-xs font-semibold text-ink transition-colors hover:bg-accent/10 hover:text-accent-strong"
+                          >
+                            {faq.label}
+                            <ChevronRight className="h-3.5 w-3.5 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-accent-strong" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </>
                 )}
 
                 {typing && (

@@ -62,6 +62,8 @@ Only ever link to hrefs that appear in the knowledge below - never invent a URL 
 
 Never invent pricing, guarantees, timelines, or client names. Do not discuss topics unrelated to Vistrow, marketing, automation, or the services below - politely redirect.
 
+Never use an em dash (—) anywhere in the reply or lead summary. Use a comma, period, or "and" instead.
+
 LEAD CAPTURE: If the visitor shows genuine buying intent - asking for pricing, a demo, a callback, wanting to start a Growth Audit, or similar - and you don't already have their name and a phone number or email from earlier in the conversation, naturally ask for their name and phone/email in your reply (one short, friendly ask, not a form). Do not ask again if they already gave it or declined. Once they reply with their name and a phone number or email in the same message or a following one, fill the "lead" field with that name, phone, email (whichever they gave, leave the other blank), and a one-sentence summary of what they're after. Otherwise leave all four lead fields as empty strings "".
 
 KNOWLEDGE:
@@ -141,7 +143,8 @@ export async function POST(request: Request) {
     }
 
     const parsed = JSON.parse(raw) as { reply?: unknown; links?: unknown; lead?: unknown };
-    const reply = typeof parsed.reply === "string" ? parsed.reply.slice(0, 1200) : "";
+    const reply =
+      typeof parsed.reply === "string" ? stripEmDash(parsed.reply.slice(0, 1200)) : "";
     const links = Array.isArray(parsed.links)
       ? parsed.links
           .filter(
@@ -167,7 +170,7 @@ export async function POST(request: Request) {
     const name = clean(lead?.name);
     const phone = clean(lead?.phone);
     const email = clean(lead?.email);
-    const summary = clean(lead?.summary);
+    const summary = stripEmDash(clean(lead?.summary));
 
     if (!alreadyCaptured && name && (phone || email)) {
       try {
@@ -190,6 +193,10 @@ export async function POST(request: Request) {
 
 function clean(value: unknown) {
   return typeof value === "string" ? value.trim().slice(0, MAX_MESSAGE_LENGTH) : "";
+}
+
+function stripEmDash(value: string) {
+  return value.replace(/\s*—\s*/g, ", ").replace(/—/g, ",");
 }
 
 async function sendChatLead({
