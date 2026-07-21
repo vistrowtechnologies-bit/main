@@ -19,7 +19,7 @@
   --accent: 198 255 0;         /* Neon Lime #C6FF00 */
   --accent-ink: 13 13 13;      /* Carbon text on lime */
   --accent-tint: 233 255 166;  /* Lime Tint #E9FFA6 */
-  --accent-strong: 78 103 0;   /* Olive #4E6700 — accessible lime-family text on white */
+  --accent-strong: 78 103 0;   /* Olive #4E6700 - accessible lime-family text on white */
 
   --inverse: 13 13 13;         /* Carbon panel in light mode */
   --inverse-ink: 245 247 250;  /* Light text on dark #F5F7FA */
@@ -106,7 +106,7 @@
     @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-10;
   }
 
-  /* Restrained glassmorphism — light & dark via tokens. */
+  /* Restrained glassmorphism - light & dark via tokens. */
   .glass {
     background: rgb(var(--glass-bg) / var(--glass-alpha));
     border: 1px solid rgb(var(--glass-border) / var(--glass-border-alpha));

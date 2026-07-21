@@ -26,9 +26,9 @@ export const productsOverview: OverviewContent = {
   title: "Proprietary tools that strengthen the",
   highlight: "system",
   subtitle:
-    "Software built to plug into your marketing and sales—so you respond faster, qualify smarter, and convert more of what you already generate.",
+    "Software built to plug into your marketing and sales - so you respond faster, qualify smarter, and convert more of what you already generate.",
   metaTitle: "Products",
-  metaDescription: "Vistrow Voice, ArthaLeads, and Vistrow Labs—products that connect marketing to conversion.",
+  metaDescription: "Vistrow Voice, ArthaLeads, and Vistrow Labs - products that connect marketing to conversion.",
   cardsTitle: "Our products",
   cards: [
     { label: "Vistrow Voice", href: "/products/vistrow-voice", body: "India-native AI voice agents for inbound, outbound, and web calls in 10 languages.", icon: Phone },
@@ -66,8 +66,8 @@ export const products: Record<string, ProductContent> = {
     name: "Vistrow Voice",
     tagline: "India-native voice AI",
     subtitle:
-      "AI voice agents that answer, qualify, and book in your customers’ language—across inbound calls, outbound campaigns, and a one-tap website calling widget, live 24/7.",
-    metaTitle: "Vistrow Voice — AI Voice Agents for India",
+      "AI voice agents that answer, qualify, and book in your customers’ language - across inbound calls, outbound campaigns, and a one-tap website calling widget, live 24/7.",
+    metaTitle: "Vistrow Voice - AI Voice Agents for India",
     metaDescription:
       "Vistrow Voice provides inbound, outbound, and web-based AI calling in 10 Indian languages, with knowledge-grounded answers and CRM webhooks.",
     useCases: [
@@ -117,8 +117,8 @@ export const products: Record<string, ProductContent> = {
     name: "ArthaLeads",
     tagline: "Real estate CRM",
     subtitle:
-      "A premium real-estate CRM for Indian developers, brokers, and channel partners—bringing Facebook Ads, Google Ads, WhatsApp enquiries, and website leads into one actionable workspace.",
-    metaTitle: "ArthaLeads — Real Estate CRM",
+      "A premium real-estate CRM for Indian developers, brokers, and channel partners - bringing Facebook Ads, Google Ads, WhatsApp enquiries, and website leads into one actionable workspace.",
+    metaTitle: "ArthaLeads - Real Estate CRM",
     metaDescription:
       "ArthaLeads is a real-estate CRM for Indian developers and channel partners, with multi-channel lead capture, team assignment, site visits, follow-ups, and analytics.",
     useCases: [
@@ -169,9 +169,9 @@ export const products: Record<string, ProductContent> = {
     tagline: "Custom SaaS & internal tools",
     subtitle:
       "Where we build custom SaaS products and internal tools for businesses that need software shaped around their exact workflow.",
-    metaTitle: "Vistrow Labs — Custom SaaS & Tools",
+    metaTitle: "Vistrow Labs - Custom SaaS & Tools",
     metaDescription:
-      "Vistrow Labs builds custom SaaS and internal tools—dashboards, portals, and automations tailored to your workflow.",
+      "Vistrow Labs builds custom SaaS and internal tools - dashboards, portals, and automations tailored to your workflow.",
     useCases: [
       { icon: Boxes, title: "Internal tools", body: "Dashboards and admin tools your team actually needs." },
       { icon: Layers, title: "Customer portals", body: "Branded portals for clients and partners." },

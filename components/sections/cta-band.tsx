@@ -5,7 +5,7 @@ import type { CtaLink } from "@/components/sections/page-hero";
 
 export function CtaBand({
   title = "Find the gaps between your marketing and sales process.",
-  subtitle = "A Growth Audit maps your funnel, spend, and tech stack—and shows exactly where opportunities leak.",
+  subtitle = "A Growth Audit maps your funnel, spend, and tech stack - and shows exactly where opportunities leak.",
   primaryCta = { label: "Book a Growth Audit", href: "/growth-audit" },
   secondaryCta = { label: "Talk to Vistrow", href: "/contact" },
 }: {

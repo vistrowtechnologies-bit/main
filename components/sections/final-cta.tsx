@@ -17,7 +17,7 @@ export function FinalCta() {
               </h2>
               <p className="mt-5 font-sans text-lg leading-relaxed text-muted">
                 A Growth Audit is a deep-dive into your funnel, spend, and tech stack. We
-                map exactly where opportunities leak—and how to connect the system.
+                map exactly where opportunities leak - and how to connect the system.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">

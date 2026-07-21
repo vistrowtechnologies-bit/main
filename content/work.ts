@@ -7,7 +7,7 @@ export const workOverview: OverviewContent = {
   title: "Proof over",
   highlight: "promises",
   subtitle:
-    "How we connect marketing to conversion in the real world—case studies, campaigns, product builds, and the results they produced.",
+    "How we connect marketing to conversion in the real world - case studies, campaigns, product builds, and the results they produced.",
   metaTitle: "Our Work",
   metaDescription:
     "Case studies, campaign portfolio, product work, and client results from Vistrow.",
@@ -20,7 +20,7 @@ export const workOverview: OverviewContent = {
   ],
   intro: {
     eyebrow: "What this section shows",
-    title: "Systems, products, and delivery patterns—not invented success stories.",
+    title: "Systems, products, and delivery patterns - not invented success stories.",
     body:
       "Until named client case studies are approved for publication, this section documents the kinds of systems Vistrow builds and the operational outcomes they are designed to improve. Any future performance claim will be labelled and supported by verified data.",
     points: [
@@ -81,7 +81,7 @@ export const workPages: Record<string, WorkContent> = {
     metaTitle: "Product Work",
     metaDescription: "Custom products and internal tools built by Vistrow Labs.",
     items: [
-      { title: "AI voice qualification agent", tag: "Vistrow Voice", summary: "A voice agent that calls, qualifies, and books—wired into CRM and calendar.", metric: "24/7", metricLabel: "Lead coverage" },
+      { title: "AI voice qualification agent", tag: "Vistrow Voice", summary: "A voice agent that calls, qualifies, and books - wired into CRM and calendar.", metric: "24/7", metricLabel: "Lead coverage" },
       { title: "Unified lead dashboard", tag: "ArthaLeads", summary: "Consolidated multi-channel leads into one clean, scored, CRM-ready view.", metric: "One", metricLabel: "Source of truth" },
       { title: "Client reporting portal", tag: "Vistrow Labs", summary: "A branded portal giving clients live visibility into performance.", metric: "Live", metricLabel: "Client reporting" },
       { title: "Internal ops tool", tag: "Vistrow Labs", summary: "Custom tooling that removed manual steps from a client's operations.", metric: "Less", metricLabel: "Manual work" },
@@ -91,7 +91,7 @@ export const workPages: Record<string, WorkContent> = {
     slug: "client-results",
     title: "Client Results",
     eyebrow: "Work",
-    subtitle: "Outcomes and metrics from ongoing partnerships—measured, not promised.",
+    subtitle: "Outcomes and metrics from ongoing partnerships - measured, not promised.",
     metaTitle: "Client Results",
     metaDescription: "Measured results from Vistrow client partnerships.",
     items: [

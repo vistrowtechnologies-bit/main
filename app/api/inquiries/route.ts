@@ -99,8 +99,8 @@ export async function POST(request: Request) {
 
   const subject =
     type === "growth-audit"
-      ? `Growth Audit request — ${company || name}`
-      : `Website enquiry — ${company || name}`;
+      ? `Growth Audit request - ${company || name}`
+      : `Website enquiry - ${company || name}`;
   const text = details.map(([label, value]) => `${label}: ${value}`).join("\n\n");
   const html = `
     <div style="font-family:Inter,Arial,sans-serif;color:#111;line-height:1.6">

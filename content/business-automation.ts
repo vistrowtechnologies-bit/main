@@ -6,7 +6,7 @@ export const businessAutomationOverview: OverviewContent = {
   title: "Automate what happens after a",
   highlight: "lead is generated",
   subtitle:
-    "CRM, AI voice, follow-up, and custom workflows that respond in seconds and convert more of the demand you already create—without adding headcount.",
+    "CRM, AI voice, follow-up, and custom workflows that respond in seconds and convert more of the demand you already create - without adding headcount.",
   metaTitle: "Business Automation",
   metaDescription:
     "CRM and lead management, AI voice calling, sales automation, communication automation, follow-up systems, and custom automation.",
@@ -16,7 +16,7 @@ export const businessAutomationOverview: OverviewContent = {
     { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling", body: "Respond and qualify by phone in seconds, 24/7.", icon: PhoneCall },
     { label: "Sales Automation", href: "/business-automation/sales-automation", body: "Remove manual work from your sales process.", icon: Zap },
     { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation", body: "Multi-channel follow-up that reaches people where they are.", icon: MessageSquare },
-    { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up", body: "Never drop a lead—automated, persistent follow-up.", icon: Repeat },
+    { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up", body: "Never drop a lead - automated, persistent follow-up.", icon: Repeat },
     { label: "Custom Automation", href: "/business-automation/custom-automation", body: "Workflows built around how your business actually runs.", icon: Wrench },
   ],
   intro: {
@@ -50,10 +50,10 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     title: "CRM & Lead Management",
     eyebrow: "Business Automation",
     subtitle:
-      "One clean, connected source of truth for every lead and deal—set up, integrated, and automated around your sales process.",
+      "One clean, connected source of truth for every lead and deal - set up, integrated, and automated around your sales process.",
     metaTitle: "CRM & Lead Management",
     metaDescription:
-      "CRM setup, cleanup, and automation—lead capture, scoring, routing, and pipeline visibility connected to your marketing.",
+      "CRM setup, cleanup, and automation - lead capture, scoring, routing, and pipeline visibility connected to your marketing.",
     problem: {
       title: "A messy CRM costs you deals you never see.",
       body: "When data is scattered and stale, leads fall through the cracks and reporting can't be trusted. The CRM should make selling easier, not harder.",
@@ -87,8 +87,8 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["HubSpot", "Pipedrive", "Zoho", "Salesforce", "Zapier", "Make", "Twilio"],
     faqs: [
-      { q: "Which CRM do you recommend?", a: "It depends on your size, process, and budget. We're platform-agnostic and recommend what fits—commonly HubSpot or Pipedrive for growing teams." },
-      { q: "Can you clean up our existing CRM?", a: "Yes—cleanup, deduplication, and restructuring is often the fastest way to get more value from what you already have." },
+      { q: "Which CRM do you recommend?", a: "It depends on your size, process, and budget. We're platform-agnostic and recommend what fits - commonly HubSpot or Pipedrive for growing teams." },
+      { q: "Can you clean up our existing CRM?", a: "Yes - cleanup, deduplication, and restructuring is often the fastest way to get more value from what you already have." },
       { q: "Will this connect to our marketing?", a: "That's the point. We connect lead capture, scoring, and follow-up so marketing and sales share one system." },
     ],
   },
@@ -98,7 +98,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     title: "AI Voice Calling",
     eyebrow: "Business Automation",
     subtitle:
-      "Vistrow Voice handles inbound, outbound, and website calls in 10 Indian languages—answering questions, qualifying intent, booking next steps, and pushing outcomes into your workflow 24/7.",
+      "Vistrow Voice handles inbound, outbound, and website calls in 10 Indian languages - answering questions, qualifying intent, booking next steps, and pushing outcomes into your workflow 24/7.",
     metaTitle: "AI Voice Calling",
     metaDescription:
       "Vistrow Voice provides inbound, outbound, and website AI calling in 10 Indian languages, with knowledge-grounded answers and CRM webhooks.",
@@ -147,10 +147,10 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     title: "Sales Automation",
     eyebrow: "Business Automation",
     subtitle:
-      "Take the manual, repetitive work out of selling—so your team spends time on conversations, not admin.",
+      "Take the manual, repetitive work out of selling - so your team spends time on conversations, not admin.",
     metaTitle: "Sales Automation",
     metaDescription:
-      "Automate repetitive sales tasks—data entry, reminders, sequences, and handoffs—so reps focus on closing.",
+      "Automate repetitive sales tasks - data entry, reminders, sequences, and handoffs - so reps focus on closing.",
     problem: {
       title: "Reps sell less when they're doing admin.",
       body: "Manual updates, reminders, and copy-paste tasks eat the hours that should go into conversations and closing.",
@@ -184,8 +184,8 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["HubSpot", "Pipedrive", "Salesloft", "Apollo", "Zapier", "Make"],
     faqs: [
-      { q: "Will this replace our sales team?", a: "No—it removes admin so your team can do more of what only people do well: build relationships and close." },
-      { q: "Does it work with our current process?", a: "We automate around your process, not a generic template—starting from how your team already sells." },
+      { q: "Will this replace our sales team?", a: "No - it removes admin so your team can do more of what only people do well: build relationships and close." },
+      { q: "Does it work with our current process?", a: "We automate around your process, not a generic template - starting from how your team already sells." },
       { q: "How much time can we save?", a: "It varies, but reclaiming several hours per rep per week is common once repetitive tasks are automated." },
     ],
   },
@@ -195,10 +195,10 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     title: "WhatsApp, Email & SMS Automation",
     eyebrow: "Business Automation",
     subtitle:
-      "Reach leads and customers where they actually reply—coordinated across WhatsApp, email, and SMS, triggered by behaviour.",
+      "Reach leads and customers where they actually reply - coordinated across WhatsApp, email, and SMS, triggered by behaviour.",
     metaTitle: "WhatsApp, Email & SMS Automation",
     metaDescription:
-      "Multi-channel communication automation across WhatsApp, email, and SMS—coordinated, behaviour-triggered follow-up.",
+      "Multi-channel communication automation across WhatsApp, email, and SMS - coordinated, behaviour-triggered follow-up.",
     problem: {
       title: "One channel isn't enough anymore.",
       body: "People respond on different channels at different times. Single-channel, manual outreach misses most of them.",
@@ -232,9 +232,9 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["WhatsApp Business API", "Twilio", "Customer.io", "Klaviyo", "HubSpot", "Zapier"],
     faqs: [
-      { q: "Is WhatsApp automation compliant?", a: "Yes—we use the official WhatsApp Business API with proper opt-in and approved templates." },
+      { q: "Is WhatsApp automation compliant?", a: "Yes - we use the official WhatsApp Business API with proper opt-in and approved templates." },
       { q: "How do you avoid spamming people?", a: "Behaviour triggers, frequency caps, and clear opt-outs keep messaging relevant and respectful." },
-      { q: "Can it all run from one place?", a: "Yes—channels connect to your CRM so conversations and history live in one system." },
+      { q: "Can it all run from one place?", a: "Yes - channels connect to your CRM so conversations and history live in one system." },
     ],
   },
 
@@ -243,10 +243,10 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     title: "Lead Follow-Up Systems",
     eyebrow: "Business Automation",
     subtitle:
-      "Persistent, automated follow-up that keeps working every lead until they respond, book, or opt out—so nothing slips.",
+      "Persistent, automated follow-up that keeps working every lead until they respond, book, or opt out - so nothing slips.",
     metaTitle: "Lead Follow-Up Systems",
     metaDescription:
-      "Automated, persistent lead follow-up across channels—so every lead is worked until it converts or opts out.",
+      "Automated, persistent lead follow-up across channels - so every lead is worked until it converts or opts out.",
     problem: {
       title: "Most leads are lost to weak follow-up.",
       body: "A single email or one missed call is where the majority of pipeline quietly disappears. Consistent follow-up is the difference.",
@@ -280,9 +280,9 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["HubSpot", "ActiveCampaign", "Twilio", "WhatsApp API", "Vistrow Voice", "Zapier"],
     faqs: [
-      { q: "How persistent is too persistent?", a: "We design respectful cadences with clear opt-outs—persistent enough to convert, never enough to annoy." },
-      { q: "Which channels do you use?", a: "Whatever your leads respond to—typically a mix of call, SMS, WhatsApp, and email." },
-      { q: "Can this include AI calling?", a: "Yes—AI voice can handle the first touch and re-engagement within the same follow-up system." },
+      { q: "How persistent is too persistent?", a: "We design respectful cadences with clear opt-outs - persistent enough to convert, never enough to annoy." },
+      { q: "Which channels do you use?", a: "Whatever your leads respond to - typically a mix of call, SMS, WhatsApp, and email." },
+      { q: "Can this include AI calling?", a: "Yes - AI voice can handle the first touch and re-engagement within the same follow-up system." },
     ],
   },
 
@@ -294,7 +294,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
       "When off-the-shelf tools don't fit, we build the workflows and integrations that match how your business actually runs.",
     metaTitle: "Custom Automation",
     metaDescription:
-      "Custom business automation and integrations—connecting your tools and building workflows around your real process.",
+      "Custom business automation and integrations - connecting your tools and building workflows around your real process.",
     problem: {
       title: "Your process is unique. Your tools should fit it.",
       body: "Forcing your business into rigid software creates workarounds and manual glue work. Custom automation removes the friction.",
@@ -328,8 +328,8 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["Zapier", "Make", "n8n", "Custom APIs", "Webhooks", "Airtable", "Retool"],
     faqs: [
-      { q: "How custom can you get?", a: "From simple tool-to-tool integrations to bespoke internal apps—we scope to your needs and budget." },
-      { q: "Will it be maintainable?", a: "Yes—we document everything and favour maintainable, well-supported platforms over fragile hacks." },
+      { q: "How custom can you get?", a: "From simple tool-to-tool integrations to bespoke internal apps - we scope to your needs and budget." },
+      { q: "Will it be maintainable?", a: "Yes - we document everything and favour maintainable, well-supported platforms over fragile hacks." },
       { q: "When should we choose custom over off-the-shelf?", a: "When standard tools force costly workarounds. We'll tell you honestly when off-the-shelf is the better call." },
     ],
   },

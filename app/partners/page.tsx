@@ -8,7 +8,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 export const metadata: Metadata = {
   title: "Partners",
   description:
-    "Partner with Vistrow to deliver connected marketing and automation—white-label systems, AI voice, and custom builds.",
+    "Partner with Vistrow to deliver connected marketing and automation - white-label systems, AI voice, and custom builds.",
 };
 
 const partnerTypes = [
@@ -33,7 +33,7 @@ export default function Page() {
         eyebrow="Partners"
         title="Grow further,"
         highlight="together"
-        subtitle="Partner with Vistrow to deliver connected marketing and automation—white-label systems, AI voice, and custom builds your clients will value."
+        subtitle="Partner with Vistrow to deliver connected marketing and automation - white-label systems, AI voice, and custom builds your clients will value."
         primaryCta={{ label: "Become a partner", href: "/contact" }}
         secondaryCta={{ label: "Explore products", href: "/products" }}
       />

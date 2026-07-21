@@ -1,6 +1,6 @@
 # Vistrow
 
-Marketing website for **Vistrow Technologies** — a digital-marketing-first technology company connecting marketing to CRM, AI voice, automation, and conversion tracking.
+Marketing website for **Vistrow Technologies** - a digital-marketing-first technology company connecting marketing to CRM, AI voice, automation, and conversion tracking.
 
 ## Stack
 

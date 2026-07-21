@@ -11,7 +11,7 @@ export const legalPages: Record<string, LegalContent> = {
       "This Privacy Policy explains how Vistrow Technologies collects, uses, and protects the personal information you provide when you use our website and services.",
     sections: [
       { heading: "Information we collect", body: [
-        "We collect information you provide directly—such as your name, work email, phone number, company, and message—when you submit a form, request a Growth Audit, or contact us.",
+        "We collect information you provide directly - such as your name, work email, phone number, company, and message - when you submit a form, request a Growth Audit, or contact us.",
         "We also collect limited technical information automatically, such as device and browser details and pages visited, to operate and improve the site.",
       ]},
       { heading: "How we use your information", body: [

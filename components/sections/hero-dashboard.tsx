@@ -7,7 +7,7 @@ import { CountUp } from "@/components/ui/motion-primitives";
 
 /**
  * Connected marketing + lead-management interface mock.
- * Pure CSS/SVG — no external assets or WebGL — so it stays fast and theme-aware.
+ * Pure CSS/SVG - no external assets or WebGL - so it stays fast and theme-aware.
  */
 export function HeroDashboard() {
   const bars = [38, 52, 44, 66, 58, 78, 72, 90];

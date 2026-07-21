@@ -41,7 +41,7 @@ export function Hero() {
             <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
               Vistrow combines performance marketing, landing pages, CRM, AI voice,
               automation, and conversion tracking to help businesses generate more
-              opportunities—and manage them more effectively.
+              opportunities - and manage them more effectively.
             </p>
           </Reveal>
 

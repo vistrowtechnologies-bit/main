@@ -21,7 +21,7 @@ export function Problem() {
           </h2>
           <p className="mx-auto mt-5 max-w-2xl font-sans text-lg leading-relaxed text-muted">
             Marketing performs better when the system behind it is connected. We engineer
-            the whole journey—from the first touchpoint to the closed deal.
+            the whole journey - from the first touchpoint to the closed deal.
           </p>
         </Reveal>
 

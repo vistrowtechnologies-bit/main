@@ -6,7 +6,7 @@ export function AnnouncementBar() {
     <div className="relative z-50 border-b border-white/5 bg-[#0d0d0d] text-[#f5f7fa] dark:bg-[#1c1c1e]">
       <div className="container-edge flex items-center justify-center gap-2 py-2 text-center">
         <p className="font-sans text-[13px] font-medium text-[#f5f7fa]/90">
-          Digital marketing, CRM and automation—built to work together.
+          Digital marketing, CRM and automation - built to work together.
         </p>
         <Link
           href="/growth-audit"

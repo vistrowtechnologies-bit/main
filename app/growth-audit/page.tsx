@@ -6,7 +6,7 @@ import { GrowthAuditForm } from "@/components/forms/growth-audit-form";
 export const metadata: Metadata = {
   title: "Book a Growth Audit",
   description:
-    "A deep-dive into your funnel, spend, and tech stack—mapping exactly where opportunities leak between marketing and sales.",
+    "A deep-dive into your funnel, spend, and tech stack - mapping exactly where opportunities leak between marketing and sales.",
 };
 
 const whatYouGet = [
@@ -23,7 +23,7 @@ export default function Page() {
         eyebrow="Growth Audit"
         title="Find the gaps between marketing and"
         highlight="sales"
-        subtitle="A structured deep-dive into your funnel, spend, and tech stack—so you can see exactly where opportunities are leaking, and what to fix first."
+        subtitle="A structured deep-dive into your funnel, spend, and tech stack - so you can see exactly where opportunities are leaking, and what to fix first."
         primaryCta={{ label: "Start the audit", href: "#audit-form" }}
         secondaryCta={{ label: "Talk to us first", href: "/contact" }}
         aside={

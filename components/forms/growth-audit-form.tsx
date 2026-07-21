@@ -86,7 +86,7 @@ export function GrowthAuditForm() {
         </div>
         <h3 className="mt-6 font-display text-h3 text-ink">Your Growth Audit is requested</h3>
         <p className="mx-auto mt-3 max-w-md font-sans text-muted">
-          We&apos;ll review your details and reach out to schedule your audit—a deep dive into
+          We&apos;ll review your details and reach out to schedule your audit - a deep dive into
           your funnel, spend, and tech stack to find where opportunities leak.
         </p>
       </div>

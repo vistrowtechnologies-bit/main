@@ -27,7 +27,7 @@ export default function Page() {
         eyebrow="About Vistrow"
         title="A digital-marketing-first"
         highlight="technology company"
-        subtitle="Vistrow helps businesses generate demand and then convert it—by connecting marketing to CRM, AI voice, automation, and the tracking that ties it all to revenue."
+        subtitle="Vistrow helps businesses generate demand and then convert it - by connecting marketing to CRM, AI voice, automation, and the tracking that ties it all to revenue."
         secondaryCta={{ label: "Our approach", href: "/approach" }}
       />
 
@@ -38,13 +38,13 @@ export default function Page() {
             <div className="space-y-5 font-sans text-lg leading-relaxed text-muted">
               <p>
                 Most businesses can generate attention. The harder problem is what happens
-                next—slow responses, disconnected CRMs, missed follow-ups, and no clear link
+                next - slow responses, disconnected CRMs, missed follow-ups, and no clear link
                 between marketing and revenue.
               </p>
               <p>
                 Vistrow was built to close that gap. We combine performance marketing with the
                 systems that manage and convert opportunities: CRM, AI voice calling,
-                automation, and conversion tracking—working as one engine.
+                automation, and conversion tracking - working as one engine.
               </p>
               <p>
                 The result is marketing that connects directly to business growth, with the

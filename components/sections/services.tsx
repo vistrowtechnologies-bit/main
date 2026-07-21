@@ -10,7 +10,7 @@ const smallCards = [
   },
   {
     title: "CRM & Follow-Up",
-    body: "Every lead captured, scored, and routed—no opportunity dropped.",
+    body: "Every lead captured, scored, and routed - no opportunity dropped.",
   },
   {
     title: "Conversion Tracking",
@@ -37,7 +37,7 @@ export function Services() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-gutter md:grid-cols-12">
-          {/* Digital Marketing — large glass card */}
+          {/* Digital Marketing - large glass card */}
           <Reveal className="md:col-span-8">
             <TiltCard className="h-full">
             <div className="glass glass-hover group relative flex h-full flex-col overflow-hidden rounded-lg p-8 sm:p-10">
@@ -65,7 +65,7 @@ export function Services() {
             </TiltCard>
           </Reveal>
 
-          {/* Business Automation — inverse (carbon) card */}
+          {/* Business Automation - inverse (carbon) card */}
           <Reveal delay={0.08} className="md:col-span-4">
             <TiltCard className="h-full">
             <div className="group flex h-full flex-col overflow-hidden rounded-lg bg-inverse p-8 sm:p-10">
@@ -76,7 +76,7 @@ export function Services() {
                 Business Automation
               </h3>
               <p className="mt-3 font-sans text-base leading-relaxed text-inverse-ink-2">
-                Automate what happens after a lead is generated—CRM, calls, and
+                Automate what happens after a lead is generated - CRM, calls, and
                 follow-up handled without adding headcount.
               </p>
               <div className="mt-auto space-y-3 pt-8">

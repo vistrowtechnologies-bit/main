@@ -8,7 +8,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 export const metadata: Metadata = {
   title: "Our Approach",
   description:
-    "How Vistrow works: audit, plan, build, improve—connecting marketing to the systems that convert.",
+    "How Vistrow works: audit, plan, build, improve - connecting marketing to the systems that convert.",
 };
 
 const principles = [
@@ -33,7 +33,7 @@ export default function Page() {
         eyebrow="Our Approach"
         title="Audit. Plan. Build."
         highlight="Improve."
-        subtitle="A simple, repeatable method for connecting marketing to conversion—so growth is engineered, measured, and improvable rather than left to chance."
+        subtitle="A simple, repeatable method for connecting marketing to conversion - so growth is engineered, measured, and improvable rather than left to chance."
         secondaryCta={{ label: "About Vistrow", href: "/about" }}
       />
       <Steps eyebrow="The method" title="How every engagement runs" steps={steps} />

@@ -6,7 +6,7 @@ export const industriesOverview: OverviewContent = {
   title: "Growth systems tuned to your",
   highlight: "industry",
   subtitle:
-    "The same connected engine—marketing, CRM, AI voice, and automation—shaped around the way your industry actually generates and closes business.",
+    "The same connected engine - marketing, CRM, AI voice, and automation - shaped around the way your industry actually generates and closes business.",
   metaTitle: "Industries",
   metaDescription:
     "Vistrow growth systems for real estate, local businesses, B2B, startups & SaaS, agencies, and education.",
@@ -64,7 +64,7 @@ export const industries: Record<string, IndustryContent> = {
       "In real estate, the first agent to respond usually wins. We build the marketing and instant follow-up systems that turn enquiries into appointments.",
     metaTitle: "Real Estate Growth Systems",
     metaDescription:
-      "Marketing, AI voice, and follow-up systems for real estate—capture, qualify, and book more buyers and sellers, faster.",
+      "Marketing, AI voice, and follow-up systems for real estate - capture, qualify, and book more buyers and sellers, faster.",
     challenges: [
       { title: "Slow lead response", body: "Enquiries go cold before an agent can call back." },
       { title: "High lead volume", body: "Portals and ads flood you with mixed-quality leads." },
@@ -73,7 +73,7 @@ export const industries: Record<string, IndustryContent> = {
     ],
     solution: {
       title: "Respond in seconds, qualify automatically, book more viewings.",
-      body: "We connect your lead sources to instant AI calling, scoring, and follow-up—so every enquiry gets a fast, consistent response and agents focus on ready buyers and sellers.",
+      body: "We connect your lead sources to instant AI calling, scoring, and follow-up - so every enquiry gets a fast, consistent response and agents focus on ready buyers and sellers.",
       points: [
         "AI voice calls new enquiries in seconds",
         "Automatic qualification and scoring",
@@ -96,9 +96,9 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Follow-up runs", body: "Unbooked leads get persistent nurture." },
     ],
     faqs: [
-      { q: "Does this work for agencies and individual agents?", a: "Both—we scale the system from solo agents to multi-branch agencies." },
-      { q: "Will it integrate with our portal leads?", a: "Yes—leads from major portals and your website route into the same fast-response system." },
-      { q: "Can the AI book viewings directly?", a: "Yes—it qualifies and books straight into agent calendars, with human handoff when needed." },
+      { q: "Does this work for agencies and individual agents?", a: "Both - we scale the system from solo agents to multi-branch agencies." },
+      { q: "Will it integrate with our portal leads?", a: "Yes - leads from major portals and your website route into the same fast-response system." },
+      { q: "Can the AI book viewings directly?", a: "Yes - it qualifies and books straight into agent calendars, with human handoff when needed." },
     ],
   },
 
@@ -119,7 +119,7 @@ export const industries: Record<string, IndustryContent> = {
     ],
     solution: {
       title: "Capture every enquiry and turn it into a booked job.",
-      body: "We generate steady local demand and connect it to instant response and follow-up—so no call goes unanswered and no quote goes cold.",
+      body: "We generate steady local demand and connect it to instant response and follow-up - so no call goes unanswered and no quote goes cold.",
       points: [
         "Local lead generation that fills the pipeline",
         "Instant response to every enquiry",
@@ -135,9 +135,9 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Job booked", body: "Booked into your schedule, logged in CRM." },
     ],
     faqs: [
-      { q: "We're a small team—is this too much?", a: "No—the point is to do the work you can't, like answering and following up while you're busy on jobs." },
+      { q: "We're a small team - is this too much?", a: "No - the point is to do the work you can't, like answering and following up while you're busy on jobs." },
       { q: "What kinds of local business fit?", a: "Trades, clinics, salons, home services, and similar appointment- or quote-driven businesses." },
-      { q: "Can it help with reviews?", a: "Yes—automated review requests after jobs help build your local reputation." },
+      { q: "Can it help with reviews?", a: "Yes - automated review requests after jobs help build your local reputation." },
     ],
   },
 
@@ -149,7 +149,7 @@ export const industries: Record<string, IndustryContent> = {
       "B2B sales are considered and multi-touch. We build the demand generation and nurture systems that create and mature qualified pipeline.",
     metaTitle: "B2B Growth Systems",
     metaDescription:
-      "Demand generation, lead scoring, and nurture systems for B2B—qualified pipeline for longer sales cycles.",
+      "Demand generation, lead scoring, and nurture systems for B2B - qualified pipeline for longer sales cycles.",
     challenges: [
       { title: "Long sales cycles", body: "Deals need nurturing over weeks or months." },
       { title: "Low lead quality", body: "Volume without fit wastes sales time." },
@@ -158,7 +158,7 @@ export const industries: Record<string, IndustryContent> = {
     ],
     solution: {
       title: "Generate qualified demand and nurture it to sales-ready.",
-      body: "We combine targeted demand generation with scoring, nurture, and clean CRM handoff—so sales spends time on the right accounts at the right moment.",
+      body: "We combine targeted demand generation with scoring, nurture, and clean CRM handoff - so sales spends time on the right accounts at the right moment.",
       points: [
         "Targeted demand generation",
         "Lead scoring and lifecycle stages",
@@ -181,9 +181,9 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Measured to revenue", body: "Attribution ties activity to closed deals." },
     ],
     faqs: [
-      { q: "Do you support ABM?", a: "Yes—we can focus demand generation and nurture around target accounts." },
+      { q: "Do you support ABM?", a: "Yes - we can focus demand generation and nurture around target accounts." },
       { q: "How do you improve lead quality?", a: "Through targeting, qualification, scoring, and tight sales feedback loops." },
-      { q: "Can you prove ROI on long cycles?", a: "Yes—full-funnel tracking ties multi-touch journeys to pipeline and revenue." },
+      { q: "Can you prove ROI on long cycles?", a: "Yes - full-funnel tracking ties multi-touch journeys to pipeline and revenue." },
     ],
   },
 
@@ -192,10 +192,10 @@ export const industries: Record<string, IndustryContent> = {
     title: "Startups & SaaS",
     eyebrow: "Industry",
     subtitle:
-      "Startups need efficient, measurable growth. We build acquisition and activation systems that scale with you—without wasting runway.",
+      "Startups need efficient, measurable growth. We build acquisition and activation systems that scale with you - without wasting runway.",
     metaTitle: "Startup & SaaS Growth Systems",
     metaDescription:
-      "Efficient acquisition, activation, and retention systems for startups and SaaS—measurable growth that scales.",
+      "Efficient acquisition, activation, and retention systems for startups and SaaS - measurable growth that scales.",
     challenges: [
       { title: "Limited runway", body: "Every rupee of spend has to be efficient." },
       { title: "Acquisition to activation gap", body: "Signups that never become active users." },
@@ -204,7 +204,7 @@ export const industries: Record<string, IndustryContent> = {
     ],
     solution: {
       title: "Efficient acquisition, strong activation, systems that scale.",
-      body: "We build measurable acquisition and lifecycle automation—so you grow efficiently, activate more users, and don't rebuild your growth engine at every stage.",
+      body: "We build measurable acquisition and lifecycle automation - so you grow efficiently, activate more users, and don't rebuild your growth engine at every stage.",
       points: [
         "Efficient, measurable acquisition",
         "Onboarding and activation journeys",
@@ -227,9 +227,9 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Measure & scale", body: "Clean metrics guide where to invest next." },
     ],
     faqs: [
-      { q: "We're pre-product-market fit—can you help?", a: "We focus on efficient experiments and measurement so you learn fast without overspending." },
-      { q: "Do you work with product-led growth?", a: "Yes—we build activation and lifecycle systems around your product signals." },
-      { q: "Can you integrate with our product data?", a: "Yes—via Custom Automation we connect product events to your growth systems." },
+      { q: "We're pre-product-market fit - can you help?", a: "We focus on efficient experiments and measurement so you learn fast without overspending." },
+      { q: "Do you work with product-led growth?", a: "Yes - we build activation and lifecycle systems around your product signals." },
+      { q: "Can you integrate with our product data?", a: "Yes - via Custom Automation we connect product events to your growth systems." },
     ],
   },
 
@@ -249,7 +249,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Capability gaps", body: "Missing AI voice or automation offerings." },
     ],
     solution: {
-      title: "Scale delivery and expand your offering—white-labelled.",
+      title: "Scale delivery and expand your offering - white-labelled.",
       body: "We give agencies the automation, CRM, and AI systems to deliver more per client and add new services under your own brand.",
       points: [
         "White-label automation and AI voice",
@@ -273,9 +273,9 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Expand offering", body: "Add AI voice and automation as services." },
     ],
     faqs: [
-      { q: "Is this truly white-label?", a: "Yes—systems run under your brand; we operate behind the scenes as your partner." },
-      { q: "Can we resell AI voice to clients?", a: "Yes—many agency partners add AI calling and automation as premium services." },
-      { q: "How do partnerships work?", a: "Flexible—project, retainer, or ongoing partner arrangements. See our Partners page." },
+      { q: "Is this truly white-label?", a: "Yes - systems run under your brand; we operate behind the scenes as your partner." },
+      { q: "Can we resell AI voice to clients?", a: "Yes - many agency partners add AI calling and automation as premium services." },
+      { q: "How do partnerships work?", a: "Flexible - project, retainer, or ongoing partner arrangements. See our Partners page." },
     ],
   },
 
@@ -287,7 +287,7 @@ export const industries: Record<string, IndustryContent> = {
       "Education runs on enrolment. We build the marketing and applicant follow-up systems that fill programmes and respond to every enquiry in time.",
     metaTitle: "Education Growth Systems",
     metaDescription:
-      "Enrolment marketing and applicant follow-up systems for education—capture, nurture, and convert more applicants.",
+      "Enrolment marketing and applicant follow-up systems for education - capture, nurture, and convert more applicants.",
     challenges: [
       { title: "Enrolment targets", body: "Pressure to fill intakes on a deadline." },
       { title: "Slow applicant response", body: "Enquiries cool before anyone follows up." },
@@ -296,7 +296,7 @@ export const industries: Record<string, IndustryContent> = {
     ],
     solution: {
       title: "Fill intakes with timely, nurtured applicant journeys.",
-      body: "We generate qualified enquiries and connect them to instant response and nurture—so applicants get answers fast and stay engaged through to enrolment.",
+      body: "We generate qualified enquiries and connect them to instant response and nurture - so applicants get answers fast and stay engaged through to enrolment.",
       points: [
         "Enrolment-focused lead generation",
         "Instant response to enquiries",
@@ -320,8 +320,8 @@ export const industries: Record<string, IndustryContent> = {
     ],
     faqs: [
       { q: "Which institutions do you work with?", a: "Colleges, training providers, and course businesses with enrolment targets." },
-      { q: "Can you handle high enquiry volume?", a: "Yes—automation and AI voice ensure every enquiry gets a timely response." },
-      { q: "Is applicant data handled securely?", a: "Yes—with privacy-compliant handling and one clean, connected pipeline." },
+      { q: "Can you handle high enquiry volume?", a: "Yes - automation and AI voice ensure every enquiry gets a timely response." },
+      { q: "Is applicant data handled securely?", a: "Yes - with privacy-compliant handling and one clean, connected pipeline." },
     ],
   },
 };
