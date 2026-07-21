@@ -5,6 +5,7 @@ import Image from "next/image";
 import {
   ArrowRight,
   ExternalLink,
+  Home,
   Send,
   Sparkles,
   X,
@@ -54,6 +55,7 @@ export function ChatWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const messageIdRef = useRef(1);
+  const leadCapturedRef = useRef(false);
 
   useEffect(() => {
     if (!open) return;
@@ -98,6 +100,7 @@ export function ChatWidget() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: historyForRequest.map((message) => ({ sender: message.sender, text: message.text })),
+          leadCaptured: leadCapturedRef.current,
         }),
       });
       const data = await response.json();
@@ -107,6 +110,7 @@ export function ChatWidget() {
           text: data.reply,
           links: Array.isArray(data.links) ? data.links : [],
         };
+        if (data.leadCaptured === true) leadCapturedRef.current = true;
       } else if (typeof data.error === "string") {
         reply = { ...fallbackReply, text: data.error };
       }
@@ -168,14 +172,24 @@ export function ChatWidget() {
                     <p className="mt-0.5 font-sans text-xs text-bg/65">Online automated assistant</p>
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  aria-label="Close Artha"
-                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bg/15 text-bg transition-colors hover:border-bg/30 hover:bg-bg/10"
-                >
-                  <X className="h-4 w-4" />
-                </button>
+                <div className="flex shrink-0 items-center gap-1.5">
+                  <Link
+                    href="/"
+                    onClick={() => setOpen(false)}
+                    aria-label="Go to homepage"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-bg/15 text-bg transition-colors hover:border-bg/30 hover:bg-bg/10"
+                  >
+                    <Home className="h-4 w-4" />
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    aria-label="Close Artha"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-bg/15 text-bg transition-colors hover:border-bg/30 hover:bg-bg/10"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
             </header>
 
