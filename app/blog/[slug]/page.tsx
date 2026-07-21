@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { BlogPostPage } from "@/components/templates/blog-post-page";
 import { buildMetadata } from "@/lib/seo";
 import { getBlogPost, getBlogPosts } from "@/lib/sanity/blog";
@@ -18,6 +18,36 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: post.metaTitle,
     description: post.metaDescription,
     path: `/blog/${post.slug}`,
+    canonicalUrl: post.canonicalUrl,
+    keywords: [post.focusKeyword, ...(post.secondaryKeywords || [])].filter(
+      (keyword): keyword is string => Boolean(keyword),
+    ),
+    openGraph: {
+      title: post.openGraphTitle,
+      description: post.openGraphDescription,
+      image: post.openGraphImage || post.featuredImage,
+    },
+    twitter: {
+      title: post.twitterTitle,
+      description: post.twitterDescription,
+      image: post.twitterImage || post.openGraphImage || post.featuredImage,
+      card: post.twitterCard,
+    },
+    robots: {
+      index: post.robotsIndex,
+      follow: post.robotsFollow,
+      noarchive: post.robotsNoArchive,
+      noimageindex: post.robotsNoImageIndex,
+      nosnippet: post.robotsNoSnippet,
+      maxSnippet: post.robotsMaxSnippet,
+      maxVideoPreview: post.robotsMaxVideoPreview,
+      maxImagePreview: post.robotsMaxImagePreview,
+    },
+    article: {
+      publishedTime: post.date,
+      modifiedTime: post.dateModified,
+      section: post.category,
+    },
   });
 }
 
@@ -27,6 +57,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
     getBlogPosts(),
   ]);
   if (!post) notFound();
+  if (post.redirectUrl) {
+    if (post.redirectPermanent === false) redirect(post.redirectUrl);
+    permanentRedirect(post.redirectUrl);
+  }
   const morePosts = blogPosts
     .filter((p) => p.slug !== post.slug)
     .sort((a, b) => {

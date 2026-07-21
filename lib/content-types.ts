@@ -90,6 +90,13 @@ export type LegalContent = {
 
 export type BlogSection = { heading?: string; paragraphs: string[]; points?: string[] };
 
+export type BlogSeoImage = {
+  url: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+};
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -100,5 +107,30 @@ export type BlogPost = {
   readTime: string;
   metaTitle: string;
   metaDescription: string;
+  focusKeyword?: string;
+  secondaryKeywords?: string[];
+  breadcrumbTitle?: string;
+  canonicalUrl?: string;
+  schemaType?: "BlogPosting" | "Article" | "NewsArticle";
+  dateModified?: string;
+  featuredImage?: BlogSeoImage;
+  openGraphTitle?: string;
+  openGraphDescription?: string;
+  openGraphImage?: BlogSeoImage;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterImage?: BlogSeoImage;
+  twitterCard?: "summary" | "summary_large_image";
+  robotsIndex?: boolean;
+  robotsFollow?: boolean;
+  robotsNoArchive?: boolean;
+  robotsNoImageIndex?: boolean;
+  robotsNoSnippet?: boolean;
+  robotsMaxSnippet?: number;
+  robotsMaxVideoPreview?: number;
+  robotsMaxImagePreview?: "none" | "standard" | "large";
+  excludeFromSitemap?: boolean;
+  redirectUrl?: string;
+  redirectPermanent?: boolean;
   sections: BlogSection[];
 };

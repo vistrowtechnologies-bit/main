@@ -111,19 +111,27 @@ export function articleSchema(input: {
   path: string;
   author: string;
   datePublished: string;
+  dateModified?: string;
+  schemaType?: "BlogPosting" | "Article" | "NewsArticle";
+  image?: string;
+  keywords?: string[];
+  articleSection?: string;
 }): JsonLdValue {
   return {
-    "@type": "BlogPosting",
+    "@type": input.schemaType || "BlogPosting",
     "@id": `${siteUrl}${input.path}#article`,
     headline: input.title,
     description: input.description,
     url: `${siteUrl}${input.path}`,
     datePublished: input.datePublished,
-    dateModified: input.datePublished,
+    dateModified: input.dateModified || input.datePublished,
     author: { "@type": "Organization", name: input.author },
     publisher: { "@id": `${siteUrl}/#organization` },
     isPartOf: { "@id": `${siteUrl}/#website` },
     mainEntityOfPage: `${siteUrl}${input.path}`,
+    ...(input.image ? { image: input.image } : {}),
+    ...(input.keywords?.length ? { keywords: input.keywords.join(", ") } : {}),
+    ...(input.articleSection ? { articleSection: input.articleSection } : {}),
   };
 }
 

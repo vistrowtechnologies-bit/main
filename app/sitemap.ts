@@ -36,7 +36,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...Object.keys(products).map((s) => `/products/${s}`),
     ...Object.keys(industries).map((s) => `/industries/${s}`),
     ...Object.keys(workPages).map((s) => `/work/${s}`),
-    ...blogPosts.map((post) => `/blog/${post.slug}`),
+    ...blogPosts
+      .filter((post) => !post.excludeFromSitemap && post.robotsIndex !== false && !post.redirectUrl)
+      .map((post) => `/blog/${post.slug}`),
   ];
 
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({

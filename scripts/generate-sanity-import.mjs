@@ -21,6 +21,33 @@ vm.runInNewContext(compiled, {
   require: () => ({}),
 });
 
+const keywordMap = {
+  "speed-to-lead-why-response-time-decides-deals": {
+    focus: "speed to lead",
+    secondary: ["lead response time", "instant lead follow-up", "sales conversion"],
+  },
+  "why-most-crm-implementations-fail": {
+    focus: "CRM implementation",
+    secondary: ["CRM adoption", "sales process", "CRM strategy"],
+  },
+  "ai-voice-calling-what-it-can-and-cant-do": {
+    focus: "AI voice calling",
+    secondary: ["AI voice agent", "lead qualification", "automated sales calls"],
+  },
+  "marketing-attribution-that-sales-will-actually-trust": {
+    focus: "marketing attribution",
+    secondary: ["CRM attribution", "conversion tracking", "marketing ROI"],
+  },
+  "when-to-automate-and-when-not-to": {
+    focus: "business process automation",
+    secondary: ["workflow automation", "automation strategy", "business operations"],
+  },
+  "connected-marketing-system-what-it-actually-means": {
+    focus: "connected marketing system",
+    secondary: ["marketing automation", "CRM integration", "revenue attribution"],
+  },
+};
+
 const documents = module.exports.blogPosts.map((post) => ({
   _id: `blogPost-${post.slug}`,
   _type: "blogPost",
@@ -33,6 +60,21 @@ const documents = module.exports.blogPosts.map((post) => ({
   readTime: post.readTime,
   metaTitle: post.metaTitle,
   metaDescription: post.metaDescription,
+  focusKeyword: keywordMap[post.slug]?.focus,
+  secondaryKeywords: keywordMap[post.slug]?.secondary || [],
+  breadcrumbTitle: post.metaTitle,
+  schemaType: "BlogPosting",
+  twitterCard: "summary_large_image",
+  robotsIndex: true,
+  robotsFollow: true,
+  robotsNoArchive: false,
+  robotsNoImageIndex: false,
+  robotsNoSnippet: false,
+  robotsMaxSnippet: -1,
+  robotsMaxVideoPreview: -1,
+  robotsMaxImagePreview: "large",
+  excludeFromSitemap: false,
+  redirectPermanent: true,
   sections: post.sections.map((section, index) => ({
     _key: `section-${index + 1}`,
     _type: "blogSection",

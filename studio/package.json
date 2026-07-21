@@ -10,6 +10,7 @@
     "import:blogs": "sanity datasets import migrations/blog-posts.ndjson --dataset production --replace"
   },
   "dependencies": {
+    "@sanity/ui": "^3.3.5",
     "@sanity/vision": "^6.5.0",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",

@@ -42,7 +42,7 @@ export function BlogPostPage({
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Blog", path: "/blog" },
-            { name: post.title, path: `/blog/${post.slug}` },
+            { name: post.breadcrumbTitle || post.title, path: `/blog/${post.slug}` },
           ]),
           articleSchema({
             title: post.title,
@@ -50,6 +50,13 @@ export function BlogPostPage({
             path: `/blog/${post.slug}`,
             author: post.author,
             datePublished: post.date,
+            dateModified: post.dateModified,
+            schemaType: post.schemaType,
+            image: post.featuredImage?.url,
+            keywords: [post.focusKeyword, ...(post.secondaryKeywords || [])].filter(
+              (keyword): keyword is string => Boolean(keyword),
+            ),
+            articleSection: post.category,
           }),
         ])}
       />
@@ -58,7 +65,7 @@ export function BlogPostPage({
         <div className="container-edge">
           <div className="mx-auto max-w-[1110px]">
             <Breadcrumb
-              items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.title }]}
+              items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/blog" }, { label: post.breadcrumbTitle || post.title }]}
             />
 
             <span className="mt-8 inline-flex rounded-full border border-accent/45 bg-accent/10 px-3 py-1.5 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-strong">
