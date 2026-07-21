@@ -1,5 +1,6 @@
 import { siteName, siteUrl } from "@/lib/seo";
 import type { QA } from "@/lib/content-types";
+import { socialProfiles } from "@/lib/social-links";
 
 export type JsonLdValue = Record<string, unknown>;
 
@@ -16,6 +17,7 @@ export const organizationSchema: JsonLdValue = {
     height: 512,
   },
   email: "hello@vistrow.com",
+  sameAs: socialProfiles.map((profile) => profile.href),
   description:
     "Vistrow connects digital marketing, CRM, AI voice calling, business automation, and conversion tracking into measurable growth systems.",
   areaServed: ["India", "Worldwide"],

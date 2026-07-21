@@ -1,6 +1,15 @@
 import Link from "next/link";
-import { AtSign, Database, Globe, PhoneCall } from "lucide-react";
+import {
+  AtSign,
+  Database,
+  Facebook,
+  Globe,
+  Instagram,
+  Linkedin,
+  PhoneCall,
+} from "lucide-react";
 import { Wordmark } from "@/components/ui/wordmark";
+import { socialProfiles } from "@/lib/social-links";
 
 const columns: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -40,7 +49,13 @@ const legal = [
 ];
 
 export function Footer() {
+  const socialIcons = { Instagram, Facebook, LinkedIn: Linkedin };
   const externalLinks = [
+    ...socialProfiles.map((profile) => ({
+      icon: socialIcons[profile.platform],
+      label: profile.label,
+      href: profile.href,
+    })),
     { icon: Globe, label: "Vistrow website", href: "https://www.vistrow.com" },
     { icon: PhoneCall, label: "Vistrow Voice", href: "https://voice-three-flax.vercel.app/" },
     { icon: Database, label: "ArthaLeads", href: "https://www.arthaleads.com/" },
@@ -57,7 +72,7 @@ export function Footer() {
               Digital marketing connected to the CRM, automation, and AI systems that
               turn opportunities into revenue.
             </p>
-            <div className="mt-6 flex gap-2.5">
+            <div className="mt-6 flex flex-wrap gap-2.5">
               {externalLinks.map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
