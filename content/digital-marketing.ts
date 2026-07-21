@@ -7,6 +7,7 @@ import {
   Search,
   BarChart3,
   Workflow,
+  Code2,
 } from "lucide-react";
 import type { ServiceContent, OverviewContent } from "@/lib/content-types";
 
@@ -23,6 +24,7 @@ export const digitalMarketingOverview: OverviewContent = {
   cards: [
     { label: "Performance Advertising", href: "/digital-marketing/performance-advertising", body: "ROI-focused paid media across search, social, and display.", icon: Target },
     { label: "Lead Generation", href: "/digital-marketing/lead-generation", body: "High-intent pipeline from the channels your buyers use.", icon: MousePointerClick },
+    { label: "Website Development", href: "/digital-marketing/website-development", body: "Fast, conversion-ready websites built to support the whole funnel.", icon: Code2 },
     { label: "Landing Pages & Funnels", href: "/digital-marketing/landing-pages", body: "Pages and funnels engineered to convert traffic.", icon: LayoutTemplate },
     { label: "Creative Strategy", href: "/digital-marketing/creative-strategy", body: "Messaging and creative that earns attention and clicks.", icon: Palette },
     { label: "Social Media Marketing", href: "/digital-marketing/social-media", body: "Demand and community across the platforms that matter.", icon: Share2 },
@@ -152,6 +154,55 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
       { q: "How do you keep lead quality high?", a: "Through offer design, qualifying questions, scoring, and filtering - plus feedback loops from sales so we optimise for leads that actually convert." },
       { q: "Can you plug into our existing CRM?", a: "Yes. We integrate with common CRMs and route leads with the fields, tags, and owner assignment your team needs." },
       { q: "Do you guarantee a number of leads?", a: "We don't sell guarantees. We set realistic targets from your data and improve them month over month." },
+    ],
+  },
+
+  "website-development": {
+    slug: "website-development",
+    title: "Website Development",
+    eyebrow: "Digital Marketing",
+    subtitle:
+      "Fast, accessible websites built on modern infrastructure - designed to support your whole funnel, not just look good.",
+    metaTitle: "Website Development Services",
+    metaDescription:
+      "Custom website development - fast, SEO-ready, and built to convert, with tracking and CRM handoff wired in from day one.",
+    problem: {
+      title: "A slow, generic website quietly costs you leads.",
+      body: "Templated builders and unmaintained sites load slowly, rank poorly, and disconnect from the systems that turn visitors into pipeline.",
+      points: [
+        "Slow load times hurting rankings and conversions",
+        "Templates that don't reflect the brand or offer",
+        "No connection between the site, CRM, and tracking",
+        "Difficult to update without a developer",
+      ],
+    },
+    outcomes: [
+      { stat: "Fast", label: "Core Web Vitals", body: "Built on modern infrastructure for real-world speed." },
+      { stat: "Connected", label: "Lead capture", body: "Forms and CTAs routed straight into your CRM." },
+      { stat: "Owned", label: "Content and code", body: "A codebase and CMS your team can actually use." },
+    ],
+    included: [
+      "Information architecture and UX design",
+      "Custom, responsive front-end build",
+      "CMS setup for self-serve content edits",
+      "On-page SEO and structured data",
+      "Analytics and conversion tracking",
+      "Form and CRM integration",
+      "Performance and accessibility tuning",
+      "Hosting, domain, and launch support",
+    ],
+    steps: [
+      { title: "Audit", body: "Review the current site, goals, and technical constraints." },
+      { title: "Plan", body: "Map sitemap, content, and the conversion path for each page." },
+      { title: "Build", body: "Design and develop a fast, tracked, CRM-connected site." },
+      { title: "Improve", body: "Monitor performance and iterate after launch." },
+    ],
+    tools: ["Next.js", "Sanity", "Tailwind CSS", "Vercel", "GA4", "Google Tag Manager", "HubSpot"],
+    faqs: [
+      { q: "Do you also handle ongoing maintenance?", a: "Yes - we can hand the site fully over to your team or stay on for updates, content, and improvements." },
+      { q: "Will the site be built on a page builder?", a: "No. We build custom on modern infrastructure (Next.js) for speed and flexibility, with a CMS so non-developers can still edit content." },
+      { q: "Can this connect to our CRM and tracking?", a: "Yes - forms, events, and conversions are wired into your CRM and analytics from launch, the same as our landing pages and funnels." },
+      { q: "How long does a typical build take?", a: "Most marketing sites take a few weeks from approved design to launch, depending on page count and integrations." },
     ],
   },
 

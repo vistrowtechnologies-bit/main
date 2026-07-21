@@ -78,7 +78,7 @@ const topics: Topic[] = [
 const initialMessage: ChatMessage = {
   id: 1,
   sender: "bot",
-  text: "Hi, I’m the Vistrow Guide. Tell me what you want to improve, and I’ll point you in the right direction.",
+  text: "Hi, I’m Artha. Tell me what you want to improve, and I’ll point you in the right direction.",
 };
 
 function getReply(input: string): Omit<ChatMessage, "id"> {
@@ -235,7 +235,7 @@ export function ChatWidget() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                       <h2 id="vistrow-chat-title" className="truncate font-display text-sm font-bold">
-                        Vistrow Guide
+                        Artha
                       </h2>
                       <Sparkles className="h-3.5 w-3.5 text-accent" />
                     </div>
@@ -245,7 +245,7 @@ export function ChatWidget() {
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  aria-label="Close Vistrow Guide"
+                  aria-label="Close Artha"
                   className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-bg/15 text-bg transition-colors hover:border-bg/30 hover:bg-bg/10"
                 >
                   <X className="h-4 w-4" />
@@ -326,7 +326,7 @@ export function ChatWidget() {
                 )}
 
                 {typing && (
-                  <div className="flex justify-start" role="status" aria-label="Vistrow Guide is typing">
+                  <div className="flex justify-start" role="status" aria-label="Artha is typing">
                     <div className="flex items-center gap-1 rounded-lg rounded-bl-sm border border-line/70 bg-surface px-4 py-3">
                       {[0, 1, 2].map((index) => (
                         <motion.span
@@ -351,7 +351,7 @@ export function ChatWidget() {
                   onChange={(event) => setInput(event.target.value)}
                   maxLength={240}
                   placeholder="Ask about leads, CRM, AI voice..."
-                  aria-label="Message Vistrow Guide"
+                  aria-label="Message Artha"
                   className="min-w-0 flex-1 bg-transparent py-1 font-sans text-sm text-ink outline-none placeholder:text-muted"
                 />
                 <button
@@ -373,7 +373,7 @@ export function ChatWidget() {
             key="chat-trigger"
             type="button"
             onClick={() => setOpen(true)}
-            aria-label="Open Vistrow Guide"
+            aria-label="Open Artha"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
