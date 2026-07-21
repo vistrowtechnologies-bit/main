@@ -28,6 +28,7 @@ export const primaryNav: NavItem[] = [
         items: [
           { label: "Performance Advertising", href: "/digital-marketing/performance-advertising" },
           { label: "Lead Generation", href: "/digital-marketing/lead-generation" },
+          { label: "Website Development", href: "/digital-marketing/website-development" },
           { label: "Landing Pages & Funnels", href: "/digital-marketing/landing-pages" },
           { label: "Creative Strategy", href: "/digital-marketing/creative-strategy" },
           { label: "Social Media Marketing", href: "/digital-marketing/social-media" },
