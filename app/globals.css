@@ -65,6 +65,42 @@
   color-scheme: dark;
 }
 
+/*
+ * Optional accent themes, toggled via [data-accent] on <html> (accent-switcher.tsx).
+ * Same pattern as the default lime: --accent/--accent-ink/--accent-tint stay
+ * constant across light/dark, only --accent-strong (used for text) changes so
+ * it stays readable on both a white and a carbon background.
+ */
+[data-accent="orange"] {
+  --accent: 255 106 0;         /* Neon Orange #FF6A00 */
+  --accent-ink: 13 13 13;
+  --accent-tint: 255 214 179;  /* Orange Tint #FFD6B3 */
+  --accent-strong: 178 63 0;   /* Burnt Orange #B23F00 - accessible on white */
+}
+.dark[data-accent="orange"] {
+  --accent-strong: 255 106 0;  /* neon orange reads fine on carbon */
+}
+
+[data-accent="cyan"] {
+  --accent: 0 229 255;         /* Neon Cyan #00E5FF */
+  --accent-ink: 13 13 13;
+  --accent-tint: 179 244 255;  /* Cyan Tint #B3F4FF */
+  --accent-strong: 0 122 140;  /* Deep Teal #007A8C - accessible on white */
+}
+.dark[data-accent="cyan"] {
+  --accent-strong: 0 229 255;  /* neon cyan reads fine on carbon */
+}
+
+[data-accent="pink"] {
+  --accent: 255 0 153;         /* Neon Pink #FF0099 */
+  --accent-ink: 255 255 255;
+  --accent-tint: 255 191 224;  /* Pink Tint #FFBFE0 */
+  --accent-strong: 184 0 94;   /* Deep Rose #B8005E - accessible on white */
+}
+.dark[data-accent="pink"] {
+  --accent-strong: 255 62 165; /* softened neon pink for readable text on carbon */
+}
+
 @layer base {
   * {
     border-color: rgb(var(--line) / 1);

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { primaryNav, type NavItem } from "@/lib/nav";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { AccentSwitcher } from "@/components/accent-switcher";
 import { Wordmark } from "@/components/ui/wordmark";
 
 export function Header() {
@@ -100,6 +101,7 @@ export function Header() {
         </ul>
 
         <div className="flex items-center justify-self-end gap-1.5 sm:gap-2">
+          <AccentSwitcher />
           <ThemeToggle />
           <Link
             href="/growth-audit"

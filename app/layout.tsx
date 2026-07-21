@@ -45,7 +45,7 @@ export const viewport: Viewport = {
   ],
 };
 
-// Runs before paint to set the theme class and avoid a flash of the wrong theme.
+// Runs before paint to set the theme class and accent color, avoiding a flash of the wrong theme.
 const themeScript = `
 (function() {
   try {
@@ -53,6 +53,11 @@ const themeScript = `
     var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     var isDark = stored ? stored === 'dark' : systemDark;
     document.documentElement.classList.toggle('dark', isDark);
+
+    var accent = localStorage.getItem('vistrow-accent');
+    if (accent && accent !== 'lime') {
+      document.documentElement.setAttribute('data-accent', accent);
+    }
   } catch (e) {}
 })();
 `;
