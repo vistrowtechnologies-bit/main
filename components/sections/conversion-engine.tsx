@@ -147,7 +147,7 @@ export function ConversionEngine() {
           </div>
 
           <div className="mt-8 grid items-center gap-8 lg:mt-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
-            <div className="relative min-h-[235px] rounded-xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm sm:p-8 lg:min-h-[330px]">
+            <div className="relative flex min-h-[235px] flex-col rounded-xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm sm:p-8 lg:min-h-[360px]">
               <div className="absolute bottom-6 left-0 top-6 w-[3px] overflow-hidden rounded-full bg-white/10">
                 <motion.div
                   className="h-full origin-top bg-accent shadow-[0_0_16px_rgb(var(--accent)/0.65)]"
@@ -186,19 +186,30 @@ export function ConversionEngine() {
                 </motion.div>
               </AnimatePresence>
 
-              <div className="mt-6 flex gap-2 lg:absolute lg:bottom-8 lg:left-8 lg:mt-0">
-                {steps.map((step, index) => (
-                  <button
-                    key={step.label}
-                    type="button"
-                    aria-label={`Go to ${step.label} stage`}
-                    aria-pressed={index === activeIndex}
-                    onClick={() => goToStage(index)}
-                    className={`h-2 rounded-full transition-all duration-300 ${
-                      index === activeIndex ? "w-8 bg-accent" : index < activeIndex ? "w-4 bg-accent/50" : "w-4 bg-white/20"
-                    }`}
-                  />
-                ))}
+              <div className="mt-auto pt-6">
+                <div className="flex items-center justify-between gap-5 border-t border-white/10 pt-5">
+                  <span className="shrink-0 font-sans text-[10px] font-semibold uppercase tracking-[0.15em] text-[#777d87]">
+                    Stage progress
+                  </span>
+                  <div className="flex w-full max-w-[230px] gap-2">
+                    {steps.map((step, index) => (
+                      <button
+                        key={step.label}
+                        type="button"
+                        aria-label={`Go to ${step.label} stage`}
+                        aria-pressed={index === activeIndex}
+                        onClick={() => goToStage(index)}
+                        className={`h-2 flex-1 rounded-full transition-all duration-300 ${
+                          index === activeIndex
+                            ? "bg-accent shadow-[0_0_10px_rgb(var(--accent)/0.45)]"
+                            : index < activeIndex
+                              ? "bg-accent/45"
+                              : "bg-white/15 hover:bg-white/30"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
