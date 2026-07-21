@@ -15,7 +15,6 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 type LinkAction = {
   label: string;
   href: string;
-  external?: boolean;
 };
 
 type ChatMessage = {
@@ -25,101 +24,26 @@ type ChatMessage = {
   links?: LinkAction[];
 };
 
-type Topic = {
-  label: string;
-  prompt: string;
-  reply: string;
-  links: LinkAction[];
-};
+type Topic = { label: string; prompt: string };
 
 const topics: Topic[] = [
-  {
-    label: "Get more leads",
-    prompt: "I want to generate more qualified leads.",
-    reply:
-      "Vistrow can connect paid media, landing pages, lead capture, and conversion tracking into one acquisition system. Start with Digital Marketing or explore ArthaLeads for real estate lead generation.",
-    links: [
-      { label: "Digital Marketing", href: "/digital-marketing" },
-      { label: "Explore ArthaLeads", href: "/products/arthaleads" },
-    ],
-  },
-  {
-    label: "Automate follow-up",
-    prompt: "I want to automate lead follow-up.",
-    reply:
-      "We can connect your CRM, workflows, WhatsApp, email, and AI calling so every enquiry receives a fast, consistent response. Vistrow Voice is built for automated voice conversations and qualification.",
-    links: [
-      { label: "Business Automation", href: "/business-automation" },
-      { label: "Explore Vistrow Voice", href: "/products/vistrow-voice" },
-    ],
-  },
-  {
-    label: "Explore products",
-    prompt: "Show me Vistrow's products.",
-    reply:
-      "Our current products are ArthaLeads, a real estate lead generation platform, and Vistrow Voice, an AI voice calling agent for outreach, qualification, and follow-up.",
-    links: [
-      { label: "ArthaLeads", href: "https://www.arthaleads.com/", external: true },
-      { label: "Vistrow Voice", href: "https://voice-three-flax.vercel.app/", external: true },
-    ],
-  },
-  {
-    label: "Book a Growth Audit",
-    prompt: "I would like to book a Growth Audit.",
-    reply:
-      "Great choice. The Growth Audit reviews your marketing, CRM, follow-up, automation, and tracking to find the clearest opportunities for measurable growth.",
-    links: [
-      { label: "Book the audit", href: "/growth-audit" },
-      { label: "Contact Vistrow", href: "/contact" },
-    ],
-  },
+  { label: "Get more leads", prompt: "I want to generate more qualified leads." },
+  { label: "Automate follow-up", prompt: "I want to automate lead follow-up." },
+  { label: "Explore products", prompt: "Show me Vistrow's products." },
+  { label: "Book a Growth Audit", prompt: "I would like to book a Growth Audit." },
 ];
 
 const initialMessage: ChatMessage = {
   id: 1,
   sender: "bot",
-  text: "Hi, I’m Artha. Tell me what you want to improve, and I’ll point you in the right direction.",
+  text: "Hi, I’m Artha. Ask me anything about Vistrow's services, products, or how we work — I’ll point you in the right direction.",
 };
 
-function getReply(input: string): Omit<ChatMessage, "id"> {
-  const value = input.toLowerCase();
-
-  if (/lead|marketing|ads|seo|funnel|customer/.test(value)) {
-    return { sender: "bot", text: topics[0].reply, links: topics[0].links };
-  }
-
-  if (/automat|crm|follow|whatsapp|email|call|voice/.test(value)) {
-    return { sender: "bot", text: topics[1].reply, links: topics[1].links };
-  }
-
-  if (/product|artha|real estate|vistro voice/.test(value)) {
-    return { sender: "bot", text: topics[2].reply, links: topics[2].links };
-  }
-
-  if (/audit|strategy|review|consult|book|meeting/.test(value)) {
-    return { sender: "bot", text: topics[3].reply, links: topics[3].links };
-  }
-
-  if (/price|pricing|cost|budget|quote/.test(value)) {
-    return {
-      sender: "bot",
-      text: "Vistrow scopes every engagement around the channels, systems, and outcomes you need. Share a little about your business and we’ll recommend the right next step.",
-      links: [
-        { label: "Contact Vistrow", href: "/contact" },
-        { label: "Book a Growth Audit", href: "/growth-audit" },
-      ],
-    };
-  }
-
-  return {
-    sender: "bot",
-    text: "I can help with lead generation, digital marketing, CRM, automation, AI voice calling, or a Growth Audit. For a specific question, send it to the Vistrow team.",
-    links: [
-      { label: "Contact the team", href: "/contact" },
-      { label: "View all services", href: "/services" },
-    ],
-  };
-}
+const fallbackReply: Omit<ChatMessage, "id"> = {
+  sender: "bot",
+  text: "Something went wrong reaching Artha just now. Please try again, or reach the team directly.",
+  links: [{ label: "Contact Vistrow", href: "/contact" }],
+};
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -129,7 +53,6 @@ export function ChatWidget() {
   const reduceMotion = useReducedMotion();
   const inputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const replyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const messageIdRef = useRef(1);
 
   useEffect(() => {
@@ -157,40 +80,43 @@ export function ChatWidget() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [open]);
 
-  useEffect(
-    () => () => {
-      if (replyTimerRef.current) clearTimeout(replyTimerRef.current);
-    },
-    [],
-  );
-
-  const queueReply = (reply: Omit<ChatMessage, "id">) => {
-    setTyping(true);
-    if (replyTimerRef.current) clearTimeout(replyTimerRef.current);
-    replyTimerRef.current = setTimeout(
-      () => {
-        messageIdRef.current += 1;
-        setMessages((current) => [
-          ...current,
-          { ...reply, id: messageIdRef.current },
-        ]);
-        setTyping(false);
-      },
-      reduceMotion ? 0 : 520,
-    );
-  };
-
-  const sendMessage = (text: string, reply?: Omit<ChatMessage, "id">) => {
+  const sendMessage = async (text: string) => {
     const cleanText = text.trim();
     if (!cleanText || typing) return;
 
     messageIdRef.current += 1;
-    setMessages((current) => [
-      ...current,
-      { id: messageIdRef.current, sender: "visitor", text: cleanText },
-    ]);
+    const userMessage: ChatMessage = { id: messageIdRef.current, sender: "visitor", text: cleanText };
+    const historyForRequest = [...messages, userMessage];
+    setMessages(historyForRequest);
     setInput("");
-    queueReply(reply ?? getReply(cleanText));
+    setTyping(true);
+
+    let reply: Omit<ChatMessage, "id"> = fallbackReply;
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: historyForRequest.map((message) => ({ sender: message.sender, text: message.text })),
+        }),
+      });
+      const data = await response.json();
+      if (response.ok && typeof data.reply === "string") {
+        reply = {
+          sender: "bot",
+          text: data.reply,
+          links: Array.isArray(data.links) ? data.links : [],
+        };
+      } else if (typeof data.error === "string") {
+        reply = { ...fallbackReply, text: data.error };
+      }
+    } catch {
+      reply = fallbackReply;
+    }
+
+    messageIdRef.current += 1;
+    setMessages((current) => [...current, { ...reply, id: messageIdRef.current }]);
+    setTyping(false);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -277,7 +203,8 @@ export function ChatWidget() {
                           {message.links.map((link) => {
                             const classes =
                               "inline-flex items-center gap-1.5 rounded-full border border-accent/55 bg-accent/10 px-3 py-1.5 font-sans text-xs font-semibold text-accent-strong transition-all hover:border-accent hover:bg-accent/20";
-                            if (link.external) {
+                            const isExternal = /^https?:\/\//.test(link.href);
+                            if (isExternal) {
                               return (
                                 <a
                                   key={link.href}
@@ -310,13 +237,7 @@ export function ChatWidget() {
                       <button
                         key={topic.label}
                         type="button"
-                        onClick={() =>
-                          sendMessage(topic.prompt, {
-                            sender: "bot",
-                            text: topic.reply,
-                            links: topic.links,
-                          })
-                        }
+                        onClick={() => sendMessage(topic.prompt)}
                         className="min-h-14 rounded-lg border border-line/80 bg-card px-3 py-2.5 text-left font-sans text-xs font-semibold leading-snug text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10"
                       >
                         {topic.label}
