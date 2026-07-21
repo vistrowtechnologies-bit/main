@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -8,6 +9,9 @@ import BlurText from "@/components/ui/blur-text";
 import type { BlogPost } from "@/lib/content-types";
 import { articleSchema, breadcrumbSchema, graph } from "@/lib/structured-data";
 import { BlogExplorer } from "@/components/blog/blog-explorer";
+import { ReadingProgress } from "@/components/blog/reading-progress";
+import { ShareRow } from "@/components/blog/share-row";
+import { siteUrl } from "@/lib/seo";
 
 export function BlogPostPage({
   post,
@@ -35,6 +39,14 @@ export function BlogPostPage({
     readTime,
   }));
 
+  const articleUrl = `${siteUrl}/blog/${post.slug}`;
+  const authorInitials = post.author
+    .split(/\s+/)
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
   return (
     <>
       <JsonLd
@@ -61,7 +73,9 @@ export function BlogPostPage({
         ])}
       />
 
-      <article className="py-12 lg:py-20">
+      <ReadingProgress targetId="article-body" />
+
+      <article id="article-body" className="py-12 lg:py-20">
         <div className="container-edge">
           <div className="mx-auto max-w-[1110px]">
             <Breadcrumb
@@ -78,17 +92,44 @@ export function BlogPostPage({
                 <h1 className="font-display text-[clamp(2.15rem,4.4vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-ink">
                   <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
                 </h1>
-                <div className="mt-6 flex flex-wrap items-center gap-2 font-sans text-sm text-muted">
-                  <span>{post.author}</span>
-                  <span aria-hidden>·</span>
-                  <time dateTime={post.date}>{displayDate}</time>
-                  <span aria-hidden>·</span>
-                  <span>{post.readTime}</span>
+
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div
+                      aria-hidden
+                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-ink font-display text-xs font-bold text-inverse-ink dark:bg-accent dark:text-accent-ink"
+                    >
+                      {authorInitials}
+                    </div>
+                    <div className="font-sans text-sm leading-tight">
+                      <p className="font-semibold text-ink">{post.author}</p>
+                      <p className="mt-0.5 text-muted">
+                        <time dateTime={post.date}>{displayDate}</time>
+                        <span aria-hidden> · </span>
+                        {post.readTime}
+                      </p>
+                    </div>
+                  </div>
+                  <ShareRow url={articleUrl} title={post.title} />
                 </div>
+
                 <p className="mt-7 border-l-2 border-accent pl-5 font-sans text-lg leading-relaxed text-muted">
                   {post.excerpt}
                 </p>
                 </header>
+
+              {post.featuredImage?.url && (
+                <div className="relative mt-9 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-line bg-surface">
+                  <Image
+                    src={post.featuredImage.url}
+                    alt={post.featuredImage.alt || post.title}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 760px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
               <div className="mt-8 lg:hidden">
                 <BlogExplorer
@@ -99,14 +140,27 @@ export function BlogPostPage({
                 />
               </div>
 
-              <div className="mt-12 space-y-10">
-                {post.sections.map((section, i) => (
+              <div className="mt-12 divide-y divide-line">
+                {(() => {
+                  let headingCount = 0;
+                  return post.sections.map((section, i) => {
+                    if (section.heading) headingCount += 1;
+                    const headingNumber = headingCount;
+                    return (
                   <Reveal key={i} delay={Math.min(i, 3) * 0.05}>
-                    <section id={section.heading ? headingId(section.heading) : undefined} className="scroll-mt-32">
+                    <section
+                      id={section.heading ? headingId(section.heading) : undefined}
+                      className={`scroll-mt-32 ${i === 0 ? "pb-10" : "py-10"}`}
+                    >
                       {section.heading && (
-                        <h2 className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
-                          {section.heading}
-                        </h2>
+                        <div className="flex items-baseline gap-3">
+                          <span className="font-display text-sm font-bold text-accent-strong">
+                            {String(headingNumber).padStart(2, "0")}
+                          </span>
+                          <h2 className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
+                            {section.heading}
+                          </h2>
+                        </div>
                       )}
                       <div className={`space-y-5 font-sans text-[17px] leading-[1.8] text-ink-2 ${section.heading ? "mt-4" : ""}`}>
                         {section.paragraphs.map((p, j) => (
@@ -125,10 +179,12 @@ export function BlogPostPage({
                       )}
                     </section>
                   </Reveal>
-                ))}
+                    );
+                  });
+                })()}
               </div>
 
-              <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
+              <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
                 <Link href="/blog" className="btn-ghost">
                   <ArrowLeft className="h-4 w-4" strokeWidth={2} />
                   Back to all posts
