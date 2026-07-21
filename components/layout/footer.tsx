@@ -101,51 +101,55 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="mt-6">
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
-                Our products
-              </p>
-              <div className="mt-3 flex flex-col gap-2">
-                {productLinks.map((product) => (
-                  <a
-                    key={product.label}
-                    href={product.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex w-full max-w-[230px] items-center gap-3 rounded-sm border border-line bg-card/60 p-2 text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-card"
-                  >
-                    <Image
-                      src={product.logo}
-                      alt={`${product.label} logo`}
-                      width={34}
-                      height={34}
-                      className="h-[34px] w-[34px] shrink-0 rounded-[9px] object-cover"
-                    />
-                    <span className="min-w-0 flex-1 font-sans text-sm font-semibold">
-                      {product.label}
-                    </span>
-                    <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted transition-colors group-hover:text-accent-strong" />
-                  </a>
-                ))}
-              </div>
-            </div>
           </div>
 
           {columns.map((col) => (
             <div key={col.title}>
               <h3 className="font-sans text-sm font-semibold text-ink">{col.title}</h3>
-              <ul className="mt-5 space-y-3">
-                {col.links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="font-sans text-sm text-muted transition-colors hover:text-accent-strong"
+              {col.title === "Products" ? (
+                <div className="mt-5 flex flex-col gap-2">
+                  {productLinks.map((product) => (
+                    <a
+                      key={product.label}
+                      href={product.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex w-full max-w-[220px] items-center gap-2.5 rounded-sm border border-line bg-card/60 p-2 text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-card"
                     >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                      <Image
+                        src={product.logo}
+                        alt={`${product.label} logo`}
+                        width={32}
+                        height={32}
+                        className="h-8 w-8 shrink-0 rounded-[8px] object-cover"
+                      />
+                      <span className="min-w-0 flex-1 font-sans text-[13px] font-semibold">
+                        {product.label}
+                      </span>
+                      <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted transition-colors group-hover:text-accent-strong" />
+                    </a>
+                  ))}
+                  <Link
+                    href="/products/vistrow-labs"
+                    className="mt-1 font-sans text-sm text-muted transition-colors hover:text-accent-strong"
+                  >
+                    Vistrow Labs
+                  </Link>
+                </div>
+              ) : (
+                <ul className="mt-5 space-y-3">
+                  {col.links.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        className="font-sans text-sm text-muted transition-colors hover:text-accent-strong"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
