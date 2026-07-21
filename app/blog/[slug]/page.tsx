@@ -21,6 +21,14 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function Page({ params }: { params: { slug: string } }) {
   const post = blogPosts.find((p) => p.slug === params.slug);
   if (!post) notFound();
-  const morePosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
-  return <BlogPostPage post={post} morePosts={morePosts} />;
+  const morePosts = blogPosts
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => {
+      const aRelated = a.category === post.category ? 1 : 0;
+      const bRelated = b.category === post.category ? 1 : 0;
+      if (aRelated !== bRelated) return bRelated - aRelated;
+      return a.date < b.date ? 1 : -1;
+    })
+    .slice(0, 3);
+  return <BlogPostPage post={post} morePosts={morePosts} allPosts={blogPosts} />;
 }
