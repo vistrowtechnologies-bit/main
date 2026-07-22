@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Vistrow connects performance marketing, lead generation, CRM, AI voice agents, automation, and conversion tracking into one measurable growth system.",
     path: "/",
   }),
-  metadataBase: new URL("https://vistrow.com"),
+  metadataBase: new URL("https://www.vistrow.com"),
   title: {
     default: "Vistrow | Digital Marketing and Business Automation",
     template: "%s | Vistrow",

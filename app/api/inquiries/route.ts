@@ -241,7 +241,7 @@ function renderConfirmationEmail({
             </tr>
             <tr>
               <td style="padding:32px 40px 0;">
-                <img src="https://vistrow.com/logo-light.png" width="118" height="32" alt="Vistrow" style="display:block;height:32px;width:auto;border:0;" />
+                <img src="https://www.vistrow.com/logo-light.png" width="118" height="32" alt="Vistrow" style="display:block;height:32px;width:auto;border:0;" />
               </td>
             </tr>
             <tr>
@@ -266,7 +266,7 @@ function renderConfirmationEmail({
             </tr>
             <tr>
               <td style="padding:28px 40px 32px;">
-                <a href="https://vistrow.com" style="display:inline-block;background:#C6FF00;color:#0D0D0D;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;">Visit vistrow.com</a>
+                <a href="https://www.vistrow.com" style="display:inline-block;background:#C6FF00;color:#0D0D0D;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;">Visit vistrow.com</a>
               </td>
             </tr>
             <tr>
@@ -281,7 +281,7 @@ function renderConfirmationEmail({
   </body>
 </html>`;
 
-  const text = `${isAudit ? "GROWTH AUDIT REQUESTED" : "MESSAGE RECEIVED"}\n\n${introPlain}\n\n${stepsText}\n\nVisit https://vistrow.com\n\n— Vistrow Technologies`;
+  const text = `${isAudit ? "GROWTH AUDIT REQUESTED" : "MESSAGE RECEIVED"}\n\n${introPlain}\n\n${stepsText}\n\nVisit https://www.vistrow.com\n\n— Vistrow Technologies`;
 
   return { subject, html, text };
 }

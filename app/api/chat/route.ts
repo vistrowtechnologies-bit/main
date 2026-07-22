@@ -308,7 +308,7 @@ function renderChatLeadEmail({
             </tr>
             <tr>
               <td style="padding:32px 40px 0;">
-                <img src="https://vistrow.com/logo-light.png" width="118" height="32" alt="Vistrow" style="display:block;height:32px;width:auto;border:0;" />
+                <img src="https://www.vistrow.com/logo-light.png" width="118" height="32" alt="Vistrow" style="display:block;height:32px;width:auto;border:0;" />
               </td>
             </tr>
             <tr>

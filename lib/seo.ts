@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { BlogSeoImage } from "@/lib/content-types";
 
-export const siteUrl = "https://vistrow.com";
+export const siteUrl = "https://www.vistrow.com";
 export const siteName = "Vistrow";
 
 type SeoMetadata = {
