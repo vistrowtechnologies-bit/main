@@ -78,6 +78,7 @@ export default function ScrollStack({
   onStackComplete,
 }: ScrollStackProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLElement[]>([]);
   const cardTopsRef = useRef<number[]>([]);
   const endTopRef = useRef(0);
@@ -107,7 +108,8 @@ export default function ScrollStack({
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
-    if (!enabled || !scroller) return;
+    const inner = innerRef.current;
+    if (!enabled || !scroller || !inner) return;
 
     const cards = Array.from(scroller.querySelectorAll<HTMLElement>(".scroll-stack-card"));
     const endElement = scroller.querySelector<HTMLElement>(".scroll-stack-end");
@@ -116,6 +118,12 @@ export default function ScrollStack({
     cardsRef.current = cards;
 
     const measure = () => {
+      const lastCard = cards[cards.length - 1];
+      const bottomSpace = Math.max(
+        window.innerHeight * 0.24,
+        lastCard.offsetHeight * 0.55,
+      );
+      inner.style.paddingBottom = `${Math.round(bottomSpace)}px`;
       const scrollerTop = scroller.getBoundingClientRect().top + window.scrollY;
       cardTopsRef.current = cards.map((card) => scrollerTop + card.offsetTop);
       endTopRef.current = scrollerTop + endElement.offsetTop;
@@ -127,7 +135,13 @@ export default function ScrollStack({
       const viewportHeight = window.innerHeight;
       const stackPositionPx = parsePosition(stackPosition, viewportHeight);
       const scaleEndPositionPx = parsePosition(scaleEndPosition, viewportHeight);
-      const pinEnd = endTopRef.current - viewportHeight * 0.12;
+      const lastIndex = cards.length - 1;
+      const lastScale = Math.min(0.985, baseScale + lastIndex * itemScale);
+      const stackedCardBottom =
+        stackPositionPx + itemStackDistance * lastIndex + cards[lastIndex].offsetHeight * lastScale;
+      const releaseGap = Math.min(64, Math.max(32, viewportHeight * 0.06));
+      const releaseLine = Math.min(viewportHeight - 16, stackedCardBottom + releaseGap);
+      const pinEnd = endTopRef.current - releaseLine;
       const activeLead = Math.min(128, Math.max(88, viewportHeight * 0.105));
       let topCardIndex = 0;
 
@@ -241,6 +255,7 @@ export default function ScrollStack({
         card.style.removeProperty("filter");
         card.style.removeProperty("z-index");
       });
+      inner.style.removeProperty("padding-bottom");
       transforms.clear();
       cardsRef.current = [];
       activeIndexRef.current = -1;
@@ -267,7 +282,7 @@ export default function ScrollStack({
       aria-label={ariaLabel}
       className={`${styles.scroller} ${className}`.trim()}
     >
-      <div className={styles.inner}>
+      <div ref={innerRef} className={styles.inner}>
         {children}
         <div className={`${styles.end} scroll-stack-end`} />
       </div>

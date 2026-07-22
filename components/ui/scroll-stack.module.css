@@ -6,7 +6,7 @@
 
 .inner {
   position: relative;
-  padding: 2rem 0 clamp(18rem, 38vh, 28rem);
+  padding: 2rem 0 clamp(12rem, 26vh, 20rem);
 }
 
 .card {

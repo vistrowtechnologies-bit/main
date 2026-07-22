@@ -118,9 +118,14 @@
 
   html {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
     background-color: rgb(var(--bg));
     color: rgb(var(--ink));
     -webkit-font-smoothing: antialiased;
