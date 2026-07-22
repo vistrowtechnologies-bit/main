@@ -4,9 +4,9 @@ import { buildMetadata } from "@/lib/seo";
 import { getBlogPosts } from "@/lib/sanity/blog";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Blog",
+  title: "Marketing, CRM and Automation Insights",
   description:
-    "Specific, unhyped write-ups on marketing, CRM, AI voice, and automation from the Vistrow team.",
+    "Practical insights on digital marketing, CRM, AI voice, lead generation, conversion tracking and business automation from the Vistrow team.",
   path: "/blog",
 });
 

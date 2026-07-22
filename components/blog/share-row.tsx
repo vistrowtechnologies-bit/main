@@ -25,7 +25,7 @@ export function ShareRow({ url, title }: { url: string; title: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      // Clipboard API unavailable — nothing to fall back to.
+      // Clipboard API unavailable - nothing to fall back to.
     }
   };
 

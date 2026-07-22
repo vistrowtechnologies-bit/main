@@ -28,8 +28,7 @@ export function Wordmark({
         width={width}
         height={height}
         priority={priority}
-        className="block h-auto w-auto dark:hidden"
-        style={{ height, width: "auto" }}
+        className="block dark:hidden"
       />
       {/* Dark-mode lockup */}
       <Image
@@ -38,8 +37,7 @@ export function Wordmark({
         width={width}
         height={height}
         priority={priority}
-        className="hidden h-auto w-auto dark:block"
-        style={{ height, width: "auto" }}
+        className="hidden dark:block"
       />
     </Link>
   );
