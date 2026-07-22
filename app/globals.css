@@ -132,31 +132,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Smooth, non-jarring theme transition on color-bearing properties only.
-     Skipped while a circle-reveal view transition is running (see below) so
-     the two animations don't fight each other. */
-  body,
-  body * {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-duration: 220ms;
-    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  ::view-transition-group(root) {
-    animation-duration: 0ms;
-  }
-
-  /* Disable the browser's default cross-fade; theme-toggle.tsx drives a
-     circle-reveal clip-path animation on ::view-transition-new(root) instead. */
-  ::view-transition-old(root) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-  ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-
   ::selection {
     background: rgb(var(--accent));
     color: rgb(var(--accent-ink));
