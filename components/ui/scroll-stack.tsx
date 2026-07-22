@@ -117,22 +117,33 @@ export default function ScrollStack({
 
     cardsRef.current = cards;
 
-    const measure = () => {
+    let stableViewportHeight = window.innerHeight;
+    let stableViewportWidth = window.innerWidth;
+
+    const measure = (refreshViewport = false) => {
+      const nextViewportWidth = window.innerWidth;
+      if (refreshViewport || Math.abs(nextViewportWidth - stableViewportWidth) > 2) {
+        stableViewportHeight = window.innerHeight;
+        stableViewportWidth = nextViewportWidth;
+      }
+
       const lastCard = cards[cards.length - 1];
       const bottomSpace = Math.max(
-        window.innerHeight * 0.24,
+        stableViewportHeight * 0.24,
         lastCard.offsetHeight * 0.55,
       );
-      inner.style.paddingBottom = `${Math.round(bottomSpace)}px`;
+      const nextPaddingBottom = `${Math.round(bottomSpace)}px`;
+      if (inner.style.paddingBottom !== nextPaddingBottom) {
+        inner.style.paddingBottom = nextPaddingBottom;
+      }
       const scrollerTop = scroller.getBoundingClientRect().top + window.scrollY;
       cardTopsRef.current = cards.map((card) => scrollerTop + card.offsetTop);
       endTopRef.current = scrollerTop + endElement.offsetTop;
     };
 
     const updateTransforms = () => {
-      measure();
       const scrollTop = window.scrollY;
-      const viewportHeight = window.innerHeight;
+      const viewportHeight = stableViewportHeight;
       const stackPositionPx = parsePosition(stackPosition, viewportHeight);
       const scaleEndPositionPx = parsePosition(scaleEndPosition, viewportHeight);
       const lastIndex = cards.length - 1;
@@ -214,22 +225,25 @@ export default function ScrollStack({
     measure();
     updateTransforms();
 
-    const lenis = new Lenis({
-      duration: 1.05,
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.15,
-      syncTouch: true,
-      syncTouchLerp: 0.08,
-      infinite: false,
-    });
-    lenis.on("scroll", scheduleUpdate);
+    const useWheelSmoothing = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const lenis = useWheelSmoothing
+      ? new Lenis({
+          duration: 0.9,
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          syncTouch: false,
+          infinite: false,
+        })
+      : null;
 
-    const animate = (time: number) => {
-      lenis.raf(time);
+    if (lenis) {
+      lenis.on("scroll", scheduleUpdate);
+      const animate = (time: number) => {
+        lenis.raf(time);
+        lenisFrameRef.current = window.requestAnimationFrame(animate);
+      };
       lenisFrameRef.current = window.requestAnimationFrame(animate);
-    };
-    lenisFrameRef.current = window.requestAnimationFrame(animate);
+    }
 
     const resizeObserver = new ResizeObserver(() => {
       measure();
@@ -237,14 +251,18 @@ export default function ScrollStack({
     });
     resizeObserver.observe(scroller);
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", measure);
+    const handleResize = () => {
+      measure();
+      scheduleUpdate();
+    };
+    window.addEventListener("resize", handleResize);
 
     const transforms = transformsRef.current;
     return () => {
-      lenis.destroy();
+      lenis?.destroy();
       resizeObserver.disconnect();
       window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", handleResize);
       if (lenisFrameRef.current !== null) window.cancelAnimationFrame(lenisFrameRef.current);
       if (updateFrameRef.current !== null) window.cancelAnimationFrame(updateFrameRef.current);
       lenisFrameRef.current = null;

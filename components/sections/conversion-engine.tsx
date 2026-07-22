@@ -426,8 +426,8 @@ function MobileConversionEngine({
           stackPosition="23%"
           scaleEndPosition="11%"
           baseScale={0.89}
-          rotationAmount={0.12}
-          blurAmount={0.55}
+          rotationAmount={0}
+          blurAmount={0}
           onActiveIndexChange={setActiveIndex}
         >
           {steps.map((step, index) => {
