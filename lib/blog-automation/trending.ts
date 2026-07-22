@@ -1,5 +1,5 @@
 export type TrendSignal = {
-  source: "google-news" | "reddit" | "hacker-news";
+  source: "google-news" | "reddit" | "hacker-news" | "product-seo";
   title: string;
   url?: string;
 };

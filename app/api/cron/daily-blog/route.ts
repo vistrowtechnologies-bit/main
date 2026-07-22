@@ -67,6 +67,12 @@ export async function GET(request: Request) {
         secondaryKeywords: post.secondaryKeywords,
         metaTitle: post.metaTitle,
         metaDescription: post.metaDescription,
+        // Mirrors metaTitle/metaDescription so the Social checklist item can
+        // pass as soon as a Featured Image is added - no separate prompt
+        // needed for these, and they still respect the schema's own
+        // fall-back-to-SEO-title behaviour if edited to blank later.
+        openGraphTitle: post.metaTitle,
+        openGraphDescription: post.metaDescription,
       });
 
       created.push({
