@@ -102,14 +102,29 @@ const internalLinksReference = [
 // Evergreen, high-commercial-intent topics that rank the products themselves
 // (e.g. "best real estate CRM in India"), mixed in alongside real trend
 // signals so the model can pick one instead of always chasing news.
+// ArthaLeads is the current growth priority, so it gets a deliberately larger
+// and more feature-specific pool than Vistrow Voice - grounded in the real
+// product (arthaleads.com): unified lead inbox, AI lead scoring, WhatsApp
+// auto-draft, QR code capture, telecaller workflow, booking/invoice engine,
+// portal integrations (99acres, Housing.com, MagicBricks), duplicate
+// prevention, and the admin intelligence dashboard.
 const PRODUCT_SEED_TOPICS: TrendSignal[] = [
   { source: "product-seo", title: "Best real estate CRM software in India" },
-  { source: "product-seo", title: "Best AI voice calling agent for Indian businesses" },
   { source: "product-seo", title: "ArthaLeads vs traditional real estate CRM software: what actually changes" },
   { source: "product-seo", title: "Top lead management software for real estate developers in India" },
-  { source: "product-seo", title: "Best multilingual AI voice assistant for Indian customer service" },
   { source: "product-seo", title: "How real estate brokers in India are automating lead follow-up with AI voice" },
   { source: "product-seo", title: "CRM software built for Indian real estate teams: what to look for" },
+  { source: "product-seo", title: "How AI lead scoring helps real estate teams call the right lead first" },
+  { source: "product-seo", title: "Why unified lead inbox software beats spreadsheets for property sales teams" },
+  { source: "product-seo", title: "WhatsApp lead capture for real estate: turning chats into a real pipeline" },
+  { source: "product-seo", title: "How QR code lead capture is changing real estate site visits and expos" },
+  { source: "product-seo", title: "Telecaller workflow software: what real estate sales teams actually need" },
+  { source: "product-seo", title: "Best CRM for real estate channel partners managing 99acres, Housing.com and MagicBricks leads" },
+  { source: "product-seo", title: "How real estate developers can stop losing leads to duplicate calls" },
+  { source: "product-seo", title: "Booking and invoice software for real estate brokers: what to look for" },
+  { source: "product-seo", title: "Real estate CRM pricing in India: what Starter, Growth and Enterprise plans actually cover" },
+  { source: "product-seo", title: "Best AI voice calling agent for Indian businesses" },
+  { source: "product-seo", title: "Best multilingual AI voice assistant for Indian customer service" },
   { source: "product-seo", title: "AI voice agents vs call centres: cost and coverage compared for Indian SMBs" },
 ];
 
@@ -240,7 +255,9 @@ export async function generateDailyPosts({
 
   const systemPrompt = `You are a senior writer on Vistrow's own content team, not an outside copywriter. Vistrow is a digital marketing and business automation company (performance advertising, lead generation, website development, CRM, AI voice calling, conversion tracking, marketing automation) serving real estate, local businesses, B2B, startups/SaaS, agencies, and education.
 
-Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic aimed at ranking for a specific product (ArthaLeads or Vistrow Voice) rather than reacting to news. Everything you pick must genuinely fit one of the 6 blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day.
+Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic aimed at ranking for a specific product (ArthaLeads or Vistrow Voice) rather than reacting to news. ArthaLeads is the current growth priority: when choosing between product-seo topics, prefer an ArthaLeads one over a Vistrow Voice one unless Vistrow Voice hasn't been covered in a long time relative to ArthaLeads (check the existing post titles below). Everything you pick must genuinely fit one of the 6 blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day.
+
+ARTHALEADS PRODUCT FACTS - use these to write with real specificity instead of generic CRM language, whenever a post touches ArthaLeads: unified lead inbox pulling in Facebook Ads, Google Ads, WhatsApp, website forms, and portals (99acres, Housing.com, MagicBricks); AI lead scoring (0-100) that surfaces a "Hot Today" call list; AI-drafted personalised WhatsApp messages; a unique QR code per project for site hoardings/brochures/expo stalls; telecaller workflow with remarks, follow-up scheduling and call outcomes; automatic duplicate-lead detection across phone number formats; a Kanban lead pipeline (New, Contacted, Site Visit, Booked, Closed); booking-to-invoice conversion with auto GST calculation; an admin intelligence dashboard (stale-lead alerts, revenue forecast, agent clock-in status); role-based access for Admin/Manager/Agent; and Starter/Growth/Enterprise pricing tiers. Never invent a stat (like a specific customer count or uptime percentage) that isn't in this list - describe capabilities, not made-up numbers.
 
 Do not repeat a topic close to an existing post title (listed below) - pick something genuinely new.
 
