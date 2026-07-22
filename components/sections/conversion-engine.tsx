@@ -21,6 +21,7 @@ import {
   Target,
   type LucideIcon,
 } from "lucide-react";
+import ScrollStack, { ScrollStackItem } from "@/components/ui/scroll-stack";
 
 type FunnelStep = {
   label: string;
@@ -416,26 +417,33 @@ function MobileConversionEngine({
           </div>
         </div>
 
-        <ol className="mx-auto mt-8 max-w-3xl space-y-6 sm:space-y-8">
+        <ScrollStack
+          className="mx-auto mt-5 max-w-3xl"
+          ariaLabel="Conversion journey stages"
+          itemDistance={72}
+          itemScale={0.018}
+          itemStackDistance={13}
+          stackPosition="23%"
+          scaleEndPosition="11%"
+          baseScale={0.89}
+          rotationAmount={0.12}
+          blurAmount={0.55}
+          onActiveIndexChange={setActiveIndex}
+        >
           {steps.map((step, index) => {
             const Icon = step.icon;
             const isActive = activeIndex === index;
             return (
-              <motion.li
+              <ScrollStackItem
                 key={step.label}
                 id={`mobile-conversion-stage-${index}`}
-                className="scroll-mt-40"
-                initial={{ opacity: 0.35, y: 34, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ amount: 0.48, margin: "-8% 0px -24% 0px" }}
-                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-                onViewportEnter={() => setActiveIndex(index)}
+                itemClassName="scroll-mt-40"
               >
                 <article
-                  className={`relative overflow-hidden rounded-2xl border p-6 transition-colors duration-300 sm:p-8 ${
+                  className={`relative min-h-[360px] overflow-hidden rounded-2xl border p-6 transition-[border-color,background-color,box-shadow] duration-300 sm:min-h-[390px] sm:p-8 ${
                     isActive
-                      ? "border-accent/50 bg-white/[0.075] shadow-[0_22px_70px_rgba(0,0,0,0.35),0_0_40px_rgb(var(--accent)/0.07)]"
-                      : "border-white/10 bg-white/[0.04]"
+                      ? "border-accent/50 bg-[#191b19] shadow-[0_22px_70px_rgba(0,0,0,0.42),0_0_40px_rgb(var(--accent)/0.07)]"
+                      : "border-white/10 bg-[#151615] shadow-[0_20px_55px_rgba(0,0,0,0.34)]"
                   }`}
                 >
                   <div
@@ -481,10 +489,10 @@ function MobileConversionEngine({
                     ))}
                   </div>
                 </article>
-              </motion.li>
+              </ScrollStackItem>
             );
           })}
-        </ol>
+        </ScrollStack>
 
         <motion.div
           className="mx-auto mt-8 flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2.5 font-sans text-xs font-semibold text-accent"
