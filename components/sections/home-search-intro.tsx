@@ -174,19 +174,19 @@ export function HomeSearchIntro() {
                     </Link>
                   </div>
 
-                  <div className="relative min-h-[390px] overflow-hidden border-t border-line bg-inverse p-6 text-inverse-ink sm:p-9 lg:min-h-[520px] lg:border-l lg:border-t-0 lg:p-10">
+                  <div className="relative min-h-[390px] overflow-hidden border-t border-white/10 bg-[#0f1210] p-6 text-white sm:p-9 lg:min-h-[520px] lg:border-l lg:border-t-0 lg:p-10">
                     <div
                       aria-hidden
-                      className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgb(var(--inverse-ink)/0.25)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--inverse-ink)/0.25)_1px,transparent_1px)] [background-size:42px_42px]"
+                      className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgb(255_255_255/0.13)_1px,transparent_1px),linear-gradient(90deg,rgb(255_255_255/0.13)_1px,transparent_1px)] [background-size:42px_42px]"
                     />
-                    <div className="absolute -right-20 -top-16 h-64 w-64 rounded-full bg-accent/15 blur-[80px]" />
+                    <div className="absolute -right-20 -top-16 h-64 w-64 rounded-full bg-accent/10 blur-[90px]" />
                     <div className="relative flex h-full flex-col">
-                      <div className="flex items-start justify-between gap-4 border-b border-inverse-ink/10 pb-5">
+                      <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
                         <div>
                           <p className="font-sans text-[10px] font-bold uppercase tracking-[0.2em] text-accent-strong">Live system map</p>
-                          <p className="mt-2 font-display text-lg font-bold text-inverse-ink">{pillar.tab}</p>
+                          <p className="mt-2 font-display text-lg font-bold text-white">{pillar.tab}</p>
                         </div>
-                        <span className="inline-flex items-center gap-2 rounded-full border border-inverse-ink/10 bg-inverse-ink/5 px-3 py-1.5 font-sans text-[11px] font-semibold text-inverse-ink-2">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-sans text-[11px] font-semibold text-white/65">
                           <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
                           Connected
                         </span>
@@ -196,11 +196,11 @@ export function HomeSearchIntro() {
                         <div className="space-y-3">
                           {pillar.flow.map((step, stepIndex) => (
                             <div key={step} className="group relative flex items-center gap-4">
-                              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-inverse-ink/10 bg-inverse-ink/5 font-display text-sm font-extrabold text-accent-strong transition-colors group-hover:bg-accent group-hover:text-accent-ink">
+                              <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/5 font-display text-sm font-extrabold text-accent-strong transition-colors group-hover:bg-accent group-hover:text-accent-ink">
                                 {String(stepIndex + 1).padStart(2, "0")}
                               </span>
-                              <div className="flex-1 rounded-lg border border-inverse-ink/10 bg-inverse-ink/[0.04] px-4 py-3.5">
-                                <p className="font-sans text-sm font-semibold text-inverse-ink">{step}</p>
+                              <div className="flex-1 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3.5">
+                                <p className="font-sans text-sm font-semibold text-white">{step}</p>
                               </div>
                               {stepIndex < pillar.flow.length - 1 && (
                                 <span className="absolute left-6 top-full h-3 w-px bg-accent/50" aria-hidden />
@@ -210,10 +210,10 @@ export function HomeSearchIntro() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-[auto_1fr] items-end gap-5 border-t border-inverse-ink/10 pt-6">
+                      <div className="grid grid-cols-[auto_1fr] items-end gap-5 border-t border-white/10 pt-6">
                         <div>
                           <p className="font-display text-4xl font-extrabold tracking-[-0.05em] text-accent-strong">{pillar.metric}</p>
-                          <p className="mt-1 max-w-[170px] font-sans text-xs leading-relaxed text-inverse-ink-2">{pillar.metricLabel}</p>
+                          <p className="mt-1 max-w-[170px] font-sans text-xs leading-relaxed text-white/60">{pillar.metricLabel}</p>
                         </div>
                         <div className="flex justify-end">
                           <Sparkles className="h-10 w-10 text-accent-strong/40" strokeWidth={1.2} />
