@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo";
 import { graph, websiteSchema } from "@/lib/structured-data";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { AccentSwitcher } from "@/components/accent-switcher";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -88,6 +89,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <ChatWidget />
+        <AccentSwitcher />
       </body>
     </html>
   );
