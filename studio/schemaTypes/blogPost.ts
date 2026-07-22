@@ -85,6 +85,21 @@ export const blogPost = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "imageBrief",
+      title: "Image Brief",
+      description: "What to find or create an image of for this post. Editorial note only - not shown on the site.",
+      type: "text",
+      rows: 2,
+      group: "content",
+    }),
+    defineField({
+      name: "imageAltSuggestion",
+      title: "Suggested Alt Text",
+      description: "Copy this into the Featured Image's alt text once you've added the image.",
+      type: "string",
+      group: "content",
+    }),
+    defineField({
       name: "featuredImage",
       title: "Featured Image",
       type: "image",

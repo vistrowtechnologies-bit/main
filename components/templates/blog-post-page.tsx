@@ -13,6 +13,39 @@ import { ReadingProgress } from "@/components/blog/reading-progress";
 import { ShareRow } from "@/components/blog/share-row";
 import { siteUrl } from "@/lib/seo";
 
+const MARKDOWN_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
+
+function renderInlineLinks(text: string) {
+  const nodes: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let key = 0;
+
+  for (const match of text.matchAll(MARKDOWN_LINK)) {
+    const [full, label, href] = match;
+    const index = match.index ?? 0;
+    if (index > lastIndex) nodes.push(text.slice(lastIndex, index));
+
+    const linkClasses = "font-semibold text-accent-strong underline decoration-accent/40 underline-offset-2 hover:decoration-accent";
+    if (href.startsWith("/")) {
+      nodes.push(
+        <Link key={key++} href={href} className={linkClasses}>
+          {label}
+        </Link>,
+      );
+    } else {
+      nodes.push(
+        <a key={key++} href={href} target="_blank" rel="noopener noreferrer" className={linkClasses}>
+          {label}
+        </a>,
+      );
+    }
+    lastIndex = index + full.length;
+  }
+
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes;
+}
+
 export function BlogPostPage({
   post,
   morePosts,
@@ -164,7 +197,7 @@ export function BlogPostPage({
                       )}
                       <div className={`space-y-5 font-sans text-[17px] leading-[1.8] text-ink-2 ${section.heading ? "mt-4" : ""}`}>
                         {section.paragraphs.map((p, j) => (
-                          <p key={j}>{p}</p>
+                          <p key={j}>{renderInlineLinks(p)}</p>
                         ))}
                       </div>
                       {section.points && section.points.length > 0 && (
@@ -172,7 +205,7 @@ export function BlogPostPage({
                           {section.points.map((point) => (
                             <li key={point} className="flex items-start gap-3 font-sans text-[15px] leading-relaxed text-ink-2">
                               <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent)/0.45)]" />
-                              {point}
+                              {renderInlineLinks(point)}
                             </li>
                           ))}
                         </ul>
