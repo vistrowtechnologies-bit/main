@@ -28,6 +28,7 @@ export type GeneratedPost = {
   metaDescription: string;
   readTime: string;
   imageBrief: string;
+  imageGenerationPrompt: string;
   imageAltSuggestion: string;
   sections: { heading?: string; paragraphs: string[]; points?: string[] }[];
 };
@@ -89,6 +90,11 @@ const responseSchema = {
               description:
                 "1-2 sentences describing exactly what featured image to find or create for this post (subject, mood, setting) - written for a human to go source or generate the image from.",
             },
+            imageGenerationPrompt: {
+              type: "string",
+              description:
+                "A single, ready-to-paste prompt for an AI image generator (ChatGPT/DALL-E), covering subject, visual style, on-brand color palette, composition, and aspect ratio. See the IMAGE PROMPT FORMAT instructions.",
+            },
             imageAltSuggestion: {
               type: "string",
               description: "A ready-to-use alt text for that featured image, under 125 characters, descriptive not keyword-stuffed.",
@@ -128,6 +134,7 @@ const responseSchema = {
             "metaDescription",
             "readTime",
             "imageBrief",
+            "imageGenerationPrompt",
             "imageAltSuggestion",
             "sections",
           ],
@@ -185,6 +192,13 @@ ${internalLinksReference}
 BULLET LISTS - never write a bullet list as dashes or a numbered list inside a paragraph string (no "- item one\n- item two" inside "paragraphs"). If a section needs a list, put each item as its own entry in that section's "points" array instead, and keep "paragraphs" as normal prose sentences only.
 
 3-5 sections, first section has an empty heading (it's the intro, no linking needed there).
+
+IMAGE PROMPT FORMAT - imageGenerationPrompt must be one paste-ready prompt for ChatGPT/DALL-E, following this exact structure (as flowing sentences, not labelled fields):
+1. Subject and scene specific to this post's topic (concrete, not abstract - e.g. "a real estate agent reviewing property leads on a tablet" not "a business concept").
+2. Visual style: "modern flat illustration with clean geometric shapes" (default) - use a photorealistic style instead only if the topic genuinely calls for it.
+3. Color palette, always exactly this: "a color palette of carbon black (#0D0D0D), neon lime green (#C6FF00) as an accent, and white/light gray backgrounds."
+4. Composition: wide landscape composition with room for the subject slightly off-center.
+5. End the prompt with exactly: "16:9 aspect ratio, no text, no logos, no watermarks."
 
 TRENDING SIGNALS (raw, unfiltered - use judgement):
 ${signalsText}

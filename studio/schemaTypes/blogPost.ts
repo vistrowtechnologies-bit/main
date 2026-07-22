@@ -93,6 +93,14 @@ export const blogPost = defineType({
       group: "content",
     }),
     defineField({
+      name: "imageGenerationPrompt",
+      title: "AI Image Generation Prompt",
+      description: "Ready to paste into ChatGPT/DALL-E. 16:9 aspect ratio, on-brand colors and style baked in.",
+      type: "text",
+      rows: 5,
+      group: "content",
+    }),
+    defineField({
       name: "imageAltSuggestion",
       title: "Suggested Alt Text",
       description: "Copy this into the Featured Image's alt text once you've added the image.",

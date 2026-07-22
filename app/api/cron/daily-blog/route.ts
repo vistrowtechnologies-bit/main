@@ -53,6 +53,7 @@ export async function GET(request: Request) {
         publishedAt: new Date().toISOString().slice(0, 10),
         readTime: post.readTime,
         imageBrief: post.imageBrief,
+        imageGenerationPrompt: post.imageGenerationPrompt,
         imageAltSuggestion: post.imageAltSuggestion,
         sections: post.sections.map((section, index) => ({
           _key: randomUUID(),
