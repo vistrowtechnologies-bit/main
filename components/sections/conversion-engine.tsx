@@ -133,11 +133,14 @@ export function ConversionEngine() {
   const ActiveIcon = activeStep.icon;
 
   return (
-    <section
-      ref={processRef}
-      className="relative bg-[#0d0d0d] text-[#f5f7fa] lg:h-[390vh]"
-      aria-label="The Vistrow Conversion Engine"
-    >
+    <>
+      <MobileConversionEngine activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+      <div className="hidden lg:block">
+        <section
+          ref={processRef}
+          className="relative h-[390vh] bg-[#0d0d0d] text-[#f5f7fa]"
+          aria-label="The Vistrow Conversion Engine"
+        >
       <div className="relative flex items-center overflow-hidden py-20 lg:sticky lg:top-0 lg:min-h-screen lg:py-24">
         <div
           aria-hidden
@@ -338,6 +341,160 @@ export function ConversionEngine() {
             </div>
           </div>
         </div>
+      </div>
+        </section>
+      </div>
+    </>
+  );
+}
+
+function MobileConversionEngine({
+  activeIndex,
+  setActiveIndex,
+}: {
+  activeIndex: number;
+  setActiveIndex: (index: number) => void;
+}) {
+  const goToMobileStage = (index: number) => {
+    setActiveIndex(index);
+    document
+      .getElementById(`mobile-conversion-stage-${index}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  return (
+    <section className="relative overflow-clip bg-[#0d0d0d] text-[#f5f7fa] lg:hidden" aria-label="The Vistrow Conversion Engine">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)] [background-size:42px_42px] [mask-image:linear-gradient(to_bottom,transparent,black_8%,black_92%,transparent)]"
+      />
+      <div aria-hidden className="pointer-events-none absolute -right-24 top-72 h-80 w-80 rounded-full bg-accent/10 blur-[100px]" />
+
+      <div className="container-edge relative pb-20 pt-16 sm:pb-24 sm:pt-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="flex items-center justify-center gap-3">
+            <span className="eyebrow">The connected process</span>
+            <span className="h-px w-7 bg-accent/60" />
+            <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-[#a7adb8]">
+              Scroll to advance
+            </span>
+          </div>
+          <h2 className="mt-4 font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#f5f7fa]">
+            From attention to revenue, one stage at a time
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-[#a7adb8] sm:text-base">
+            Follow an opportunity through each connected stage as intent becomes measurable growth.
+          </p>
+        </div>
+
+        <div className="sticky top-[72px] z-20 -mx-5 mt-9 border-y border-white/10 bg-[#0d0d0d]/90 px-5 py-3 backdrop-blur-xl sm:-mx-8 sm:px-8">
+          <div className="mx-auto flex max-w-3xl items-center justify-between gap-3">
+            <div>
+              <p className="font-sans text-[9px] font-semibold uppercase tracking-[0.16em] text-[#777d87]">Journey progress</p>
+              <p className="mt-0.5 font-sans text-xs font-semibold text-[#f5f7fa]">
+                {String(activeIndex + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")} · {steps[activeIndex].label}
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5" aria-label="Choose a conversion stage">
+              {steps.map((step, index) => (
+                <button
+                  key={step.label}
+                  type="button"
+                  onClick={() => goToMobileStage(index)}
+                  aria-label={`Go to stage ${index + 1}: ${step.label}`}
+                  aria-pressed={activeIndex === index}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                    activeIndex === index
+                      ? "w-7 bg-accent shadow-[0_0_14px_rgb(var(--accent)/0.5)]"
+                      : index < activeIndex
+                        ? "w-2.5 bg-accent/45"
+                        : "w-2.5 bg-white/20"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <ol className="mx-auto mt-8 max-w-3xl space-y-6 sm:space-y-8">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isActive = activeIndex === index;
+            return (
+              <motion.li
+                key={step.label}
+                id={`mobile-conversion-stage-${index}`}
+                className="scroll-mt-40"
+                initial={{ opacity: 0.35, y: 34, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ amount: 0.48, margin: "-8% 0px -24% 0px" }}
+                transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
+                onViewportEnter={() => setActiveIndex(index)}
+              >
+                <article
+                  className={`relative overflow-hidden rounded-2xl border p-6 transition-colors duration-300 sm:p-8 ${
+                    isActive
+                      ? "border-accent/50 bg-white/[0.075] shadow-[0_22px_70px_rgba(0,0,0,0.35),0_0_40px_rgb(var(--accent)/0.07)]"
+                      : "border-white/10 bg-white/[0.04]"
+                  }`}
+                >
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/70 to-transparent"
+                  />
+                  <div className="flex items-start justify-between gap-5">
+                    <div>
+                      <p className="font-sans text-[10px] font-bold uppercase tracking-[0.17em] text-accent">
+                        Stage {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <p className="mt-4 font-sans text-xs font-semibold text-[#a7adb8] sm:text-sm">{step.desc}</p>
+                      <h3 className="mt-1 font-display text-3xl font-extrabold tracking-[-0.03em] text-[#f5f7fa] sm:text-4xl">
+                        {step.label}
+                      </h3>
+                    </div>
+                    <div className="relative shrink-0">
+                      {isActive && <StageSignal index={index} />}
+                      <motion.div
+                        className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_0_24px_rgb(var(--accent)/0.24)]"
+                        animate={isActive ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Icon className="h-5 w-5" strokeWidth={2} />
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  <p className="mt-5 font-sans text-sm leading-relaxed text-[#c6cad1] sm:text-base">{step.detail}</p>
+                  <div className="mt-6 flex items-start gap-3 rounded-lg border border-accent/20 bg-accent/[0.08] px-4 py-3.5">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" strokeWidth={2.5} />
+                    <span className="font-sans text-sm font-semibold leading-snug text-[#f5f7fa]">{step.outcome}</span>
+                  </div>
+
+                  <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5">
+                    {steps.map((_, progressIndex) => (
+                      <motion.span
+                        key={progressIndex}
+                        className={`h-1.5 flex-1 rounded-full ${progressIndex <= index ? "bg-accent" : "bg-white/10"}`}
+                        initial={false}
+                        animate={{ opacity: progressIndex <= index ? 1 : 0.55 }}
+                      />
+                    ))}
+                  </div>
+                </article>
+              </motion.li>
+            );
+          })}
+        </ol>
+
+        <motion.div
+          className="mx-auto mt-8 flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2.5 font-sans text-xs font-semibold text-accent"
+          initial={{ opacity: 0.45 }}
+          whileInView={{ opacity: 1, scale: [0.98, 1.03, 1] }}
+          viewport={{ amount: 0.8 }}
+        >
+          <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgb(var(--accent)/0.75)]" />
+          Revenue connected back to source
+        </motion.div>
       </div>
     </section>
   );
