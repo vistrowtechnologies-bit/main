@@ -218,15 +218,20 @@ export async function generateDailyPosts({
   signals,
   existingTitles,
   count = 2,
+  includeProductSeed = true,
 }: {
   signals: TrendSignal[];
   existingTitles: string[];
   count?: number;
+  // Set false to force picks from genuine trend signals only, excluding the
+  // evergreen product-seo seed topics - useful for manually requesting a
+  // "trending news" post rather than a product-ranking one.
+  includeProductSeed?: boolean;
 }): Promise<GeneratedPost[]> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
-  const signalsText = [...signals.slice(0, 40), ...PRODUCT_SEED_TOPICS]
+  const signalsText = [...signals.slice(0, 40), ...(includeProductSeed ? PRODUCT_SEED_TOPICS : [])]
     .map((s) => `- [${s.source}] ${s.title}`)
     .join("\n");
 
