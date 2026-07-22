@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  type MouseEvent as ReactMouseEvent,
+  type TouchEvent as ReactTouchEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { animate, motion, useMotionValue } from "framer-motion";
 import { Palette } from "lucide-react";
 
@@ -25,17 +31,27 @@ const BOTTOM_MARGIN = 24;
 
 type Side = "left" | "right";
 type Bounds = { left: number; right: number; top: number; bottom: number };
+type DragState = {
+  pointerId: number;
+  startPointerX: number;
+  startPointerY: number;
+  startX: number;
+  startY: number;
+  moved: boolean;
+};
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
 
 export function AccentSwitcher() {
   const [open, setOpen] = useState(false);
   const [accent, setAccent] = useState<AccentKey>("lime");
-  const [mounted, setMounted] = useState(false);
   const [side, setSide] = useState<Side>("left");
   const [bounds, setBounds] = useState<Bounds>({ left: MARGIN, right: MARGIN, top: TOP_CLEARANCE, bottom: TOP_CLEARANCE });
   const rootRef = useRef<HTMLDivElement>(null);
   const sideRef = useRef<Side>("left");
+  const dragStateRef = useRef<DragState | null>(null);
+  const cleanupDragListenersRef = useRef<(() => void) | null>(null);
+  const suppressClickRef = useRef(false);
   const x = useMotionValue(MARGIN);
   const y = useMotionValue(TOP_CLEARANCE);
 
@@ -43,8 +59,9 @@ export function AccentSwitcher() {
     sideRef.current = side;
   }, [side]);
 
+  useEffect(() => () => cleanupDragListenersRef.current?.(), []);
+
   useEffect(() => {
-    setMounted(true);
     const current = document.documentElement.getAttribute("data-accent") as AccentKey | null;
     setAccent(current || "lime");
 
@@ -113,6 +130,110 @@ export function AccentSwitcher() {
     } catch {}
   };
 
+  const beginDrag = (clientX: number, clientY: number, pointerId: number) => {
+    cleanupDragListenersRef.current?.();
+    dragStateRef.current = {
+      pointerId,
+      startPointerX: clientX,
+      startPointerY: clientY,
+      startX: x.get(),
+      startY: y.get(),
+      moved: false,
+    };
+  };
+
+  const moveDrag = (clientX: number, clientY: number, pointerId: number) => {
+    const dragState = dragStateRef.current;
+    if (!dragState || dragState.pointerId !== pointerId) return;
+
+    const deltaX = clientX - dragState.startPointerX;
+    const deltaY = clientY - dragState.startPointerY;
+    if (!dragState.moved && Math.hypot(deltaX, deltaY) < 4) return;
+
+    dragState.moved = true;
+    x.set(clamp(dragState.startX + deltaX, bounds.left, bounds.right));
+    y.set(clamp(dragState.startY + deltaY, bounds.top, bounds.bottom));
+  };
+
+  const finishDrag = (pointerId: number) => {
+    const dragState = dragStateRef.current;
+    if (!dragState || dragState.pointerId !== pointerId) return;
+
+    dragStateRef.current = null;
+    if (!dragState.moved) return;
+
+    suppressClickRef.current = true;
+    window.setTimeout(() => {
+      suppressClickRef.current = false;
+    }, 0);
+    onDragEnd();
+  };
+
+  const onMouseDown = (event: ReactMouseEvent<HTMLButtonElement>) => {
+    if (event.button !== 0) return;
+    beginDrag(event.clientX, event.clientY, -1);
+
+    const onMouseMove = (moveEvent: MouseEvent) => {
+      moveEvent.preventDefault();
+      moveDrag(moveEvent.clientX, moveEvent.clientY, -1);
+    };
+    const onMouseUp = () => {
+      cleanup();
+      finishDrag(-1);
+    };
+    const cleanup = () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      cleanupDragListenersRef.current = null;
+    };
+
+    cleanupDragListenersRef.current = cleanup;
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp, { once: true });
+  };
+
+  const onTouchStart = (event: ReactTouchEvent<HTMLButtonElement>) => {
+    const touch = event.changedTouches[0];
+    if (!touch) return;
+    beginDrag(touch.clientX, touch.clientY, touch.identifier);
+
+    const onTouchMove = (moveEvent: TouchEvent) => {
+      const activeTouch = Array.from(moveEvent.touches).find(
+        (item) => item.identifier === touch.identifier,
+      );
+      if (!activeTouch) return;
+      moveEvent.preventDefault();
+      moveDrag(activeTouch.clientX, activeTouch.clientY, touch.identifier);
+    };
+    const onTouchEnd = (endEvent: TouchEvent) => {
+      const ended = Array.from(endEvent.changedTouches).some(
+        (item) => item.identifier === touch.identifier,
+      );
+      if (!ended) return;
+      cleanup();
+      finishDrag(touch.identifier);
+    };
+    const cleanup = () => {
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchEnd);
+      cleanupDragListenersRef.current = null;
+    };
+
+    cleanupDragListenersRef.current = cleanup;
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchcancel", onTouchEnd);
+  };
+
+  const onSwitcherClick = () => {
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false;
+      return;
+    }
+    setOpen((value) => !value);
+  };
+
   const choose = (key: AccentKey) => {
     setAccent(key);
     setOpen(false);
@@ -132,22 +253,27 @@ export function AccentSwitcher() {
     <div className="pointer-events-none fixed inset-0 z-[56] print:hidden">
       <motion.div
         ref={rootRef}
-        drag
-        dragConstraints={bounds}
-        dragElastic={0.04}
-        dragMomentum={false}
-        onDragEnd={onDragEnd}
-        style={{ x, y, opacity: mounted ? 1 : 0 }}
+        style={{ x, y }}
         className="pointer-events-auto absolute left-0 top-0 cursor-grab active:cursor-grabbing"
       >
         <button
           type="button"
-          onClick={() => setOpen((value) => !value)}
+          onMouseDown={onMouseDown}
+          onTouchStart={onTouchStart}
+          onClick={onSwitcherClick}
           aria-label="Choose accent color"
           aria-expanded={open}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-line/70 bg-card/95 shadow-[0_10px_30px_rgb(0_0_0/0.18)] backdrop-blur transition-transform hover:scale-105"
+          className="relative flex h-11 w-11 touch-none select-none items-center justify-center overflow-hidden rounded-full border border-white/20 bg-[#0d0d0d] shadow-[0_10px_30px_rgb(0_0_0/0.28),0_0_0_1px_rgb(13_13_13/0.16)] transition-[transform,box-shadow] hover:scale-105 hover:shadow-[0_14px_36px_rgb(0_0_0/0.34),0_0_0_1px_rgb(13_13_13/0.22)]"
         >
-          <Palette className="h-5 w-5" strokeWidth={1.9} style={{ color: current.swatch }} />
+          <span
+            aria-hidden
+            className="absolute inset-1 rounded-full border border-white/10 bg-white/[0.035]"
+          />
+          <Palette
+            className="relative h-5 w-5 drop-shadow-[0_0_7px_currentColor]"
+            strokeWidth={2.15}
+            style={{ color: current.swatch }}
+          />
         </button>
 
         {open && (
