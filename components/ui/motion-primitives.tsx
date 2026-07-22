@@ -67,7 +67,7 @@ export function ScrollParallax({
   const y = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
 
   return (
-    <motion.div ref={ref} className={className} style={{ y: reduce ? 0 : y }}>
+    <motion.div ref={ref} className={`relative ${className}`} style={{ y: reduce ? 0 : y }}>
       {children}
     </motion.div>
   );

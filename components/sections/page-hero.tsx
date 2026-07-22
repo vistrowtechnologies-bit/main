@@ -30,8 +30,9 @@ export function PageHero({
     <section className="relative overflow-hidden border-b border-line">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.5] [background-image:radial-gradient(rgb(var(--muted)/0.16)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-65 [background-image:linear-gradient(rgb(var(--line)/0.42)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--line)/0.42)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_85%_75%_at_50%_15%,black,transparent)]"
       />
+      <div aria-hidden className="pointer-events-none absolute -right-32 top-0 -z-10 h-80 w-80 rounded-full bg-accent/10 blur-[90px]" />
       <div
         className={`container-edge grid items-center gap-12 py-14 lg:py-20 ${
           aside ? "lg:grid-cols-[1.05fr_0.95fr]" : "grid-cols-1"

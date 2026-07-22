@@ -10,11 +10,12 @@ const heroRotatingWords = ["business growth", "qualified leads", "real revenue",
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* subtle dot-grid texture */}
+      {/* editorial grid texture */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.5] [background-image:radial-gradient(rgb(var(--muted)/0.18)_1px,transparent_1px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-70 [background-image:linear-gradient(rgb(var(--line)/0.45)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--line)/0.45)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_85%_75%_at_50%_20%,black,transparent)]"
       />
+      <div aria-hidden className="pointer-events-none absolute -right-40 top-10 -z-10 h-[460px] w-[460px] rounded-full bg-accent/10 blur-[110px]" />
       <div className="container-edge grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
         <div className="max-w-2xl">
           <Reveal direction="right" distance={18} duration={0.5}>
