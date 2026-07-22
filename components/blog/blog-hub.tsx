@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -246,25 +247,43 @@ export function BlogHub({ posts }: { posts: BlogPost[] }) {
                 </div>
               </div>
 
-              <div className="relative min-h-[320px] overflow-hidden border-t border-inverse-ink/10 bg-accent lg:min-h-full lg:border-l lg:border-t-0">
-                <div
-                  aria-hidden
-                  className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgb(var(--accent-ink)/0.35)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--accent-ink)/0.35)_1px,transparent_1px)] [background-size:44px_44px]"
-                />
-                <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[42px] border-accent-ink/10" />
-                <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full border-[1px] border-accent-ink/25" />
-                <div className="relative flex h-full min-h-[320px] flex-col justify-between p-8 text-accent-ink sm:p-10">
-                  <div className="flex items-start justify-between">
-                    <span className="font-sans text-xs font-bold uppercase tracking-[0.2em]">Vistrow / Journal</span>
-                    <ArrowUpRight className="h-8 w-8 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" strokeWidth={1.5} />
-                  </div>
-                  <CategoryIcon category={featuredPost.category} className="h-28 w-28 sm:h-36 sm:w-36" />
-                  <div className="flex items-end justify-between border-t border-accent-ink/25 pt-5">
-                    <span className="font-display text-5xl font-extrabold tracking-[-0.06em]">01</span>
-                    <span className="max-w-[140px] text-right font-sans text-xs font-semibold leading-relaxed">Ideas that connect activity to revenue</span>
+              {featuredPost.featuredImage?.url ? (
+                <div className="relative min-h-[320px] overflow-hidden border-t border-inverse-ink/10 bg-inverse lg:min-h-full lg:border-l lg:border-t-0">
+                  <Image
+                    src={featuredPost.featuredImage.url}
+                    alt={featuredPost.featuredImage.alt || featuredPost.title}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 42vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.035]"
+                  />
+                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-black/10" />
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 p-7 text-white sm:p-9">
+                    <span className="font-sans text-xs font-bold uppercase tracking-[0.2em]">Featured story</span>
+                    <ArrowUpRight className="h-7 w-7 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" strokeWidth={1.5} />
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="relative min-h-[320px] overflow-hidden border-t border-inverse-ink/10 bg-accent lg:min-h-full lg:border-l lg:border-t-0">
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgb(var(--accent-ink)/0.35)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--accent-ink)/0.35)_1px,transparent_1px)] [background-size:44px_44px]"
+                  />
+                  <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[42px] border-accent-ink/10" />
+                  <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full border border-accent-ink/25" />
+                  <div className="relative flex h-full min-h-[320px] flex-col justify-between p-8 text-accent-ink sm:p-10">
+                    <div className="flex items-start justify-between">
+                      <span className="font-sans text-xs font-bold uppercase tracking-[0.2em]">Vistrow / Journal</span>
+                      <ArrowUpRight className="h-8 w-8 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" strokeWidth={1.5} />
+                    </div>
+                    <CategoryIcon category={featuredPost.category} className="h-28 w-28 sm:h-36 sm:w-36" />
+                    <div className="flex items-end justify-between border-t border-accent-ink/25 pt-5">
+                      <span className="font-display text-5xl font-extrabold tracking-[-0.06em]">01</span>
+                      <span className="max-w-[140px] text-right font-sans text-xs font-semibold leading-relaxed">Ideas that connect activity to revenue</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </Link>
           </div>
         </section>
@@ -353,20 +372,41 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
       href={`/blog/${post.slug}`}
       className="group flex min-h-[420px] flex-col overflow-hidden rounded-xl border border-line bg-card transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-accent/60 hover:shadow-lift"
     >
-      <div className="relative min-h-[150px] overflow-hidden border-b border-line bg-bg p-5">
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-60 [background-image:radial-gradient(rgb(var(--muted)/0.24)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom_right,black,transparent)]"
-        />
-        <div className="relative flex h-full min-h-[110px] items-start justify-between">
-          <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-card text-accent-strong shadow-soft transition-transform duration-300 group-hover:rotate-[-4deg] group-hover:scale-105">
-            <CategoryIcon category={post.category} />
-          </span>
-          <span className="font-display text-5xl font-extrabold tracking-[-0.07em] text-line">
-            {String(index).padStart(2, "0")}
-          </span>
+      {post.featuredImage?.url ? (
+        <div className="relative min-h-[210px] overflow-hidden border-b border-line bg-bg">
+          <Image
+            src={post.featuredImage.url}
+            alt={post.featuredImage.alt || post.title}
+            fill
+            sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, 100vw"
+            className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.045]"
+          />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
+          <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/50 bg-black/55 text-accent backdrop-blur-md">
+              <CategoryIcon category={post.category} className="h-4 w-4" />
+            </span>
+            <span className="rounded-full border border-white/35 bg-black/55 px-3 py-1.5 font-display text-sm font-bold tracking-[-0.02em] text-white backdrop-blur-md">
+              {String(index).padStart(2, "0")}
+            </span>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className="relative min-h-[150px] overflow-hidden border-b border-line bg-bg p-5">
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-60 [background-image:radial-gradient(rgb(var(--muted)/0.24)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom_right,black,transparent)]"
+          />
+          <div className="relative flex h-full min-h-[110px] items-start justify-between">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-card text-accent-strong shadow-soft transition-transform duration-300 group-hover:rotate-[-4deg] group-hover:scale-105">
+              <CategoryIcon category={post.category} />
+            </span>
+            <span className="font-display text-5xl font-extrabold tracking-[-0.07em] text-line">
+              {String(index).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+      )}
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-center justify-between gap-3">
           <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">
