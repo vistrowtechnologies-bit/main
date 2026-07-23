@@ -343,10 +343,10 @@ export function ChatWidget() {
             exit={{ opacity: 0, scale: 0.95 }}
             whileHover={reduceMotion ? undefined : { y: -3 }}
             whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-            className="group flex items-center gap-3 rounded-full border border-accent/50 bg-ink px-2.5 py-2.5 text-bg shadow-[0_14px_44px_rgb(0_0_0/0.22),0_0_0_1px_rgb(var(--accent)/0.08)] sm:pl-4"
+            className="group flex items-center gap-3 rounded-full border border-accent/50 bg-ink p-1 text-bg shadow-[0_14px_44px_rgb(0_0_0/0.22),0_0_0_1px_rgb(var(--accent)/0.08)] sm:py-1.5 sm:pl-4 sm:pr-1.5"
           >
             <span className="hidden font-sans text-sm font-semibold sm:inline">Ask Vistrow</span>
-            <span className="relative h-11 w-11">
+            <span className="relative h-11 w-11 shrink-0">
               <span className="absolute inset-0 overflow-hidden rounded-full border border-accent/70 bg-black shadow-[0_0_20px_rgb(var(--accent)/0.3)]">
                 <Image
                   src="/vistrow-guide-avatar.png"
