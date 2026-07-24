@@ -345,7 +345,7 @@ export function ChatWidget() {
             whileTap={reduceMotion ? undefined : { scale: 0.97 }}
             className="group absolute bottom-0 right-0 flex items-center gap-3 rounded-full border border-accent/50 bg-ink p-1 text-bg shadow-[0_14px_44px_rgb(0_0_0/0.22),0_0_0_1px_rgb(var(--accent)/0.08)] sm:py-1.5 sm:pl-4 sm:pr-1.5"
           >
-            <span className="hidden font-sans text-sm font-semibold sm:inline">Ask Vistrow</span>
+            <span className="hidden font-sans text-sm font-semibold sm:inline">Ask Artha</span>
             <span className="relative h-11 w-11 shrink-0">
               <span className="absolute inset-0 overflow-hidden rounded-full border border-accent/70 bg-black shadow-[0_0_20px_rgb(var(--accent)/0.3)]">
                 <Image
