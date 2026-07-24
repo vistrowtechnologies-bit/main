@@ -4,12 +4,9 @@ import { ArrowRight } from "lucide-react";
 export function AnnouncementBar() {
   return (
     <div className="relative z-50 border-b border-white/5 bg-[#0d0d0d] text-[#f5f7fa] dark:bg-[#1c1c1e]">
-      <div className="container-edge flex flex-col items-center justify-center gap-1 py-2 text-center sm:flex-row sm:gap-2">
-        <p className="font-sans text-[13px] font-medium text-[#f5f7fa]/90">
-          <span className="sm:hidden">Marketing, CRM and automation - connected.</span>
-          <span className="hidden sm:inline">
-            Digital marketing, CRM and automation - built to work together.
-          </span>
+      <div className="container-edge flex flex-col items-center justify-center gap-1 py-2 text-center lg:flex-row lg:gap-2">
+        <p className="hidden font-sans text-[13px] font-medium text-[#f5f7fa]/90 lg:block">
+          Digital marketing, CRM and automation - built to work together.
         </p>
         <Link
           href="/growth-audit"
