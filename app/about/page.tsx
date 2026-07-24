@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Compass, ShieldCheck, LineChart, Layers } from "lucide-react";
+import { Compass, ShieldCheck, LineChart, Layers, Megaphone, Cog, Boxes, Building2 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
+import { LinkCardGrid } from "@/components/sections/link-card-grid";
+import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { JsonLd } from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo";
+import { breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata({
   title: "About Vistrow Technologies",
@@ -21,9 +25,41 @@ const values = [
   { icon: Compass, title: "Built to scale", body: "Systems and tooling that grow with your business." },
 ];
 
+const whatWeDo = [
+  { label: "Services", href: "/services", body: "Performance marketing, lead generation, CRM, AI voice, and automation, delivered as engagements.", icon: Megaphone },
+  { label: "Products", href: "/products", body: "Vistrow Voice, ArthaLeads, and Vistrow Labs - software you can also use on its own.", icon: Boxes },
+  { label: "Industries", href: "/industries", body: "The same connected engine, shaped around how real estate, B2B, SaaS, and other markets actually buy.", icon: Building2 },
+  { label: "Our approach", href: "/approach", body: "Audit, plan, build, improve - the repeatable method behind every engagement.", icon: Cog },
+];
+
+const faqs = [
+  {
+    q: "What does Vistrow actually do?",
+    a: "Vistrow connects performance marketing and lead generation to the systems that convert them - CRM, AI voice calling, automation, and conversion tracking - so a lead is captured, followed up, and tracked through to revenue instead of falling through the gaps.",
+  },
+  {
+    q: "Is Vistrow a marketing agency or a software company?",
+    a: "Both. Vistrow runs marketing and automation engagements for clients, and also builds and operates its own products - Vistrow Voice, ArthaLeads, and Vistrow Labs - which can be used standalone or as part of a Vistrow engagement.",
+  },
+  {
+    q: "Where is Vistrow based, and who do you work with?",
+    a: "Vistrow is remote-first, serving clients across India and globally, across real estate, local businesses, B2B, startups and SaaS, agencies, and education.",
+  },
+  {
+    q: "Does Vistrow guarantee specific results?",
+    a: "No. Marketing and automation outcomes depend on market, offer, budget, and execution, so Vistrow gives realistic targets and honest answers rather than guaranteed numbers.",
+  },
+];
+
 export default function Page() {
   return (
     <>
+      <JsonLd
+        data={graph([
+          breadcrumbSchema([{ name: "Home", path: "/" }, { name: "About", path: "/about" }]),
+          faqSchema(faqs),
+        ])}
+      />
       <PageHero
         breadcrumb={[{ label: "Home", href: "/" }, { label: "About" }]}
         eyebrow="About Vistrow"
@@ -57,7 +93,11 @@ export default function Page() {
         </div>
       </section>
 
-      <FeatureCards eyebrow="What we value" title="How we work" items={values} columns={4} surface />
+      <LinkCardGrid eyebrow="What we do" title="One connected engine, a few ways in" cards={whatWeDo} surface />
+
+      <FeatureCards eyebrow="What we value" title="How we work" items={values} columns={4} />
+
+      <Faq items={faqs} />
 
       <CtaBand />
     </>
