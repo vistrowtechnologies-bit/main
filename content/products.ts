@@ -98,6 +98,28 @@ export const products: Record<string, ProductContent> = {
     demoCta: "Book a Demo",
     externalUrl: "https://voice-three-flax.vercel.app/",
     externalLabel: "Try Vistrow Voice",
+    faqs: [
+      {
+        q: "What languages does Vistrow Voice support?",
+        a: "Vistrow Voice speaks Hindi, Hinglish, and eight other Indian languages, so agents can handle calls in the language your customers actually use.",
+      },
+      {
+        q: "Can Vistrow Voice handle both inbound and outbound calls?",
+        a: "Yes. It answers inbound calls, runs outbound campaigns such as reminders and follow-ups, and can also be embedded as a one-tap voice widget on your website.",
+      },
+      {
+        q: "How does the AI know what to say about my business?",
+        a: "You upload PDFs and documents as a knowledge base. The agent grounds its answers in that material instead of guessing, and you configure its persona, voice, and business rules without writing code.",
+      },
+      {
+        q: "Does Vistrow Voice connect to my CRM?",
+        a: "Yes, via CRM webhooks. Leads, call outcomes, and transcripts are pushed into your CRM and downstream workflows automatically.",
+      },
+      {
+        q: "What happens when the AI agent can't handle a call?",
+        a: "You define escalation rules up front, so the agent can route, book a follow-up, or hand the conversation to a person when a call needs it.",
+      },
+    ],
     preview: {
       stats: [
         { value: "10", label: "Indian languages" },
@@ -149,6 +171,28 @@ export const products: Record<string, ProductContent> = {
     demoCta: "Book a Demo",
     externalUrl: "https://www.arthaleads.com/",
     externalLabel: "Open ArthaLeads",
+    faqs: [
+      {
+        q: "What lead sources does ArthaLeads connect to?",
+        a: "ArthaLeads brings in leads from Facebook Ads, Google Ads, WhatsApp, website forms, real-estate portals such as 99acres, Housing.com, and MagicBricks, plus CSV import and manual entry - all into one workspace.",
+      },
+      {
+        q: "How does ArthaLeads help agents prioritise which lead to call first?",
+        a: "Every lead is scored automatically based on budget, urgency, pipeline stage, and engagement, and surfaced in a daily 'Hot Today' list so agents know who to call first instead of guessing.",
+      },
+      {
+        q: "Can ArthaLeads prevent the same lead being called twice by different agents?",
+        a: "Yes. Its duplicate-detection engine recognises the same phone number even across different formats, so each lead is only assigned and called once.",
+      },
+      {
+        q: "Does ArthaLeads handle site visits and bookings, not just enquiries?",
+        a: "Yes. It tracks the full pipeline from new enquiry through site visit to booking, and can convert a closed deal into an invoice with GST calculated automatically.",
+      },
+      {
+        q: "Is ArthaLeads built specifically for the Indian real estate market?",
+        a: "Yes. It's designed around how Indian developers, brokers, and channel partner teams actually sell property - including WhatsApp-heavy workflows, telecaller follow-up, and India-specific portals and compliance.",
+      },
+    ],
     preview: {
       stats: [
         { value: "4+", label: "Lead sources" },
@@ -198,6 +242,24 @@ export const products: Record<string, ProductContent> = {
       { icon: Activity, title: "Monitored & maintained", body: "Reliability and support after launch." },
     ],
     demoCta: "Talk to Vistrow Labs",
+    faqs: [
+      {
+        q: "What kind of software does Vistrow Labs build?",
+        a: "Internal tools and dashboards, customer and partner portals, and data or reporting apps - custom software shaped around a specific workflow rather than an off-the-shelf product.",
+      },
+      {
+        q: "What's the process for a Vistrow Labs project?",
+        a: "It starts with discovery to define the problem, users, and scope, then design and prototyping, then a build phase with integrations and testing, followed by launch with documentation and ongoing support.",
+      },
+      {
+        q: "Can Vistrow Labs integrate with our existing tools?",
+        a: "Yes. Projects are typically built on Next.js, Supabase, Postgres, Stripe, or Retool, and connect to your existing stack and data through custom APIs where needed.",
+      },
+      {
+        q: "Do you support the software after launch?",
+        a: "Yes, ongoing maintenance, documentation, and support are part of the engagement rather than a one-off handoff.",
+      },
+    ],
     preview: {
       stats: [
         { value: "Custom", label: "Workflows" },

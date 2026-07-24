@@ -53,6 +53,7 @@ export type ProductContent = {
   demoCta?: string;
   externalUrl?: string;
   externalLabel?: string;
+  faqs?: QA[];
   preview?: {
     stats: { value: string; label: string }[];
     rows: { label: string; value: string }[];

@@ -10,7 +10,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import type { ProductContent } from "@/lib/content-types";
-import { breadcrumbSchema, graph, productSchema } from "@/lib/structured-data";
+import { breadcrumbSchema, faqSchema, graph, productSchema } from "@/lib/structured-data";
 
 export function ProductPage({
   content,
@@ -36,6 +36,7 @@ export function ProductPage({
             path,
             externalUrl: content.externalUrl,
           }),
+          ...(content.faqs && content.faqs.length > 0 ? [faqSchema(content.faqs)] : []),
         ])}
       />
       <PageHero
@@ -105,6 +106,8 @@ export function ProductPage({
           </div>
         </div>
       </section>
+
+      {content.faqs && content.faqs.length > 0 && <Faq items={content.faqs} />}
 
       <CtaBand
         title={`See ${content.name} in action.`}
