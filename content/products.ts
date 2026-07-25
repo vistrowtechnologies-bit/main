@@ -96,7 +96,7 @@ export const products: Record<string, ProductContent> = {
       { icon: Activity, title: "Observable conversations", body: "Call history and analytics make performance reviewable rather than opaque." },
     ],
     demoCta: "Book a Demo",
-    externalUrl: "https://voice-three-flax.vercel.app/",
+    externalUrl: "https://www.vistrowvoice.com/",
     externalLabel: "Try Vistrow Voice",
     faqs: [
       {

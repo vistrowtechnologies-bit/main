@@ -60,7 +60,7 @@ export function Footer() {
   const productLinks = [
     {
       label: "Vistrow Voice",
-      href: "https://voice-three-flax.vercel.app/",
+      href: "https://www.vistrowvoice.com/",
       logo: "/brands/vistrow-voice.png",
     },
     {
