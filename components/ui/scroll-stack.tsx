@@ -243,6 +243,17 @@ export default function ScrollStack({
         lenisFrameRef.current = window.requestAnimationFrame(animate);
       };
       lenisFrameRef.current = window.requestAnimationFrame(animate);
+    } else {
+      // Touch devices (mobile/tablet) skip Lenis, so without a continuous
+      // per-frame sync the pin transform only recomputes on the native
+      // "scroll" event - which iOS Safari batches/throttles during momentum
+      // scrolling, making the pinned card visibly lag and shake relative to
+      // the page. Run our own rAF ticker so it stays in lockstep every frame.
+      const tick = () => {
+        updateTransforms();
+        lenisFrameRef.current = window.requestAnimationFrame(tick);
+      };
+      lenisFrameRef.current = window.requestAnimationFrame(tick);
     }
 
     const resizeObserver = new ResizeObserver(() => {
