@@ -53,10 +53,10 @@ export function CookieConsent() {
           </p>
           <div className="mt-4 flex gap-2 sm:mt-0">
             <button type="button" onClick={() => save("declined")} className="btn-secondary min-h-11 flex-1 px-4 sm:flex-none">
-              Decline
+              Only necessary
             </button>
             <button type="button" onClick={() => save("accepted")} className="btn-primary min-h-11 flex-1 px-4 sm:flex-none">
-              Accept analytics
+              Allow analytics
             </button>
           </div>
         </div>
