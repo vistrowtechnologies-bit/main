@@ -196,8 +196,8 @@ function renderConfirmationEmail({
     : "We've received your message";
 
   const introPlain = isAudit
-    ? `Thanks ${firstName} — your Growth Audit request${company ? ` for ${company}` : ""} is in. We'll dig into your funnel, spend, and tech stack to find exactly where opportunities are leaking.`
-    : `Thanks ${firstName} — we've got your message and someone from the team is already on it.`;
+    ? `Thanks ${firstName} - your Growth Audit request${company ? ` for ${company}` : ""} is in. We'll dig into your funnel, spend, and tech stack to find exactly where opportunities are leaking.`
+    : `Thanks ${firstName} - we've got your message and someone from the team is already on it.`;
   const intro = escapeHtml(introPlain);
 
   const steps = isAudit
@@ -209,7 +209,7 @@ function renderConfirmationEmail({
     : [
         ["We review the context", "Your enquiry is routed to the person closest to the problem you described."],
         ["You'll hear from us", "A reply within one business day, by email or your preferred channel."],
-        ["We shape a plan", "Practical next steps for your specific goal — no generic pitch."],
+        ["We shape a plan", "Practical next steps for your specific goal - no generic pitch."],
       ];
 
   const stepsHtml = steps
@@ -227,7 +227,7 @@ function renderConfirmationEmail({
     )
     .join("");
 
-  const stepsText = steps.map(([title, body], i) => `${i + 1}. ${title} — ${body}`).join("\n");
+  const stepsText = steps.map(([title, body], i) => `${i + 1}. ${title} - ${body}`).join("\n");
 
   const html = `<!doctype html>
 <html>
@@ -281,7 +281,7 @@ function renderConfirmationEmail({
   </body>
 </html>`;
 
-  const text = `${isAudit ? "GROWTH AUDIT REQUESTED" : "MESSAGE RECEIVED"}\n\n${introPlain}\n\n${stepsText}\n\nVisit https://www.vistrow.com\n\n— Vistrow Technologies`;
+  const text = `${isAudit ? "GROWTH AUDIT REQUESTED" : "MESSAGE RECEIVED"}\n\n${introPlain}\n\n${stepsText}\n\nVisit https://www.vistrow.com\n\n- Vistrow Technologies`;
 
   return { subject, html, text };
 }

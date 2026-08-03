@@ -247,7 +247,7 @@ export async function generateDailyPosts({
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
   const signalsText = [...signals.slice(0, 40), ...(includeProductSeed ? PRODUCT_SEED_TOPICS : [])]
-    .map((s) => `- [${s.source}] ${s.title}${s.url ? ` — ${s.url}` : ""}`)
+    .map((s) => `- [${s.source}] ${s.title}${s.url ? ` - ${s.url}` : ""}`)
     .join("\n");
 
   const existingText = existingTitles.slice(0, 60).join("\n- ") || "(none yet)";
