@@ -192,7 +192,7 @@ function renderConfirmationEmail({
 }) {
   const isAudit = type === "growth-audit";
   const subject = isAudit
-    ? "Your Growth Audit request is confirmed"
+    ? "We received your Growth Audit request"
     : "We've received your message";
 
   const introPlain = isAudit

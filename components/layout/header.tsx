@@ -105,7 +105,7 @@ export function Header() {
             href="/growth-audit"
             className="btn-primary hidden whitespace-nowrap sm:inline-flex"
           >
-            Book a Growth Audit
+            Request a Growth Audit
           </Link>
           <button
             type="button"
@@ -281,7 +281,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
         </div>
         <div className="border-t border-line p-4">
           <Link href="/growth-audit" onClick={onClose} className="btn-primary w-full">
-            Book a Growth Audit
+            Request a Growth Audit
           </Link>
         </div>
       </div>
@@ -334,7 +334,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
                         <Link
                           href={child.href}
                           onClick={onClose}
-                          className="block rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
+                          className="flex min-h-11 items-center rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
                         >
                           {child.label}
                         </Link>
@@ -350,7 +350,7 @@ function MobileNavItem({ item, onClose }: { item: NavItem; onClose: () => void }
                       <Link
                         href={child.href}
                         onClick={onClose}
-                        className="block rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
+                        className="flex min-h-11 items-center rounded-sm px-2 py-2 font-sans text-[15px] text-ink-2 transition-colors hover:text-accent-strong"
                       >
                         {child.label}
                       </Link>

@@ -21,7 +21,7 @@ export function FinalCta() {
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
-                  Book a Growth Audit
+                  Request a Growth Audit
                   <ArrowRight className="h-5 w-5" strokeWidth={2} />
                 </Link>
                 <Link href="/contact" className="btn-secondary px-8 py-4 text-base">

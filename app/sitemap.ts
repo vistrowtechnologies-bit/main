@@ -7,6 +7,8 @@ import { workPages } from "@/content/work";
 import { siteUrl } from "@/lib/seo";
 import { getBlogPosts } from "@/lib/sanity/blog";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await getBlogPosts();
   const staticRoutes = [

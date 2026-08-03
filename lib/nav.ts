@@ -20,7 +20,7 @@ export const primaryNav: NavItem[] = [
     activeMatch: ["/services", "/digital-marketing", "/business-automation"],
     linkRows: [
       { label: "Browse services by industry", cta: "Explore Industries", href: "/industries" },
-      { label: "Not sure where to start?", cta: "Book a Growth Audit", href: "/growth-audit" },
+      { label: "Not sure where to start?", cta: "Request a Growth Audit", href: "/growth-audit" },
     ],
     groups: [
       {

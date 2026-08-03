@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 import { graph, websiteSchema } from "@/lib/structured-data";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { AccentSwitcher } from "@/components/accent-switcher";
-import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { CookieConsent } from "@/components/privacy/cookie-consent";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -74,7 +74,6 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <JsonLd data={graph([websiteSchema])} />
-        <GoogleAnalytics />
       </head>
       <body className="font-sans antialiased">
         <ScrollProgress />
@@ -92,6 +91,7 @@ export default function RootLayout({
         <Footer />
         <ChatWidget />
         <AccentSwitcher />
+        <CookieConsent />
       </body>
     </html>
   );

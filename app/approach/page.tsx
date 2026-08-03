@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Search, Map, Wrench, TrendingUp } from "lucide-react";
+import { Search, Map, Wrench, TrendingUp, FileCheck2, Users, ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { Steps } from "@/components/sections/steps";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -27,6 +27,12 @@ const steps = [
   { title: "Improve", body: "We optimise continuously against pipeline and revenue outcomes." },
 ];
 
+const engagementClarity = [
+  { icon: FileCheck2, title: "Written scope", body: "Deliverables, owners, dependencies, acceptance criteria, and commercials are agreed before implementation." },
+  { icon: Users, title: "Named ownership", body: "Every workflow has a Vistrow delivery owner and a client-side decision owner." },
+  { icon: ShieldCheck, title: "Evidence before claims", body: "Baselines, metric definitions, source data, and caveats are agreed before performance is reported." },
+];
+
 export default function Page() {
   return (
     <>
@@ -40,6 +46,7 @@ export default function Page() {
       />
       <Steps eyebrow="The method" title="How every engagement runs" steps={steps} />
       <FeatureCards eyebrow="Principles" title="What guides the work" items={principles} columns={4} surface />
+      <FeatureCards eyebrow="Engagement clarity" title="What is agreed before the build begins" items={engagementClarity} columns={3} />
       <CtaBand />
     </>
   );

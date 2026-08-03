@@ -380,9 +380,9 @@ function MobileConversionEngine({
               Scroll to advance
             </span>
           </div>
-          <h2 className="mt-4 font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#f5f7fa]">
+          <div role="heading" aria-level={2} className="mt-4 font-display text-[clamp(2rem,7.5vw,3.25rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-[#f5f7fa]">
             From attention to revenue, one stage at a time
-          </h2>
+          </div>
           <p className="mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed text-[#a7adb8] sm:text-base">
             Follow an opportunity through each connected stage as intent becomes measurable growth.
           </p>
@@ -404,14 +404,16 @@ function MobileConversionEngine({
                   onClick={() => goToMobileStage(index)}
                   aria-label={`Go to stage ${index + 1}: ${step.label}`}
                   aria-pressed={activeIndex === index}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                  className="flex h-11 w-11 items-center justify-center rounded-full"
+                >
+                  <span className={`h-2.5 rounded-full transition-all duration-300 ${
                     activeIndex === index
                       ? "w-7 bg-accent shadow-[0_0_14px_rgb(var(--accent)/0.5)]"
                       : index < activeIndex
                         ? "w-2.5 bg-accent/45"
                         : "w-2.5 bg-white/20"
-                  }`}
-                />
+                  }`} />
+                </button>
               ))}
             </div>
           </div>

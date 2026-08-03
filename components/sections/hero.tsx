@@ -2,10 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { HeroDashboard } from "@/components/sections/hero-dashboard";
 import { Reveal } from "@/components/ui/reveal";
-import { RotatingWord, ScrollParallax } from "@/components/ui/motion-primitives";
+import { ScrollParallax } from "@/components/ui/motion-primitives";
 import BlurText from "@/components/ui/blur-text";
-
-const heroRotatingWords = ["business growth", "qualified leads", "real revenue", "closed deals"];
 
 export function Hero() {
   return (
@@ -41,7 +39,7 @@ export function Hero() {
                   aria-hidden
                   className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
                 />
-                <RotatingWord words={heroRotatingWords} />
+                business growth
               </span>
               .
             </span>
@@ -58,7 +56,7 @@ export function Hero() {
           <Reveal delay={0.24} direction="right" distance={18}>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
-                Book a Growth Audit
+                Request a Growth Audit
                 <ArrowRight className="h-5 w-5" strokeWidth={2} />
               </Link>
               <Link href="/services" className="btn-secondary px-8 py-4 text-base">
@@ -68,7 +66,7 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.14} direction="left" distance={36} className="relative lg:pl-4">
+        <Reveal delay={0.14} direction="left" distance={36} className="relative hidden md:block lg:pl-4">
           <ScrollParallax distance={28}>
             <HeroDashboard />
           </ScrollParallax>

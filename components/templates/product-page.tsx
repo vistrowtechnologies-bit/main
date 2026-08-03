@@ -79,6 +79,27 @@ export function ProductPage({
 
       <Chips eyebrow="Integrations" title="Connects to your stack" items={content.integrations} />
 
+      <section className="border-y border-line bg-surface py-section">
+        <div className="container-edge">
+          <SectionHeading eyebrow="Evaluation clarity" title={`Questions to settle before choosing ${content.name}`} align="center" className="mb-12" />
+          <div className="grid gap-gutter md:grid-cols-3">
+            {[
+              ["Workflow fit", "Define the use case, exception path, human owner, and measurable acceptance criteria for a pilot."],
+              ["Data and control", "Confirm data sources, access, retention, permissions, monitoring, and the human review required."],
+              ["Commercial scope", "Agree implementation, usage, integration, support, and any third-party costs before rollout."],
+            ].map(([title, body], index) => (
+              <Reveal key={title} delay={index * 0.06}>
+                <article className="h-full rounded-lg border border-line bg-card p-6">
+                  <span className="font-display text-sm font-bold text-accent-strong">0{index + 1}</span>
+                  <h3 className="mt-4 font-display text-xl font-bold text-ink">{title}</h3>
+                  <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{body}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Trust / reliability */}
       <section className="py-section">
         <div className="container-edge">

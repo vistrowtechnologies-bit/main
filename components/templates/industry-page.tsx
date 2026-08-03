@@ -47,7 +47,7 @@ export function IndustryPage({ content }: { content: IndustryContent }) {
       />
 
       <AnswerSummary
-        question={`How does Vistrow help ${content.title.toLowerCase()} teams grow?`}
+        question={`How does Vistrow help teams in ${content.title.toLowerCase()} grow?`}
         answer={content.solution.body}
         groups={[
           { label: "Common growth gaps", items: content.challenges.slice(0, 3).map((item) => item.title) },

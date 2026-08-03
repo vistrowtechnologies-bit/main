@@ -84,10 +84,10 @@ export function GrowthAuditForm() {
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent-tint">
           <CheckCircle2 className="h-8 w-8 text-accent-ink" strokeWidth={2} />
         </div>
-        <h3 className="mt-6 font-display text-h3 text-ink">Your Growth Audit is requested</h3>
+        <h3 className="mt-6 font-display text-h3 text-ink">Your Growth Audit request is in</h3>
         <p className="mx-auto mt-3 max-w-md font-sans text-muted">
-          We&apos;ll review your details and reach out to schedule your audit - a deep dive into
-          your funnel, spend, and tech stack to find where opportunities leak.
+          We&apos;ll review the context and contact you to confirm fit, the right participants,
+          and the next conversation. Implementation is scoped separately.
         </p>
       </div>
     );
@@ -221,7 +221,7 @@ export function GrowthAuditForm() {
               disabled={submitting}
               className="btn-primary flex-1 py-4 text-base disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? "Sending request" : "Book my Growth Audit"}
+              {submitting ? "Sending request" : "Request my Growth Audit"}
               {submitting ? (
                 <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
               ) : (

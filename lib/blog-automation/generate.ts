@@ -91,7 +91,7 @@ export const VALID_INTERNAL_LINKS = new Set<string>([
 ]);
 
 const internalLinksReference = [
-  ["/growth-audit", "Book a Growth Audit"],
+  ["/growth-audit", "Request a Growth Audit"],
   ["/contact", "Contact Vistrow"],
   ["/services", "All services"],
   ...internalLinkCards.map((c) => [c.href, c.label]),
@@ -247,7 +247,7 @@ export async function generateDailyPosts({
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
   const signalsText = [...signals.slice(0, 40), ...(includeProductSeed ? PRODUCT_SEED_TOPICS : [])]
-    .map((s) => `- [${s.source}] ${s.title}`)
+    .map((s) => `- [${s.source}] ${s.title}${s.url ? ` — ${s.url}` : ""}`)
     .join("\n");
 
   const existingText = existingTitles.slice(0, 60).join("\n- ") || "(none yet)";
@@ -274,7 +274,7 @@ HEADLINES - the title and metaTitle are what decide whether anyone clicks. Make 
 LINKING - this is mandatory, not optional. Every post MUST contain 2-4 actual Markdown links, written exactly as [anchor text](url) inside the paragraph text itself - not the page name mentioned in plain prose. "Vistrow Voice can help" is wrong. "[Vistrow Voice](/products/vistrow-voice) can help" is correct. A post with zero [text](url) links anywhere in its paragraphs is a failed post.
 - Internal: only use paths from this exact list (never invent one):
 ${internalLinksReference}
-- External: 0-2 links max, to a bare homepage only (e.g. https://www.salesforce.com, https://www.hubspot.com) - never a specific article URL you can't verify.
+- External: use 0-2 links. When a post depends on a supplied trending signal, cite the exact signal URL printed above. For evergreen product-led topics, link only to a stable primary-source homepage or official documentation URL you know is valid. Never invent a deep article URL.
 - Spread links across different sections. Don't link the same page twice. Make the anchor text the natural words already in the sentence, not "click here".
 
 BULLET LISTS - never write a bullet list as dashes or a numbered list inside a paragraph string (no "- item one\n- item two" inside "paragraphs"). If a section needs a list, put each item as its own entry in that section's "points" array instead, and keep "paragraphs" as normal prose sentences only.

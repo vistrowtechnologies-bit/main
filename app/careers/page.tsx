@@ -22,6 +22,12 @@ const perks = [
   { icon: Heart, title: "Honest culture", body: "Straight talk, no fake urgency, high standards." },
 ];
 
+const candidateSignals = [
+  { icon: TrendingUp, title: "Show the outcome", body: "Explain what changed because of your work, how it was measured, and what you personally owned." },
+  { icon: Sparkles, title: "Show the craft", body: "Share a campaign, workflow, product, or technical artefact that can be discussed in detail." },
+  { icon: Heart, title: "Show the judgement", body: "Tell us about a trade-off, a failed assumption, or a time you chose clarity over activity." },
+];
+
 export default function Page() {
   return (
     <>
@@ -38,6 +44,8 @@ export default function Page() {
 
       <FeatureCards eyebrow="Why Vistrow" title="What it's like to work here" items={perks} columns={4} surface />
 
+      <FeatureCards eyebrow="A useful introduction" title="What to include when you contact us" items={candidateSignals} columns={3} />
+
       <section className="py-section">
         <div className="container-edge">
           <SectionHeading eyebrow="Open roles" title="Current openings" align="center" className="mb-10" />
@@ -46,8 +54,8 @@ export default function Page() {
               <p className="font-display text-lg font-bold text-ink">No open roles right now</p>
               <p className="mx-auto mt-2 max-w-md font-sans text-muted">
                 We hire ahead of need. If you&apos;re excellent at performance marketing,
-                automation, or product engineering, send us your details and we&apos;ll keep you
-                in mind.
+                automation, design, or product engineering, send a concise introduction with
+                one relevant work sample. We do not ask for unpaid speculative work.
               </p>
               <Link href="/contact" className="btn-primary mt-6">
                 Send your details

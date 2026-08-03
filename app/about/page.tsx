@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Compass, ShieldCheck, LineChart, Layers, Megaphone, Cog, Boxes, Building2 } from "lucide-react";
+import { Compass, ShieldCheck, LineChart, Layers, Megaphone, Cog, Boxes, Building2, Users, BadgeCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { LinkCardGrid } from "@/components/sections/link-card-grid";
@@ -30,6 +30,13 @@ const whatWeDo = [
   { label: "Products", href: "/products", body: "Vistrow Voice, ArthaLeads, and Vistrow Labs - software you can also use on its own.", icon: Boxes },
   { label: "Industries", href: "/industries", body: "The same connected engine, shaped around how real estate, B2B, SaaS, and other markets actually buy.", icon: Building2 },
   { label: "Our approach", href: "/approach", body: "Audit, plan, build, improve - the repeatable method behind every engagement.", icon: Cog },
+];
+
+const companyFacts = [
+  { icon: Building2, title: "Vistrow Technologies", body: "An India-based, remote-first company serving Indian and global businesses." },
+  { icon: Users, title: "Small senior team", body: "The relevant delivery owner, responsibilities, and communication path are named before an engagement begins." },
+  { icon: Boxes, title: "Product operators", body: "Vistrow builds and operates Vistrow Voice, ArthaLeads, and custom systems through Vistrow Labs." },
+  { icon: BadgeCheck, title: "Evidence policy", body: "No guaranteed outcomes or anonymous performance claims presented as verified client results." },
 ];
 
 const faqs = [
@@ -93,7 +100,9 @@ export default function Page() {
         </div>
       </section>
 
-      <LinkCardGrid eyebrow="What we do" title="One connected engine, a few ways in" cards={whatWeDo} surface />
+      <FeatureCards eyebrow="Company facts" title="What you can verify before working with us" items={companyFacts} columns={4} surface />
+
+      <LinkCardGrid eyebrow="What we do" title="One connected engine, a few ways in" cards={whatWeDo} />
 
       <FeatureCards eyebrow="What we value" title="How we work" items={values} columns={4} />
 

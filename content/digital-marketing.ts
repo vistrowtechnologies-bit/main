@@ -57,7 +57,7 @@ export const digitalMarketingOverview: OverviewContent = {
   ],
 };
 
-const cta = "Book a Growth Audit";
+const cta = "Request a Growth Audit";
 
 export const digitalMarketingServices: Record<string, ServiceContent> = {
   "performance-advertising": {

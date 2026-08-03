@@ -12,7 +12,7 @@ export function AnnouncementBar() {
           href="/growth-audit"
           className="inline-flex min-h-6 items-center gap-1 font-sans text-[13px] font-semibold text-accent transition-all hover:gap-2"
         >
-          Book a Growth Audit
+          Request a Growth Audit
           <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
         </Link>
       </div>

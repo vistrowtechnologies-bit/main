@@ -28,7 +28,7 @@ const nextSteps = [
 ];
 
 const faqs = [
-  { q: "Should I use this form or book a Growth Audit?", a: "Use this form for product questions, partnerships, custom software, or a general conversation. Choose the Growth Audit when you want a structured review of marketing, CRM, follow-up, and tracking." },
+  { q: "Should I use this form or request a Growth Audit?", a: "Use this form for product questions, partnerships, custom software, or a general conversation. Request the Growth Audit when you want a structured review of marketing, CRM, follow-up, and tracking." },
   { q: "Can I ask about ArthaLeads or Vistrow Voice here?", a: "Yes. Select the product in the form and describe your use case. We can help with the product itself, implementation, or integration into your wider workflow." },
   { q: "Do you work with businesses outside India?", a: "Yes. Delivery is remote-first. Product availability, calling rules, channels, and integrations are confirmed for each market during scoping." },
 ];
@@ -43,7 +43,7 @@ export default function Page() {
         highlight="work better"
         subtitle="Ask about Vistrow Voice, ArthaLeads, digital marketing, automation, custom software, or the gaps between them. Give us the context and we'll respond with a practical next step."
         primaryCta={{ label: "Start your enquiry", href: "#contact-form" }}
-        secondaryCta={{ label: "Book a Growth Audit", href: "/growth-audit" }}
+        secondaryCta={{ label: "Request a Growth Audit", href: "/growth-audit" }}
       />
       <section id="contact-form" className="py-section scroll-mt-24">
         <div className="container-edge grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">

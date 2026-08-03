@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Users, Boxes, Handshake, Repeat } from "lucide-react";
+import { Users, Boxes, Handshake, Repeat, FileCheck2, ShieldCheck, MessagesSquare } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Steps } from "@/components/sections/steps";
@@ -27,6 +27,12 @@ const steps = [
   { title: "Grow", body: "We deliver together and expand the partnership over time." },
 ];
 
+const guardrails = [
+  { icon: FileCheck2, title: "Commercial clarity", body: "Referral terms, white-label ownership, support boundaries, and payment responsibility are documented before delivery." },
+  { icon: ShieldCheck, title: "Client and data protection", body: "Access, confidentiality, consent, and data-processing responsibilities are agreed for each workflow." },
+  { icon: MessagesSquare, title: "One operating rhythm", body: "Both parties know who owns discovery, communication, approvals, implementation, and escalation." },
+];
+
 export default function Page() {
   return (
     <>
@@ -41,6 +47,7 @@ export default function Page() {
       />
       <FeatureCards eyebrow="Ways to partner" title="How we work with partners" items={partnerTypes} columns={4} surface />
       <Steps eyebrow="Getting started" title="How a partnership begins" steps={steps} />
+      <FeatureCards eyebrow="Partnership guardrails" title="What we agree before serving a client together" items={guardrails} columns={3} surface />
       <CtaBand
         title="Let's build something together."
         subtitle="Tell us about your business and clients, and we'll design a partnership that fits."

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import BlurText from "@/components/ui/blur-text";
 import type { LegalContent } from "@/lib/content-types";
@@ -29,10 +30,17 @@ export function LegalPage({ content }: { content: LegalContent }) {
             ))}
           </div>
 
-          <p className="mt-12 border-t border-line pt-6 font-sans text-sm text-muted">
-            This page is a general template and not legal advice. Vistrow Technologies should
-            have final policies reviewed by qualified counsel before publication.
-          </p>
+          <div className="mt-12 rounded-lg border border-line bg-surface p-5 font-sans text-sm leading-relaxed text-muted">
+            Questions about this policy can be sent to{" "}
+            <a className="font-semibold text-accent-strong hover:underline" href="mailto:hello@vistrow.com">
+              hello@vistrow.com
+            </a>{" "}
+            or through our{" "}
+            <Link className="font-semibold text-accent-strong hover:underline" href="/contact">
+              contact page
+            </Link>
+            .
+          </div>
         </div>
       </div>
     </article>

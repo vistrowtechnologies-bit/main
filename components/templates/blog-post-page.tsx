@@ -227,6 +227,17 @@ export function BlogPostPage({
                   <ArrowRight className="h-4 w-4" strokeWidth={2} />
                 </Link>
               </div>
+
+              <aside className="mt-8 rounded-xl border border-line bg-surface p-6" aria-label="About the author and editorial standard">
+                <p className="font-display text-lg font-bold text-ink">About {post.author}</p>
+                <p className="mt-2 font-sans text-sm leading-relaxed text-muted">
+                  Vistrow&apos;s content team works across performance marketing, CRM, automation,
+                  AI voice, and product delivery. Product capability claims are checked against
+                  the relevant product workflow; external facts should be linked to their source
+                  in the article. Articles are educational and are not a substitute for advice
+                  based on your business, data, or jurisdiction.
+                </p>
+              </aside>
               </div>
 
               <aside className="hidden lg:sticky lg:top-28 lg:block" aria-label="Blog navigation">

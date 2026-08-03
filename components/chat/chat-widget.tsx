@@ -32,7 +32,7 @@ const topics: Topic[] = [
   { label: "Get more leads", prompt: "I want to generate more qualified leads." },
   { label: "Automate follow-up", prompt: "I want to automate lead follow-up." },
   { label: "Explore products", prompt: "Show me Vistrow's products." },
-  { label: "Book a Growth Audit", prompt: "I would like to book a Growth Audit." },
+  { label: "Request a Growth Audit", prompt: "I would like to request a Growth Audit." },
 ];
 
 const faqs: Topic[] = [

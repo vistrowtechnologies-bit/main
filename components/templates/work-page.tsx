@@ -1,4 +1,5 @@
-import { TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { Reveal } from "@/components/ui/reveal";
@@ -12,6 +13,9 @@ export type WorkItem = {
   summary: string;
   metric: string;
   metricLabel: string;
+  evidence?: string[];
+  href?: string;
+  linkLabel?: string;
 };
 
 export type WorkContent = {
@@ -88,13 +92,29 @@ export function WorkPage({ content }: { content: WorkContent }) {
                       <p className="font-sans text-xs text-muted">{item.metricLabel}</p>
                     </div>
                   </div>
+                  {item.evidence && item.evidence.length > 0 && (
+                    <ul className="mt-5 space-y-2 border-t border-line pt-5">
+                      {item.evidence.map((point) => (
+                        <li key={point} className="flex items-start gap-2 font-sans text-sm leading-relaxed text-ink-2">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" strokeWidth={2} />
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {item.href && (
+                    <Link href={item.href} className="mt-5 inline-flex min-h-11 items-center gap-2 font-sans text-sm font-semibold text-accent-strong">
+                      {item.linkLabel ?? "Review the evidence"}
+                      <ArrowRight className="h-4 w-4" strokeWidth={2} />
+                    </Link>
+                  )}
                 </article>
               </Reveal>
             ))}
           </div>
           <p className="mt-8 text-center font-sans text-xs text-muted">
-            Solution examples describe Vistrow&apos;s delivery approach. Named client results are
-            published only when the underlying data and permission are verified.
+            Owned products are identified as first-party work. Delivery patterns are examples.
+            Client results are published only with traceable data, context, and permission.
           </p>
         </div>
       </section>

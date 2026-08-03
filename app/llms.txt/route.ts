@@ -60,7 +60,7 @@ ${linkList(industries, "industries")}
 - [Vistrow approach](${siteUrl}/approach): Audit, plan, build, and improve methodology.
 - [Work and delivery examples](${siteUrl}/work): System examples and the evidence policy used for results.
 - [Contact Vistrow](${siteUrl}/contact): Product, service, partnership, and project enquiries.
-- [Book a growth audit](${siteUrl}/growth-audit): Review marketing, CRM, follow-up, and tracking gaps.
+- [Request a growth audit](${siteUrl}/growth-audit): Review marketing, CRM, follow-up, and tracking gaps.
 - [Privacy policy](${siteUrl}/privacy-policy): Personal information and privacy practices.
 
 ## Citation and interpretation guidance

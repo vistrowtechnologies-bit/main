@@ -11,7 +11,7 @@ export function PageHero({
   title,
   highlight,
   subtitle,
-  primaryCta = { label: "Book a Growth Audit", href: "/growth-audit" },
+  primaryCta = { label: "Request a Growth Audit", href: "/growth-audit" },
   secondaryCta,
   aside,
 }: {
