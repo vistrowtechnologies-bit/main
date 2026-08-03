@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { trackLead } from "@/lib/analytics";
 
 type LinkAction = {
   label: string;
@@ -118,7 +119,10 @@ export function ChatWidget() {
           text: data.reply,
           links: Array.isArray(data.links) ? data.links : [],
         };
-        if (data.leadCaptured === true) leadCapturedRef.current = true;
+        if (data.leadCaptured === true && !leadCapturedRef.current) {
+          leadCapturedRef.current = true;
+          trackLead("chat");
+        }
       } else if (typeof data.error === "string") {
         reply = { ...fallbackReply, text: data.error };
       }

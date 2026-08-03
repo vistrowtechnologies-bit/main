@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { AlertCircle, CheckCircle2, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
+import { trackLead } from "@/lib/analytics";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -63,6 +64,7 @@ export function GrowthAuditForm() {
       });
       const result = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !result.ok) throw new Error(result.error || "Request delivery failed.");
+      trackLead("growth_audit_form");
       setSubmitted(true);
     } catch (error) {
       setServerError(

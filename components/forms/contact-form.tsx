@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
+import { trackLead } from "@/lib/analytics";
 
 type Errors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -66,6 +67,7 @@ export function ContactForm() {
       });
       const result = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !result.ok) throw new Error(result.error || "Message delivery failed.");
+      trackLead("contact_form");
       form.reset();
       setStatus("success");
     } catch (error) {
