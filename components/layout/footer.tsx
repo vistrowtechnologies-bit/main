@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import { Wordmark } from "@/components/ui/wordmark";
 import { socialProfiles } from "@/lib/social-links";
-import { CookieSettingsButton } from "@/components/privacy/cookie-consent";
 
 const columns: { title: string; links: { label: string; href: string }[] }[] = [
   {
@@ -170,7 +169,6 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            <li><CookieSettingsButton /></li>
           </ul>
         </div>
       </div>

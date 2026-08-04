@@ -1,10 +1,20 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Script from "next/script";
 
 // No-ops until NEXT_PUBLIC_GA_MEASUREMENT_ID is set (create a GA4 property
 // at analytics.google.com, then add the Measurement ID to .env.local / Vercel).
+// Loads unconditionally on the production host - no consent gate, no banner.
 export function GoogleAnalytics() {
+  const [isProductionHost, setIsProductionHost] = useState(false);
   const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  if (!measurementId) return null;
+
+  useEffect(() => {
+    setIsProductionHost(window.location.hostname === "www.vistrow.com");
+  }, []);
+
+  if (!measurementId || !isProductionHost) return null;
 
   return (
     <>
@@ -14,7 +24,7 @@ export function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${measurementId}');
+          gtag('config', '${measurementId}', { anonymize_ip: true });
         `}
       </Script>
     </>

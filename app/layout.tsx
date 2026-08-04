@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 import { graph, websiteSchema } from "@/lib/structured-data";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { AccentSwitcher } from "@/components/accent-switcher";
-import { CookieConsent } from "@/components/privacy/cookie-consent";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -64,21 +64,6 @@ const themeScript = `
 })();
 `;
 
-// Establish denied consent before any optional Google tag can load.
-const consentModeScript = `
-(function() {
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
-  window.gtag('consent', 'default', {
-    analytics_storage: 'denied',
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    wait_for_update: 500
-  });
-})();
-`;
-
 export default function RootLayout({
   children,
 }: {
@@ -88,8 +73,8 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script id="ga-consent-default" dangerouslySetInnerHTML={{ __html: consentModeScript }} />
         <JsonLd data={graph([websiteSchema])} />
+        <GoogleAnalytics />
       </head>
       <body className="font-sans antialiased">
         <ScrollProgress />
@@ -107,7 +92,6 @@ export default function RootLayout({
         <Footer />
         <ChatWidget />
         <AccentSwitcher />
-        <CookieConsent />
       </body>
     </html>
   );
