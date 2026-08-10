@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
+import { AlertCircle, Loader2, Search, MessageCircle, Compass, Send } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
+import { SuccessCelebration } from "@/components/forms/success-celebration";
 
 type Errors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -81,21 +83,7 @@ export function ContactForm() {
   };
 
   if (status === "success") {
-    return (
-      <div className="glass rounded-xl p-8 text-center sm:p-12" role="status">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent">
-          <CheckCircle2 className="h-8 w-8 text-accent-ink" strokeWidth={2} />
-        </div>
-        <h3 className="mt-6 font-display text-h3 text-ink">Your message is on its way</h3>
-        <p className="mx-auto mt-3 max-w-md font-sans leading-relaxed text-muted">
-          Thanks for the context. We&apos;ll review it and reply within one business day with
-          the most useful next step.
-        </p>
-        <button type="button" onClick={() => setStatus("idle")} className="btn-secondary mt-6">
-          Send another message
-        </button>
-      </div>
-    );
+    return <ContactSuccess onReset={() => setStatus("idle")} />;
   }
 
   return (
@@ -214,5 +202,71 @@ export function ContactForm() {
         <p className="font-sans text-[13px] text-muted">We normally reply within one business day.</p>
       </div>
     </form>
+  );
+}
+
+const nextSteps = [
+  {
+    icon: Search,
+    title: "We review the context",
+    body: "Your enquiry is routed to the person closest to the problem you described.",
+  },
+  {
+    icon: MessageCircle,
+    title: "You'll hear from us",
+    body: "A reply within one business day, by email or your preferred channel.",
+  },
+  {
+    icon: Compass,
+    title: "We shape a plan",
+    body: "Practical next steps for your specific goal - no generic pitch.",
+  },
+];
+
+function ContactSuccess({ onReset }: { onReset: () => void }) {
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={reduce ? undefined : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="glass rounded-xl p-8 text-center sm:p-12"
+      role="status"
+    >
+      <SuccessCelebration />
+      <h3 className="mt-6 font-display text-h3 text-ink">Your message is on its way</h3>
+      <p className="mx-auto mt-3 max-w-md font-sans leading-relaxed text-muted">
+        Thanks for the context. We&apos;ll review it and reply within one business day with
+        the most useful next step.
+      </p>
+
+      <div className="mx-auto mt-8 grid max-w-2xl gap-3 text-left sm:grid-cols-3">
+        {nextSteps.map((step, index) => (
+          <motion.div
+            key={step.title}
+            initial={reduce ? undefined : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-lg border border-line/70 bg-card/60 p-4"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-accent-tint">
+              <step.icon className="h-4 w-4 text-accent-ink" strokeWidth={1.75} />
+            </div>
+            <p className="mt-3 font-sans text-sm font-bold text-ink">{step.title}</p>
+            <p className="mt-1 font-sans text-[13px] leading-relaxed text-muted">{step.body}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <button type="button" onClick={onReset} className="btn-secondary">
+          Send another message
+        </button>
+        <a href="/services" className="btn-ghost">
+          Explore what we do
+        </a>
+      </div>
+    </motion.div>
   );
 }

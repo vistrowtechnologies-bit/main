@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { AlertCircle, CheckCircle2, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
+import { AlertCircle, ArrowRight, ArrowLeft, Loader2, Search, Link2, ListChecks } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
+import { SuccessCelebration } from "@/components/forms/success-celebration";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -81,18 +83,7 @@ export function GrowthAuditForm() {
     setList(list.includes(item) ? list.filter((x) => x !== item) : [...list, item]);
 
   if (submitted) {
-    return (
-      <div className="glass rounded-xl p-8 text-center sm:p-12">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent-tint">
-          <CheckCircle2 className="h-8 w-8 text-accent-ink" strokeWidth={2} />
-        </div>
-        <h3 className="mt-6 font-display text-h3 text-ink">Your Growth Audit request is in</h3>
-        <p className="mx-auto mt-3 max-w-md font-sans text-muted">
-          We&apos;ll review the context and contact you to confirm fit, the right participants,
-          and the next conversation. Implementation is scoped separately.
-        </p>
-      </div>
-    );
+    return <GrowthAuditSuccess />;
   }
 
   return (
@@ -246,6 +237,69 @@ export function GrowthAuditForm() {
         </div>
       )}
     </form>
+  );
+}
+
+const auditSteps = [
+  {
+    icon: Search,
+    title: "Funnel & spend review",
+    body: "We map where your budget goes and where it leaks.",
+  },
+  {
+    icon: Link2,
+    title: "System gap analysis",
+    body: "We find the disconnects between marketing, CRM, and follow-up.",
+  },
+  {
+    icon: ListChecks,
+    title: "Prioritised action plan",
+    body: "You get the highest-impact fixes, in order.",
+  },
+];
+
+function GrowthAuditSuccess() {
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={reduce ? undefined : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="glass rounded-xl p-8 text-center sm:p-12"
+      role="status"
+    >
+      <SuccessCelebration />
+      <h3 className="mt-6 font-display text-h3 text-ink">Your Growth Audit request is in</h3>
+      <p className="mx-auto mt-3 max-w-md font-sans text-muted">
+        We&apos;ll review the context and contact you to confirm fit, the right participants,
+        and the next conversation. Implementation is scoped separately.
+      </p>
+
+      <div className="mx-auto mt-8 grid max-w-2xl gap-3 text-left sm:grid-cols-3">
+        {auditSteps.map((step, index) => (
+          <motion.div
+            key={step.title}
+            initial={reduce ? undefined : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-lg border border-line/70 bg-card/60 p-4"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-accent-tint">
+              <step.icon className="h-4 w-4 text-accent-ink" strokeWidth={1.75} />
+            </div>
+            <p className="mt-3 font-sans text-sm font-bold text-ink">{step.title}</p>
+            <p className="mt-1 font-sans text-[13px] leading-relaxed text-muted">{step.body}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <a href="/services" className="btn-ghost">
+          Explore what we do
+        </a>
+      </div>
+    </motion.div>
   );
 }
 
