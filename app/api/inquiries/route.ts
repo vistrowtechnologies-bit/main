@@ -82,36 +82,28 @@ export async function POST(request: Request) {
     );
   }
 
-  const details = [
-    ["Name", name],
-    ["Email", email],
-    ["Company", company],
-    ["Phone", clean(data.phone, 60)],
-    ["Website", clean(data.website, 200)],
-    ["Service", clean(data.service, 160)],
-    ["Industry", clean(data.industry, 120)],
-    ["Budget", clean(data.budget, 120)],
-    ["Channels", cleanList(data.channels)],
-    ["Services of interest", cleanList(data.services)],
-    ["Preferred contact", clean(data.preferredContact, 80)],
-    [type === "growth-audit" ? "Main challenge" : "Message", message],
-  ].filter(([, value]) => value);
+  const phone = clean(data.phone, 60);
+  const details = (
+    [
+      ["Email", email],
+      ["Phone", phone],
+      ["Company", company],
+      ["Website", clean(data.website, 200)],
+      ["Service", clean(data.service, 160)],
+      ["Industry", clean(data.industry, 120)],
+      ["Budget", clean(data.budget, 120)],
+      ["Channels", cleanList(data.channels)],
+      ["Services of interest", cleanList(data.services)],
+      ["Preferred contact", clean(data.preferredContact, 80)],
+    ] satisfies [string, string][]
+  ).filter(([, value]) => value);
 
   const subject =
     type === "growth-audit"
       ? `Growth Audit request - ${company || name}`
       : `Website enquiry - ${company || name}`;
-  const text = details.map(([label, value]) => `${label}: ${value}`).join("\n\n");
-  const html = `
-    <div style="font-family:Inter,Arial,sans-serif;color:#111;line-height:1.6">
-      <h1 style="font-size:22px;margin:0 0 20px">${escapeHtml(subject)}</h1>
-      ${details
-        .map(
-          ([label, value]) =>
-            `<p style="margin:0 0 14px"><strong>${escapeHtml(label)}</strong><br>${escapeHtml(value).replace(/\n/g, "<br>")}</p>`,
-        )
-        .join("")}
-    </div>`;
+  const text = `${subject}\n\n${[["Name", name], ...details, [type === "growth-audit" ? "Main challenge" : "Message", message]].map(([label, value]) => `${label}: ${value}`).join("\n\n")}`;
+  const html = renderInternalEmail({ type, subject, name, email, phone, message, details });
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -145,6 +137,110 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+function renderInternalEmail({
+  type,
+  subject,
+  name,
+  email,
+  phone,
+  message,
+  details,
+}: {
+  type: "contact" | "growth-audit";
+  subject: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  details: [string, string][];
+}) {
+  const isAudit = type === "growth-audit";
+  const firstName = name.trim().split(/\s+/)[0] || name;
+
+  const detailRows = details
+    .map(
+      ([label, value], i) => `
+        <tr>
+          <td style="padding:10px 0;border-top:${i === 0 ? "0" : "1"}px solid #E5E7EB;width:150px;vertical-align:top;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em;">${escapeHtml(label)}</p>
+          </td>
+          <td style="padding:10px 0;border-top:${i === 0 ? "0" : "1"}px solid #E5E7EB;vertical-align:top;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#0D0D0D;line-height:1.5;">${escapeHtml(value).replace(/\n/g, "<br>")}</p>
+          </td>
+        </tr>`,
+    )
+    .join("");
+
+  const html = `<!doctype html>
+<html>
+  <body style="margin:0;padding:32px 16px;background:#F7F8FA;font-family:Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:100%;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:16px;overflow:hidden;">
+            <tr>
+              <td style="height:4px;background:#C6FF00;line-height:4px;font-size:0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="padding:32px 40px 0;">
+                <img src="https://www.vistrow.com/logo-light.png" width="118" height="32" alt="Vistrow" style="display:block;height:32px;width:auto;border:0;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 40px 0;">
+                <span style="display:inline-block;background:#E9FFA6;color:#4E6700;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;">${isAudit ? "Growth Audit request" : "Website enquiry"}</span>
+                <h1 style="margin:14px 0 0;font-family:Helvetica,Arial,sans-serif;font-size:22px;font-weight:800;color:#0D0D0D;line-height:1.3;">${escapeHtml(subject)}</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 40px 0;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="padding-right:8px;">
+                      <a href="mailto:${encodeURIComponent(email)}" style="display:block;text-align:center;background:#C6FF00;color:#0D0D0D;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 18px;border-radius:8px;">Reply to ${escapeHtml(firstName)}</a>
+                    </td>
+                    ${
+                      phone
+                        ? `<td style="padding-left:8px;">
+                      <a href="tel:${encodeURIComponent(phone)}" style="display:block;text-align:center;background:#F7F8FA;color:#0D0D0D;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:12px 18px;border-radius:8px;border:1px solid #E5E7EB;">Call ${escapeHtml(phone)}</a>
+                    </td>`
+                        : ""
+                    }
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:28px 40px 0;">
+                <p style="margin:0 0 6px;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em;">${isAudit ? "Main challenge" : "Message"}</p>
+                <div style="background:#F7F8FA;border-radius:12px;padding:18px;">
+                  <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#1C1C1E;line-height:1.7;">${escapeHtml(message).replace(/\n/g, "<br>")}</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 40px 32px;">
+                <p style="margin:0 0 6px;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.04em;">Details</p>
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  ${detailRows}
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px 40px;background:#0D0D0D;">
+                <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#A7ADB8;line-height:1.6;">Vistrow Technologies · Sent from the website ${isAudit ? "Growth Audit" : "Contact"} form<br />Reply-to is set to the enquirer's email.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+
+  return html;
 }
 
 async function sendConfirmationEmail({
