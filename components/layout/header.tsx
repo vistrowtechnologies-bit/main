@@ -102,6 +102,12 @@ export function Header() {
         <div className="flex items-center justify-self-end gap-1.5 sm:gap-2">
           <ThemeToggle />
           <Link
+            href="/contact"
+            className="btn-secondary hidden whitespace-nowrap lg:inline-flex"
+          >
+            Contact Us
+          </Link>
+          <Link
             href="/growth-audit"
             className="btn-primary hidden whitespace-nowrap sm:inline-flex"
           >
@@ -279,9 +285,12 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
             ))}
           </ul>
         </div>
-        <div className="border-t border-line p-4">
+        <div className="space-y-2 border-t border-line p-4">
           <Link href="/growth-audit" onClick={onClose} className="btn-primary w-full">
             Request a Growth Audit
+          </Link>
+          <Link href="/contact" onClick={onClose} className="btn-secondary w-full">
+            Contact Us
           </Link>
         </div>
       </div>
