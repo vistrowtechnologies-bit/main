@@ -130,7 +130,7 @@ export function Footer() {
           {columns.map((col) => (
             <div key={col.title}>
               <h3 className="font-sans text-sm font-semibold text-ink">{col.title}</h3>
-              <ul className="mt-5 space-y-3">
+              <ul className="mt-5 space-y-2.5">
                 {col.links.map((link) =>
                   link.external ? (
                     <li key={link.href}>
@@ -138,7 +138,7 @@ export function Footer() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-11 items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
+                        className="inline-flex items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
                       >
                         {link.label}
                       </a>
@@ -147,7 +147,7 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="inline-flex min-h-11 items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
+                        className="inline-flex items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
                       >
                         {link.label}
                       </Link>
@@ -168,7 +168,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="inline-flex min-h-11 items-center font-sans text-[13px] text-muted transition-colors hover:text-accent-strong"
+                  className="inline-flex items-center font-sans text-[13px] text-muted transition-colors hover:text-accent-strong"
                 >
                   {link.label}
                 </Link>
