@@ -1,7 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
-  ExternalLink,
   Facebook,
   Instagram,
   Linkedin,
@@ -10,32 +8,71 @@ import {
 import { Wordmark } from "@/components/ui/wordmark";
 import { socialProfiles } from "@/lib/social-links";
 
-const columns: { title: string; links: { label: string; href: string }[] }[] = [
+type FooterLink = { label: string; href: string; external?: boolean };
+type FooterColumn = { title: string; links: FooterLink[] };
+
+const columns: FooterColumn[] = [
   {
-    title: "Capabilities",
+    title: "Digital Marketing",
     links: [
-      { label: "Digital Marketing", href: "/digital-marketing" },
-      { label: "Business Automation", href: "/business-automation" },
+      { label: "All Digital Marketing", href: "/digital-marketing" },
+      { label: "Performance Advertising", href: "/digital-marketing/performance-advertising" },
+      { label: "Lead Generation", href: "/digital-marketing/lead-generation" },
+      { label: "Website Development", href: "/digital-marketing/website-development" },
+      { label: "Landing Pages & Funnels", href: "/digital-marketing/landing-pages" },
+      { label: "Creative Strategy", href: "/digital-marketing/creative-strategy" },
+      { label: "Social Media Marketing", href: "/digital-marketing/social-media" },
+      { label: "SEO & Content", href: "/digital-marketing/seo-content" },
+      { label: "Conversion Tracking", href: "/digital-marketing/conversion-tracking" },
+      { label: "Marketing Automation", href: "/digital-marketing/marketing-automation" },
+    ],
+  },
+  {
+    title: "Business Automation",
+    links: [
+      { label: "All Business Automation", href: "/business-automation" },
       { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
       { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },
+      { label: "Sales Automation", href: "/business-automation/sales-automation" },
+      { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
+      { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up" },
+      { label: "Custom Automation", href: "/business-automation/custom-automation" },
     ],
   },
   {
     title: "Products",
     links: [
-      { label: "Vistrow Voice", href: "/products/vistrow-voice" },
-      { label: "ArthaLeads", href: "/products/arthaleads" },
+      { label: "All Products", href: "/products" },
+      { label: "Vistrow Voice", href: "https://www.vistrowvoice.com/", external: true },
+      { label: "ArthaLeads", href: "https://www.arthaleads.com/", external: true },
       { label: "Vistrow Labs", href: "/products/vistrow-labs" },
+    ],
+  },
+  {
+    title: "Industries",
+    links: [
+      { label: "All Industries", href: "/industries" },
+      { label: "Real Estate", href: "/industries/real-estate" },
+      { label: "Local Businesses", href: "/industries/local-businesses" },
+      { label: "B2B Companies", href: "/industries/b2b-companies" },
+      { label: "Startups & SaaS", href: "/industries/startups-saas" },
+      { label: "Agencies", href: "/industries/agencies" },
+      { label: "Education", href: "/industries/education" },
     ],
   },
   {
     title: "Company",
     links: [
+      { label: "Home", href: "/" },
+      { label: "Services", href: "/services" },
       { label: "About", href: "/about" },
       { label: "Our Approach", href: "/approach" },
-      { label: "Blog", href: "/blog" },
       { label: "Work", href: "/work" },
+      { label: "Blog", href: "/blog" },
+      { label: "Careers", href: "/careers" },
+      { label: "Partners", href: "/partners" },
       { label: "Contact", href: "/contact" },
+      { label: "Book a Growth Audit", href: "/growth-audit" },
     ],
   },
 ];
@@ -57,24 +94,12 @@ export function Footer() {
     })),
     { icon: Mail, label: "Email Vistrow", href: "mailto:hello@vistrow.com" },
   ];
-  const productLinks = [
-    {
-      label: "Vistrow Voice",
-      href: "https://www.vistrowvoice.com/",
-      logo: "/brands/vistrow-voice.png",
-    },
-    {
-      label: "ArthaLeads",
-      href: "https://www.arthaleads.com/",
-      logo: "/brands/arthaleads.png",
-    },
-  ];
 
   return (
     <footer className="border-t border-line bg-surface">
       <div className="container-edge py-16">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
-          <div className="col-span-2 md:col-span-1 lg:col-span-1">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Wordmark />
             <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-muted">
               Digital marketing connected to the CRM, automation, and AI systems that
@@ -100,45 +125,25 @@ export function Footer() {
                 ))}
               </div>
             </div>
-
           </div>
 
           {columns.map((col) => (
             <div key={col.title}>
               <h3 className="font-sans text-sm font-semibold text-ink">{col.title}</h3>
-              {col.title === "Products" ? (
-                <div className="mt-5 flex flex-col gap-2">
-                  {productLinks.map((product) => (
-                    <a
-                      key={product.label}
-                      href={product.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex w-full max-w-[220px] items-center gap-2.5 rounded-sm border border-line bg-card/60 p-2 text-ink transition-all hover:-translate-y-0.5 hover:border-accent hover:bg-card"
-                    >
-                      <Image
-                        src={product.logo}
-                        alt={`${product.label} logo`}
-                        width={32}
-                        height={32}
-                        className="h-8 w-8 shrink-0 rounded-[8px] object-cover"
-                      />
-                      <span className="min-w-0 flex-1 font-sans text-[13px] font-semibold">
-                        {product.label}
-                      </span>
-                      <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted transition-colors group-hover:text-accent-strong" />
-                    </a>
-                  ))}
-                  <Link
-                    href="/products/vistrow-labs"
-                    className="mt-1 font-sans text-sm text-muted transition-colors hover:text-accent-strong"
-                  >
-                    Vistrow Labs
-                  </Link>
-                </div>
-              ) : (
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((link) => (
+              <ul className="mt-5 space-y-3">
+                {col.links.map((link) =>
+                  link.external ? (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ) : (
                     <li key={link.href}>
                       <Link
                         href={link.href}
@@ -147,9 +152,9 @@ export function Footer() {
                         {link.label}
                       </Link>
                     </li>
-                  ))}
-                </ul>
-              )}
+                  ),
+                )}
+              </ul>
             </div>
           ))}
         </div>
