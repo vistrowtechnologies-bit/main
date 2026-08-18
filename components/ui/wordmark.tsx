@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 // Intrinsic size of the trimmed logo lockups in /public.
-const LOGO_W = 470;
-const LOGO_H = 128;
+const LOGO_W = 494;
+const LOGO_H = 152;
 
 export function Wordmark({
   className = "",
