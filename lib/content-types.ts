@@ -38,6 +38,22 @@ export type IndustryContent = {
   faqs: QA[];
 };
 
+export type LocationContent = {
+  slug: string;
+  title: string;
+  area: string;
+  nearby: string[];
+  eyebrow: string;
+  subtitle: string;
+  metaTitle: string;
+  metaDescription: string;
+  reasons: Feature[];
+  solution: { title: string; body: string; points: string[] };
+  services: { label: string; href: string }[];
+  process: Step[];
+  faqs: QA[];
+};
+
 export type ProductContent = {
   slug: string;
   name: string;

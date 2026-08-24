@@ -4,9 +4,11 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  Phone,
 } from "lucide-react";
 import { Wordmark } from "@/components/ui/wordmark";
 import { socialProfiles } from "@/lib/social-links";
+import { businessPhone, serviceLocalities } from "@/lib/structured-data";
 
 type FooterLink = { label: string; href: string; external?: boolean };
 type FooterColumn = { title: string; links: FooterLink[] };
@@ -65,6 +67,7 @@ const columns: FooterColumn[] = [
     links: [
       { label: "Home", href: "/" },
       { label: "Services", href: "/services" },
+      { label: "Locations", href: "/locations" },
       { label: "About", href: "/about" },
       { label: "Our Approach", href: "/approach" },
       { label: "Work", href: "/work" },
@@ -104,6 +107,30 @@ export function Footer() {
             <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-muted">
               Digital marketing connected to the CRM, automation, and AI systems that
               turn opportunities into revenue.
+            </p>
+            <a
+              href={`tel:${businessPhone.replace(/\s+/g, "")}`}
+              className="mt-4 inline-flex items-center gap-2 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-strong"
+            >
+              <Phone className="h-4 w-4 text-accent-ink" strokeWidth={1.75} />
+              {businessPhone}
+            </a>
+            <p className="mt-4 font-sans text-[13px] leading-relaxed text-muted">
+              Based in Baner, Pune. Serving{" "}
+              {serviceLocalities
+                .filter((area) => area !== "Pune")
+                .map((area, i, arr) => (
+                  <span key={area}>
+                    <Link
+                      href={`/locations/${area.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="text-ink-2 underline-offset-2 hover:text-accent-strong hover:underline"
+                    >
+                      {area}
+                    </Link>
+                    {i < arr.length - 1 ? ", " : " "}
+                  </span>
+                ))}
+              and businesses across Pune.
             </p>
             <div className="mt-6">
               <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">

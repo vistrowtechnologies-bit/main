@@ -3,6 +3,7 @@ import { digitalMarketingServices } from "@/content/digital-marketing";
 import { businessAutomationServices } from "@/content/business-automation";
 import { products } from "@/content/products";
 import { industries } from "@/content/industries";
+import { locations } from "@/content/locations";
 import { workPages } from "@/content/work";
 import { siteUrl } from "@/lib/seo";
 import { getBlogPosts } from "@/lib/sanity/blog";
@@ -18,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/business-automation",
     "/products",
     "/industries",
+    "/locations",
     "/work",
     "/blog",
     "/about",
@@ -37,6 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...Object.keys(businessAutomationServices).map((s) => `/business-automation/${s}`),
     ...Object.keys(products).map((s) => `/products/${s}`),
     ...Object.keys(industries).map((s) => `/industries/${s}`),
+    ...Object.keys(locations).map((s) => `/locations/${s}`),
     ...Object.keys(workPages).map((s) => `/work/${s}`),
     ...blogPosts
       .filter((post) => !post.excludeFromSitemap && post.robotsIndex !== false && !post.redirectUrl)

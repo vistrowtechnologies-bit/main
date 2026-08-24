@@ -4,8 +4,34 @@ import { socialProfiles } from "@/lib/social-links";
 
 export type JsonLdValue = Record<string, unknown>;
 
+export const businessPhone = "+91 8080197945";
+
+export const businessAddress: JsonLdValue = {
+  "@type": "PostalAddress",
+  addressLocality: "Baner",
+  addressRegion: "Maharashtra",
+  postalCode: "411045",
+  addressCountry: "IN",
+};
+
+export const businessGeo: JsonLdValue = {
+  "@type": "GeoCoordinates",
+  latitude: 18.559,
+  longitude: 73.7868,
+};
+
+// Localities Vistrow actively targets for local search, in addition to Pune city and India-wide reach.
+export const serviceLocalities = [
+  "Pune",
+  "Baner",
+  "Pimpri-Chinchwad",
+  "Hinjewadi",
+  "Wakad",
+  "Kothrud",
+];
+
 export const organizationSchema: JsonLdValue = {
-  "@type": "Organization",
+  "@type": ["Organization", "ProfessionalService"],
   "@id": `${siteUrl}/#organization`,
   name: "Vistrow Technologies",
   alternateName: siteName,
@@ -16,11 +42,15 @@ export const organizationSchema: JsonLdValue = {
     width: 512,
     height: 512,
   },
+  image: `${siteUrl}/icon.png`,
+  telephone: businessPhone,
   email: "hello@vistrow.com",
+  address: businessAddress,
+  geo: businessGeo,
   sameAs: socialProfiles.map((profile) => profile.href),
   description:
     "Vistrow connects digital marketing, CRM, AI voice calling, business automation, and conversion tracking into measurable growth systems.",
-  areaServed: ["India", "Worldwide"],
+  areaServed: [...serviceLocalities, "Maharashtra", "India", "Worldwide"],
   knowsAbout: [
     "Digital marketing",
     "Performance advertising",
@@ -66,6 +96,28 @@ export function faqSchema(items: QA[]): JsonLdValue {
       name: item.q,
       acceptedAnswer: { "@type": "Answer", text: item.a },
     })),
+  };
+}
+
+export function localBusinessSchema(input: {
+  name: string;
+  description: string;
+  path: string;
+  areaServed: string[];
+}): JsonLdValue {
+  return {
+    "@type": "ProfessionalService",
+    "@id": `${siteUrl}${input.path}#localbusiness`,
+    name: input.name,
+    description: input.description,
+    url: `${siteUrl}${input.path}`,
+    telephone: businessPhone,
+    email: "hello@vistrow.com",
+    address: businessAddress,
+    geo: businessGeo,
+    parentOrganization: { "@id": `${siteUrl}/#organization` },
+    areaServed: input.areaServed.map((name) => ({ "@type": "City", name })),
+    priceRange: "₹₹",
   };
 }
 

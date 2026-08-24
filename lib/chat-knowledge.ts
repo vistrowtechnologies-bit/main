@@ -2,15 +2,17 @@ import { digitalMarketingOverview } from "@/content/digital-marketing";
 import { businessAutomationOverview } from "@/content/business-automation";
 import { productsOverview, products } from "@/content/products";
 import { industriesOverview } from "@/content/industries";
+import { locationsOverview } from "@/content/locations";
 import { workOverview } from "@/content/work";
 import { siteName, siteUrl } from "@/lib/seo";
-import { organizationSchema } from "@/lib/structured-data";
+import { businessPhone, organizationSchema } from "@/lib/structured-data";
 
 const overviewGroups = [
   { heading: "DIGITAL MARKETING SERVICES", overview: digitalMarketingOverview },
   { heading: "BUSINESS AUTOMATION SERVICES", overview: businessAutomationOverview },
   { heading: "PRODUCTS", overview: productsOverview },
   { heading: "INDUSTRIES SERVED", overview: industriesOverview },
+  { heading: "LOCATIONS SERVED (PUNE)", overview: locationsOverview },
   { heading: "WORK / PROOF", overview: workOverview },
 ];
 
@@ -34,6 +36,8 @@ export function buildChatKnowledge(): string {
   const areaServed = organizationSchema.areaServed;
   if (Array.isArray(areaServed)) lines.push(`Areas served: ${areaServed.join(", ")}`);
   if (organizationSchema.email) lines.push(`Contact email: ${organizationSchema.email}`);
+  lines.push(`Contact phone / WhatsApp: ${businessPhone}`);
+  lines.push("Based in Baner, Pune, Maharashtra 411045, India.");
   lines.push("");
 
   for (const group of overviewGroups) {

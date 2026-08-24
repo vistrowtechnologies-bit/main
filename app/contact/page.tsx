@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CheckCircle2, Clock3, Globe2, Mail, MessagesSquare, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Clock3, Globe2, Mail, MapPin, MessagesSquare, Phone, ShieldCheck } from "lucide-react";
+import { businessPhone } from "@/lib/structured-data";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -17,6 +18,8 @@ export const metadata: Metadata = buildMetadata({
 
 const details = [
   { icon: Mail, label: "Email", value: "hello@vistrow.com", href: "mailto:hello@vistrow.com" },
+  { icon: Phone, label: "Phone / WhatsApp", value: businessPhone, href: `tel:${businessPhone.replace(/\s+/g, "")}` },
+  { icon: MapPin, label: "Based in", value: "Baner, Pune, Maharashtra 411045" },
   { icon: Clock3, label: "Typical response", value: "Within one business day" },
   { icon: Globe2, label: "Delivery", value: "Remote-first · India and global" },
 ];
