@@ -6,6 +6,7 @@ const categories = [
   "Business Automation",
   "Conversion Tracking",
   "CRM & Automation",
+  "Digital Marketing",
   "Lead Generation",
   "Strategy",
 ];

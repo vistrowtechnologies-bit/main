@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { collectTrendSignals } from "@/lib/blog-automation/trending";
-import { generateDailyPosts, VALID_INTERNAL_LINKS } from "@/lib/blog-automation/generate";
+import { generateDailyPosts, VALID_INTERNAL_LINKS, type ExistingPost } from "@/lib/blog-automation/generate";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
 import { sanityClient } from "@/lib/sanity/client";
 
@@ -28,11 +28,11 @@ export async function GET(request: Request) {
     const signals = await collectTrendSignals();
     log.push(`Collected ${signals.length} trend signals.`);
 
-    const existingTitles = await fetchExistingTitles();
-    log.push(`Loaded ${existingTitles.length} existing post titles for de-duplication.`);
+    const existingPosts = await fetchExistingPosts();
+    log.push(`Loaded ${existingPosts.length} existing posts for de-duplication and category rotation.`);
 
     log.push(`Asking OpenAI to draft ${count} post(s)...`);
-    const posts = await generateDailyPosts({ signals, existingTitles, count });
+    const posts = await generateDailyPosts({ signals, existingPosts, count });
     log.push(`Generated ${posts.length} post(s).`);
 
     const writeClient = getSanityWriteClient();
@@ -91,10 +91,10 @@ export async function GET(request: Request) {
   }
 }
 
-async function fetchExistingTitles(): Promise<string[]> {
+async function fetchExistingPosts(): Promise<ExistingPost[]> {
   try {
-    return await sanityClient.fetch<string[]>(
-      `*[_type == "blogPost"] | order(publishedAt desc)[0...80].title`,
+    return await sanityClient.fetch<ExistingPost[]>(
+      `*[_type == "blogPost"] | order(publishedAt desc)[0...80]{title, category}`,
     );
   } catch {
     return [];

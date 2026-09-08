@@ -9,6 +9,7 @@ import {
   ChartNoAxesCombined,
   Database,
   Lightbulb,
+  Megaphone,
   Search,
   Sparkles,
   Target,
@@ -33,6 +34,7 @@ function CategoryIcon({ category, className = "h-5 w-5" }: { category: string; c
   if (category === "Business Automation") return <Workflow className={className} strokeWidth={1.8} />;
   if (category === "Conversion Tracking") return <ChartNoAxesCombined className={className} strokeWidth={1.8} />;
   if (category === "CRM & Automation") return <Database className={className} strokeWidth={1.8} />;
+  if (category === "Digital Marketing") return <Megaphone className={className} strokeWidth={1.8} />;
   if (category === "Lead Generation") return <Target className={className} strokeWidth={1.8} />;
   return <Lightbulb className={className} strokeWidth={1.8} />;
 }

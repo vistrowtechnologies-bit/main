@@ -1,5 +1,5 @@
 export type TrendSignal = {
-  source: "google-news" | "reddit" | "hacker-news" | "product-seo";
+  source: "google-news" | "reddit" | "hacker-news" | "product-seo" | "service-seo";
   title: string;
   url?: string;
 };
@@ -11,9 +11,28 @@ const NEWS_QUERIES = [
   "marketing automation",
   "real estate technology",
   "B2B SaaS growth",
+  "SEO strategy",
+  "performance marketing",
+  "social media marketing trends",
+  "landing page conversion rate",
+  "Google Ads Meta Ads",
+  "website conversion optimisation",
 ];
 
-const REDDIT_SUBS = ["marketing", "PPC", "CRM", "SaaS", "realestateinvesting", "artificial"];
+const REDDIT_SUBS = [
+  "marketing",
+  "PPC",
+  "CRM",
+  "SaaS",
+  "realestateinvesting",
+  "artificial",
+  "SEO",
+  "socialmedia",
+  "digital_marketing",
+  "smallbusiness",
+  "Entrepreneur",
+  "advertising",
+];
 
 async function fetchGoogleNews(query: string): Promise<TrendSignal[]> {
   try {

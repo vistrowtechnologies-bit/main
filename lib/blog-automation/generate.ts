@@ -54,6 +54,7 @@ export const BLOG_CATEGORIES = [
   "Business Automation",
   "Conversion Tracking",
   "CRM & Automation",
+  "Digital Marketing",
   "Lead Generation",
   "Strategy",
 ] as const;
@@ -128,9 +129,38 @@ const PRODUCT_SEED_TOPICS: TrendSignal[] = [
   { source: "product-seo", title: "AI voice agents vs call centres: cost and coverage compared for Indian SMBs" },
 ];
 
+// Evergreen topics aimed at ranking Vistrow's own digital marketing SERVICE
+// pages (not a product) - performance advertising, SEO, social, landing
+// pages, website development, creative strategy, conversion tracking, and
+// marketing automation. This pool exists because without it, the model
+// defaults to CRM/AI-voice product topics almost every time, leaving these
+// services with zero blog coverage despite being core revenue lines.
+const SERVICE_SEED_TOPICS: TrendSignal[] = [
+  { source: "service-seo", title: "Performance advertising ROI: what a healthy cost-per-lead actually looks like" },
+  { source: "service-seo", title: "SEO for local businesses in India: where to start when organic traffic is flat" },
+  { source: "service-seo", title: "Social media marketing for B2B: which platforms actually generate pipeline" },
+  { source: "service-seo", title: "Landing page conversion rate benchmarks: what counts as good in 2026" },
+  { source: "service-seo", title: "Website development for lead generation: what separates a fast site from a converting one" },
+  { source: "service-seo", title: "Marketing automation workflows every growing business should have running" },
+  { source: "service-seo", title: "Conversion tracking setup: why most businesses are flying blind on real ROI" },
+  { source: "service-seo", title: "Creative strategy for paid ads: why the same three creatives stop working" },
+  { source: "service-seo", title: "Performance advertising vs SEO: where to put your first marketing budget" },
+  { source: "service-seo", title: "Google Ads vs Meta Ads for lead generation: how to choose for a local or B2B business" },
+  { source: "service-seo", title: "Marketing automation for small teams: what to automate first" },
+  { source: "service-seo", title: "Landing page vs full website for a paid campaign: which converts better" },
+  { source: "service-seo", title: "SEO content strategy for service businesses: how to actually rank locally" },
+  { source: "service-seo", title: "Digital marketing agency in Pune: what a connected marketing and CRM system looks like" },
+  { source: "service-seo", title: "Conversion rate optimisation: the five checks before you blame your traffic" },
+  { source: "service-seo", title: "Marketing attribution: why last-click reporting is lying to you about what's working" },
+  { source: "service-seo", title: "Website speed and Core Web Vitals: how much they actually affect lead generation" },
+];
+
 const BRAND_PALETTES = `- Default (general Vistrow company post, not centred on a specific product): modern flat illustration with clean geometric shapes, a color palette of carbon black (#0D0D0D), neon lime green (#C6FF00) as an accent, and white/light gray backgrounds.
 - Post centred on Vistrow Voice (AI voice calling product): soft-futurism flat illustration, no gradients, a color palette of Vistrow Violet (#9333EA) as primary, Signal Cyan (#0E7490) as a secondary accent, on a light neutral background (#F4F2F9) with dark text-toned details (#1A1523). Never depict a literal telephone handset, headset, or a generic "AI circuit brain" motif.
-- Post centred on ArthaLeads (real estate CRM product): warm, premium flat illustration, a color palette of warm orange (#FF6B00, gradient #FEAB47 to #FD6007 used sparingly as a single accent only) on a warm beige background (#F0EDE8) with white card-like surfaces. Real-work-context imagery (a person at a desk, a dashboard glimpse) rather than abstract concepts or generic stock-photo clichés.`;
+- Post centred on ArthaLeads (real estate CRM product): warm, premium flat illustration, a color palette of warm orange (#FF6B00, gradient #FEAB47 to #FD6007 used sparingly as a single accent only) on a warm beige background (#F0EDE8) with white card-like surfaces. Real-work-context imagery (a person at a desk, a dashboard glimpse) rather than abstract concepts or generic stock-photo clichés.
+- Post centred on Digital Marketing services (performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation): energetic flat illustration, a color palette of carbon black (#0D0D0D) and neon lime green (#C6FF00) as the primary accent, with a secondary cool blue (#2563EB) used sparingly for a chart, screen, or data element, on a white or very light gray background. Show a concrete campaign/marketing artifact in the scene - an ad mockup, a browser window with a landing page, a bar chart trending up, a social feed - not an abstract "growth" metaphor like rockets or generic arrows.
+
+Within whichever palette applies, never reuse the same scene setup as a previous post - vary the specific role of the person (marketer, founder, developer, analyst), the setting (office, home desk, coworking space, outdoors on a phone), the camera angle, and the specific prop or screen content described, so no two images read as the same template recolored.`;
 
 const responseSchema = {
   name: "vistrow_blog_posts",
@@ -229,33 +259,58 @@ const responseSchema = {
   },
 } as const;
 
+export type ExistingPost = { title: string; category?: string };
+
 export async function generateDailyPosts({
   signals,
-  existingTitles,
+  existingPosts,
   count = 2,
   includeProductSeed = true,
 }: {
   signals: TrendSignal[];
-  existingTitles: string[];
+  existingPosts: ExistingPost[];
   count?: number;
   // Set false to force picks from genuine trend signals only, excluding the
-  // evergreen product-seo seed topics - useful for manually requesting a
-  // "trending news" post rather than a product-ranking one.
+  // evergreen product-seo/service-seo seed topics - useful for manually
+  // requesting a "trending news" post rather than a product/service-ranking one.
   includeProductSeed?: boolean;
 }): Promise<GeneratedPost[]> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
-  const signalsText = [...signals.slice(0, 40), ...(includeProductSeed ? PRODUCT_SEED_TOPICS : [])]
+  const signalsText = [
+    ...signals.slice(0, 40),
+    ...(includeProductSeed ? [...PRODUCT_SEED_TOPICS, ...SERVICE_SEED_TOPICS] : []),
+  ]
     .map((s) => `- [${s.source}] ${s.title}${s.url ? ` - ${s.url}` : ""}`)
     .join("\n");
 
-  const existingText = existingTitles.slice(0, 60).join("\n- ") || "(none yet)";
+  const existingText = existingPosts.slice(0, 60).map((p) => p.title).join("\n- ") || "(none yet)";
+
+  // Real category counts from the most recent posts - this is what actually
+  // breaks the ArthaLeads/AI-voice repetition loop, by telling the model in
+  // hard numbers which categories are starved instead of hoping it notices.
+  const recentWindow = existingPosts.slice(0, 15);
+  const categoryCounts = new Map<string, number>();
+  for (const category of BLOG_CATEGORIES) categoryCounts.set(category, 0);
+  for (const post of recentWindow) {
+    if (post.category) categoryCounts.set(post.category, (categoryCounts.get(post.category) ?? 0) + 1);
+  }
+  const categoryCountsText = [...categoryCounts.entries()]
+    .sort((a, b) => a[1] - b[1])
+    .map(([category, count]) => `${category}: ${count}`)
+    .join(", ");
+  const starvedCategories = [...categoryCounts.entries()]
+    .filter(([, count]) => count === 0)
+    .map(([category]) => category);
+
   const schema = { ...responseSchema, schema: { ...responseSchema.schema, properties: { posts: { ...responseSchema.schema.properties.posts, minItems: count, maxItems: count } } } };
 
   const systemPrompt = `You are a senior writer on Vistrow's own content team, not an outside copywriter. Vistrow is a digital marketing and business automation company (performance advertising, lead generation, website development, CRM, AI voice calling, conversion tracking, marketing automation) serving real estate, local businesses, B2B, startups/SaaS, agencies, and education.
 
-Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic aimed at ranking for a specific product (ArthaLeads or Vistrow Voice) rather than reacting to news. ArthaLeads is the current growth priority: when choosing between product-seo topics, prefer an ArthaLeads one over a Vistrow Voice one unless Vistrow Voice hasn't been covered in a long time relative to ArthaLeads (check the existing post titles below). Everything you pick must genuinely fit one of the 6 blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day.
+Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic (ranking ArthaLeads or Vistrow Voice) or a [service-seo] evergreen topic (ranking one of Vistrow's own digital marketing SERVICES - performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation). Everything you pick must genuinely fit one of the ${BLOG_CATEGORIES.length} blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day, and don't pick two [service-seo] topics for the same specific service on the same day.
+
+CATEGORY ROTATION - this is the single most important instruction, more important than any individual signal's relevance. Here is the real count of each category across the last ${recentWindow.length} published posts: ${categoryCountsText}.${starvedCategories.length ? ` The following categories have ZERO posts in that window and are being starved of coverage: ${starvedCategories.join(", ")} - today's picks MUST prioritize these unless there is truly no fitting signal or seed topic for them.` : ""} Never pick a category that already has 3 or more posts in that recent window unless every other option has been genuinely exhausted. Do not default to CRM & Automation or AI Voice out of habit - actively look for a Digital Marketing, Business Automation, Conversion Tracking, Lead Generation, or Strategy angle first when those are underrepresented above.
 
 ARTHALEADS PRODUCT FACTS - use these to write with real specificity instead of generic CRM language, whenever a post touches ArthaLeads: unified lead inbox pulling in Facebook Ads, Google Ads, WhatsApp, website forms, and portals (99acres, Housing.com, MagicBricks); AI lead scoring (0-100) that surfaces a "Hot Today" call list; AI-drafted personalised WhatsApp messages; a unique QR code per project for site hoardings/brochures/expo stalls; telecaller workflow with remarks, follow-up scheduling and call outcomes; automatic duplicate-lead detection across phone number formats; a Kanban lead pipeline (New, Contacted, Site Visit, Booked, Closed); booking-to-invoice conversion with auto GST calculation; an admin intelligence dashboard (stale-lead alerts, revenue forecast, agent clock-in status); role-based access for Admin/Manager/Agent; and Starter/Growth/Enterprise pricing tiers. Never invent a stat (like a specific customer count or uptime percentage) that isn't in this list - describe capabilities, not made-up numbers.
 
