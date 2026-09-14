@@ -1,0 +1,30 @@
+{
+  "redirects": [
+    {
+      "source": "/blog/marketing-attribution-that-sales-will-actually-trust",
+      "destination": "/services/analytics-reporting",
+      "permanent": true
+    },
+    {
+      "source": "/blog/when-to-automate-and-when-not-to",
+      "destination": "/services/automation-workflows",
+      "permanent": true
+    },
+    {
+      "source": "/blog/connected-marketing-system-what-it-actually-means",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/why-most-crm-implementations-fail",
+      "destination": "/services/crm-lead-management",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -34,6 +34,7 @@ import {
   X
 } from 'lucide';
 import './styles.css';
+import './redesign.css';
 import { siteConfig } from './site-config.js';
 
 const iconMap = {
@@ -280,23 +281,69 @@ const industries = [
   }
 ];
 
+const locations = [
+  {
+    slug: 'pune',
+    name: 'Pune',
+    title: 'Digital Marketing Agency in Pune',
+    description: 'Vistrow supports Pune businesses with performance marketing, lead generation, CRM setup, automation, AI voice calling, and conversion tracking.',
+    focus: 'Pune-wide growth systems for lead-driven teams'
+  },
+  {
+    slug: 'baner',
+    name: 'Baner',
+    title: 'Digital Marketing Agency in Baner, Pune',
+    description: 'Vistrow is a digital marketing agency in Baner, Pune, offering performance advertising, lead generation, CRM, and AI voice calling for local businesses.',
+    focus: 'Local demand generation and CRM-connected follow-up in Baner'
+  },
+  {
+    slug: 'pimpri-chinchwad',
+    name: 'Pimpri-Chinchwad',
+    title: 'Digital Marketing Agency in Pimpri-Chinchwad',
+    description: 'Vistrow helps Pimpri-Chinchwad businesses connect campaigns, lead capture, CRM workflows, follow-ups, and reporting into one growth system.',
+    focus: 'Performance marketing and lead management for Pimpri-Chinchwad businesses'
+  },
+  {
+    slug: 'hinjewadi',
+    name: 'Hinjewadi',
+    title: 'Digital Marketing Agency in Hinjewadi',
+    description: 'Vistrow supports Hinjewadi companies with digital marketing, SaaS product systems, CRM automation, AI calling, and analytics for measurable growth.',
+    focus: 'Growth systems for technology, SaaS, and service teams in Hinjewadi'
+  },
+  {
+    slug: 'wakad',
+    name: 'Wakad',
+    title: 'Digital Marketing Agency in Wakad',
+    description: 'Vistrow helps Wakad businesses improve lead generation, landing pages, CRM response, AI calling, automation, and conversion visibility.',
+    focus: 'Lead generation and sales follow-up systems for Wakad businesses'
+  },
+  {
+    slug: 'kothrud',
+    name: 'Kothrud',
+    title: 'Digital Marketing Agency in Kothrud',
+    description: 'Vistrow works with Kothrud businesses on performance marketing, local lead generation, CRM setup, automation workflows, and reporting.',
+    focus: 'Local SEO, lead capture, and CRM-connected growth for Kothrud'
+  }
+];
+
 const nav = [
   { label: 'Home', path: '#/' },
   {
     label: 'Services',
     path: '#/services',
-    children: services.map((service) => [service.title, service.summary, `#/services/${service.slug}`])
+    children: services.map((service) => [service.title, service.summary, `#/services/${service.slug}`, service.icon])
   },
   { label: 'Products', path: '#/products' },
   { label: 'Industries', path: '#/industries' },
+  { label: 'Locations', path: '#/locations' },
   {
     label: 'Company',
     path: '#/about',
     children: [
-      ['About Vistrow', 'Our story, mission, and approach to building growth systems.', '#/about'],
-      ['Our Ecosystem', 'Vistrow Growth, Labs, Voice, Flow, and ArthaLeads CRM.', '#/company/ecosystem'],
-      ['Careers', 'Join the team building modern growth systems.', '#/company/careers'],
-      ['FAQs', 'Common questions about Vistrow services, products, and implementation.', '#/resources/faqs']
+      ['About Vistrow', 'Our story, mission, and approach to building growth systems.', '#/about', 'Users'],
+      ['Our Ecosystem', 'Vistrow Growth, Labs, Voice, Flow, and ArthaLeads CRM.', '#/company/ecosystem', 'Network'],
+      ['Careers', 'Join the team building modern growth systems.', '#/company/careers', 'Rocket'],
+      ['FAQs', 'Common questions about Vistrow services, products, and implementation.', '#/resources/faqs', 'MessageSquareText']
     ]
   },
   { label: 'Contact', path: '#/contact' }
@@ -359,6 +406,13 @@ const dashboardStages = [
 const resources = [
   ['FAQs', 'Common questions about Vistrow services, products, and implementation.']
 ];
+
+const legacyRedirects = {
+  '/blog/marketing-attribution-that-sales-will-actually-trust': '/services/analytics-reporting',
+  '/blog/when-to-automate-and-when-not-to': '/services/automation-workflows',
+  '/blog/connected-marketing-system-what-it-actually-means': '/',
+  '/blog/why-most-crm-implementations-fail': '/services/crm-lead-management'
+};
 
 const digitalMarketingSteps = [
   ['Audit', 'Review current lead sources, ad accounts, landing pages, tracking setup, CRM usage, and sales follow-up gaps.'],
@@ -570,6 +624,99 @@ function icon(name, size = 22) {
   return renderSvg(Icon, size);
 }
 
+function normalizeRoutePath(value = '/') {
+  const [pathOnly] = String(value).split(/[?#]/);
+  const clean = `/${pathOnly.replace(/^#?\//, '').replace(/^#/, '').replace(/^\/+/, '')}`;
+  return clean === '//' ? '/' : clean.replace(/\/+$/, '') || '/';
+}
+
+function currentRoutePath() {
+  const hashRoute = window.location.hash.replace(/^#/, '');
+  if (hashRoute) return normalizeRoutePath(hashRoute);
+  return normalizeRoutePath(window.location.pathname);
+}
+
+function canonicalUrl(path = currentRoutePath()) {
+  const cleanPath = normalizeRoutePath(path);
+  return `${siteConfig.siteUrl}${cleanPath === '/' ? '/' : cleanPath}`;
+}
+
+function ensureMetaTag(selector, createTag) {
+  let tag = document.querySelector(selector);
+  if (!tag) {
+    tag = createTag();
+    document.head.appendChild(tag);
+  }
+  return tag;
+}
+
+function setStructuredData(entries = []) {
+  const existing = document.querySelector('script[data-vistrow-structured-data]');
+  existing?.remove();
+
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.dataset.vistrowStructuredData = 'true';
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': entries
+  });
+  document.head.appendChild(script);
+}
+
+function baseStructuredData() {
+  const route = currentRoutePath();
+  const pageUrl = canonicalUrl(route);
+  const organizationId = `${siteConfig.siteUrl}/#organization`;
+
+  return [
+    {
+      '@type': 'Organization',
+      '@id': organizationId,
+      name: 'Vistrow Technologies',
+      url: `${siteConfig.siteUrl}/`,
+      email: siteConfig.contactEmail || undefined,
+      telephone: siteConfig.phoneNumber || undefined,
+      sameAs: []
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteConfig.siteUrl}/#website`,
+      url: `${siteConfig.siteUrl}/`,
+      name: 'Vistrow Technologies',
+      publisher: { '@id': organizationId }
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: document.title,
+      description: document.querySelector('meta[name="description"]')?.getAttribute('content') || '',
+      isPartOf: { '@id': `${siteConfig.siteUrl}/#website` },
+      about: { '@id': organizationId }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: route.split('/').filter(Boolean).reduce((items, part, index, parts) => {
+        const path = `/${parts.slice(0, index + 1).join('/')}`;
+        items.push({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: part.replace(/-/g, ' '),
+          item: canonicalUrl(path)
+        });
+        return items;
+      }, [{
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `${siteConfig.siteUrl}/`
+      }]).map((item, index) => ({ ...item, position: index + 1 }))
+    }
+  ];
+}
+
 function renderSvg(definition, size = 22) {
   const [, attrs, children] = definition;
   const attrText = {
@@ -596,6 +743,27 @@ function renderSvg(definition, size = 22) {
 function setMeta(title, description) {
   document.title = title;
   document.querySelector('meta[name="description"]').setAttribute('content', description);
+  ensureMetaTag('link[rel="canonical"]', () => {
+    const tag = document.createElement('link');
+    tag.setAttribute('rel', 'canonical');
+    return tag;
+  }).setAttribute('href', canonicalUrl());
+
+  [
+    ['property', 'og:title', title],
+    ['property', 'og:description', description],
+    ['property', 'og:url', canonicalUrl()],
+    ['property', 'og:type', 'website'],
+    ['name', 'twitter:card', 'summary_large_image'],
+    ['name', 'twitter:title', title],
+    ['name', 'twitter:description', description]
+  ].forEach(([attribute, name, content]) => {
+    ensureMetaTag(`meta[${attribute}="${name}"]`, () => {
+      const tag = document.createElement('meta');
+      tag.setAttribute(attribute, name);
+      return tag;
+    }).setAttribute('content', content);
+  });
 }
 
 function floatingContactButtons() {
@@ -625,7 +793,7 @@ function shell(content) {
         <span class="brand-mark"><span></span></span>
         <span><strong class="wordmark">Vistrow</strong><small>AI, SaaS & Growth Systems</small></span>
       </a>
-      <button class="nav-toggle" aria-label="Open navigation">${renderSvg(Menu, 22)}</button>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">${renderSvg(Menu, 22)}</button>
       <nav class="nav">
         ${nav.map((item) => navItem(item)).join('')}
         <button class="theme-toggle nav-theme-toggle theme-switcher" aria-label="Toggle theme" type="button">
@@ -651,6 +819,9 @@ function navItem(item) {
     return `<a class="nav-link" href="${item.path}">${item.label}</a>`;
   }
 
+  const overviewIcon = item.label === 'Services' ? 'Layers3' : 'Building2';
+  const destinationLabel = item.label === 'Services' ? 'Choose a service' : 'Explore Vistrow';
+
   return `
     <div class="nav-item">
       <button class="nav-trigger" type="button" aria-expanded="false">
@@ -658,17 +829,34 @@ function navItem(item) {
         ${renderSvg(ChevronDown, 15)}
       </button>
       <div class="submenu" aria-label="${item.label} submenu">
-        <a class="submenu-overview" href="${item.path}">
-          <strong>${item.label} Overview</strong>
-          <span>View the complete ${item.label.toLowerCase()} section</span>
-        </a>
-        <div class="submenu-grid">
-          ${item.children.map(([title, text, path]) => `
-            <a class="submenu-link" href="${path}">
-              <strong>${title}</strong>
-              <span>${text}</span>
-            </a>
-          `).join('')}
+        <div class="submenu-panel">
+          <a class="submenu-overview" href="${item.path}">
+            <span class="submenu-overview-icon">${icon(overviewIcon)}</span>
+            <span class="submenu-overview-copy">
+              <small>${item.label}</small>
+              <strong>View all ${item.label.toLowerCase()}</strong>
+              <span>See the complete ${item.label.toLowerCase()} overview and find the right path forward.</span>
+            </span>
+            <span class="submenu-overview-action">Open overview ${renderSvg(ArrowRight, 16)}</span>
+          </a>
+          <div class="submenu-content">
+            <div class="submenu-heading">
+              <strong>${destinationLabel}</strong>
+              <small>${item.children.length} destinations</small>
+            </div>
+            <div class="submenu-grid">
+              ${item.children.map(([title, text, path, itemIcon]) => `
+                <a class="submenu-link" href="${path}">
+                  <span class="submenu-link-icon">${icon(itemIcon || 'ArrowRight')}</span>
+                  <span class="submenu-link-copy">
+                    <strong>${title}</strong>
+                    <span>${text}</span>
+                  </span>
+                  ${renderSvg(ArrowRight, 15)}
+                </a>
+              `).join('')}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -724,6 +912,10 @@ const heroSceneLabels = {
   globe: [
     ['Industries served', '5+'],
     ['Coverage', 'growing']
+  ],
+  core: [
+    ['Connected layers', '5'],
+    ['Growth system', 'active']
   ]
 };
 
@@ -782,27 +974,46 @@ function home() {
     'Vistrow builds intelligent growth systems through digital marketing, CRM, AI calling, SaaS products, automation workflows, and analytics for modern businesses.'
   );
   return shell(`
-    <section class="hero section-pad">
+    <section class="hero hero-home section-pad">
       <div class="hero-copy">
-        <p class="eyebrow">AI • SaaS • CRM • Automation • Growth Systems</p>
-        <h1>Build your business growth system with Vistrow.</h1>
-        <p class="lede">Vistrow connects digital marketing, CRM, AI calling, SaaS products, and automation workflows into one intelligent system that helps businesses capture, manage, and convert more opportunities.</p>
+        <p class="eyebrow">The Growth Operating System</p>
+        <h1>One growth system. Every lead connected.</h1>
+        <p class="lede">Vistrow unifies campaigns, CRM, AI calling, automation, and analytics so opportunities move from first click to conversion without falling between tools.</p>
         <div class="cta-row">
-          <a class="btn primary" href="#/audit">Book a Growth Audit ${renderSvg(ArrowRight, 18)}</a>
-          <a class="btn secondary" href="#/products">Explore Ecosystem</a>
+          <a class="btn primary" href="#/audit">Map my growth system ${renderSvg(ArrowRight, 18)}</a>
+          <a class="btn secondary" href="#/company/ecosystem">Explore the ecosystem</a>
         </div>
-        <p class="trust">Built for modern businesses that want more than marketing. They want a complete growth system.</p>
+        <div class="hero-capabilities" aria-label="Connected Vistrow capabilities">
+          <span>Demand</span><span>CRM</span><span>AI voice</span><span>Automation</span><span>Intelligence</span>
+        </div>
       </div>
-      ${heroDashboard()}
+      ${hero3dStage('core')}
     </section>
+    <div class="system-rail" aria-label="Vistrow growth system flow">
+      <span>01 Attract</span><i></i><span>02 Capture</span><i></i><span>03 Qualify</span><i></i><span>04 Convert</span><i></i><span>05 Scale</span>
+    </div>
     <section class="problem band">
-      <div class="section-head">
-        <p class="eyebrow">The Problem</p>
-        <h2>Marketing alone is not enough anymore.</h2>
-        <p>Most businesses generate leads but lose opportunities because their systems are disconnected. Ads run separately, CRM is not updated, follow-ups are missed, and reports do not show the full picture.</p>
-      </div>
-      <div class="point-grid">
-        ${['Leads come from many channels', 'Follow-ups happen manually', 'Sales teams lose track of conversations', 'Campaign performance is not connected to revenue', 'Marketing spend leaks without a conversion system'].map((point) => `<div class="point">${renderSvg(Check, 18)}<span>${point}</span></div>`).join('')}
+      <div class="problem-layout">
+        <div class="section-head">
+          <p class="eyebrow">The Problem</p>
+          <h2>Leads get lost between disconnected tools.</h2>
+          <p>Generating attention is only the first step. Growth slows when campaigns, conversations, follow-ups, and reporting operate as separate systems.</p>
+        </div>
+        <div class="problem-signals">
+          ${[
+            ['Leads arrive from disconnected channels', 'Fragmented'],
+            ['Follow-ups depend on manual reminders', 'Delayed'],
+            ['Sales conversations lose clear ownership', 'Untracked'],
+            ['Campaign data stops before revenue', 'Invisible'],
+            ['Marketing spend leaks without feedback', 'Unmeasured']
+          ].map(([point, status], index) => `
+            <div class="problem-signal">
+              <span class="problem-number">${String(index + 1).padStart(2, '0')}</span>
+              <strong>${point}</strong>
+              <span class="problem-status"><i></i>${status}</span>
+            </div>
+          `).join('')}
+        </div>
       </div>
     </section>
     ${servicesSection()}
@@ -825,25 +1036,33 @@ function ecosystemSection() {
         </div>
         <p>Vistrow brings marketing, SaaS, AI calling, CRM, and automation into one structured growth system.</p>
       </div>
-      <div class="ecosystem-map">
-        ${ecosystem.map((item, index) => `
-          <button class="eco-card ${index % 2 === 0 ? 'featured' : ''} ${index === 0 ? 'active' : ''}" type="button" data-ecosystem-index="${index}">
-            <span class="icon-badge">${icon(item.icon)}</span>
-            <h3>${item.title}</h3>
-            <p>${item.text}</p>
-          </button>
-        `).join('')}
-      </div>
-      <div class="ecosystem-detail" aria-live="polite">
-        <span class="icon-badge" data-eco-icon>${icon(ecosystem[0].icon)}</span>
-        <div>
-          <p class="eyebrow">Selected System</p>
-          <h3 data-eco-title>${ecosystem[0].title}</h3>
-          <p data-eco-text>${ecosystem[0].text}</p>
+      <div class="ecosystem-selector">
+        <div class="ecosystem-map">
+          ${ecosystem.map((item, index) => `
+            <button class="eco-card ${index === 0 ? 'active' : ''}" type="button" data-ecosystem-index="${index}" aria-pressed="${index === 0}">
+              <span class="eco-card-top">
+                <span class="icon-badge">${icon(item.icon)}</span>
+                <small>${String(index + 1).padStart(2, '0')}</small>
+              </span>
+              <span class="eco-card-copy">
+                <strong>${item.title}</strong>
+                <span>${item.text}</span>
+              </span>
+              <span class="eco-card-action">View system ${renderSvg(ArrowRight, 16)}</span>
+            </button>
+          `).join('')}
         </div>
-        <div class="detail-stat">
-          <small data-eco-signal>${ecosystem[0].signal}</small>
-          <strong data-eco-stat>${ecosystem[0].stat}</strong>
+        <div class="ecosystem-detail" aria-live="polite">
+          <span class="icon-badge" data-eco-icon>${icon(ecosystem[0].icon)}</span>
+          <div class="ecosystem-detail-copy">
+            <p class="eyebrow">Selected System</p>
+            <h3 data-eco-title>${ecosystem[0].title}</h3>
+            <p data-eco-text>${ecosystem[0].text}</p>
+          </div>
+          <div class="detail-stat">
+            <small data-eco-signal>${ecosystem[0].signal}</small>
+            <strong data-eco-stat>${ecosystem[0].stat}</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -860,12 +1079,14 @@ function servicesSection() {
         </div>
         <a class="text-link" href="#/services">View all services ${renderSvg(ArrowRight, 17)}</a>
       </div>
-      <div class="service-grid">
-        ${services.map((service) => `
-          <a class="service-card" href="#/services/${service.slug}">
-            <span class="icon-badge">${icon(service.icon)}</span>
+      <div class="services-editorial">
+        ${services.map((service, index) => `
+          <a class="service-row" href="#/services/${service.slug}">
+            <span class="service-number">${String(index + 1).padStart(2, '0')}</span>
+            <span class="service-icon">${icon(service.icon, 24)}</span>
             <h3>${service.title}</h3>
             <p>${service.summary}</p>
+            <span class="service-arrow" aria-hidden="true">${renderSvg(ArrowRight, 19)}</span>
           </a>
         `).join('')}
       </div>
@@ -876,22 +1097,33 @@ function servicesSection() {
 function processSection() {
   return `
     <section class="section-pad process-section">
-      <div class="section-head">
-        <p class="eyebrow">Growth Process</p>
-        <h2>From attention to revenue, one connected system.</h2>
+      <div class="process-head">
+        <div class="section-head">
+          <p class="eyebrow">Growth Process</p>
+          <h2>One connected path from attention to revenue.</h2>
+        </div>
+        <p class="process-intro">Select a stage to see how demand, conversations, workflows, and revenue stay connected inside the Vistrow system.</p>
       </div>
-      <div class="process-line">
-        ${process.map((step, index) => `
-          <button class="process-step ${index === 0 ? 'active' : ''}" type="button" data-process-index="${index}">
-            <span>${index + 1}</span>
-            <strong>${step}</strong>
-            <p>${processCopy(step)}</p>
-          </button>
-        `).join('')}
-      </div>
-      <div class="process-detail" aria-live="polite">
-        <strong data-process-title>Attract</strong>
-        <p data-process-copy>${processCopy('Attract')}</p>
+      <div class="process-console">
+        <div class="process-line" aria-label="Growth process stages">
+          ${process.map((step, index) => `
+            <button class="process-step ${index === 0 ? 'active' : ''}" type="button" data-process-index="${index}" aria-pressed="${index === 0 ? 'true' : 'false'}">
+              <span>${String(index + 1).padStart(2, '0')}</span>
+              <strong>${step}</strong>
+            </button>
+          `).join('')}
+        </div>
+        <div class="process-detail" aria-live="polite">
+          <span class="process-detail-index" data-process-number>01</span>
+          <div class="process-detail-copy">
+            <span class="process-state"><i></i>Active stage</span>
+            <strong data-process-title>Attract</strong>
+            <p data-process-copy>${processCopy('Attract')}</p>
+          </div>
+          <div class="process-route" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
       </div>
     </section>
   `;
@@ -1450,6 +1682,89 @@ function industriesPage() {
   `);
 }
 
+function locationsPage(slug) {
+  const selected = locations.find((location) => location.slug === slug);
+
+  if (selected) {
+    setMeta(`${selected.title} | Vistrow`, selected.description);
+    return shell(`
+      <section class="page-hero has-3d">
+        <div class="page-hero-copy">
+          <p class="eyebrow">Location</p>
+          <h1>${selected.title}</h1>
+          <p>${selected.description}</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#/audit">Book a Growth Audit ${renderSvg(ArrowRight, 18)}</a>
+            <a class="btn secondary" href="#/services/digital-marketing">Explore digital marketing</a>
+          </div>
+        </div>
+        ${hero3dStage('globe')}
+      </section>
+      <section class="section-pad two-col">
+        <div>
+          <p class="eyebrow">${selected.name} Growth Systems</p>
+          <h2>${selected.focus}.</h2>
+          <p>Vistrow connects digital marketing, landing pages, CRM, AI voice calling, automation, and analytics so local enquiries move into a managed follow-up system instead of staying scattered across tools.</p>
+        </div>
+        <div class="check-grid">
+          ${[
+            'Performance advertising and lead generation',
+            'Landing pages and enquiry capture',
+            'CRM and lead management setup',
+            'AI voice calling and fast follow-up',
+            'Automation workflows for reminders and routing',
+            'Conversion tracking and reporting'
+          ].map((item) => `<div class="point">${renderSvg(Check, 18)}<span>${item}</span></div>`).join('')}
+        </div>
+      </section>
+      <section class="section-pad">
+        <div class="section-head split">
+          <div>
+            <p class="eyebrow">Answer Engine Summary</p>
+            <h2>What Vistrow offers in ${selected.name}.</h2>
+          </div>
+          <p>Vistrow provides digital marketing, CRM implementation, AI calling, automation, and analytics for businesses in ${selected.name} that depend on qualified leads and fast follow-up.</p>
+        </div>
+        <div class="service-grid">
+          ${services.slice(0, 6).map((service) => `
+            <a class="service-card" href="#/services/${service.slug}">
+              <span class="icon-badge">${icon(service.icon)}</span>
+              <h3>${service.title}</h3>
+              <p>${service.summary}</p>
+            </a>
+          `).join('')}
+        </div>
+      </section>
+      ${auditCta()}
+    `);
+  }
+
+  setMeta('Digital Marketing Agency in Pune Locations | Vistrow', 'Explore Vistrow digital marketing, CRM, automation, AI voice calling, and growth systems across Pune service areas.');
+  return shell(`
+    <section class="page-hero has-3d">
+      <div class="page-hero-copy">
+        <p class="eyebrow">Locations</p>
+        <h1>Growth systems for Pune businesses.</h1>
+        <p>Vistrow serves businesses across Pune with performance marketing, CRM setup, AI calling, automation, and reporting systems.</p>
+        <a class="btn primary" href="#/audit">Book a Growth Audit ${renderSvg(ArrowRight, 18)}</a>
+      </div>
+      ${hero3dStage('globe')}
+    </section>
+    <section class="section-pad">
+      <div class="service-grid">
+        ${locations.map((location) => `
+          <a class="service-card" href="#/locations/${location.slug}">
+            <span class="icon-badge">${icon('Route')}</span>
+            <h3>${location.name}</h3>
+            <p>${location.description}</p>
+          </a>
+        `).join('')}
+      </div>
+    </section>
+    ${auditCta()}
+  `);
+}
+
 function aboutPage() {
   setMeta('About Vistrow Technologies | Growth Systems Company', 'Vistrow Technologies helps businesses move from scattered marketing to connected growth infrastructure.');
   return shell(`
@@ -1507,7 +1822,9 @@ function contactPage(isAudit = false) {
       </div>
     </section>
     <section class="section-pad contact-layout">
-      <form class="contact-form">
+      <form class="contact-form" data-form-type="${isAudit ? 'growth_audit' : 'contact'}">
+        <input type="hidden" name="page_path" value="${currentRoutePath()}" />
+        <input type="hidden" name="page_location" value="${canonicalUrl()}" />
         <label>Name<input name="name" autocomplete="name" required /></label>
         <label>Company Name<input name="company" autocomplete="organization" /></label>
         <label>Email<input type="email" name="email" autocomplete="email" required /></label>
@@ -1764,6 +2081,7 @@ function footer() {
   const groups = [
     ['Services', services.map((service) => [service.title.replace(' & Performance Ads', ''), `#/services/${service.slug}`])],
     ['Products', [['ArthaLeads CRM', '#/products/arthaleads-crm'], ['All Products', '#/products']]],
+    ['Locations', locations.map((location) => [location.name, `#/locations/${location.slug}`])],
     ['Company', [
       ['About Vistrow', '#/about'],
       ['Our Ecosystem', '#/company/ecosystem'],
@@ -1793,6 +2111,7 @@ function footer() {
 }
 
 function notFound() {
+  setMeta('Page Not Found | Vistrow Technologies', 'This Vistrow page is not part of the current site map.');
   return shell(`
     <section class="page-hero">
       <p class="eyebrow">404</p>
@@ -1803,8 +2122,110 @@ function notFound() {
   `);
 }
 
+function applyLegacyRedirect() {
+  const pathTarget = legacyRedirects[normalizeRoutePath(window.location.pathname)];
+  const hashTarget = legacyRedirects[normalizeRoutePath(window.location.hash.replace(/^#/, ''))];
+  const target = pathTarget || hashTarget;
+  if (!target) return false;
+
+  window.history.replaceState(null, '', `${window.location.origin}/#${target}`);
+  return true;
+}
+
+function routeStructuredData(base, detail) {
+  const graph = baseStructuredData();
+  const organizationRef = { '@id': `${siteConfig.siteUrl}/#organization` };
+
+  if (!base) {
+    graph.push({
+      '@type': 'ItemList',
+      '@id': `${canonicalUrl('/')}#services`,
+      name: 'Vistrow growth system services',
+      itemListElement: services.map((service, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: canonicalUrl(`/services/${service.slug}`),
+        name: service.title
+      }))
+    });
+  }
+
+  if (base === 'services' && detail) {
+    const service = services.find((item) => item.slug === detail);
+    if (service) {
+      graph.push({
+        '@type': 'Service',
+        '@id': `${canonicalUrl(`/services/${service.slug}`)}#service`,
+        name: service.title,
+        description: service.summary,
+        provider: organizationRef,
+        areaServed: ['India', 'Pune', 'Baner', 'Pimpri-Chinchwad', 'Hinjewadi', 'Wakad', 'Kothrud'],
+        serviceType: service.title
+      });
+    }
+  }
+
+  if (base === 'locations') {
+    const location = locations.find((item) => item.slug === detail);
+    if (location) {
+      graph.push({
+        '@type': 'LocalBusiness',
+        '@id': `${canonicalUrl(`/locations/${location.slug}`)}#localbusiness`,
+        name: `Vistrow Technologies - ${location.name}`,
+        url: canonicalUrl(`/locations/${location.slug}`),
+        email: siteConfig.contactEmail || undefined,
+        telephone: siteConfig.phoneNumber || undefined,
+        areaServed: location.name,
+        parentOrganization: organizationRef,
+        description: location.description
+      });
+      graph.push({
+        '@type': 'Service',
+        '@id': `${canonicalUrl(`/locations/${location.slug}`)}#growth-service`,
+        name: location.title,
+        description: location.description,
+        provider: organizationRef,
+        areaServed: location.name,
+        serviceType: 'Digital marketing, CRM, AI voice calling, automation, and analytics'
+      });
+    }
+  }
+
+  if (base === 'resources' && detail === 'faqs') {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${canonicalUrl('/resources/faqs')}#faq`,
+      mainEntity: faqEntries.map(([question, answer]) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: answer
+        }
+      }))
+    });
+  }
+
+  if (base === 'contact' || base === 'audit') {
+    graph.push({
+      '@type': 'ContactPage',
+      '@id': `${canonicalUrl(currentRoutePath())}#contact`,
+      url: canonicalUrl(currentRoutePath()),
+      name: base === 'audit' ? 'Book a Vistrow Growth Audit' : 'Contact Vistrow Technologies',
+      about: organizationRef
+    });
+  }
+
+  setStructuredData(graph);
+}
+
 function render() {
-  const route = window.location.hash.replace(/^#/, '') || '/';
+  if (applyLegacyRedirect()) {
+    render();
+    return;
+  }
+
+  const route = currentRoutePath();
   const [base, detail] = route.split('/').filter(Boolean);
   let html;
 
@@ -1812,6 +2233,7 @@ function render() {
   else if (base === 'services') html = servicesPage(detail);
   else if (base === 'products') html = productsPage(detail);
   else if (base === 'industries') html = industriesPage();
+  else if (base === 'locations') html = locationsPage(detail);
   else if (base === 'about') html = aboutPage();
   else if (base === 'company') html = companyPage(detail);
   else if (base === 'contact') html = contactPage();
@@ -1825,6 +2247,7 @@ function render() {
   window.__vistrowHero3DCleanup?.();
   window.__vistrowHero3DCleanup = null;
   document.querySelector('#app').innerHTML = html;
+  routeStructuredData(base, detail);
   bindInteractions();
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
@@ -1835,12 +2258,23 @@ async function handleContactSubmit(event) {
   const note = form.querySelector('.form-note');
   const button = form.querySelector('button[type="submit"]');
   const originalLabel = button.innerHTML;
+  const formType = form.dataset.formType || 'contact';
+  const serviceInterest = form.elements.service?.value || 'Not selected';
+
+  trackEvent('form_submit_attempt', {
+    form_type: formType,
+    service_interest: serviceInterest
+  });
 
   if (!siteConfig.formspreeEndpoint) {
     note.textContent = siteConfig.contactEmail
       ? `This form isn't connected yet — please email us directly at ${siteConfig.contactEmail}.`
       : "This form isn't connected yet. Please try again soon.";
     note.dataset.state = 'error';
+    trackEvent('form_submit_error', {
+      form_type: formType,
+      error_type: 'missing_endpoint'
+    });
     return;
   }
 
@@ -1860,12 +2294,25 @@ async function handleContactSubmit(event) {
 
     note.textContent = 'Thanks — your message has been sent. Our team will get back to you shortly.';
     note.dataset.state = 'success';
+    trackEvent('form_submit', {
+      form_type: formType,
+      service_interest: serviceInterest
+    });
+    trackEvent('generate_lead', {
+      form_type: formType,
+      method: 'formspree',
+      service_interest: serviceInterest
+    });
     form.reset();
   } catch (error) {
     note.textContent = siteConfig.contactEmail
       ? `Something went wrong. Please email us directly at ${siteConfig.contactEmail}.`
       : 'Something went wrong. Please try again in a moment.';
     note.dataset.state = 'error';
+    trackEvent('form_submit_error', {
+      form_type: formType,
+      error_type: 'submission_failed'
+    });
   } finally {
     button.disabled = false;
     button.innerHTML = originalLabel;
@@ -1877,6 +2324,10 @@ function bindInteractions() {
   const header = document.querySelector('.site-header');
   navToggle?.addEventListener('click', () => {
     header.classList.toggle('open');
+    const isOpen = header.classList.contains('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    navToggle.innerHTML = renderSvg(isOpen ? X : Menu, 22);
     header.scrollLeft = 0;
   });
 
@@ -1920,6 +2371,9 @@ function bindInteractions() {
   document.querySelectorAll('.nav a, .footer-col a, .brand, .header-cta').forEach((link) => {
     link.addEventListener('click', () => {
       header?.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+      navToggle?.setAttribute('aria-label', 'Open navigation');
+      if (navToggle) navToggle.innerHTML = renderSvg(Menu, 22);
       document.querySelectorAll('.nav-item.open').forEach((item) => {
         item.classList.remove('open');
         item.querySelector('.nav-trigger')?.setAttribute('aria-expanded', 'false');
@@ -1928,6 +2382,19 @@ function bindInteractions() {
   });
 
   document.querySelector('.contact-form')?.addEventListener('submit', handleContactSubmit);
+  document.querySelectorAll('.contact-form').forEach((form) => {
+    const trackStart = () => {
+      if (form.dataset.started) return;
+      form.dataset.started = 'true';
+      trackEvent('form_start', {
+        form_type: form.dataset.formType || 'contact'
+      });
+    };
+    form.addEventListener('focusin', trackStart, { once: true });
+    form.addEventListener('change', trackStart, { once: true });
+  });
+
+  bindAnalyticsClicks();
 
   document.querySelectorAll('[data-scroll-target]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -1936,7 +2403,8 @@ function bindInteractions() {
   });
 
   document.querySelectorAll('.nav a').forEach((link) => {
-    if (link.getAttribute('href') === window.location.hash || (window.location.hash === '' && link.getAttribute('href') === '#/')) {
+    const hrefPath = normalizeRoutePath(link.getAttribute('href')?.replace(/^#/, '') || '/');
+    if (hrefPath === currentRoutePath()) {
       link.setAttribute('aria-current', 'page');
     }
   });
@@ -1946,6 +2414,55 @@ function bindInteractions() {
   bindParticleScene();
   bindHero3D();
   bindHomepageInteractions();
+}
+
+function bindAnalyticsClicks() {
+  document.querySelectorAll('a[href], button[data-scroll-target]').forEach((element) => {
+    element.addEventListener('click', () => {
+      const href = element.getAttribute('href') || '';
+      const label = element.textContent.replace(/\s+/g, ' ').trim().slice(0, 80);
+
+      if (href.startsWith('tel:')) {
+        trackEvent('phone_click', { link_text: label || 'Phone' });
+        return;
+      }
+
+      if (href.startsWith('mailto:')) {
+        trackEvent('email_click', { link_text: label || 'Email' });
+        return;
+      }
+
+      if (href.includes('wa.me')) {
+        trackEvent('whatsapp_click', { link_text: label || 'WhatsApp' });
+        return;
+      }
+
+      if (href.includes('#/audit') || /audit/i.test(label)) {
+        trackEvent('cta_click', {
+          cta_type: 'growth_audit',
+          link_text: label,
+          destination: '/audit'
+        });
+        return;
+      }
+
+      if (href.includes('#/contact') || /contact|demo|apply|inquiry/i.test(label)) {
+        trackEvent('cta_click', {
+          cta_type: 'contact',
+          link_text: label,
+          destination: '/contact'
+        });
+        return;
+      }
+
+      if (href.includes('#/services/')) {
+        trackEvent('service_navigation', {
+          link_text: label,
+          destination: normalizeRoutePath(href.replace(/^#/, ''))
+        });
+      }
+    });
+  });
 }
 
 function bindHero3D() {
@@ -2210,8 +2727,11 @@ function bindHomepageInteractions() {
     card.addEventListener('click', () => {
       const item = ecosystem[Number(card.dataset.ecosystemIndex)];
       if (!item) return;
-      document.querySelectorAll('.eco-card').forEach((other) => other.classList.remove('active'));
-      card.classList.add('active');
+      document.querySelectorAll('.eco-card').forEach((other) => {
+        const isActive = other === card;
+        other.classList.toggle('active', isActive);
+        other.setAttribute('aria-pressed', String(isActive));
+      });
       document.querySelector('[data-eco-icon]').innerHTML = icon(item.icon);
       document.querySelector('[data-eco-title]').textContent = item.title;
       document.querySelector('[data-eco-text]').textContent = item.text;
@@ -2222,12 +2742,18 @@ function bindHomepageInteractions() {
 
   document.querySelectorAll('.process-step').forEach((step) => {
     step.addEventListener('click', () => {
-      const title = process[Number(step.dataset.processIndex)];
+      const selectedIndex = Number(step.dataset.processIndex);
+      const title = process[selectedIndex];
       if (!title) return;
-      document.querySelectorAll('.process-step').forEach((other) => other.classList.remove('active'));
+      document.querySelectorAll('.process-step').forEach((other) => {
+        const isActive = other === step;
+        other.classList.toggle('active', isActive);
+        other.setAttribute('aria-pressed', String(isActive));
+      });
       step.classList.add('active');
       document.querySelector('[data-process-title]').textContent = title;
       document.querySelector('[data-process-copy]').textContent = processCopy(title);
+      document.querySelector('[data-process-number]').textContent = String(selectedIndex + 1).padStart(2, '0');
     });
   });
 
@@ -2283,14 +2809,26 @@ function initAnalytics() {
   }
   window.gtag = gtag;
   gtag('js', new Date());
-  gtag('config', siteConfig.gaMeasurementId);
+  gtag('config', siteConfig.gaMeasurementId, {
+    send_page_view: false
+  });
 }
 
 function trackPageView() {
   if (!siteConfig.gaMeasurementId || !window.gtag) return;
   window.gtag('event', 'page_view', {
-    page_path: window.location.hash.replace(/^#/, '') || '/',
+    page_path: currentRoutePath(),
+    page_location: canonicalUrl(),
     page_title: document.title
+  });
+}
+
+function trackEvent(eventName, params = {}) {
+  if (!siteConfig.gaMeasurementId || !window.gtag) return;
+  window.gtag('event', eventName, {
+    page_path: currentRoutePath(),
+    page_location: canonicalUrl(),
+    ...params
   });
 }
 

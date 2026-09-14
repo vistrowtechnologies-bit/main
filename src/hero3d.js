@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 const palettes = {
-  light: { primary: 0x0077b6, secondary: 0x00b4d8, accent: 0x03045e, soft: 0x0096c7, glow: 0x2fd8ff },
-  dark: { primary: 0x00b4d8, secondary: 0x90e0ef, accent: 0x48cae4, soft: 0x0096c7, glow: 0x7ee9ff }
+  light: { primary: 0x0077b6, secondary: 0x00b4d8, accent: 0x03045e, soft: 0x90e0ef, glow: 0x2fd8ff },
+  dark: { primary: 0x00b4d8, secondary: 0x90e0ef, accent: 0xcaf0f8, soft: 0x0077b6, glow: 0x7ee9ff }
 };
 
 function currentTheme() {
@@ -483,6 +483,94 @@ function buildGlobe(mats) {
   };
 }
 
+/* Vistrow growth core: five connected systems orbiting one operating layer. */
+function buildCore(mats) {
+  const group = new THREE.Group();
+  const core = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.02, 2),
+    fillMat(mats, 'accent', 0.82)
+  );
+  const coreWire = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.18, 1)),
+    lineMat(mats, 'primary', 0.72)
+  );
+  core.add(coreWire);
+  attachGlow(mats, core, 'glow', 2.6);
+  group.add(core);
+
+  const orbitData = [
+    { radius: 1.75, tilt: [1.08, 0.1, 0.28], role: 'primary', speed: 0.34 },
+    { radius: 2.28, tilt: [0.38, 0.72, -0.22], role: 'secondary', speed: -0.22 },
+    { radius: 2.82, tilt: [0.76, -0.42, 0.52], role: 'soft', speed: 0.16 }
+  ];
+  const orbits = orbitData.map((orbit, orbitIndex) => {
+    const pivot = new THREE.Group();
+    pivot.rotation.set(...orbit.tilt);
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(orbit.radius, 0.015, 8, 120),
+      fillMat(mats, orbit.role, 0.72)
+    );
+    pivot.add(ring);
+
+    const nodeCount = orbitIndex === 1 ? 2 : 1;
+    const nodes = [];
+    for (let i = 0; i < nodeCount; i += 1) {
+      const holder = new THREE.Group();
+      holder.rotation.z = (Math.PI * 2 * i) / nodeCount;
+      const node = new THREE.Mesh(
+        new THREE.SphereGeometry(0.12 + orbitIndex * 0.025, 20, 20),
+        fillMat(mats, orbit.role, 0.96)
+      );
+      node.position.x = orbit.radius;
+      attachGlow(mats, node, orbit.role, 0.72);
+      holder.add(node);
+      pivot.add(holder);
+      nodes.push(holder);
+    }
+    group.add(pivot);
+    return { pivot, nodes, speed: orbit.speed };
+  });
+
+  const particles = [];
+  for (let i = 0; i < 28; i += 1) {
+    const point = new THREE.Mesh(
+      new THREE.SphereGeometry(0.025 + (i % 4) * 0.008, 8, 8),
+      fillMat(mats, i % 5 === 0 ? 'secondary' : 'primary', 0.8)
+    );
+    const angle = (i / 28) * Math.PI * 2;
+    const radius = 1.35 + (i % 7) * 0.26;
+    point.userData = { angle, radius, y: Math.sin(i * 1.7) * 1.35, speed: 0.1 + (i % 5) * 0.018 };
+    group.add(point);
+    particles.push(point);
+  }
+
+  return {
+    group,
+    update(t) {
+      core.rotation.x = t * 0.13;
+      core.rotation.y = t * 0.24;
+      core.scale.setScalar(1 + Math.sin(t * 1.2) * 0.025);
+      orbits.forEach(({ pivot, nodes, speed }, index) => {
+        pivot.rotation.z += speed * 0.012;
+        nodes.forEach((node, nodeIndex) => {
+          node.rotation.z = t * speed + nodeIndex * Math.PI;
+        });
+        pivot.position.y = Math.sin(t * 0.45 + index) * 0.04;
+      });
+      particles.forEach((point) => {
+        const data = point.userData;
+        const angle = data.angle + t * data.speed;
+        point.position.set(
+          Math.cos(angle) * data.radius,
+          data.y + Math.sin(t * 0.7 + data.angle) * 0.1,
+          Math.sin(angle) * data.radius
+        );
+      });
+      group.rotation.y = Math.sin(t * 0.14) * 0.18;
+    }
+  };
+}
+
 const builders = {
   funnel: buildFunnel,
   stack: buildStack,
@@ -493,7 +581,8 @@ const builders = {
   orbit: buildOrbit,
   modules: buildModules,
   kanban: buildKanban,
-  globe: buildGlobe
+  globe: buildGlobe,
+  core: buildCore
 };
 
 export function mountHero3D(canvas, variant) {
