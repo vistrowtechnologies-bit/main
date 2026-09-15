@@ -200,7 +200,7 @@ const responseSchema = {
             imageBrief: {
               type: "string",
               description:
-                "1-2 sentences describing exactly what featured image to find or create for this post (subject, mood, setting) - written for a human to go source or generate the image from.",
+                "1-2 sentences describing the real, specific artifact the featured image centres on (a named UI element, chart, or object - see the VISUAL REFERENCE BANK below), not a person at a screen - written for a human to go source or generate the image from.",
             },
             imageGenerationPrompt: {
               type: "string",
@@ -382,14 +382,26 @@ SEO REQUIREMENTS - these are checked by an automated scorer with hard pass/fail 
 3. The article body (all paragraphs across all sections, combined) must be at least 320 words. Headings and "points" don't count toward this - the paragraphs alone must reach it.
 4. The exact focusKeyword phrase MUST appear literally, word for word, at least once in the body paragraphs (not just in the title/meta fields) - zero mentions in the body always fails, this is never optional. Be sparing about how many more: for a 3-4 word keyword, exactly ONE mention total in the body is correct - do not add a second. For a 2-word keyword, 2-3 mentions total in the body is fine. The density formula is (mentions x keyword-word-count x 100 / total-body-words) and it must land between 0.5% and 2.5%.
 
-IMAGE PROMPT FORMAT - imageGenerationPrompt must be one long, detailed, paste-ready prompt for ChatGPT/DALL-E, written as flowing sentences (not labelled fields), covering every point below in order:
-1. Subject and scene, concrete and specific to this exact post - name the person's role and what they're doing, and the setting (e.g. "a real estate broker in a bright open-plan office, mid-conversation on a headset while glancing at a tablet showing a property lead list" - never a vague "business concept" or "technology concept" image).
+IMAGE PROMPT FORMAT - imageGenerationPrompt must be one long, detailed, paste-ready prompt for ChatGPT/DALL-E that someone will actually run to generate the image, written as flowing sentences (not labelled fields), covering every point below in order:
+
+1. Subject and scene - THIS IS THE PART THAT KEEPS COLLAPSING TO THE SAME IMAGE, SO READ CAREFULLY. Banned as the subject, in any phrasing: a person standing or sitting at a laptop/screen/dashboard in an office (with or without charts visible). That composition has been used for almost every recent post regardless of topic and must not be the default again. Instead, ground the scene in a REAL, SPECIFIC ARTIFACT belonging to the exact subject of this post - describe an actual interface, document, or physical object precisely enough that it reads as authentic, not a generic "tech concept": a specific table with specific column headers, a specific kanban board with its actual named columns, a specific chart shape and what its axes represent, a specific physical object (a printed ad proof, a QR code sign, a stack of business cards, a phone showing a WhatsApp thread) - see the VISUAL REFERENCE BANK below for the exact real details to draw from for this topic's category. A person can still appear, but only as a secondary element glancing at or holding the real artifact - the artifact itself is the subject, not the person.
 2. Visual style: "modern flat vector illustration with clean geometric shapes and simple gradients" by default - switch to a photorealistic editorial-photo style only if the topic is genuinely better served by a real-feeling scene.
 3. Color palette - choose ONE of these based on what the post is actually about, and use the wording given almost verbatim:
 ${BRAND_PALETTES}
 4. Lighting and mood: describe it in one clause (e.g. "soft, even daylight, calm and focused mood" or "warm interior lighting, energetic and optimistic mood") - match the mood to the post's argument.
-5. Composition: wide 16:9 landscape framing, subject placed slightly off-center with breathing room, no crowded detail.
+5. Composition: wide 16:9 landscape framing, the artifact placed slightly off-center with breathing room, no crowded detail.
 6. End the prompt with exactly this sentence, unchanged: "16:9 aspect ratio. No text, no words, no letters, no logos, no brand marks, no watermarks anywhere in the image."
+
+VISUAL REFERENCE BANK - real, specific, recognizable details to build the scene from, by topic area (never invent a trademarked logo or exact brand color scheme - describe the generic shape of the real thing, the way any stock illustration of "a CRM" or "an ad dashboard" does, without reproducing an actual company's exact UI):
+- Performance advertising / Google Ads / Meta Ads: a campaign table with columns like Campaign, Spend, CPC, Conversions; a funnel shape narrowing from Impressions to Clicks to Leads; a cost-per-lead line trending down; a split-screen of two ad platforms' distinct layouts (one card-based, one table-based) side by side.
+- SEO / content: a keyword ranking table with position numbers and up/down arrows; a backlink network shown as connected nodes; a search results page mockup with generic ranked listings (no real brand names); a content calendar grid.
+- Social media marketing: a content calendar grid with post thumbnails and scheduled times; a set of platform-shaped post cards (square, vertical, and landscape framing side by side) with engagement icons (heart, comment, share) but no real logos; an audience growth line chart.
+- Landing pages / website development / conversion tracking: a browser window mockup showing a landing page layout (headline block, a form, a CTA button) with a cursor mid-click; an A/B split of two page layouts side by side; a funnel chart from Visits to Form Starts to Submissions; a page-speed gauge/meter.
+- Marketing automation / creative strategy: a flowchart of connected boxes representing a workflow (Trigger, Wait, Send, Branch); a set of ad creative thumbnails laid out like a mood board; a WhatsApp-style chat bubble sequence showing an automated message thread (generic app, no real logo).
+- CRM & Automation / ArthaLeads: a kanban board with the real named columns New, Contacted, Site Visit, Booked, Closed; a lead scoring badge (a 0-100 dial or gauge) beside a contact card; a unified inbox with message rows from different generic channel icons; a QR code on a printed property hoarding.
+- AI Voice / Vistrow Voice: a soundwave or waveform pattern mid-conversation; a call log list with duration and outcome tags; a multilingual chat bubble pair showing two different scripts side by side (e.g. Latin and Devanagari shapes, without real words); never a literal phone handset, headset close-up, or a glowing circuit-board "AI brain" cliché.
+- Business Automation / Lead Generation general: a pipeline/funnel diagram with named stages; a form with visible field rows and a submit button; a notification/alert card stack; a spreadsheet-to-workflow arrow showing rows being converted into automated cards.
+- Strategy / general company posts: a roadmap or timeline with milestone markers; a magnifying glass over a data table; a before/after split of a messy funnel versus a connected one, shown as two contrasting diagrams rather than two people.
 
 TRENDING SIGNALS (raw, unfiltered - use judgement):
 ${signalsText}
