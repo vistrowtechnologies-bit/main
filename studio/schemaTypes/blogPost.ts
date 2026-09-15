@@ -86,6 +86,23 @@ export const blogPost = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "useRealProductScreenshot",
+      title: "Use a real product screenshot",
+      description: "On for posts specifically about ArthaLeads or Vistrow Voice as a product - use an actual screenshot of the real UI instead of an AI illustration. See Screenshot Guidance below for exactly what to capture.",
+      type: "boolean",
+      initialValue: false,
+      group: "content",
+    }),
+    defineField({
+      name: "screenshotGuidance",
+      title: "Screenshot Guidance",
+      description: "Only relevant when 'Use a real product screenshot' is on: exactly which real screen/feature to capture.",
+      type: "text",
+      rows: 2,
+      group: "content",
+      hidden: ({ document }) => !document?.useRealProductScreenshot,
+    }),
+    defineField({
       name: "imageBrief",
       title: "Image Brief",
       description: "What to find or create an image of for this post. Editorial note only - not shown on the site.",
@@ -96,7 +113,7 @@ export const blogPost = defineType({
     defineField({
       name: "imageGenerationPrompt",
       title: "AI Image Generation Prompt",
-      description: "Ready to paste into ChatGPT/DALL-E. 16:9 aspect ratio, on-brand colors and style baked in.",
+      description: "Ready to paste into ChatGPT/DALL-E. 16:9 aspect ratio, on-brand colors and style baked in. Fallback only when 'Use a real product screenshot' is on.",
       type: "text",
       rows: 5,
       group: "content",

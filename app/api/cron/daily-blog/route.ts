@@ -51,6 +51,8 @@ export async function GET(request: Request) {
         author: "Vistrow Team",
         publishedAt: new Date().toISOString().slice(0, 10),
         readTime: post.readTime,
+        useRealProductScreenshot: post.useRealProductScreenshot,
+        screenshotGuidance: post.screenshotGuidance,
         imageBrief: post.imageBrief,
         imageGenerationPrompt: post.imageGenerationPrompt,
         imageAltSuggestion: post.imageAltSuggestion,

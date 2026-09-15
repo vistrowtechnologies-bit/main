@@ -70,6 +70,8 @@ export type GeneratedPost = {
   metaTitle: string;
   metaDescription: string;
   readTime: string;
+  useRealProductScreenshot: boolean;
+  screenshotGuidance: string;
   imageBrief: string;
   imageGenerationPrompt: string;
   imageAltSuggestion: string;
@@ -197,6 +199,16 @@ const responseSchema = {
               description: "MUST be 120-160 characters (count them) and must literally contain the exact focusKeyword phrase. Written to earn the click from a search results page.",
             },
             readTime: { type: "string", description: "e.g. '6 min read'." },
+            useRealProductScreenshot: {
+              type: "boolean",
+              description:
+                "True only when this post is specifically ABOUT ArthaLeads or Vistrow Voice as a product (a review, comparison, feature walkthrough, or pricing post centred on it) - not merely mentioning it as one option among several. See REAL PRODUCT SCREENSHOTS below.",
+            },
+            screenshotGuidance: {
+              type: "string",
+              description:
+                "When useRealProductScreenshot is true: name the exact real screen/feature to screenshot, drawn from the product facts below (e.g. 'the kanban lead pipeline with columns New, Contacted, Site Visit, Booked, Closed'). When false, an empty string.",
+            },
             imageBrief: {
               type: "string",
               description:
@@ -245,6 +257,8 @@ const responseSchema = {
             "metaTitle",
             "metaDescription",
             "readTime",
+            "useRealProductScreenshot",
+            "screenshotGuidance",
             "imageBrief",
             "imageGenerationPrompt",
             "imageAltSuggestion",
@@ -382,6 +396,10 @@ SIGNAL RELIABILITY - not all sources below are equally trustworthy for "will som
 CATEGORY ROTATION - this is the single most important instruction, more important than any individual signal's relevance. Here is the real count of each category across the last ${recentWindow.length} published posts: ${categoryCountsText}.${starvedCategories.length ? ` The following categories have ZERO posts in that window and are being starved of coverage: ${starvedCategories.join(", ")} - today's picks MUST prioritize these unless there is truly no fitting signal or seed topic for them.` : ""} Never pick a category that already has 3 or more posts in that recent window unless every other option has been genuinely exhausted. Do not default to CRM & Automation or AI Voice out of habit - actively look for a Digital Marketing, Business Automation, Conversion Tracking, Lead Generation, or Strategy angle first when those are underrepresented above.
 
 ARTHALEADS PRODUCT FACTS - use these to write with real specificity instead of generic CRM language, whenever a post touches ArthaLeads: unified lead inbox pulling in Facebook Ads, Google Ads, WhatsApp, website forms, and portals (99acres, Housing.com, MagicBricks); AI lead scoring (0-100) that surfaces a "Hot Today" call list; AI-drafted personalised WhatsApp messages; a unique QR code per project for site hoardings/brochures/expo stalls; telecaller workflow with remarks, follow-up scheduling and call outcomes; automatic duplicate-lead detection across phone number formats; a Kanban lead pipeline (New, Contacted, Site Visit, Booked, Closed); booking-to-invoice conversion with auto GST calculation; an admin intelligence dashboard (stale-lead alerts, revenue forecast, agent clock-in status); role-based access for Admin/Manager/Agent; and Starter/Growth/Enterprise pricing tiers. Never invent a stat (like a specific customer count or uptime percentage) that isn't in this list - describe capabilities, not made-up numbers.
+
+VISTROW VOICE PRODUCT FACTS - use these with the same real specificity whenever a post touches Vistrow Voice: inbound call handling that answers, qualifies, and routes or books the next step; outbound campaigns for reminders, follow-ups, and collections at scale; a website voice widget so visitors talk to the agent in-browser without sharing a phone number; conversation in 10 Indian languages including Hindi and Hinglish; low-latency, emotion-aware real-time conversation; a knowledge base grounded in uploaded PDFs/documents (retrieval-based, answers stay anchored to what's uploaded); a no-code agent builder for persona, prompts, voice, language, and business rules; CRM webhooks pushing leads, outcomes, and transcripts downstream; controlled escalation rules for when to route, book, or hand off to a human; and observable call history, analytics, and transcripts. Never invent a stat that isn't in this list.
+
+REAL PRODUCT SCREENSHOTS vs AI ILLUSTRATIONS - set useRealProductScreenshot to true only when this post is specifically ABOUT ArthaLeads or Vistrow Voice as a product (a review, comparison, feature walkthrough, or pricing post centred on it), not merely mentioning the product as one option in passing. When true: write screenshotGuidance naming the exact real screen or feature to capture, drawn directly from the product facts above (e.g. "the kanban lead pipeline with columns New, Contacted, Site Visit, Booked, Closed" or "the no-code agent builder's persona and language configuration screen") - specific enough that someone can go open the real product and screenshot exactly that, not a vague "the dashboard". Still fill imageGenerationPrompt with a short fallback illustration prompt (following the IMAGE PROMPT FORMAT below) in case no screenshot is available, but screenshotGuidance is the primary instruction in that case. For every other post - general marketing, SEO, CRM, or AI-voice advice not centred on a specific Vistrow product - set useRealProductScreenshot to false, leave screenshotGuidance as an empty string, and rely on the full illustration prompt as usual.
 
 Do not repeat a topic close to an existing post title (listed below) - pick something genuinely new.
 
