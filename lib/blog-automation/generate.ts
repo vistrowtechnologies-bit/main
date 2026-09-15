@@ -295,6 +295,30 @@ function dropCoveredSeeds(seeds: TrendSignal[], existingTitles: string[]): Trend
   return seeds.filter((seed) => !existingTitles.some((title) => overlapRatio(seed.title, title) >= 0.6));
 }
 
+// Hard gate on the model's actual output, not just the seed list - catches a
+// live signal (e.g. a Google Autocomplete suggestion) landing on a topic
+// that's already been published, which the seed filter above can't see
+// since it only filters the static PRODUCT_SEED_TOPICS/SERVICE_SEED_TOPICS.
+function duplicateIssues(posts: GeneratedPost[], existingTitles: string[]): string[] {
+  const issues: string[] = [];
+  for (const post of posts) {
+    const match = existingTitles.find((title) => overlapRatio(post.title, title) >= 0.6);
+    if (match) {
+      issues.push(
+        `"${post.title}": this is too close to an already-published post ("${match}") - pick a genuinely different topic and focusKeyword, not a reworded version of the same idea.`,
+      );
+    }
+  }
+  for (let i = 0; i < posts.length; i++) {
+    for (let j = i + 1; j < posts.length; j++) {
+      if (overlapRatio(posts[i].title, posts[j].title) >= 0.6) {
+        issues.push(`"${posts[i].title}" and "${posts[j].title}" are too similar to each other - make them genuinely different topics.`);
+      }
+    }
+  }
+  return issues;
+}
+
 export async function generateDailyPosts({
   signals,
   existingPosts,
@@ -313,9 +337,14 @@ export async function generateDailyPosts({
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
   const existingTitleList = existingPosts.map((p) => p.title);
+  // Filter live signals too, not just the static seed pools - a Google
+  // Autocomplete suggestion or Reddit thread can independently land on a
+  // topic that's already been published, and offering it at all makes the
+  // model gravitate back to it even after being told to pick something else.
+  const freshSignals = dropCoveredSeeds(signals, existingTitleList);
   const freshSeeds = dropCoveredSeeds([...PRODUCT_SEED_TOPICS, ...SERVICE_SEED_TOPICS], existingTitleList);
 
-  const signalsText = [...signals.slice(0, 40), ...(includeProductSeed ? freshSeeds : [])]
+  const signalsText = [...freshSignals.slice(0, 40), ...(includeProductSeed ? freshSeeds : [])]
     .map((s) => `- [${s.source}] ${s.title}${s.url ? ` - ${s.url}` : ""}`)
     .join("\n");
 
@@ -446,23 +475,26 @@ EXISTING POST TITLES (avoid duplicating):
       post.sections.every((section) => !BULLET_DASH_TEST.test(section.paragraphs.join("\n"))),
     );
     const seoProblems = parsed.posts.flatMap(seoIssues);
+    const duplicateProblems = duplicateIssues(parsed.posts, existingTitleList);
 
-    if ((allHaveLinks && noBakedLists && seoProblems.length === 0) || attempt === 3) return parsed.posts;
+    if ((allHaveLinks && noBakedLists && seoProblems.length === 0 && duplicateProblems.length === 0) || attempt === 3) return parsed.posts;
 
     const problems = [
       !allHaveLinks && "At least one post has zero [text](url) Markdown links in its paragraphs.",
       !noBakedLists && "At least one paragraph contains a bullet list written as dashes/lines instead of using the \"points\" array.",
       ...seoProblems,
+      ...duplicateProblems,
     ]
       .filter(Boolean)
       .join(" ");
 
+    const rewriteInstruction = duplicateProblems.length > 0
+      ? `${problems} For any post flagged as a duplicate, pick a completely different topic and focusKeyword from the signals/seeds above - do not just reword the same idea. Fix every other issue listed too. Re-check character counts and word counts yourself before answering. Return the full JSON again.`
+      : `${problems} Rewrite ALL posts, keeping the same topics, fixing every issue listed above exactly. Re-check character counts and word counts yourself before answering. Return the full JSON again.`;
+
     messages.push(
       { role: "assistant", content: raw },
-      {
-        role: "user",
-        content: `${problems} Rewrite ALL posts, keeping the same topics, fixing every issue listed above exactly. Re-check character counts and word counts yourself before answering. Return the full JSON again.`,
-      },
+      { role: "user", content: rewriteInstruction },
     );
   }
 
