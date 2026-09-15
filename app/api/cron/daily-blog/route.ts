@@ -1,11 +1,16 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { collectTrendSignals } from "@/lib/blog-automation/trending";
-import { generateDailyPosts, VALID_INTERNAL_LINKS, type ExistingPost } from "@/lib/blog-automation/generate";
+import { generateDailyPosts, VALID_INTERNAL_LINKS, type ExistingPost, type GeneratedPost } from "@/lib/blog-automation/generate";
+import { generateBlogImage } from "@/lib/blog-automation/image";
+import { findScreenshotTarget, captureRealScreenshot } from "@/lib/blog-automation/screenshot";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
+import type { SanityClient } from "@sanity/client";
 
 export const runtime = "nodejs";
-export const maxDuration = 120;
+// Real-screenshot capture (headless Chromium) adds real latency on top of
+// text + illustration generation, so this needs more headroom than before.
+export const maxDuration = 240;
 
 const STUDIO_URL = "https://vistrow.sanity.studio";
 const MARKDOWN_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -40,6 +45,7 @@ export async function GET(request: Request) {
     for (const post of posts) {
       const docId = `drafts.${randomUUID()}`;
       const slug = slugify(post.title);
+      const featuredImage = await resolveFeaturedImage(post, writeClient, log);
 
       await writeClient.create({
         _id: docId,
@@ -56,6 +62,7 @@ export async function GET(request: Request) {
         imageBrief: post.imageBrief,
         imageGenerationPrompt: post.imageGenerationPrompt,
         imageAltSuggestion: post.imageAltSuggestion,
+        ...(featuredImage ? { featuredImage } : {}),
         sections: post.sections.map((section, index) => ({
           _key: randomUUID(),
           _type: "blogSection",
@@ -116,6 +123,61 @@ async function fetchExistingPosts(): Promise<ExistingPost[]> {
     return [...seen.values()].slice(0, 80);
   } catch {
     return [];
+  }
+}
+
+// Attempts to get a real featured image for the post - either a real
+// screenshot of a known public product page, or an OpenAI-generated
+// illustration - and uploads it to Sanity. Returns undefined (never throws)
+// on any failure, so a post is never lost just because its image couldn't
+// be produced; someone can add it manually later, same as before this existed.
+async function resolveFeaturedImage(
+  post: GeneratedPost,
+  writeClient: SanityClient,
+  log: string[],
+): Promise<Record<string, unknown> | undefined> {
+  try {
+    if (post.useRealProductScreenshot) {
+      const target = findScreenshotTarget(post.screenshotGuidance, post.focusKeyword);
+      if (!target) {
+        log.push(`"${post.title}": needs a real product screenshot but no known public page matched - add one manually.`);
+        return undefined;
+      }
+      const captured = await captureRealScreenshot(target);
+      if (!captured) {
+        log.push(`"${post.title}": real screenshot capture failed - add one manually.`);
+        return undefined;
+      }
+      const asset = await writeClient.assets.upload("image", captured.buffer, {
+        filename: `${Date.now()}.png`,
+        contentType: captured.contentType,
+      });
+      log.push(`"${post.title}": attached a real screenshot of ${target.url}.`);
+      return {
+        _type: "image",
+        asset: { _type: "reference", _ref: asset._id },
+        alt: post.imageAltSuggestion || target.altFallback,
+      };
+    }
+
+    const generated = await generateBlogImage(post.imageGenerationPrompt);
+    if (!generated) {
+      log.push(`"${post.title}": AI image generation failed - add a featured image manually.`);
+      return undefined;
+    }
+    const asset = await writeClient.assets.upload("image", generated.buffer, {
+      filename: `${Date.now()}.png`,
+      contentType: generated.contentType,
+    });
+    log.push(`"${post.title}": generated and attached an AI illustration.`);
+    return {
+      _type: "image",
+      asset: { _type: "reference", _ref: asset._id },
+      alt: post.imageAltSuggestion,
+    };
+  } catch (error) {
+    log.push(`"${post.title}": image step errored (${String(error)}) - add a featured image manually.`);
+    return undefined;
   }
 }
 
