@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { collectTrendSignals } from "@/lib/blog-automation/trending";
 import { generateDailyPosts, VALID_INTERNAL_LINKS, type ExistingPost } from "@/lib/blog-automation/generate";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
-import { sanityClient } from "@/lib/sanity/client";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -91,11 +90,28 @@ export async function GET(request: Request) {
   }
 }
 
+// Uses the write client (raw perspective, sees drafts) instead of the
+// public published-only client - a topic that's only ever existed as an
+// unpublished draft was previously invisible here, so the model would
+// happily regenerate a near-duplicate of it every run since nothing had
+// technically been "published" yet. Both a draft and its published sibling
+// share one logical document (ids "drafts.<id>" / "<id>"), so this collapses
+// them to one entry, preferring the draft since it's the latest edit.
 async function fetchExistingPosts(): Promise<ExistingPost[]> {
   try {
-    return await sanityClient.fetch<ExistingPost[]>(
-      `*[_type == "blogPost"] | order(publishedAt desc)[0...80]{title, category}`,
+    const writeClient = getSanityWriteClient();
+    const docs = await writeClient.fetch<{ _id: string; title: string; category?: string }[]>(
+      `*[_type == "blogPost"] | order(publishedAt desc)[0...150]{_id, title, category}`,
     );
+    const seen = new Map<string, ExistingPost>();
+    for (const doc of docs) {
+      if (!doc.title) continue;
+      const baseId = doc._id.startsWith("drafts.") ? doc._id.slice("drafts.".length) : doc._id;
+      if (!seen.has(baseId) || doc._id.startsWith("drafts.")) {
+        seen.set(baseId, { title: doc.title, category: doc.category });
+      }
+    }
+    return [...seen.values()].slice(0, 80);
   } catch {
     return [];
   }
