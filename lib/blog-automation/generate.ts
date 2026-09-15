@@ -261,6 +261,40 @@ const responseSchema = {
 
 export type ExistingPost = { title: string; category?: string };
 
+const STOPWORDS = new Set([
+  "the", "a", "an", "for", "to", "of", "in", "on", "and", "or", "with", "what",
+  "how", "why", "best", "top", "vs", "your", "you", "is", "are", "it", "this",
+  "that", "actually", "real", "india", "indian",
+]);
+
+function significantWords(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, " ")
+      .split(/\s+/)
+      .filter((w) => w.length > 2 && !STOPWORDS.has(w)),
+  );
+}
+
+// A seed topic counts as "already covered" once a published title shares
+// most of its meaningful words - this is what actually stops the model from
+// re-serving the same evergreen idea reworded (e.g. "Marketing automation
+// for small teams" -> "Marketing automation small teams: what to automate
+// first"), which plain exact-title matching never caught.
+function overlapRatio(a: string, b: string): number {
+  const wa = significantWords(a);
+  const wb = significantWords(b);
+  if (wa.size === 0 || wb.size === 0) return 0;
+  let common = 0;
+  for (const w of wa) if (wb.has(w)) common++;
+  return common / Math.min(wa.size, wb.size);
+}
+
+function dropCoveredSeeds(seeds: TrendSignal[], existingTitles: string[]): TrendSignal[] {
+  return seeds.filter((seed) => !existingTitles.some((title) => overlapRatio(seed.title, title) >= 0.6));
+}
+
 export async function generateDailyPosts({
   signals,
   existingPosts,
@@ -278,10 +312,10 @@ export async function generateDailyPosts({
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
 
-  const signalsText = [
-    ...signals.slice(0, 40),
-    ...(includeProductSeed ? [...PRODUCT_SEED_TOPICS, ...SERVICE_SEED_TOPICS] : []),
-  ]
+  const existingTitleList = existingPosts.map((p) => p.title);
+  const freshSeeds = dropCoveredSeeds([...PRODUCT_SEED_TOPICS, ...SERVICE_SEED_TOPICS], existingTitleList);
+
+  const signalsText = [...signals.slice(0, 40), ...(includeProductSeed ? freshSeeds : [])]
     .map((s) => `- [${s.source}] ${s.title}${s.url ? ` - ${s.url}` : ""}`)
     .join("\n");
 
@@ -309,6 +343,12 @@ export async function generateDailyPosts({
   const systemPrompt = `You are a senior writer on Vistrow's own content team, not an outside copywriter. Vistrow is a digital marketing and business automation company (performance advertising, lead generation, website development, CRM, AI voice calling, conversion tracking, marketing automation) serving real estate, local businesses, B2B, startups/SaaS, agencies, and education.
 
 Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic (ranking ArthaLeads or Vistrow Voice) or a [service-seo] evergreen topic (ranking one of Vistrow's own digital marketing SERVICES - performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation). Everything you pick must genuinely fit one of the ${BLOG_CATEGORIES.length} blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day, and don't pick two [service-seo] topics for the same specific service on the same day.
+
+SIGNAL RELIABILITY - not all sources below are equally trustworthy for "will someone actually search this":
+- [google-autocomplete] signals are real, currently-typed Google search queries - this is the strongest evidence of genuine search demand. When one of these fits a category you're targeting, prefer building your focusKeyword and angle around it over inventing one from scratch.
+- [product-seo] and [service-seo] are evergreen topic ideas, not finished headlines. Use one as the SUBJECT to write about, but you MUST invent your own sharp, specific title, metaTitle, and focusKeyword angle - never reuse the seed topic's wording verbatim or as a light rewording (e.g. if the seed says "Marketing automation for small teams: what to automate first", do not publish "Marketing automation small teams: what to automate first" - find a genuinely different concrete angle, number, or tension within that subject instead).
+- [reddit] and [hacker-news] reflect what people are discussing today, not necessarily what they search for later - treat them as a source of a real scenario, quote, or "why now" hook to open the post with, not as the literal topic or keyword unless the discussion clearly maps to a real search phrase.
+- [google-news] is for genuine breaking developments worth reacting to quickly.
 
 CATEGORY ROTATION - this is the single most important instruction, more important than any individual signal's relevance. Here is the real count of each category across the last ${recentWindow.length} published posts: ${categoryCountsText}.${starvedCategories.length ? ` The following categories have ZERO posts in that window and are being starved of coverage: ${starvedCategories.join(", ")} - today's picks MUST prioritize these unless there is truly no fitting signal or seed topic for them.` : ""} Never pick a category that already has 3 or more posts in that recent window unless every other option has been genuinely exhausted. Do not default to CRM & Automation or AI Voice out of habit - actively look for a Digital Marketing, Business Automation, Conversion Tracking, Lead Generation, or Strategy angle first when those are underrepresented above.
 
