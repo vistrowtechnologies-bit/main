@@ -4,7 +4,7 @@ import { socialProfiles } from "@/lib/social-links";
 
 export type JsonLdValue = Record<string, unknown>;
 
-export const businessPhone = "+91 8080197945";
+export const businessPhone = "+91 90670 97779";
 
 export const businessAddress: JsonLdValue = {
   "@type": "PostalAddress",
@@ -45,6 +45,23 @@ export const organizationSchema: JsonLdValue = {
   image: `${siteUrl}/icon.png`,
   telephone: businessPhone,
   email: "hello@vistrow.com",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: businessPhone,
+      email: "hello@vistrow.com",
+      contactType: "customer service",
+      areaServed: ["IN", "Worldwide"],
+      availableLanguage: ["English", "Hindi"],
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: businessPhone,
+      contactType: "sales",
+      areaServed: ["IN", "Worldwide"],
+      availableLanguage: ["English", "Hindi"],
+    },
+  ],
   address: businessAddress,
   geo: businessGeo,
   sameAs: socialProfiles.map((profile) => profile.href),

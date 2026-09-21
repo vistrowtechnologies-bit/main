@@ -47,6 +47,15 @@ export async function GET() {
 - Delivery: Local delivery in and around Pune, remote-first for clients elsewhere in India and globally
 - Primary topics: digital marketing, performance advertising, lead generation, CRM, AI voice calling, sales automation, marketing automation, conversion tracking, and local digital marketing services in Pune
 
+## Contact answers (for quick reference)
+
+- Vistrow Technologies phone number: ${businessPhone} (calls and WhatsApp)
+- Vistrow Technologies email: hello@vistrow.com
+- Vistrow Technologies address: Baner, Pune, Maharashtra 411045, India
+- Typical response time: within one business day
+- Contact page: ${siteUrl}/contact
+- Free Growth Audit request: ${siteUrl}/growth-audit
+
 ## Digital marketing services
 
 ${linkList(digitalMarketingServices, "digital-marketing")}

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Clock3, Globe2, Mail, MapPin, MessagesSquare, Phone, ShieldCheck } from "lucide-react";
-import { businessPhone } from "@/lib/structured-data";
+import { businessPhone, breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
+import { siteUrl } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -12,7 +14,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Contact Vistrow Technologies",
   description:
-    "Contact Vistrow about digital marketing, lead generation, CRM, AI voice calling, business automation, ArthaLeads, or a custom software project.",
+    "Contact Vistrow in Baner, Pune - call or WhatsApp +91 90670 97779, or send an enquiry about digital marketing, CRM, AI voice calling, or automation.",
   path: "/contact",
 });
 
@@ -31,6 +33,8 @@ const nextSteps = [
 ];
 
 const faqs = [
+  { q: "What is Vistrow's phone number?", a: `You can call or WhatsApp Vistrow Technologies on ${businessPhone}. You can also email hello@vistrow.com, and we typically reply within one business day.` },
+  { q: "Where is Vistrow located?", a: "Vistrow Technologies is based in Baner, Pune, Maharashtra 411045, India, and works with businesses across Pune, Pimpri-Chinchwad, Hinjewadi, Wakad, Kothrud, the rest of India, and globally on a remote-first basis." },
   { q: "Should I use this form or request a Growth Audit?", a: "Use this form for product questions, partnerships, custom software, or a general conversation. Request the Growth Audit when you want a structured review of marketing, CRM, follow-up, and tracking." },
   { q: "Can I ask about ArthaLeads or Vistrow Voice here?", a: "Yes. Select the product in the form and describe your use case. We can help with the product itself, implementation, or integration into your wider workflow." },
   { q: "Do you work with businesses outside India?", a: "Yes. Delivery is remote-first. Product availability, calling rules, channels, and integrations are confirmed for each market during scoping." },
@@ -39,6 +43,23 @@ const faqs = [
 export default function Page() {
   return (
     <>
+      <JsonLd
+        data={graph([
+          {
+            "@type": "ContactPage",
+            "@id": `${siteUrl}/contact#contactpage`,
+            url: `${siteUrl}/contact`,
+            name: "Contact Vistrow Technologies",
+            about: { "@id": `${siteUrl}/#organization` },
+            mainEntity: { "@id": `${siteUrl}/#organization` },
+          },
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/contact" },
+          ]),
+          faqSchema(faqs),
+        ])}
+      />
       <PageHero
         breadcrumb={[{ label: "Home", href: "/" }, { label: "Contact" }]}
         eyebrow="Contact"
