@@ -11,9 +11,18 @@ const STUDIO_URL = "https://vistrow.sanity.studio";
 const MARKDOWN_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
 
 export async function GET(request: Request) {
+  const startedAt = new Date();
   const authHeader = request.headers.get("authorization");
   const expected = process.env.CRON_SECRET ? `Bearer ${process.env.CRON_SECRET}` : null;
   if (expected && authHeader !== expected) {
+    // Persisted to Sanity (not just Vercel's own logs) because Hobby-plan log
+    // retention is only 1-12 hours - a run that silently fails every day is
+    // otherwise undiagnosable a day later. Sanity storage has no such limit.
+    await recordCronRun({
+      startedAt,
+      status: "unauthorized",
+      log: [`Rejected: authorization header ${authHeader ? "present but did not match CRON_SECRET" : "missing"}.`],
+    });
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -84,11 +93,43 @@ export async function GET(request: Request) {
 
     log.push(`Created ${created.length} draft document(s) in Sanity - nothing is published.`);
 
+    await recordCronRun({ startedAt, status: "ok", log, postsCreated: created.length });
     return NextResponse.json({ ok: true, created, log });
   } catch (error) {
     log.push(`Error: ${String(error)}`);
     console.error("Daily blog cron failed", error);
+    await recordCronRun({ startedAt, status: "error", log, error: String(error) });
     return NextResponse.json({ ok: false, error: String(error), log }, { status: 500 });
+  }
+}
+
+// Writes a permanent record of this run to Sanity - unlike Vercel's own
+// request logs (1-12 hour retention on Hobby), this survives indefinitely,
+// so a run that silently fails every day for a week is actually diagnosable
+// afterward instead of a dead end. Never throws - a logging failure must
+// never mask or replace the real response to the caller.
+async function recordCronRun(input: {
+  startedAt: Date;
+  status: "ok" | "error" | "unauthorized";
+  log: string[];
+  error?: string;
+  postsCreated?: number;
+}) {
+  try {
+    const writeClient = getSanityWriteClient();
+    await writeClient.create({
+      _id: `cronRun-${input.startedAt.getTime()}-${randomUUID().slice(0, 8)}`,
+      _type: "cronRun",
+      route: "/api/cron/daily-blog",
+      startedAt: input.startedAt.toISOString(),
+      durationMs: Date.now() - input.startedAt.getTime(),
+      status: input.status,
+      postsCreated: input.postsCreated ?? 0,
+      error: input.error,
+      log: input.log,
+    });
+  } catch (loggingError) {
+    console.error("Failed to record cron run", loggingError);
   }
 }
 
