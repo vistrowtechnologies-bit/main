@@ -173,7 +173,7 @@ async function fetchExistingPosts(): Promise<ExistingPost[]> {
   try {
     const writeClient = getSanityWriteClient();
     const docs = await writeClient.fetch<{ _id: string; title: string; category?: string }[]>(
-      `*[_type == "blogPost"] | order(publishedAt desc)[0...150]{_id, title, category}`,
+      `*[_type == "blogPost"] | order(publishedAt desc)[0...600]{_id, title, category}`,
     );
     const seen = new Map<string, ExistingPost>();
     for (const doc of docs) {
@@ -183,7 +183,12 @@ async function fetchExistingPosts(): Promise<ExistingPost[]> {
         seen.set(baseId, { title: doc.title, category: doc.category });
       }
     }
-    return [...seen.values()].slice(0, 80);
+    // No cap here (beyond the 600-doc fetch above): a lower cap previously
+    // pushed older titles out of the de-duplication window as post volume
+    // grew, which is exactly what let evergreen topics like "lead management
+    // software" get regenerated many times - the whole point of this list is
+    // catching that, so trimming it defeats the purpose.
+    return [...seen.values()];
   } catch {
     return [];
   }
