@@ -1,4 +1,4 @@
-export type LeadSource = "contact_form" | "growth_audit_form" | "chat";
+export type LeadSource = "contact_form" | "growth_audit_form" | "us_roofing_form" | "chat";
 
 type GtagCommand = "config" | "consent" | "event" | "js";
 

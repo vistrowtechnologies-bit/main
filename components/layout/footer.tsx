@@ -70,6 +70,7 @@ const columns: FooterColumn[] = [
           { label: "Startups & SaaS", href: "/industries/startups-saas" },
           { label: "Agencies", href: "/industries/agencies" },
           { label: "Education", href: "/industries/education" },
+          { label: "Roofing (US)", href: "/us/roofing" },
         ],
       },
     ],
