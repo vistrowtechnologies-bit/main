@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Clock3, Globe2, Mail, MapPin, MessagesSquare, Phone, ShieldCheck } from "lucide-react";
-import { businessPhone, breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
+import { businessPhone, businessWhatsapp, breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
+import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteUrl } from "@/lib/seo";
 import { PageHero } from "@/components/sections/page-hero";
@@ -19,8 +20,9 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const details = [
+  { icon: WhatsappIcon, label: "WhatsApp", value: businessPhone, href: businessWhatsapp },
+  { icon: Phone, label: "Call", value: businessPhone, href: `tel:${businessPhone.replace(/\s+/g, "")}` },
   { icon: Mail, label: "Email", value: "hello@vistrow.com", href: "mailto:hello@vistrow.com" },
-  { icon: Phone, label: "Phone / WhatsApp", value: businessPhone, href: `tel:${businessPhone.replace(/\s+/g, "")}` },
   { icon: MapPin, label: "Based in", value: "Baner, Pune, Maharashtra 411045" },
   { icon: Clock3, label: "Typical response", value: "Within one business day" },
   { icon: Globe2, label: "Delivery", value: "Remote-first · India and global" },
@@ -33,6 +35,7 @@ const nextSteps = [
 ];
 
 const faqs = [
+  { q: "How do I chat with Vistrow on WhatsApp?", a: `Tap the WhatsApp icon on this page or message ${businessPhone} directly on WhatsApp. We use it for quick questions, sharing a proposal, or following up on an enquiry - the same team that answers email answers WhatsApp.` },
   { q: "What is Vistrow's phone number?", a: `You can call or WhatsApp Vistrow Technologies on ${businessPhone}. You can also email hello@vistrow.com, and we typically reply within one business day.` },
   { q: "Where is Vistrow located?", a: "Vistrow Technologies is based in Baner, Pune, Maharashtra 411045, India, and works with businesses across Pune, Pimpri-Chinchwad, Hinjewadi, Wakad, Kothrud, the rest of India, and globally on a remote-first basis." },
   { q: "Should I use this form or request a Growth Audit?", a: "Use this form for product questions, partnerships, custom software, or a general conversation. Request the Growth Audit when you want a structured review of marketing, CRM, follow-up, and tracking." },
@@ -78,6 +81,15 @@ export default function Page() {
               <p className="mt-3 max-w-md font-sans leading-relaxed text-muted">
                 You do not need a finished brief. Tell us what is happening today, what should happen instead, and any tools already involved.
               </p>
+              <a
+                href={businessWhatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 rounded-sm bg-[#25D366] px-5 py-3 font-sans text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              >
+                <WhatsappIcon className="h-[18px] w-[18px]" />
+                Chat with Vistrow on WhatsApp
+              </a>
               <ul className="mt-8 space-y-5">
                 {details.map((detail) => (
                   <li key={detail.label} className="flex items-center gap-4">

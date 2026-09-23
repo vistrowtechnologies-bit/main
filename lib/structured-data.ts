@@ -5,6 +5,7 @@ import { socialProfiles } from "@/lib/social-links";
 export type JsonLdValue = Record<string, unknown>;
 
 export const businessPhone = "+91 90670 97779";
+export const businessWhatsapp = "https://wa.me/919067097779";
 
 export const businessAddress: JsonLdValue = {
   "@type": "PostalAddress",
@@ -64,7 +65,7 @@ export const organizationSchema: JsonLdValue = {
     {
       "@type": "ContactPoint",
       contactType: "customer service",
-      url: "https://wa.me/919067097779",
+      url: businessWhatsapp,
       areaServed: ["IN", "Worldwide"],
       availableLanguage: ["English", "Hindi"],
     },

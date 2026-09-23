@@ -1,8 +1,13 @@
+// Not imported from lib/structured-data.ts - that module imports
+// socialProfiles from here (for the Organization schema's sameAs list),
+// so importing back from it would create a circular module dependency.
+const WHATSAPP_URL = "https://wa.me/919067097779";
+
 export const socialProfiles = [
   {
     platform: "WhatsApp",
     label: "Chat with Vistrow on WhatsApp",
-    href: "https://wa.me/919067097779",
+    href: WHATSAPP_URL,
   },
   {
     platform: "Instagram",
