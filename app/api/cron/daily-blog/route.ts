@@ -51,6 +51,7 @@ export async function GET(request: Request) {
       await writeCalendarEntries(writeClient, topics);
       queue = await fetchPendingCalendarEntries(writeClient, count);
       log.push(`Queue now has ${queue.length} pending topic(s) available.`);
+      await notifyCalendarRefill(topics, log);
     }
 
     const assigned = queue.slice(0, count);
@@ -255,6 +256,41 @@ async function markCalendarEntryUsed(
       .commit();
   } catch (error) {
     log.push(`Warning: failed to mark calendar entry ${entryId} as used: ${String(error)}`);
+  }
+}
+
+// Emails the team the moment the daily cron auto-refills the content
+// calendar, since that refill already happens without any manual step - the
+// only real gap was visibility into when and with what topics it happened.
+// Reuses the same Resend config as the contact form, so it needs no new
+// environment variables. Never throws - a notification failure must not
+// affect the actual calendar generation or post creation that already succeeded.
+async function notifyCalendarRefill(topics: CalendarTopic[], log: string[]): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_FROM_EMAIL;
+  const to = process.env.CONTACT_TO_EMAIL || "hello@vistrow.com";
+  if (!apiKey || !from) {
+    log.push("Skipped calendar-refill email: RESEND_API_KEY or CONTACT_FROM_EMAIL is not configured.");
+    return;
+  }
+
+  const subject = `Content calendar refreshed - ${topics.length} new topics generated`;
+  const list = topics.map((t, i) => `${i + 1}. [${t.category}] ${t.title}`).join("\n");
+  const text = `The blog content calendar ran low and a new batch was generated automatically.\n\n${list}\n\nView the queue: ${STUDIO_URL}/structure/contentCalendarEntry`;
+  const html = `<p>The blog content calendar ran low and a new batch of ${topics.length} topics was generated automatically.</p><ol>${topics
+    .map((t) => `<li><strong>[${t.category}]</strong> ${t.title}</li>`)
+    .join("")}</ol><p><a href="${STUDIO_URL}/structure/contentCalendarEntry">View the queue in Sanity Studio</a></p>`;
+
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to: [to], subject, text, html }),
+    });
+    if (!response.ok) log.push(`Calendar-refill email failed: ${response.status} ${await response.text()}`);
+    else log.push(`Calendar-refill email sent to ${to}.`);
+  } catch (error) {
+    log.push(`Calendar-refill email failed: ${String(error)}`);
   }
 }
 
