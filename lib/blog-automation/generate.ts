@@ -281,7 +281,7 @@ const STOPWORDS = new Set([
   "that", "actually", "real", "india", "indian",
 ]);
 
-function significantWords(text: string): Set<string> {
+export function significantWords(text: string): Set<string> {
   return new Set(
     text
       .toLowerCase()
@@ -296,7 +296,7 @@ function significantWords(text: string): Set<string> {
 // re-serving the same evergreen idea reworded (e.g. "Marketing automation
 // for small teams" -> "Marketing automation small teams: what to automate
 // first"), which plain exact-title matching never caught.
-function overlapRatio(a: string, b: string): number {
+export function overlapRatio(a: string, b: string): number {
   const wa = significantWords(a);
   const wb = significantWords(b);
   if (wa.size === 0 || wb.size === 0) return 0;
@@ -333,11 +333,19 @@ function duplicateIssues(posts: GeneratedPost[], existingTitles: string[]): stri
   return issues;
 }
 
+export type CalendarTopic = {
+  title: string;
+  category: BlogCategory;
+  focusKeyword: string;
+  angle: string;
+};
+
 export async function generateDailyPosts({
   signals,
   existingPosts,
   count = 2,
   includeProductSeed = true,
+  fixedTopics,
 }: {
   signals: TrendSignal[];
   existingPosts: ExistingPost[];
@@ -346,9 +354,16 @@ export async function generateDailyPosts({
   // evergreen product-seo/service-seo seed topics - useful for manually
   // requesting a "trending news" post rather than a product/service-ranking one.
   includeProductSeed?: boolean;
+  // When provided, the model writes the full post for these exact
+  // pre-assigned topics instead of choosing its own - this is how the daily
+  // cron consumes the 30-day content calendar so topics are decided once, in
+  // one batch, instead of re-decided (and re-collided) every single day.
+  fixedTopics?: CalendarTopic[];
 }): Promise<GeneratedPost[]> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
+
+  count = fixedTopics?.length ?? count;
 
   const existingTitleList = existingPosts.map((p) => p.title);
   // Filter live signals too, not just the static seed pools - a Google
@@ -383,9 +398,10 @@ export async function generateDailyPosts({
 
   const schema = { ...responseSchema, schema: { ...responseSchema.schema, properties: { posts: { ...responseSchema.schema.properties.posts, minItems: count, maxItems: count } } } };
 
-  const systemPrompt = `You are a senior writer on Vistrow's own content team, not an outside copywriter. Vistrow is a digital marketing and business automation company (performance advertising, lead generation, website development, CRM, AI voice calling, conversion tracking, marketing automation) serving real estate, local businesses, B2B, startups/SaaS, agencies, and education.
-
-Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic (ranking ArthaLeads or Vistrow Voice) or a [service-seo] evergreen topic (ranking one of Vistrow's own digital marketing SERVICES - performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation). Everything you pick must genuinely fit one of the ${BLOG_CATEGORIES.length} blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day, and don't pick two [service-seo] topics for the same specific service on the same day.
+  const topicInstruction = fixedTopics
+    ? `You have been assigned the exact ${fixedTopics.length} topic(s) below from Vistrow's pre-planned 30-day content calendar. Do not swap them for a different topic, category, or focusKeyword, and do not invent a new angle - that calendar was already checked against every existing post to guarantee it doesn't repeat anything, so deviating from it is what would reintroduce duplicates. Write the full post for each exactly as assigned, using the given angle as your opening hook or thesis:
+${fixedTopics.map((t, i) => `${i + 1}. Title: "${t.title}" | Category: ${t.category} | focusKeyword: "${t.focusKeyword}" | Angle: ${t.angle}`).join("\n")}`
+    : `Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic (ranking ArthaLeads or Vistrow Voice) or a [service-seo] evergreen topic (ranking one of Vistrow's own digital marketing SERVICES - performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation). Everything you pick must genuinely fit one of the ${BLOG_CATEGORIES.length} blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day, and don't pick two [service-seo] topics for the same specific service on the same day.
 
 SIGNAL RELIABILITY - not all sources below are equally trustworthy for "will someone actually search this":
 - [google-autocomplete] signals are real, currently-typed Google search queries - this is the strongest evidence of genuine search demand. When one of these fits a category you're targeting, prefer building your focusKeyword and angle around it over inventing one from scratch.
@@ -393,7 +409,11 @@ SIGNAL RELIABILITY - not all sources below are equally trustworthy for "will som
 - [reddit] and [hacker-news] reflect what people are discussing today, not necessarily what they search for later - treat them as a source of a real scenario, quote, or "why now" hook to open the post with, not as the literal topic or keyword unless the discussion clearly maps to a real search phrase.
 - [google-news] is for genuine breaking developments worth reacting to quickly.
 
-CATEGORY ROTATION - this is the single most important instruction, more important than any individual signal's relevance. Here is the real count of each category across the last ${recentWindow.length} published posts: ${categoryCountsText}.${starvedCategories.length ? ` The following categories have ZERO posts in that window and are being starved of coverage: ${starvedCategories.join(", ")} - today's picks MUST prioritize these unless there is truly no fitting signal or seed topic for them.` : ""} Never pick a category that already has 3 or more posts in that recent window unless every other option has been genuinely exhausted. Do not default to CRM & Automation or AI Voice out of habit - actively look for a Digital Marketing, Business Automation, Conversion Tracking, Lead Generation, or Strategy angle first when those are underrepresented above.
+CATEGORY ROTATION - this is the single most important instruction, more important than any individual signal's relevance. Here is the real count of each category across the last ${recentWindow.length} published posts: ${categoryCountsText}.${starvedCategories.length ? ` The following categories have ZERO posts in that window and are being starved of coverage: ${starvedCategories.join(", ")} - today's picks MUST prioritize these unless there is truly no fitting signal or seed topic for them.` : ""} Never pick a category that already has 3 or more posts in that recent window unless every other option has been genuinely exhausted. Do not default to CRM & Automation or AI Voice out of habit - actively look for a Digital Marketing, Business Automation, Conversion Tracking, Lead Generation, or Strategy angle first when those are underrepresented above.`;
+
+  const systemPrompt = `You are a senior writer on Vistrow's own content team, not an outside copywriter. Vistrow is a digital marketing and business automation company (performance advertising, lead generation, website development, CRM, AI voice calling, conversion tracking, marketing automation) serving real estate, local businesses, B2B, startups/SaaS, agencies, and education.
+
+${topicInstruction}
 
 ARTHALEADS PRODUCT FACTS - use these to write with real specificity instead of generic CRM language, whenever a post touches ArthaLeads: unified lead inbox pulling in Facebook Ads, Google Ads, WhatsApp, website forms, and portals (99acres, Housing.com, MagicBricks); AI lead scoring (0-100) that surfaces a "Hot Today" call list; AI-drafted personalised WhatsApp messages; a unique QR code per project for site hoardings/brochures/expo stalls; telecaller workflow with remarks, follow-up scheduling and call outcomes; automatic duplicate-lead detection across phone number formats; a Kanban lead pipeline (New, Contacted, Site Visit, Booked, Closed); booking-to-invoice conversion with auto GST calculation; an admin intelligence dashboard (stale-lead alerts, revenue forecast, agent clock-in status); role-based access for Admin/Manager/Agent; and Starter/Growth/Enterprise pricing tiers. Never invent a stat (like a specific customer count or uptime percentage) that isn't in this list - describe capabilities, not made-up numbers.
 
@@ -451,10 +471,7 @@ VISUAL REFERENCE BANK - real, specific, recognizable STRUCTURES to build the sce
 - Business Automation / Lead Generation general: a pipeline/funnel diagram with three or four blank-tagged stages; a form with blank field-row rectangles and a solid CTA button; a stack of notification/alert cards with a colored dot per card; an arrow showing rows of a spreadsheet grid turning into stacked automation cards.
 - Strategy / general company posts: a roadmap or timeline with circular milestone markers; a magnifying glass over a blank-row data table; a before/after split of a tangled arrow-diagram versus a clean connected one, shown as two contrasting diagrams rather than two people.
 
-TRENDING SIGNALS (raw, unfiltered - use judgement):
-${signalsText}
-
-EXISTING POST TITLES (avoid duplicating):
+${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${signalsText}\n\n`}EXISTING POST TITLES (avoid duplicating):
 - ${existingText}`;
 
   const messages: { role: "system" | "user" | "assistant"; content: string }[] = [
