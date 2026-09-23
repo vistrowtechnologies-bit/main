@@ -61,6 +61,13 @@ export const organizationSchema: JsonLdValue = {
       areaServed: ["IN", "Worldwide"],
       availableLanguage: ["English", "Hindi"],
     },
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      url: "https://wa.me/919067097779",
+      areaServed: ["IN", "Worldwide"],
+      availableLanguage: ["English", "Hindi"],
+    },
   ],
   address: businessAddress,
   geo: businessGeo,

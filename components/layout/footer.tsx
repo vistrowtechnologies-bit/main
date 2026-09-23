@@ -6,6 +6,7 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
+import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { Wordmark } from "@/components/ui/wordmark";
 import { socialProfiles } from "@/lib/social-links";
 import { businessPhone, serviceLocalities } from "@/lib/structured-data";
@@ -88,7 +89,7 @@ const legal = [
 ];
 
 export function Footer() {
-  const socialIcons = { Instagram, Facebook, LinkedIn: Linkedin };
+  const socialIcons = { WhatsApp: WhatsappIcon, Instagram, Facebook, LinkedIn: Linkedin };
   const socialLinks = [
     ...socialProfiles.map((profile) => ({
       icon: socialIcons[profile.platform],
