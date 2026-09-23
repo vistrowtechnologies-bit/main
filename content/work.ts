@@ -1,4 +1,4 @@
-import { FileText, Megaphone, AppWindow, LineChart } from "lucide-react";
+import { FileText, Megaphone, AppWindow, LineChart, LayoutGrid } from "lucide-react";
 import type { OverviewContent } from "@/lib/content-types";
 import type { WorkContent } from "@/components/templates/work-page";
 
@@ -17,6 +17,7 @@ export const workOverview: OverviewContent = {
     { label: "Campaign Blueprints", href: "/work/campaign-portfolio", body: "The practical artefacts produced during a measurable campaign engagement.", icon: Megaphone },
     { label: "Product Work", href: "/work/product-work", body: "Live products and reusable product capabilities built by Vistrow.", icon: AppWindow },
     { label: "Measurement Standards", href: "/work/client-results", body: "What must exist before an outcome is presented as a client result.", icon: LineChart },
+    { label: "Website Portfolio", href: "/work/website-portfolio", body: "Live websites and products we've designed and built, with links to each one.", icon: LayoutGrid },
   ],
   intro: {
     eyebrow: "Evidence policy",
