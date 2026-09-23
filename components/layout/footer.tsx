@@ -4,6 +4,7 @@ import {
   Instagram,
   Linkedin,
   Mail,
+  MapPin,
   Phone,
 } from "lucide-react";
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
@@ -12,7 +13,12 @@ import { socialProfiles } from "@/lib/social-links";
 import { businessPhone, serviceLocalities } from "@/lib/structured-data";
 
 type FooterLink = { label: string; href: string; external?: boolean };
-type FooterColumn = { title: string; links: FooterLink[] };
+// A column can be one flat list, or (for Products/Industries) two short
+// sub-lists stacked under one heading-less pair of labels - this is what
+// lets six cramped columns collapse into five well-proportioned ones without
+// dropping a single link (every one of these is still crawlable elsewhere -
+// mainly the header mega-menu - except /locations, which only lives here).
+type FooterColumn = { title: string; links: FooterLink[]; groups?: never } | { title: string; groups: { heading: string; links: FooterLink[] }[]; links?: never };
 
 const columns: FooterColumn[] = [
   {
@@ -43,36 +49,39 @@ const columns: FooterColumn[] = [
     ],
   },
   {
-    title: "Products",
-    links: [
-      { label: "All Products", href: "/products" },
-      { label: "Vistrow Voice", href: "https://www.vistrowvoice.com/", external: true },
-      { label: "ArthaLeads", href: "https://www.arthaleads.com/", external: true },
-      { label: "Vistrow Labs", href: "/products/vistrow-labs" },
-    ],
-  },
-  {
-    title: "Industries",
-    links: [
-      { label: "All Industries", href: "/industries" },
-      { label: "Real Estate", href: "/industries/real-estate" },
-      { label: "Local Businesses", href: "/industries/local-businesses" },
-      { label: "B2B Companies", href: "/industries/b2b-companies" },
-      { label: "Startups & SaaS", href: "/industries/startups-saas" },
-      { label: "Agencies", href: "/industries/agencies" },
-      { label: "Education", href: "/industries/education" },
+    title: "Products & Industries",
+    groups: [
+      {
+        heading: "Products",
+        links: [
+          { label: "All Products", href: "/products" },
+          { label: "Vistrow Voice", href: "https://www.vistrowvoice.com/", external: true },
+          { label: "ArthaLeads", href: "https://www.arthaleads.com/", external: true },
+          { label: "Vistrow Labs", href: "/products/vistrow-labs" },
+        ],
+      },
+      {
+        heading: "Industries",
+        links: [
+          { label: "All Industries", href: "/industries" },
+          { label: "Real Estate", href: "/industries/real-estate" },
+          { label: "Local Businesses", href: "/industries/local-businesses" },
+          { label: "B2B Companies", href: "/industries/b2b-companies" },
+          { label: "Startups & SaaS", href: "/industries/startups-saas" },
+          { label: "Agencies", href: "/industries/agencies" },
+          { label: "Education", href: "/industries/education" },
+        ],
+      },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "Home", href: "/" },
-      { label: "Services", href: "/services" },
-      { label: "Locations", href: "/locations" },
       { label: "About", href: "/about" },
       { label: "Our Approach", href: "/approach" },
       { label: "Work", href: "/work" },
       { label: "Blog", href: "/blog" },
+      { label: "Locations", href: "/locations" },
       { label: "Careers", href: "/careers" },
       { label: "Partners", href: "/partners" },
       { label: "Contact", href: "/contact" },
@@ -80,6 +89,23 @@ const columns: FooterColumn[] = [
     ],
   },
 ];
+
+function FooterLinkItem({ link }: { link: FooterLink }) {
+  const className = "inline-flex items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong";
+  return (
+    <li>
+      {link.external ? (
+        <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+          {link.label}
+        </a>
+      ) : (
+        <Link href={link.href} className={className}>
+          {link.label}
+        </Link>
+      )}
+    </li>
+  );
+}
 
 const legal = [
   { label: "Privacy Policy", href: "/privacy-policy" },
@@ -101,43 +127,47 @@ export function Footer() {
 
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="container-edge py-16">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1fr_1fr]">
-          <div className="col-span-2 md:col-span-3 lg:col-span-1">
+      <div className="container-edge py-20">
+        <div className="grid grid-cols-2 gap-x-10 gap-y-12 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
+          <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Wordmark />
             <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-muted">
               Digital marketing connected to the CRM, automation, and AI systems that
               turn opportunities into revenue.
             </p>
-            <a
-              href={`tel:${businessPhone.replace(/\s+/g, "")}`}
-              className="mt-4 inline-flex items-center gap-2 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-strong"
-            >
-              <Phone className="h-4 w-4 text-accent-ink" strokeWidth={1.75} />
-              {businessPhone}
-            </a>
-            <p className="mt-4 font-sans text-[13px] leading-relaxed text-muted">
-              Based in Baner, Pune. Serving{" "}
-              {serviceLocalities
-                .filter((area) => area !== "Pune")
-                .map((area, i, arr) => (
-                  <span key={area}>
-                    <Link
-                      href={`/locations/${area.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="text-ink-2 underline-offset-2 hover:text-accent-strong hover:underline"
-                    >
-                      {area}
-                    </Link>
-                    {i < arr.length - 1 ? ", " : " "}
-                  </span>
-                ))}
-              and businesses across Pune.
-            </p>
-            <div className="mt-6">
+            <div className="mt-5 space-y-3">
+              <a
+                href={`tel:${businessPhone.replace(/\s+/g, "")}`}
+                className="flex items-center gap-2.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-strong"
+              >
+                <Phone className="h-4 w-4 shrink-0 text-accent-ink" strokeWidth={1.75} />
+                {businessPhone}
+              </a>
+              <p className="flex items-start gap-2.5 font-sans text-[13px] leading-relaxed text-muted">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-ink" strokeWidth={1.75} />
+                <span>
+                  Baner, Pune - also serving{" "}
+                  {serviceLocalities
+                    .filter((area) => area !== "Pune" && area !== "Baner")
+                    .map((area, i, arr) => (
+                      <span key={area}>
+                        <Link
+                          href={`/locations/${area.toLowerCase().replace(/\s+/g, "-")}`}
+                          className="underline-offset-2 hover:text-accent-strong hover:underline"
+                        >
+                          {area}
+                        </Link>
+                        {i < arr.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                </span>
+              </p>
+            </div>
+            <div className="mt-7">
               <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
                 Follow Vistrow
               </p>
-              <div className="mt-3 flex flex-wrap gap-2.5">
+              <div className="mt-3 flex items-center gap-2">
                 {socialLinks.map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}
@@ -146,9 +176,9 @@ export function Footer() {
                     rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                     aria-label={label}
                     title={label}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent hover:bg-accent/10 hover:text-ink"
+                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent hover:bg-accent/10 hover:text-ink"
                   >
-                    <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                    <Icon className="h-4 w-4" strokeWidth={1.75} />
                   </a>
                 ))}
               </div>
@@ -156,38 +186,35 @@ export function Footer() {
           </div>
 
           {columns.map((col) => (
-            <div key={col.title}>
+            <div key={col.title} className="col-span-1">
               <h3 className="font-sans text-sm font-semibold text-ink">{col.title}</h3>
-              <ul className="mt-5 space-y-2.5">
-                {col.links.map((link) =>
-                  link.external ? (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ) : (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="inline-flex items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ),
-                )}
-              </ul>
+              {col.groups ? (
+                <div className="mt-5 space-y-6">
+                  {col.groups.map((group) => (
+                    <div key={group.heading}>
+                      <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
+                        {group.heading}
+                      </p>
+                      <ul className="mt-3 space-y-3">
+                        {group.links.map((link) => (
+                          <FooterLinkItem key={link.href} link={link} />
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul className="mt-5 space-y-3">
+                  {col.links.map((link) => (
+                    <FooterLinkItem key={link.href} link={link} />
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 md:flex-row md:items-center">
+        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 md:flex-row md:items-center">
           <p className="font-sans text-[13px] text-muted">
             © {new Date().getFullYear()} Vistrow Technologies. All rights reserved.
           </p>

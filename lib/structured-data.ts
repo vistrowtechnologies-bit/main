@@ -5,7 +5,12 @@ import { socialProfiles } from "@/lib/social-links";
 export type JsonLdValue = Record<string, unknown>;
 
 export const businessPhone = "+91 90670 97779";
-export const businessWhatsapp = "https://wa.me/919067097779";
+// Bare link for schema.org (a canonical contact point, not a specific
+// pre-filled action) - UI links use businessWhatsapp below instead, which
+// pre-fills the chat so it already says the person came from the website.
+const WHATSAPP_BASE_URL = "https://wa.me/919067097779";
+const WHATSAPP_PREFILL = "Hi Vistrow, I'm reaching out from your website and would like to know more.";
+export const businessWhatsapp = `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(WHATSAPP_PREFILL)}`;
 
 export const businessAddress: JsonLdValue = {
   "@type": "PostalAddress",
@@ -65,7 +70,7 @@ export const organizationSchema: JsonLdValue = {
     {
       "@type": "ContactPoint",
       contactType: "customer service",
-      url: businessWhatsapp,
+      url: WHATSAPP_BASE_URL,
       areaServed: ["IN", "Worldwide"],
       availableLanguage: ["English", "Hindi"],
     },
