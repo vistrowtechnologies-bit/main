@@ -43,6 +43,7 @@ type ClientDiscoverySubmission = {
   company?: string;
   phone?: string;
   businessType?: string;
+  businessTypeOther?: string;
   socialPlatforms?: string[];
   socialActivity?: string;
   leadSource?: string;
@@ -52,6 +53,7 @@ type ClientDiscoverySubmission = {
   budgetRange?: string;
   teamSize?: string;
   biggestChallenge?: string;
+  biggestChallengeOther?: string;
   timeline?: string;
   _gotcha?: string;
 };
@@ -77,6 +79,7 @@ export async function POST(request: Request) {
     company: clean(data.company, 140),
     phone: clean(data.phone, 60),
     businessType: clean(data.businessType, 80),
+    businessTypeOther: clean(data.businessTypeOther, 120),
     socialPlatforms: cleanList(data.socialPlatforms, 40),
     socialActivity: clean(data.socialActivity, 120),
     leadSource: clean(data.leadSource, 80),
@@ -86,6 +89,7 @@ export async function POST(request: Request) {
     budgetRange: clean(data.budgetRange, 60),
     teamSize: clean(data.teamSize, 60),
     biggestChallenge: clean(data.biggestChallenge, 120),
+    biggestChallengeOther: clean(data.biggestChallengeOther, 200),
     timeline: clean(data.timeline, 60),
   };
 

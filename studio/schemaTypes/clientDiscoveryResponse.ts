@@ -14,6 +14,7 @@ export const clientDiscoveryResponse = defineType({
     defineField({ name: "company", title: "Company", type: "string", readOnly: true }),
     defineField({ name: "phone", title: "Phone", type: "string", readOnly: true }),
     defineField({ name: "businessType", title: "Business type", type: "string", readOnly: true }),
+    defineField({ name: "businessTypeOther", title: "Business type (if Other)", type: "string", readOnly: true }),
     defineField({ name: "socialPlatforms", title: "Active social platforms", type: "array", of: [{ type: "string" }], readOnly: true }),
     defineField({ name: "socialActivity", title: "Social activity level", type: "string", readOnly: true }),
     defineField({ name: "leadSource", title: "Main lead source today", type: "string", readOnly: true }),
@@ -23,6 +24,7 @@ export const clientDiscoveryResponse = defineType({
     defineField({ name: "budgetRange", title: "Monthly marketing budget", type: "string", readOnly: true }),
     defineField({ name: "teamSize", title: "Marketing/sales team size", type: "string", readOnly: true }),
     defineField({ name: "biggestChallenge", title: "Biggest challenge", type: "string", readOnly: true }),
+    defineField({ name: "biggestChallengeOther", title: "Biggest challenge (if Something else)", type: "string", readOnly: true }),
     defineField({ name: "timeline", title: "How soon they want to start", type: "string", readOnly: true }),
     defineField({
       name: "status",

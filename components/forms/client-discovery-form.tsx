@@ -10,16 +10,28 @@ const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Mirrors the 10 questions in the Client Onboarding SOP's discovery
 // questionnaire exactly - keep the two in sync if the questions change.
-const questions: { key: keyof Answers; label: string; options: string[]; multi?: boolean }[] = [
-  { key: "businessType", label: "What best describes your business?", options: ["Real estate", "Local business", "B2B / professional services", "Startup or SaaS", "Agency", "Education", "Other"] },
+// freeTextOption: when the person picks this option, a text input appears
+// so "Other"/"Something else" answers aren't lost as an unlabelled chip.
+const questions: {
+  key: keyof Answers;
+  label: string;
+  options: string[];
+  multi?: boolean;
+  freeTextOption?: string;
+  freeTextPlaceholder?: string;
+  // Field name the free-text value is submitted under - defaults to
+  // "<key>Other" when omitted (crmUsage keeps its existing "crmName" field).
+  freeTextFieldName?: string;
+}[] = [
+  { key: "businessType", label: "What best describes your business?", options: ["Real estate", "Local business", "B2B / professional services", "Startup or SaaS", "Agency", "Education", "Other"], freeTextOption: "Other", freeTextPlaceholder: "Please specify" },
   { key: "socialPlatforms", label: "Which social platforms is your business currently active on?", options: ["Instagram", "Facebook", "LinkedIn", "YouTube", "None yet"], multi: true },
   { key: "socialActivity", label: "How would you describe that activity?", options: ["Active and consistent", "Occasional, no real schedule", "Dormant - profiles exist but unused", "We don't have any social presence"] },
   { key: "leadSource", label: "Where do most of your leads come from today?", options: ["Referrals / word of mouth", "Paid ads", "Organic search / SEO", "Social media", "Cold outreach", "A mix, roughly even"] },
-  { key: "crmUsage", label: "Do you currently use a CRM?", options: ["Yes", "No, we track leads in spreadsheets", "No, we don't track leads systematically"] },
+  { key: "crmUsage", label: "Do you currently use a CRM?", options: ["Yes", "No, we track leads in spreadsheets", "No, we don't track leads systematically"], freeTextOption: "Yes", freeTextPlaceholder: "Which CRM?", freeTextFieldName: "crmName" },
   { key: "hasWebsite", label: "Do you have a website today?", options: ["Yes, and we're happy with it", "Yes, but it needs work", "No, we don't have one yet"] },
   { key: "budgetRange", label: "Approximate monthly marketing budget", options: ["Under ₹25,000", "₹25,000-₹1,00,000", "₹1,00,000-₹5,00,000", "Above ₹5,00,000", "Not decided yet"] },
   { key: "teamSize", label: "Team size handling marketing or sales today", options: ["Just me / the founder", "1-3 people", "4-10 people", "A dedicated team (10+)"] },
-  { key: "biggestChallenge", label: "What's the single biggest challenge right now?", options: ["Not enough leads coming in", "Leads come in but don't convert", "No time to follow up properly", "We don't know what's actually working", "Something else"] },
+  { key: "biggestChallenge", label: "What's the single biggest challenge right now?", options: ["Not enough leads coming in", "Leads come in but don't convert", "No time to follow up properly", "We don't know what's actually working", "Something else"], freeTextOption: "Something else", freeTextPlaceholder: "Please describe" },
   { key: "timeline", label: "How soon do you want to start?", options: ["Immediately", "Within a month", "1-3 months out", "Just exploring for now"] },
 ];
 
@@ -52,7 +64,7 @@ const emptyAnswers: Answers = {
 export function ClientDiscoveryForm() {
   const [contact, setContact] = useState({ name: "", email: "", company: "", phone: "" });
   const [answers, setAnswers] = useState<Answers>(emptyAnswers);
-  const [crmName, setCrmName] = useState("");
+  const [freeText, setFreeText] = useState<Record<string, string>>({});
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -82,10 +94,16 @@ export function ClientDiscoveryForm() {
     setSubmitting(true);
     setServerError("");
     try {
+      const freeTextFields: Record<string, string> = {};
+      for (const q of questions) {
+        if (q.freeTextOption && answers[q.key] === q.freeTextOption) {
+          freeTextFields[q.freeTextFieldName ?? `${q.key}Other`] = freeText[q.key] ?? "";
+        }
+      }
       const response = await fetch("/api/client-discovery", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...contact, ...answers, crmName: answers.crmUsage === "Yes" ? crmName : "" }),
+        body: JSON.stringify({ ...contact, ...answers, ...freeTextFields }),
       });
       const result = (await response.json()) as { ok?: boolean; error?: string };
       if (!response.ok || !result.ok) throw new Error(result.error || "Submission failed.");
@@ -133,12 +151,12 @@ export function ClientDiscoveryForm() {
                 );
               })}
             </div>
-            {q.key === "crmUsage" && answers.crmUsage === "Yes" && (
+            {q.freeTextOption && answers[q.key] === q.freeTextOption && (
               <Input
                 className="mt-3 max-w-xs"
-                value={crmName}
-                onChange={(e) => setCrmName(e.target.value)}
-                placeholder="Which CRM?"
+                value={freeText[q.key] ?? ""}
+                onChange={(e) => setFreeText((p) => ({ ...p, [q.key]: e.target.value }))}
+                placeholder={q.freeTextPlaceholder}
               />
             )}
             {errors[q.key] && (
