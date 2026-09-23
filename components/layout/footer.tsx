@@ -140,11 +140,11 @@ export function Footer() {
                 href={`tel:${businessPhone.replace(/\s+/g, "")}`}
                 className="flex items-center gap-2.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-strong"
               >
-                <Phone className="h-4 w-4 shrink-0 text-accent-ink" strokeWidth={1.75} />
+                <Phone className="h-4 w-4 shrink-0 text-accent-strong" strokeWidth={1.75} />
                 {businessPhone}
               </a>
               <p className="flex items-start gap-2.5 font-sans text-[13px] leading-relaxed text-muted">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-ink" strokeWidth={1.75} />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" strokeWidth={1.75} />
                 <span>
                   Baner, Pune - also serving{" "}
                   {serviceLocalities
