@@ -10,3 +10,4 @@ tsconfig.tsbuildinfo
 !.env.example
 .vercel
 .stitch-home-ref.png
+pnpm-lock.yaml
