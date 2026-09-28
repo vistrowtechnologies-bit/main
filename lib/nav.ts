@@ -69,14 +69,14 @@ export const primaryNav: NavItem[] = [
       { label: "Client Results", href: "/work/client-results" },
     ],
   },
+  { label: "Blog", href: "/blog" },
   {
     label: "About Us",
     href: "/about",
-    activeMatch: ["/about", "/approach", "/careers", "/partners", "/contact", "/blog"],
+    activeMatch: ["/about", "/approach", "/careers", "/partners", "/contact"],
     children: [
       { label: "About Vistrow", href: "/about" },
       { label: "Our Approach", href: "/approach" },
-      { label: "Blog", href: "/blog" },
       { label: "Careers", href: "/careers" },
       { label: "Partners", href: "/partners" },
       { label: "Contact", href: "/contact" },
