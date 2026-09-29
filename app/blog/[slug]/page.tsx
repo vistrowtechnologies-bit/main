@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { BlogPostPage } from "@/components/templates/blog-post-page";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, siteUrl } from "@/lib/seo";
 import { getBlogPost, getBlogPosts } from "@/lib/sanity/blog";
 
 export const revalidate = 60;
@@ -14,6 +14,19 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getBlogPost(params.slug);
   if (!post) return {};
+  const brandedImage = {
+    url: `${siteUrl}/api/og/blog/${encodeURIComponent(post.slug)}`,
+    width: 1200,
+    height: 630,
+    alt: `${post.title} | Vistrow Insights`,
+  };
+  // Existing posts sometimes copied their featured image into social fields.
+  const openGraphImage = post.openGraphImage?.url && post.openGraphImage.url !== post.featuredImage?.url
+    ? post.openGraphImage
+    : brandedImage;
+  const twitterImage = post.twitterImage?.url && post.twitterImage.url !== post.featuredImage?.url
+    ? post.twitterImage
+    : openGraphImage;
   return buildMetadata({
     title: post.metaTitle,
     description: post.metaDescription,
@@ -25,12 +38,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: post.openGraphTitle,
       description: post.openGraphDescription,
-      image: post.openGraphImage || post.featuredImage,
+      image: openGraphImage,
     },
     twitter: {
       title: post.twitterTitle,
       description: post.twitterDescription,
-      image: post.twitterImage || post.openGraphImage || post.featuredImage,
+      image: twitterImage,
       card: post.twitterCard,
     },
     robots: {

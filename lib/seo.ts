@@ -51,10 +51,10 @@ export function buildMetadata({
 }: SeoMetadata): Metadata {
   const canonical = canonicalUrl || (path === "/" ? siteUrl : `${siteUrl}${path}`);
   const defaultImage: BlogSeoImage = {
-    url: "/og.png",
+    url: `${siteUrl}/og-vistrow-v2.png`,
     width: 1200,
     height: 630,
-    alt: "Vistrow connected marketing and business automation",
+    alt: "Vistrow Technologies: Digital marketing. Connected systems. Measurable growth.",
   };
   const openGraphImage = openGraph?.image || defaultImage;
   const twitterImage = twitter?.image || openGraphImage;
