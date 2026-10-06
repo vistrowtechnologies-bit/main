@@ -165,7 +165,7 @@ footer .brand{color:#fff}
 footer .meta{border-top:1px solid rgba(255,255,255,.14);padding-top:20px;font-size:13px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 footer .meta a{color:#fff;font-weight:700}
 /* fab */
-.fab{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-weight:800;padding:14px 20px;border-radius:99px;box-shadow:0 16px 34px -10px rgba(31,175,90,.7);animation:pulse 2.6s infinite}
+.fab{position:fixed;left:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:10px;background:var(--green);color:#fff;font-weight:800;padding:14px 20px;border-radius:99px;box-shadow:0 16px 34px -10px rgba(31,175,90,.7);animation:pulse 2.6s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(31,175,90,.5),0 16px 34px -10px rgba(31,175,90,.7)}70%{box-shadow:0 0 0 18px rgba(31,175,90,0),0 16px 34px -10px rgba(31,175,90,.7)}100%{box-shadow:0 0 0 0 rgba(31,175,90,0)}}
 /* gallery */
 .gh{font-size:20px;font-weight:800;margin:34px 0 16px;color:#fff;letter-spacing:-.01em}
@@ -202,6 +202,28 @@ footer .meta a{color:#fff;font-weight:700}
 .fab span{display:none}.fab{padding:16px}footer{padding-bottom:96px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* chatbot */
+.cb-btn{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;font-weight:800;font-size:15px;font-family:inherit;border:0;cursor:pointer;padding:14px 20px;border-radius:99px;box-shadow:0 16px 34px -10px rgba(11,31,75,.7)}
+.cb-btn svg{flex:none}
+.cb-panel{position:fixed;right:20px;bottom:88px;z-index:61;width:min(370px,calc(100vw - 32px));height:min(540px,calc(100vh - 120px));background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 70px -20px rgba(11,31,75,.55);display:none;flex-direction:column;overflow:hidden}
+.cb-panel.on{display:flex}
+.cb-head{background:var(--navy);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.cb-head b{display:block;font-size:15px}.cb-head small{font-size:12px;color:#B9C4E4}
+.cb-head button{margin-left:auto;background:rgba(255,255,255,.14);border:0;color:#fff;width:32px;height:32px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer}
+.cb-log{flex:1;overflow-y:auto;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:10px}
+.cb-m{max-width:86%;padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.45;white-space:pre-line}
+.cb-m.bot{background:#fff;border:1px solid var(--line);color:var(--ink);border-bottom-left-radius:4px;align-self:flex-start}
+.cb-m.me{background:var(--orange);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.cb-m a{color:var(--orange);font-weight:800}
+.cb-qr{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 10px;background:var(--bg)}
+.cb-qr button{font-weight:700;font-size:13px;font-family:inherit;color:var(--navy);background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 12px;cursor:pointer}
+.cb-qr button:hover{border-color:var(--orange);color:var(--orange)}
+.cb-form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+.cb-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:99px;padding:10px 14px;font-size:14px;outline:none}
+.cb-form input:focus{border-color:var(--orange)}
+.cb-form button{border:0;background:var(--orange);color:#fff;font-weight:800;border-radius:99px;padding:0 16px;cursor:pointer;font-family:inherit}
+@media(max-width:900px){.cb-btn span{display:none}.cb-btn{padding:16px}.cb-panel{right:16px;bottom:84px}}
 </style>
 </head>
 <body>
@@ -377,6 +399,9 @@ footer .meta a{color:#fff;font-weight:700}
 
 <a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.300 1.200-1.800 1.200-.5.1-1 .2-3.300-.7-2.800-1.200-4.600-4-4.700-4.200-.1-.2-1.100-1.500-1.100-2.800s.7-2 .9-2.300c.3-.3.600-.3.800-.3h.6c.2 0 .4 0 .6.500l.8 2c.1.200.1.400 0 .5l-.4.600c-.1.200-.3.300-.1.600.2.300.8 1.300 1.700 2.100 1.100 1 2.100 1.300 2.400 1.500.3.100.5.100.6-.1l.9-1.100c.2-.3.400-.2.600-.1l1.900.9c.3.100.5.200.5.300.1.200.1.800-.1 1.400z"/></svg><span>Chat on WhatsApp</span></a>
 
+<button class="cb-btn" id="cbBtn" aria-label="Open chat assistant" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.4A8 8 0 1 1 21 12z"/><circle cx="9" cy="12" r=".8" fill="#fff"/><circle cx="13" cy="12" r=".8" fill="#fff"/><circle cx="17" cy="12" r=".8" fill="#fff"/></svg><span>Ask us</span></button>
+<div class="cb-panel" id="cbPanel" role="dialog" aria-label="Arth Aspire assistant"><div class="cb-head"><div><b>Arth Aspire assistant</b><small>Quick answers about the books</small></div><button id="cbX" aria-label="Close chat">&times;</button></div><div class="cb-log" id="cbLog" aria-live="polite"></div><div class="cb-qr" id="cbQr"></div><form class="cb-form" id="cbForm"><input id="cbIn" placeholder="Type your question" autocomplete="off" aria-label="Type your question"><button type="submit">Send</button></form></div>
+
 <script>
 const PHONE="917972465072"; // WhatsApp number (confirm)
 const wa=t=>`https://wa.me/${PHONE}?text=${encodeURIComponent(t)}`;
@@ -459,6 +484,39 @@ const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.t
  en.target.querySelectorAll("[data-n]").forEach(el=>{const t=+el.dataset.n;let c=0;const s=Math.max(1,Math.ceil(t/40));const id=setInterval(()=>{c=Math.min(t,c+s);el.textContent=c;if(c>=t)clearInterval(id)},28)});
  io.unobserve(en.target)}}),{threshold:.15});
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+// chatbot
+(function(){
+ const btn=document.getElementById("cbBtn"),panel=document.getElementById("cbPanel"),log=document.getElementById("cbLog"),qr=document.getElementById("cbQr"),form=document.getElementById("cbForm"),inp=document.getElementById("cbIn");
+ const MENU=["Which level for my child?","Brain Booster levels","Maths Mastery","How to order","Schools & bulk orders"];
+ const add=(t,who,html)=>{const d=document.createElement("div");d.className="cb-m "+who;if(html)d.innerHTML=t;else d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;};
+ const chips=a=>{qr.innerHTML="";a.forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.onclick=()=>ask(t);qr.appendChild(b);});};
+ const waLink=(t,label)=>`<a href="${wa(t)}" target="_blank" rel="noopener">${label||"Chat on WhatsApp"}</a>`;
+ const go=id=>{const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:"smooth"});if(innerWidth<=900)close();};
+ const R={
+  level:()=>{add("The quickest way is our 2-question level finder. I'll take you there.","bot");setTimeout(()=>go("finder"),600);chips(MENU);},
+  levels:()=>{add("Brain Booster has four levels:\n1. Neural Activation\n2. Bilateral Coordination\n3. Cognitive Control\n4. Brain Mastery\n\nEach has a different focus, moving from a starting point to more demanding practice.","bot");chips(["Which level for my child?","How to order","Maths Mastery"]);},
+  maths:()=>{add("The Maths Mastery Module workbooks build conceptual clarity, logical reasoning and step-by-step problem solving. Pre-booking is open now, with launch from 1 January 2027.","bot");add("Pre-book on WhatsApp: "+waLink("Hi, I'd like to pre-book Maths Mastery workbooks."),"bot",true);chips(["Brain Booster levels","How to order"]);},
+  order:()=>{add("Tap \"Ask on WhatsApp\" on any book. A message with the book name opens in WhatsApp and the team takes it from there.","bot");add(waLink("Hi, I'd like to order Arth Aspire books."),"bot",true);chips(["Which level for my child?","Schools & bulk orders"]);},
+  school:()=>{add("Yes, we supply schools and learning centres. Use the school enquiry form with your student count and city, or message us directly.","bot");add(waLink("Hi, I run a school/centre and would like to know about bulk orders.","Message us about bulk orders"),"bot",true);setTimeout(()=>go("schools"),900);chips(MENU);},
+  hi:()=>{add("Hello! I can help with levels, ordering and school enquiries. What would you like to know?","bot");chips(MENU);},
+  other:q=>{add("I'm not sure I can answer that here. The team can help you directly on WhatsApp.","bot");add(waLink("Hi, I have a question: "+q,"Ask this on WhatsApp"),"bot",true);chips(MENU);}
+ };
+ function route(q){const t=q.toLowerCase();
+  if(/level|which|start|age|class|grade|child|kid/.test(t)&&!/school/.test(t))return R.level();
+  if(/brain|booster|book|neural|bilateral|cognitive|mastery level/.test(t)&&!/maths/.test(t))return R.levels();
+  if(/math|workbook|pre.?book|launch/.test(t))return R.maths();
+  if(/order|buy|price|cost|deliver|purchase/.test(t))return R.order();
+  if(/school|bulk|centre|center|institute|batch/.test(t))return R.school();
+  if(/^(hi|hello|hey|namaste)\b/.test(t))return R.hi();
+  return R.other(q);}
+ function ask(q){add(q,"me");qr.innerHTML="";setTimeout(()=>{if(q===MENU[0])R.level();else if(q===MENU[1])R.levels();else if(q===MENU[2])R.maths();else if(q===MENU[3])R.order();else if(q===MENU[4])R.school();else route(q);},350);}
+ function open(){panel.classList.add("on");btn.setAttribute("aria-expanded","true");if(!log.children.length)R.hi();inp.focus();}
+ function close(){panel.classList.remove("on");btn.setAttribute("aria-expanded","false");}
+ btn.onclick=()=>panel.classList.contains("on")?close():open();
+ document.getElementById("cbX").onclick=close;
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&panel.classList.contains("on"))close();});
+ form.onsubmit=e=>{e.preventDefault();const v=inp.value.trim().slice(0,300);if(!v)return;inp.value="";ask(v);};
+})();
 </script>
 </body>
 </html>
