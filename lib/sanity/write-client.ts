@@ -11,5 +11,6 @@ export function getSanityWriteClient() {
     apiVersion: sanityApiVersion,
     token,
     useCdn: false,
+    perspective: "raw",
   });
 }

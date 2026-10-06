@@ -14,6 +14,7 @@ export const contentCalendarEntry = defineType({
     defineField({ name: "category", title: "Category", type: "string", readOnly: true }),
     defineField({ name: "focusKeyword", title: "Focus Keyword", type: "string", readOnly: true }),
     defineField({ name: "angle", title: "Angle", type: "text", readOnly: true }),
+    defineField({ name: "sourceUrl", title: "Official Source URL", type: "url", readOnly: true }),
     defineField({
       name: "status",
       title: "Status",

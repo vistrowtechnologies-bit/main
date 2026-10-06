@@ -1,8 +1,46 @@
+import { XMLParser } from "fast-xml-parser";
+
 export type TrendSignal = {
-  source: "google-news" | "reddit" | "hacker-news" | "product-seo" | "service-seo" | "google-autocomplete";
+  source: "google-news" | "reddit" | "hacker-news" | "product-seo" | "service-seo" | "google-autocomplete" | "official-ai-news";
   title: string;
   url?: string;
+  publishedAt?: string;
+  summary?: string;
 };
+
+const OFFICIAL_AI_FEEDS = [
+  "https://openai.com/news/rss.xml",
+  "https://blog.google/innovation-and-ai/technology/ai/rss/",
+];
+const BUSINESS_AI_TOPIC = /agent|business|customer|marketing|sales|advertis|search|voice|workflow|enterprise|small business|retail|commerce|productivity/i;
+
+export async function collectOfficialAiUpdates(): Promise<TrendSignal[]> {
+  const parser = new XMLParser();
+  const cutoff = Date.now() - 21 * 86400000;
+  const feeds = await Promise.all(OFFICIAL_AI_FEEDS.map(async (url) => {
+    try {
+      const response = await fetch(url, { next: { revalidate: 0 } });
+      if (!response.ok) return [];
+      const parsed = parser.parse(await response.text());
+      const items = parsed?.rss?.channel?.item;
+      return Array.isArray(items) ? items : items ? [items] : [];
+    } catch {
+      return [];
+    }
+  }));
+  return feeds.flat()
+    .filter((item) => typeof item.title === "string" && typeof item.link === "string" && BUSINESS_AI_TOPIC.test(item.title))
+    .map((item): TrendSignal => ({
+      source: "official-ai-news",
+      title: item.title,
+      url: item.link,
+      publishedAt: item.pubDate ? new Date(item.pubDate).toISOString().slice(0, 10) : undefined,
+      summary: String(item.description || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 280),
+    }))
+    .filter((item) => item.publishedAt && new Date(item.publishedAt).getTime() >= cutoff)
+    .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""))
+    .slice(0, 18);
+}
 
 const NEWS_QUERIES = [
   "digital marketing trends",

@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
-import { collectTrendSignals } from "@/lib/blog-automation/trending";
+import { collectOfficialAiUpdates, collectTrendSignals } from "@/lib/blog-automation/trending";
 import { generateDailyPosts, VALID_INTERNAL_LINKS, type CalendarTopic, type ExistingPost } from "@/lib/blog-automation/generate";
 import { generateContentCalendar } from "@/lib/blog-automation/calendar";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
@@ -44,9 +44,12 @@ export async function GET(request: Request) {
     log.push(`Found ${queue.length} pending topic(s) in the content calendar.`);
 
     if (queue.length < count) {
-      log.push("Calendar queue is running low - generating a fresh 30-day batch...");
+      log.push("Calendar queue is running low - generating 15 days of topics at two per day...");
       const reservedTitles = queue.map((entry) => entry.title);
-      const topics = await generateContentCalendar({ size: CALENDAR_SIZE, existingPosts, reservedTitles });
+      const officialAiUpdates = await collectOfficialAiUpdates();
+      log.push(`Found ${officialAiUpdates.length} recent official AI updates.`);
+      const topics = await generateContentCalendar({ size: CALENDAR_SIZE, existingPosts, reservedTitles, officialAiUpdates });
+      if (topics.length < count - queue.length) throw new Error("Calendar generation did not produce enough distinct topics.");
       log.push(`Generated ${topics.length} new calendar topic(s).`);
       await writeCalendarEntries(writeClient, topics);
       queue = await fetchPendingCalendarEntries(writeClient, count);
@@ -60,6 +63,7 @@ export async function GET(request: Request) {
       category: entry.category,
       focusKeyword: entry.focusKeyword,
       angle: entry.angle,
+      sourceUrl: entry.sourceUrl,
     }));
 
     log.push("Fetching trend signals...");
@@ -200,6 +204,7 @@ type PendingCalendarEntry = {
   category: CalendarTopic["category"];
   focusKeyword: string;
   angle: string;
+  sourceUrl?: string;
 };
 
 // Reads the next unused topics off the 30-day content calendar, oldest
@@ -210,7 +215,7 @@ async function fetchPendingCalendarEntries(
   limit: number,
 ): Promise<PendingCalendarEntry[]> {
   return writeClient.fetch<PendingCalendarEntry[]>(
-    `*[_type == "contentCalendarEntry" && status == "pending"] | order(dayIndex asc)[0...$limit]{_id, title, category, focusKeyword, angle}`,
+    `*[_type == "contentCalendarEntry" && status == "pending"] | order(dayIndex asc)[0...$limit]{_id, title, category, focusKeyword, angle, sourceUrl}`,
     { limit },
   );
 }
@@ -238,6 +243,7 @@ async function writeCalendarEntries(
       category: topic.category,
       focusKeyword: topic.focusKeyword,
       angle: topic.angle,
+      sourceUrl: topic.sourceUrl || undefined,
       status: "pending",
       createdAt: now,
     });
@@ -325,7 +331,7 @@ async function uniqueSlug(writeClient: ReturnType<typeof getSanityWriteClient>, 
 }
 
 // Defense-in-depth: drop any link the model produced that isn't a real internal
-// path or a bare external homepage, even though the prompt already constrains this.
+// path, official AI source article, or a bare external homepage.
 function sanitizeLinks(text: string): string {
   return text.replace(MARKDOWN_LINK, (full, label: string, href: string) => {
     if (href.startsWith("/")) {
@@ -334,7 +340,8 @@ function sanitizeLinks(text: string): string {
     try {
       const url = new URL(href);
       const isBareHomepage = url.pathname === "/" || url.pathname === "";
-      return isBareHomepage ? full : label;
+      const isOfficialAiSource = url.protocol === "https:" && ["openai.com", "www.openai.com", "blog.google"].includes(url.hostname);
+      return isBareHomepage || isOfficialAiSource ? full : label;
     } catch {
       return label;
     }

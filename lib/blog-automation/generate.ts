@@ -162,7 +162,7 @@ const BRAND_PALETTES = `- Default (general Vistrow company post, not centred on 
 - Post centred on ArthaLeads (real estate CRM product): warm, premium flat illustration, a color palette of warm orange (#FF6B00, gradient #FEAB47 to #FD6007 used sparingly as a single accent only) on a warm beige background (#F0EDE8) with white card-like surfaces. Real-work-context imagery (a person at a desk, a dashboard glimpse) rather than abstract concepts or generic stock-photo clichés.
 - Post centred on Digital Marketing services (performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation): energetic flat illustration, a color palette of carbon black (#0D0D0D) and neon lime green (#C6FF00) as the primary accent, with a secondary cool blue (#2563EB) used sparingly for a chart, screen, or data element, on a white or very light gray background. Show a concrete campaign/marketing artifact in the scene - an ad mockup, a browser window with a landing page, a bar chart trending up, a social feed - not an abstract "growth" metaphor like rockets or generic arrows.
 
-Within whichever palette applies, never reuse the same scene setup as a previous post - vary the specific role of the person (marketer, founder, developer, analyst), the setting (office, home desk, coworking space, outdoors on a phone), the camera angle, and the specific prop or screen content described, so no two images read as the same template recolored.`;
+Within whichever palette applies, use the September 14 editorial illustration direction: expressive people doing recognisable work in a real setting, with the relevant screen or object supporting the story. Vary the role, number of people, action, setting, camera angle, and props. Do not repeat a lone person seen from behind at a desk. Keep faces and hands natural and the composition readable at blog-card size.`;
 
 const responseSchema = {
   name: "vistrow_blog_posts",
@@ -338,6 +338,7 @@ export type CalendarTopic = {
   category: BlogCategory;
   focusKeyword: string;
   angle: string;
+  sourceUrl?: string;
 };
 
 export async function generateDailyPosts({
@@ -400,7 +401,7 @@ export async function generateDailyPosts({
 
   const topicInstruction = fixedTopics
     ? `You have been assigned the exact ${fixedTopics.length} topic(s) below from Vistrow's pre-planned 30-day content calendar. Do not swap them for a different topic, category, or focusKeyword, and do not invent a new angle - that calendar was already checked against every existing post to guarantee it doesn't repeat anything, so deviating from it is what would reintroduce duplicates. Write the full post for each exactly as assigned, using the given angle as your opening hook or thesis:
-${fixedTopics.map((t, i) => `${i + 1}. Title: "${t.title}" | Category: ${t.category} | focusKeyword: "${t.focusKeyword}" | Angle: ${t.angle}`).join("\n")}`
+${fixedTopics.map((t, i) => `${i + 1}. Title: "${t.title}" | Category: ${t.category} | focusKeyword: "${t.focusKeyword}" | Angle: ${t.angle}${t.sourceUrl ? ` | Official source: ${t.sourceUrl}` : ""}`).join("\n")}`
     : `Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic (ranking ArthaLeads or Vistrow Voice) or a [service-seo] evergreen topic (ranking one of Vistrow's own digital marketing SERVICES - performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation). Everything you pick must genuinely fit one of the ${BLOG_CATEGORIES.length} blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day, and don't pick two [service-seo] topics for the same specific service on the same day.
 
 SIGNAL RELIABILITY - not all sources below are equally trustworthy for "will someone actually search this":
@@ -436,7 +437,7 @@ HEADLINES - the title and metaTitle are what decide whether anyone clicks. Make 
 LINKING - this is mandatory, not optional. Every post MUST contain 2-4 actual Markdown links, written exactly as [anchor text](url) inside the paragraph text itself - not the page name mentioned in plain prose. "Vistrow Voice can help" is wrong. "[Vistrow Voice](/products/vistrow-voice) can help" is correct. A post with zero [text](url) links anywhere in its paragraphs is a failed post.
 - Internal: only use paths from this exact list (never invent one):
 ${internalLinksReference}
-- External: use 0-2 links. When a post depends on a supplied trending signal, cite the exact signal URL printed above. For evergreen product-led topics, link only to a stable primary-source homepage or official documentation URL you know is valid. Never invent a deep article URL.
+- External: use 0-2 links. When an assigned topic has an Official source URL, cite that exact URL in a body paragraph. Attribute the claim to its publisher and do not invent details beyond the supplied title and angle. For evergreen product-led topics, link only to a stable primary-source homepage or official documentation URL you know is valid. Never invent a deep article URL.
 - Spread links across different sections. Don't link the same page twice. Make the anchor text the natural words already in the sentence, not "click here".
 
 BULLET LISTS - never write a bullet list as dashes or a numbered list inside a paragraph string (no "- item one\n- item two" inside "paragraphs"). If a section needs a list, put each item as its own entry in that section's "points" array instead, and keep "paragraphs" as normal prose sentences only.
@@ -449,27 +450,26 @@ SEO REQUIREMENTS - these are checked by an automated scorer with hard pass/fail 
 3. The article body (all paragraphs across all sections, combined) must be at least 320 words. Headings and "points" don't count toward this - the paragraphs alone must reach it.
 4. The exact focusKeyword phrase MUST appear literally, word for word, at least once in the body paragraphs (not just in the title/meta fields) - zero mentions in the body always fails, this is never optional. Be sparing about how many more: for a 3-4 word keyword, exactly ONE mention total in the body is correct - do not add a second. For a 2-word keyword, 2-3 mentions total in the body is fine. The density formula is (mentions x keyword-word-count x 100 / total-body-words) and it must land between 0.5% and 2.5%.
 
-IMAGE PROMPT FORMAT - imageGenerationPrompt must be one long, detailed, paste-ready prompt for ChatGPT/DALL-E that someone will actually run to generate the image, written as flowing sentences (not labelled fields), covering every point below in order:
+IMAGE PROMPT FORMAT - imageGenerationPrompt must be one detailed, paste-ready prompt for ChatGPT/DALL-E, written as flowing sentences (not labelled fields), covering every point below in order:
 
-1. Subject and scene - THIS IS THE PART THAT KEEPS COLLAPSING TO THE SAME IMAGE, SO READ CAREFULLY. Banned as the subject, in any phrasing: a person standing or sitting at a laptop/screen/dashboard in an office (with or without charts visible). That composition has been used for almost every recent post regardless of topic and must not be the default again. Instead, ground the scene in a REAL, SPECIFIC ARTIFACT belonging to the exact subject of this post - describe an actual interface, document, or physical object precisely enough that it reads as authentic, not a generic "tech concept": a table's visible row/column structure, a kanban board's column layout, a chart's shape and what its axes represent, a specific physical object (a printed ad proof, a QR code sign, a stack of business cards, a phone showing a chat thread) - see the VISUAL REFERENCE BANK below for the exact real details to draw from for this topic's category. A person can still appear, but only as a secondary element glancing at or holding the real artifact - the artifact itself is the subject, not the person.
-2. CRITICAL - describe STRUCTURE, never literal words: image generators render any word, column header, axis label, or number you specify as garbled, broken text - this has actually happened and looks unprofessional. So describe the visual shape a label would occupy (a short blank pill, a rounded tag, a colored chip) instead of what it says, and describe data as bar length / dot position / line trend / color intensity instead of specific numbers. Wrong: "a table with columns labeled Campaign, Spend, and Conversions, showing 0.88 and 0.69". Right: "a table with three columns, each header shown as a short blank rounded tag, and a column of horizontal bars of varying length in place of numbers". This structural-only rule applies to every artifact in this prompt, not just tables. The same discipline applies to "blank" placeholder shapes generally: when a reference calls for a blank rectangle, thumbnail, or card, it must render as a plain flat color block only - never invent an icon, symbol, or picture to put inside it just because the surrounding description mentions variety or different designs.
-3. Visual style: "modern flat vector illustration with clean geometric shapes and simple gradients" by default - switch to a photorealistic editorial-photo style only if the topic is genuinely better served by a real-feeling scene.
+1. Lead with a specific human moment that tells this article's story. Name the person's role, action, expression, and setting. One to three people may appear. Describe the real work object they are using - for example a campaign proof, property brochure, CRM screen, phone conversation, or printed report - but do not make a floating dashboard or abstract diagram the main subject. A laptop is allowed when the story calls for it, but avoid the repeated lone-person-at-laptop office shot. Use a distinct action and viewpoint for each post, such as a team reviewing creative options, a broker showing a buyer a property plan, or a founder checking a lead handoff on a phone.
+2. Describe only the visual structure of screens and documents, not literal interface words or numbers. Use short blank bars, colored chips, simple chart shapes, and recognizable UI layout. Do not ask the image model to render logos, brand names, product UI, exact charts, or made-up metrics. For posts specifically about a Vistrow product, a real product screenshot is preferred over an invented interface.
+3. Visual style: polished modern flat editorial illustration with clean shapes, expressive but natural faces and hands, restrained shading, and subtle depth. Keep the September 14 people-led look, not an infographic, wireframe, or UI mockup. Use photorealism only when a real editorial scene genuinely serves the topic better.
 4. Color palette - choose ONE of these based on what the post is actually about, and use the wording given almost verbatim:
 ${BRAND_PALETTES}
 5. Lighting and mood: describe it in one clause (e.g. "soft, even daylight, calm and focused mood" or "warm interior lighting, energetic and optimistic mood") - match the mood to the post's argument.
-6. Composition: wide 16:9 landscape framing, the artifact placed slightly off-center with breathing room, no crowded detail.
-7. End the prompt with exactly this sentence, unchanged: "16:9 aspect ratio. No text, no words, no letters, no numbers, no logos, no brand marks, no watermarks anywhere in the image - represent labels as blank shapes and data as bar length or position, never as legible characters."
+6. Composition: wide 16:9 landscape framing, people and the work object large enough to read at thumbnail size, slightly off-center with breathing room. Avoid busy walls of tiny screens and decorative floating UI.
+7. End the prompt with exactly this sentence, unchanged: "16:9 aspect ratio. No text, no words, no letters, no numbers, no logos, no brand marks, no watermarks anywhere in the image."
 
-VISUAL REFERENCE BANK - real, specific, recognizable STRUCTURES to build the scene from, by topic area (describe the shape and layout only, never the literal words on them - see rule 2 above; never invent a trademarked logo or exact brand color scheme either, describing the generic shape of the real thing the way any stock illustration of "a CRM" or "an ad dashboard" does, without reproducing an actual company's exact UI):
-- Performance advertising / Google Ads / Meta Ads: a table with four columns of blank header tags and rows of horizontal bars of varying length; a funnel shape narrowing through three or four stages; a line trending down across a small grid; a split-screen of two ad platforms' distinct layouts (one card-based, one table-based) side by side, both with blank label tags.
-- SEO / content: a ranking table with position markers (numbered dots or short bars, not legible numbers) and up/down triangle arrows; a backlink network shown as connected nodes; a search-results-page mockup with blank ranked listing bars (no real brand names or legible text); a content calendar grid of blank date cells.
-- Social media marketing: a content calendar grid with blank post-thumbnail placeholders and small time-tag chips; a set of platform-shaped post cards (square, vertical, and landscape framing side by side) with engagement icons (heart, comment, share) but no real logos or counts; an audience growth line trending upward.
-- Landing pages / website development / conversion tracking: a browser window mockup showing a landing page layout (a blank headline bar, a form of blank input rows, a solid-color CTA button) with a cursor mid-click; an A/B split of two page layouts side by side; a funnel narrowing through three stages; a speed gauge/meter needle.
-- Marketing automation / creative strategy: a flowchart of connected blank boxes representing a workflow, linked by arrows; a grid of solid-color rectangles of varying flat colors (from the chosen palette only) laid out like a mood board - each rectangle a plain flat color block, never an icon, symbol, or picture inside it; a chat-bubble sequence with blank bubble shapes showing an automated message thread (generic app, no real logo).
-- CRM & Automation / ArthaLeads: a kanban board with five columns of card stacks (blank header tags, increasing card count left to right); a lead-scoring gauge/dial beside a contact card silhouette; a unified inbox with message rows tagged by generic channel icons and blank subject bars; a QR code shape on a printed property hoarding.
-- AI Voice / Vistrow Voice: a soundwave or waveform pattern mid-conversation; a call-log list of rows with a duration bar and a colored outcome dot per row; two chat bubbles side by side filled with abstract squiggle-line "script" shapes (never real words, never a real script/alphabet); never a literal phone handset, headset close-up, or a glowing circuit-board "AI brain" cliché.
-- Business Automation / Lead Generation general: a pipeline/funnel diagram with three or four blank-tagged stages; a form with blank field-row rectangles and a solid CTA button; a stack of notification/alert cards with a colored dot per card; an arrow showing rows of a spreadsheet grid turning into stacked automation cards.
-- Strategy / general company posts: a roadmap or timeline with circular milestone markers; a magnifying glass over a blank-row data table; a before/after split of a tangled arrow-diagram versus a clean connected one, shown as two contrasting diagrams rather than two people.
+VISUAL REFERENCE BANK - choose a concrete scene that fits the topic, then vary its characters, action, and angle:
+- Performance advertising / creative strategy: a marketer and founder comparing printed ad concepts at a table; a creative team pinning campaign frames to a wall; someone reviewing two distinct ad layouts on a tablet.
+- SEO / content: a strategist explaining a search-results layout to a local business owner; a writer arranging content notes beside an open browser; a team reviewing a content calendar together.
+- Social media marketing: a creator preparing different post formats on a phone and tablet; a small team selecting photographs for a campaign; a community manager reviewing responses.
+- Landing pages / website development / conversion tracking: a designer and developer checking a form on a real screen; a founder testing a landing page on a phone; an analyst tracing a form submission through a simple funnel chart.
+- Marketing automation / lead generation: a team member showing a colleague how a lead moves from a form to a follow-up; a small business owner checking a new inquiry on a phone; a marketer reviewing an automation map on paper.
+- CRM / ArthaLeads: a real estate broker and teammate reviewing a lead pipeline; an agent at a property site scanning a QR sign; a sales manager discussing lead handoffs with telecallers. Do not invent a branded ArthaLeads interface.
+- AI Voice / Vistrow Voice: a service agent listening to a customer while a subtle waveform appears on a nearby screen; a team reviewing call outcomes; a manager checking a handoff after a voice conversation. No robot, glowing brain, or fake product UI.
+- Strategy / general company posts: a team mapping a customer journey with physical notes; a founder discussing a written growth plan with a specialist; two colleagues untangling a workflow on a whiteboard.
 
 ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${signalsText}\n\n`}EXISTING POST TITLES (avoid duplicating):
 - ${existingText}`;
@@ -513,18 +513,25 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
     const seoProblems = parsed.posts.flatMap(seoIssues);
     const duplicateProblems = duplicateIssues(parsed.posts, existingTitleList);
 
-    if ((allHaveLinks && noBakedLists && seoProblems.length === 0 && duplicateProblems.length === 0) || attempt === 3) return parsed.posts;
+    const assignmentProblems = fixedTopics ? parsed.posts.flatMap((post, index) => {
+      const assigned = fixedTopics[index];
+      return assigned && (post.title !== assigned.title || post.category !== assigned.category || post.focusKeyword !== assigned.focusKeyword)
+        ? [`Post ${index + 1} changed its assigned title, category, or focus keyword.`] : [];
+    }) : [];
+    if (allHaveLinks && noBakedLists && seoProblems.length === 0 && duplicateProblems.length === 0 && assignmentProblems.length === 0) return parsed.posts;
 
     const problems = [
       !allHaveLinks && "At least one post has zero [text](url) Markdown links in its paragraphs.",
       !noBakedLists && "At least one paragraph contains a bullet list written as dashes/lines instead of using the \"points\" array.",
       ...seoProblems,
       ...duplicateProblems,
+      ...assignmentProblems,
     ]
       .filter(Boolean)
       .join(" ");
 
-    const rewriteInstruction = duplicateProblems.length > 0
+    if (attempt === 3) throw new Error(`Generated posts failed quality checks after 3 attempts: ${problems}`);
+    const rewriteInstruction = duplicateProblems.length > 0 && !fixedTopics
       ? `${problems} For any post flagged as a duplicate, pick a completely different topic and focusKeyword from the signals/seeds above - do not just reword the same idea. Fix every other issue listed too. Re-check character counts and word counts yourself before answering. Return the full JSON again.`
       : `${problems} Rewrite ALL posts, keeping the same topics, fixing every issue listed above exactly. Re-check character counts and word counts yourself before answering. Return the full JSON again.`;
 
