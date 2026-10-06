@@ -23,6 +23,7 @@
 :root{--navy:#0B1F4B;--navy2:#13306E;--orange:#F26B1D;--cream:#FFF8F1;--ink:#14213D;--mute:#5B6785;--line:#E6EAF3;--bg:#F6F8FC;--green:#1FAF5A}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+button,input,select,textarea{font-family:inherit}
 body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.55;overflow-x:hidden}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -195,10 +196,10 @@ footer .meta a{color:#fff;font-weight:700}
 .c1{left:0;bottom:2%}.c2{right:0;top:2%}
 .show{padding:22px}.pod{height:340px}.pod .bk{width:200px}
 .quiz{padding:30px 22px}section{padding:64px 0}
-.stats{grid-template-columns:1fr 1fr 1fr}.stat b{font-size:30px}
+.stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.stat{padding:16px 6px}.stat b{font-size:26px}.stat span{font-size:11px}
 .two{grid-template-columns:1fr}
 .badge{right:10px}
-.fab span{display:none}.fab{padding:16px}
+.fab span{display:none}.fab{padding:16px}footer{padding-bottom:96px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
