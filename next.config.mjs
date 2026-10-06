@@ -4,10 +4,8 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
-  async rewrites() {
-    return {
-      beforeFiles: [{ source: "/demo", destination: "/arth-aspire-demo.html" }],
-    };
+  async redirects() {
+    return [{ source: "/demo", destination: "/", permanent: false }];
   },
 };
 
