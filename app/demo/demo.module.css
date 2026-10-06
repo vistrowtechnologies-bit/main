@@ -51,23 +51,23 @@
 .textButton:hover, .articleLink:hover { color: var(--orange); border-color: var(--orange); }
 .placeLine { display: flex; gap: 11px; align-items: center; color: #727e83; font-size: 12px; font-weight: 700; margin: 34px 0 0; }
 .placeLine span { width: 3px; height: 3px; border-radius: 50%; background: var(--orange); }
-.heroStage { position: relative; min-height: 608px; isolation: isolate; }
-.heroStage:before { content: ""; position: absolute; inset: 0 -100vw 0 -2%; background: #edf3fa; z-index: -2; }
-.stageEyebrow { position: absolute; top: 34px; left: 5%; right: 0; display: flex; justify-content: space-between; color: #5b6b80; font-size: 10px; font-weight: 800; letter-spacing: .13em; }
+.heroStage { position: relative; min-height: 608px; isolation: isolate; background: #f5f6f5 url('/demo/arth-aspire/studio-stage.jpg') center bottom / cover no-repeat; }
+.heroStage:before { content: ""; position: absolute; inset: 0 -100vw 0 -2%; background: #f5f6f5; z-index: -2; }
+.stageEyebrow { position: absolute; z-index: 2; top: 34px; left: 5%; right: 5%; display: flex; justify-content: space-between; color: #5b6b80; font-size: 10px; font-weight: 800; letter-spacing: .13em; }
 .stageEyebrow span { color: var(--orange); }
-.stageSurface { position: absolute; left: 5%; right: -10%; bottom: 105px; height: 100px; background: #d9e4f0; border-radius: 50%; transform: perspective(500px) rotateX(65deg); filter: blur(2px); z-index: -1; }
-.stageBooks { position: absolute; inset: 0 0 84px; }
-.heroBook { position: absolute; top: 24%; display: block; width: 31%; aspect-ratio: 620 / 877; padding: 0; border: 0; border-radius: 3px 7px 7px 3px; overflow: hidden; cursor: pointer; background: #0a1832; box-shadow: 14px 24px 24px rgba(16,32,64,.23), 3px 6px 8px rgba(0,0,0,.16); transform-origin: bottom center; }
-.heroBook:after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: linear-gradient(90deg,rgba(0,0,0,.42),rgba(255,255,255,.12),transparent); pointer-events: none; }
-.heroBook:hover { box-shadow: 18px 30px 38px rgba(16,32,64,.34), 3px 6px 8px rgba(0,0,0,.16); }
-.heroBook:focus-visible, .stageControls button:focus-visible, .bookCard:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
-.heroBook img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.stageBooks { position: absolute; inset: 60px 0 75px; display: grid; place-items: center; perspective: 1100px; }
+.heroBook { position: relative; display: block; width: min(48%, 330px); aspect-ratio: 620 / 877; border-radius: 2px 6px 6px 2px; background: #f4efe6; box-shadow: -16px 24px 8px -7px rgba(22,35,49,.18), 20px 36px 35px rgba(22,35,49,.23); transform-origin: left center; }
+.heroBook:before { content: ""; position: absolute; z-index: -1; left: -18px; top: 1%; bottom: 1%; width: 20px; background: #c1c3bb; transform: skewY(-7deg); border-radius: 3px 0 0 3px; box-shadow: inset 5px 0 6px rgba(21,36,56,.2); }
+.heroBook:after { content: ""; position: absolute; inset: 0 auto 0 0; width: 9px; background: linear-gradient(90deg,rgba(0,0,0,.22),transparent); pointer-events: none; }
+.heroBook > img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 2px 6px 6px 2px; }
+.stageControls button:focus-visible, .bookCard:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
 .stageControls { position: absolute; left: 5%; right: 0; bottom: 30px; display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 13px; }
 .stageControls button { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #afc3da; border-radius: 50%; color: var(--navy); background: #fff; cursor: pointer; transition: background .2s, color .2s, transform .2s; }
 .stageControls button:hover { background: var(--navy); color: #fff; transform: scale(1.06); }
 .stageSelection { display: flex; flex-direction: column; align-items: center; min-width: 0; line-height: 1.25; }
 .stageSelection span { color: var(--orange); font-size: 10px; font-weight: 800; letter-spacing: .12em; }
 .stageSelection strong { color: var(--navy); font-family: var(--font-manrope), Arial, sans-serif; font-size: 16px; text-align: center; }
+
 @keyframes heroCopyIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 .introStrip { background: #fff; border-bottom: 1px solid var(--line); }
@@ -180,9 +180,8 @@
   .heroStage { min-height: 285px; overflow: hidden; }
   .heroStage:before { inset: 0; }
   .stageEyebrow { top: 17px; left: 20px; right: 20px; }
-  .stageBooks { inset: 0 8px 60px; }
-  .heroBook { top: 31%; width: 27%; }
-  .stageSurface { left: 12%; right: 12%; bottom: 72px; height: 58px; }
+  .stageBooks { inset: 38px 8px 58px; }
+  .heroBook { width: min(32%, 145px); }
   .stageControls { left: 20px; right: 20px; bottom: 14px; z-index: 9; }
   .introInner { width: calc(100% - 36px); min-height: 90px; gap: 10px; }
   .introInner p { flex-direction: column; gap: 0; }
@@ -215,7 +214,7 @@
   .hero h1 { font-size: 3rem; }
   .heroLead { font-size: 1.35rem; }
   .heroStage { min-height: 285px; }
-  .heroBook { top: 31%; width: 27%; }
+  .heroBook { width: min(36%, 145px); }
   .stageSelection strong { font-size: 13px; }
   .bookImageWrap { height: 184px; }
   .bookCardBottom strong { font-size: 10px; }

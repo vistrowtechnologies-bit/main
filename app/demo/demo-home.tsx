@@ -92,22 +92,19 @@ export default function DemoHome() {
           </div>
           <div className={styles.heroStage} aria-label="Explore the four Brain Booster Activity Booklets">
             <div className={styles.stageEyebrow}>THE BRAIN BOOSTER COLLECTION <span>{selected.level} / 04</span></div>
-            <div className={styles.stageSurface} aria-hidden />
             <div className={styles.stageBooks}>
-              {books.map((book, index) => <motion.button
-                className={`${styles.heroBook} ${selectedLevel === index ? styles.heroBookSelected : ""}`}
-                type="button"
-                key={book.level}
-                onClick={() => setSelectedLevel(index)}
-                aria-label={`Show Brain Booster Level ${index + 1}: ${book.title}`}
-                aria-pressed={selectedLevel === index}
-                style={{ left: `${2 + index * 23}%` }}
-                initial={reduceMotion ? false : { opacity: 0, y: 72, rotate: 0 }}
-                animate={{ opacity: 1, y: selectedLevel === index ? -19 : 0, rotate: selectedLevel === index ? 0 : [-13, -5, 5, 13][index], scale: selectedLevel === index ? 1.12 : .86, zIndex: selectedLevel === index ? 6 : index + 1 }}
-                transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 170, damping: 19, delay: .08 * index }}
-              >
-                <Image src={book.image} alt={`Brain Booster Activity Booklet Level ${index + 1} cover`} width={620} height={877} priority={index < 2} />
-              </motion.button>)}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  className={styles.heroBook}
+                  key={selected.level}
+                  initial={reduceMotion ? false : { opacity: 0, x: 55, rotateY: -22 }}
+                  animate={{ opacity: 1, x: 0, rotateY: -12 }}
+                  exit={reduceMotion ? undefined : { opacity: 0, x: -55, rotateY: 4 }}
+                  transition={reduceMotion ? { duration: 0 } : { type: "spring", stiffness: 150, damping: 22 }}
+                >
+                  <Image src={selected.image} alt={`Brain Booster Activity Booklet Level ${selectedLevel + 1} cover`} width={620} height={877} priority />
+                </motion.div>
+              </AnimatePresence>
             </div>
             <div className={styles.stageControls}>
               <button type="button" onClick={() => changeLevel(-1)} aria-label="Previous book"><ChevronLeft size={20} aria-hidden /></button>
