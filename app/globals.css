@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+.vistrow-shell-top,
+.vistrow-shell-bottom,
+.vistrow-shell-tools {
+  display: contents;
+}
+
+body:has(.arth-demo) .vistrow-shell-top,
+body:has(.arth-demo) .vistrow-shell-bottom,
+body:has(.arth-demo) .vistrow-shell-tools {
+  display: none;
+}
+
 /*
  * Vistrow design tokens.
  * Values are space-separated RGB channels so Tailwind can apply /opacity.

@@ -77,21 +77,25 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body className="font-sans antialiased">
-        <ScrollProgress />
+        <div className="vistrow-shell-tools"><ScrollProgress /></div>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:font-semibold focus:text-accent-ink"
         >
           Skip to content
         </a>
-        <AnnouncementBar />
-        <Header />
+        <div className="vistrow-shell-top">
+          <AnnouncementBar />
+          <Header />
+        </div>
         <main id="main">
           <RouteTransition>{children}</RouteTransition>
         </main>
-        <Footer />
-        <ChatWidget />
-        <AccentSwitcher />
+        <div className="vistrow-shell-bottom"><Footer /></div>
+        <div className="vistrow-shell-tools">
+          <ChatWidget />
+          <AccentSwitcher />
+        </div>
       </body>
     </html>
   );
