@@ -6,6 +6,7 @@
 <meta name="referrer" content="no-referrer">
 <title>Xceed Beyond | Homepage Preview by Vistrow</title>
 <meta name="robots" content="noindex, nofollow">
+<script>try{var _t=localStorage.getItem("xb-theme");if(_t)document.documentElement.setAttribute("data-theme",_t)}catch(e){}</script>
 <meta name="description" content="Homepage redesign preview for Xceed Beyond, prepared by Vistrow Technologies.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -13,10 +14,12 @@
 <style>
 /* Brand colours taken from xceedbeyond.com: deep indigo #1B1247, coral red #FF4A41, white. Fonts: Clash Display + Inter (as on the live site).
    Design discipline: ui-ux-pro-max "Trust & Authority" pattern + awesome-design-md rules (one accent, hairlines, SVG icons, no emoji). */
-:root{--ind:#1B1247;--ind2:#120B33;--ind3:#2A1D66;--ind4:#3B2A8A;--cor:#FF4A41;--cor2:#FF6F68;--ink:#14102B;--mut:#5B5878;--line:#E7E5F0;--bg:#F6F5FB;--w:#fff;--ease:cubic-bezier(.2,.7,.2,1);--hf:"Clash Display",Lexend,system-ui,sans-serif}
+:root{--ind:#1B1247;--ind2:#120B33;--ind3:#2A1D66;--ind4:#3B2A8A;--cor:#FF4A41;--cor2:#FF6F68;--ink:#14102B;--mut:#5B5878;--line:#E7E5F0;--bg:#F6F5FB;--w:#fff;--card:#fff;--ease:cubic-bezier(.2,.7,.2,1);--hf:"Clash Display",Lexend,system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
+:root[data-theme=dark]{--w:#0B0720;--bg:#140D38;--card:#1B1247;--ink:#F2F0FC;--mut:#A8A5C6;--line:#2C2461;color-scheme:dark}
 html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--w);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--w);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
+section,.pin{scroll-margin-top:70px}
 h1,h2,h3,.disp{font-family:var(--hf);font-weight:500;letter-spacing:-.02em;line-height:1.08}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -167,7 +170,7 @@ section{padding:128px 0;position:relative}
 .face:nth-child(3){transform:rotateY(240deg) translateZ(173px)}
 /* quotes */
 .q{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.q figure{background:#fff;border:1px solid var(--line);border-radius:22px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:44px;min-height:300px;transition:transform .4s var(--ease),box-shadow .4s}
+.q figure{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:44px;min-height:300px;transition:transform .4s var(--ease),box-shadow .4s}
 .q figure:hover{transform:translateY(-6px);box-shadow:0 26px 50px #1b124714}
 .q blockquote{font:400 22px/1.4 var(--hf);letter-spacing:-.01em}
 .q figcaption{font-size:15px;color:var(--mut);display:flex;gap:12px;align-items:center}
@@ -193,7 +196,7 @@ section{padding:128px 0;position:relative}
 .opts svg{width:20px;height:20px}
 .form{background:var(--bg);border-radius:26px;padding:44px;border:1px solid var(--line)}
 .form label{display:block;font-size:13px;color:var(--mut);margin-bottom:6px;letter-spacing:.04em}
-.form input,.form select,.form textarea{width:100%;font:inherit;padding:14px 18px;border:1px solid var(--line);background:#fff;margin-bottom:20px;border-radius:12px;transition:border-color .2s}
+.form input,.form select,.form textarea{width:100%;font:inherit;padding:14px 18px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-bottom:20px;border-radius:12px;transition:border-color .2s}
 .form input:focus,.form select:focus,.form textarea:focus{border-color:var(--cor);outline:0}
 .form .btn{width:100%;justify-content:center}
 .rc{background:var(--bg);padding:84px 0;border-top:1px solid var(--line)}
@@ -208,19 +211,55 @@ footer ul{list-style:none}footer li{padding:6px 0}
 footer a:hover{color:#fff}
 .copy{border-top:1px solid #2d2560;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}
 
-/* WhatsApp widget (left) + chatbot (right) */
-.wl2{position:fixed;left:22px;bottom:22px;z-index:80;display:flex;align-items:center;gap:12px;background:#25D366;color:#06260f;padding:12px 20px 12px 14px;border-radius:99px;font-weight:600;font-size:15px;box-shadow:0 14px 40px #25d36655;transition:transform .25s var(--ease)}
-.wl2:hover{transform:translateY(-3px)}
-.wl2 span.ic{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center}
-.wl2 svg{width:20px;height:20px;fill:#128C4A}
-.wl2:after{content:"";position:absolute;inset:0;border-radius:99px;border:2px solid #25D366;animation:rp 2.4s infinite;pointer-events:none}
-@keyframes rp{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.25,1.5);opacity:0}}
-.cbb{position:fixed;right:22px;bottom:22px;z-index:81;display:flex;align-items:center;gap:12px;background:var(--cor);color:#fff;border:0;padding:12px 22px 12px 14px;border-radius:99px;font-weight:600;font-size:15px;box-shadow:0 14px 40px #ff4a4166;transition:transform .25s var(--ease)}
-.cbb:hover{transform:translateY(-3px)}
-.cbb .ic{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center}
-.cbb svg{width:18px;height:18px;stroke:var(--cor);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.cbb .dot{position:absolute;left:8px;top:6px;width:11px;height:11px;border-radius:50%;background:#22C55E;border:2px solid #fff}
-.cbp{position:fixed;right:22px;bottom:92px;z-index:82;width:380px;max-width:calc(100vw - 32px);height:540px;max-height:calc(100vh - 120px);background:#fff;border-radius:22px;box-shadow:0 30px 80px #1b124755;display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line);transform-origin:bottom right}
+/* floating bubbles: WhatsApp (left) + chatbot (right) */
+.fb{position:fixed;bottom:22px;z-index:80;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;border:0;transition:transform .25s var(--ease)}
+.fb:hover{transform:translateY(-3px) scale(1.05)}
+.fb svg{width:32px;height:32px}
+.fb .t{position:absolute;top:50%;transform:translateY(-50%);white-space:nowrap;background:var(--ind);color:#fff;font-size:13px;font-weight:600;padding:7px 14px;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s}
+.wl2 .t{left:72px}.cbb .t{right:72px}
+@media(hover:hover){.fb:hover .t{opacity:1}}
+.wl2{left:22px;background:#25D366;box-shadow:0 12px 30px #25d36666}
+.wl2 svg{fill:#fff}
+.wl2:after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25D366;animation:rp 2.4s infinite;pointer-events:none}
+@keyframes rp{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.5);opacity:0}}
+.cbb{right:22px;z-index:81;background:var(--cor);box-shadow:0 12px 30px #ff4a4166}
+.cbb .dot{position:absolute;right:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#22C55E;border:2px solid #fff}
+.tz{position:fixed;right:22px;bottom:94px;z-index:79;max-width:250px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px 16px 4px 16px;padding:13px 34px 13px 15px;font-size:14px;line-height:1.4;box-shadow:0 16px 44px #1b124744;display:none;text-align:left;cursor:pointer}
+.tz.on{display:block;animation:pop .35s var(--ease)}
+.tz .x{position:absolute;right:6px;top:4px;background:none;border:0;color:var(--mut);font-size:20px;line-height:1;padding:4px}
+.typ{display:flex;gap:4px;padding:14px 16px}
+.typ i{width:7px;height:7px;border-radius:50%;background:var(--mut);animation:bl 1s infinite}
+.typ i:nth-child(2){animation-delay:.15s}.typ i:nth-child(3){animation-delay:.3s}
+@keyframes bl{50%{opacity:.25}}
+:root[data-theme=dark] .mg.u{background:var(--ind3)}
+/* theme + menu */
+.thb,.bg-btn{width:46px;height:46px;border-radius:50%;border:1px solid #ffffff44;background:#ffffff14;color:#fff;display:inline-flex;align-items:center;justify-content:center;flex:none;transition:background .2s}
+.thb:hover,.bg-btn:hover{background:#ffffff2a}
+.thb svg{width:20px;height:20px}.thb .su{display:none}
+:root[data-theme=dark] .thb .su{display:block}:root[data-theme=dark] .thb .mo{display:none}
+.bg-btn{display:none}
+.bg-btn span,.bg-btn span:before,.bg-btn span:after{display:block;width:20px;height:2px;background:#fff;border-radius:2px;position:relative;transition:transform .3s var(--ease),background .2s}
+.bg-btn span:before,.bg-btn span:after{content:"";position:absolute;left:0}
+.bg-btn span:before{top:-6px}.bg-btn span:after{top:6px}
+body.mo .bg-btn span{background:transparent}
+body.mo .bg-btn span:before{transform:translateY(6px) rotate(45deg)}
+body.mo .bg-btn span:after{transform:translateY(-6px) rotate(-45deg)}
+body.mo{overflow:hidden}
+body.mo .fb,body.mo .tz{display:none}
+.mm{position:fixed;inset:0;z-index:55;background:var(--ind2);padding:100px 24px 32px;display:none;flex-direction:column;overflow-y:auto;color:#fff}
+body.mo .mm{display:flex}
+.mm .l{display:flex;justify-content:space-between;align-items:center;font:500 30px var(--hf);color:#fff;padding:18px 0;border-bottom:1px solid #ffffff1f}
+.mm .l svg{width:20px;height:20px;color:var(--cor)}
+.mm .acts{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+.mm .btn{justify-content:center;width:100%}
+.mm .wa{background:#25D366;color:#06260f}
+.mm .wa:hover{background:#3ae07c;box-shadow:none}
+.mm .wa svg{width:20px;height:20px;fill:currentColor}
+.mm .mth{display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid #ffffff44;background:transparent;color:#fff;border-radius:99px;min-height:50px;font-size:15px;font-weight:600;width:100%}
+.mm .mth svg{width:20px;height:20px}
+.mm small{margin-top:auto;padding-top:28px;color:#8A86AE;font-size:13px;text-align:center}
+:root[data-theme=dark] .tr div{background:#fff;border-radius:14px;margin:0 8px;width:174px}
+.cbp{position:fixed;right:22px;bottom:96px;z-index:82;width:380px;max-width:calc(100vw - 32px);height:540px;max-height:calc(100vh - 120px);background:var(--card);color:var(--ink);border-radius:22px;box-shadow:0 30px 80px #1b124755;display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line);transform-origin:bottom right}
 .cbp.open{display:flex;animation:pop .35s var(--ease)}
 @keyframes pop{from{opacity:0;transform:translateY(16px) scale(.96)}}
 .cbh{background:var(--ind);color:#fff;padding:18px 20px;display:flex;align-items:center;gap:12px}
@@ -229,16 +268,16 @@ footer a:hover{color:#fff}
 .cbh button{margin-left:auto;background:none;border:0;color:#fff;font-size:22px;line-height:1;padding:6px}
 .cbm{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
 .mg{max-width:84%;padding:11px 15px;border-radius:16px;font-size:15px;line-height:1.45;animation:fade .3s forwards}
-.mg.b{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.mg.b{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
 .mg.u{background:var(--ind);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
 .qr{display:flex;flex-wrap:wrap;gap:8px;align-self:flex-start}
-.qr button{background:#fff;border:1px solid var(--cor);color:var(--cor);font-size:14px;padding:8px 14px;border-radius:99px;transition:.2s}
+.qr button{background:var(--card);border:1px solid var(--cor);color:var(--cor);font-size:14px;padding:8px 14px;border-radius:99px;transition:.2s}
 .qr button:hover{background:var(--cor);color:#fff}
-.cbf{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff}
-.cbf input{flex:1;border:1px solid var(--line);border-radius:99px;padding:11px 16px;font:inherit;font-size:15px}
+.cbf{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:var(--card)}
+.cbf input{flex:1;min-width:0;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:11px 16px;font:inherit;font-size:15px}
 .cbf button{background:var(--cor);color:#fff;border:0;border-radius:99px;padding:0 18px;font-weight:600}
 .lead form{display:flex;flex-direction:column;gap:8px}
-.mg form input{border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;font-size:14px}
+.mg form input{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;font-size:14px}
 .mg form button{background:#25D366;color:#06260f;border:0;border-radius:10px;padding:10px;font-weight:600}
 .mb{display:none}
 .rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
@@ -250,13 +289,15 @@ footer a:hover{color:#fff}
  .ac{flex-direction:column;height:auto}.ap{flex:none;min-height:96px;transition:min-height .6s var(--ease)}.ap.on{min-height:340px}.ai h3{white-space:normal}
  .hmeta .wrap{grid-template-columns:1fr}.hmeta div{border-left:0;border-top:1px solid #ffffff1f;padding:12px 0}.hmeta div:first-child{border:0}
  .hmeta b{display:inline;font-size:24px;margin-right:12px}.hmeta{position:relative;margin-top:30px}
- .hero{padding:120px 0 0;display:block;min-height:0}.stage{height:340px;transform:scale(.7);margin:-20px 0}
+ .hero{padding:120px 0 0;display:block;min-height:0}
  section{padding:80px 0}.cs>div{padding:34px 26px}.cs .rt{border-left:0;border-top:1px solid #ffffff1f}
  .lm{padding:38px 26px}.ct{gap:48px}.form{padding:28px 22px}
- .pin{height:300vh}.scene{height:340px}.prism{width:220px;height:220px}.face:nth-child(1){transform:rotateY(0) translateZ(127px)}.face:nth-child(2){transform:rotateY(120deg) translateZ(127px)}.face:nth-child(3){transform:rotateY(240deg) translateZ(127px)}.face b{font-size:60px}.pin .wrap{gap:20px}.pt{min-height:150px}.pt h3{font-size:32px}
- .m{display:none!important}.wrap{padding:0 20px}.hmeta div,.hmeta div:first-child{padding:14px 20px!important}.hmeta .wrap{padding:0}.nav{height:64px}.lgo{height:38px}.hero .wrap>div:first-child{padding-top:10px}.hero h1{font-size:clamp(42px,12.5vw,60px)}.hero p.lead{font-size:17px}.hero .cta{flex-direction:column;align-items:stretch}.hero .cta .btn{justify-content:center}.stage{height:300px;transform:scale(.62);margin:10px 0 -40px;transform-origin:top center}.sh{margin-bottom:36px}.sh h2{font-size:34px}.sc{padding:26px}.ap.on{min-height:380px}.cs>div{padding:30px 22px}.tabs button{padding:9px 16px;font-size:14px}.lm h2{font-size:30px}.ct h2{font-size:34px}.form{padding:24px 20px}.q figure{padding:26px}.pin .wrap{padding:0 20px}.tr div{width:150px}.pv .wrap>span{display:none}.pv .wrap{justify-content:center}#glow{display:none}.wl2 span.t,.cbb span.t{display:none}.wl2,.cbb{padding:10px;bottom:16px}.wl2{left:14px}.cbb{right:14px}.cbp{bottom:82px;right:12px;height:calc(100vh - 120px)}
+ .pin{height:300vh}.pin .stk{height:100vh;height:100svh;align-items:flex-start;padding:92px 0 100px;box-sizing:border-box}.pin h2{font-size:30px;margin:12px 0 10px}.pin .lead{font-size:16px;margin-bottom:18px}.dots{margin-bottom:16px}.scene{height:clamp(170px,26svh,230px)}.prism{width:170px;height:170px}.face{padding:18px;border-radius:18px}.face:nth-child(1){transform:rotateY(0) translateZ(98px)}.face:nth-child(2){transform:rotateY(120deg) translateZ(98px)}.face:nth-child(3){transform:rotateY(240deg) translateZ(98px)}.face b{font-size:48px}.face span{font-size:18px}.pin .wrap{gap:12px;align-content:start}.pt{min-height:118px}.pt h3{font-size:28px;margin-bottom:8px}.pt p{font-size:16px}
+ .m{display:none!important}.wrap{padding:0 20px}.hmeta div,.hmeta div:first-child{padding:14px 20px!important}.hmeta .wrap{padding:0}.nav{height:64px}.lgo{height:38px}.hero .wrap>div:first-child{padding-top:10px}.hero h1{font-size:clamp(42px,12.5vw,60px)}.hero p.lead{font-size:17px}.hero .cta{flex-direction:column;align-items:stretch}.hero .cta .btn{justify-content:center}.stage{height:280px;transform:none;margin:44px 0 4px}.iso{width:240px;height:152px;margin:-76px 0 0 -120px}.l1{--z:52px}.l2{--z:104px}.lay{padding:12px 14px;border-radius:14px}.lay h4{font-size:10px}.hero .wrap{gap:0}.sh{margin-bottom:36px}.sh h2{font-size:34px}.sc{padding:26px}.ap.on{min-height:380px}.cs>div{padding:30px 22px}.tabs button{padding:9px 16px;font-size:14px}.lm h2{font-size:30px}.ct h2{font-size:34px}.form{padding:24px 20px}.q figure{padding:26px}.pin .wrap{padding:0 20px}.tr div{width:150px}.pv .wrap>span{display:none}.pv .wrap{justify-content:center}#glow{display:none}.fb{width:56px;height:56px;bottom:16px}.fb svg{width:29px;height:29px}.wl2{left:14px}.cbb{right:14px}.cbp{left:12px;right:12px;width:auto;max-width:none;bottom:84px;height:min(560px,calc(100svh - 150px))}.tz{right:14px;bottom:82px}.bg-btn{display:inline-flex}.hr{gap:10px}.hr .thb{display:none}.btn.sm{padding:10px 18px}.pv button{padding:5px 12px}footer{padding-bottom:96px}.copy{flex-direction:column}
  .mb{display:none}
 }
+@media(max-width:980px) and (max-height:740px){.pin .lead{display:none}}
+@media(min-width:981px){.mm{display:none!important}body.mo{overflow:auto}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.hero h1 .w span{transform:none}.hero p.lead,.hero .cta,.stage{opacity:1}.tr{width:auto;flex-wrap:wrap;justify-content:center}.sc{transform:none!important}#glow{display:none}}
 </style>
 </head>
@@ -274,10 +315,15 @@ footer a:hover{color:#fff}
   <nav aria-label="Main"><ul>
    <li><a href="#services">Services</a></li><li><a href="#who">Who we serve</a></li><li><a href="#results">Results</a></li><li><a href="#process">Process</a></li><li><a href="#contact">Contact</a></li>
   </ul></nav>
-  <div class="hr"><a class="tel" href="tel:+910000000000">+91 XXXXX XXXXX</a><a class="btn sm mag" href="#contact">Book a call</a></div>
+  <div class="hr"><a class="tel" href="tel:+910000000000">+91 XXXXX XXXXX</a><button class="thb" type="button" aria-label="Switch to dark mode"><svg class="mo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="su" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><a class="btn sm mag" href="#contact">Book a call</a><button class="bg-btn" id="bgb" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><span></span></button></div>
   <span class="m" style="right:-8px;top:8px">1</span>
  </div>
 </header>
+<div class="mm" id="mm" role="dialog" aria-label="Menu">
+ <a class="l" href="#services">Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="l" href="#who">Who we serve <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="l" href="#results">Results <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="l" href="#process">Process <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="l" href="#contact">Contact <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+ <div class="acts"><a class="btn" href="#contact">Book a free innovation audit</a><a class="btn wa" href="#" onclick="return wa('Hi, I have a question for Xceed Beyond.')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>Chat on WhatsApp</a><button class="thb mth" type="button" aria-label="Switch to dark mode"><svg class="mo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="su" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="thl">Dark mode</span></button></div>
+ <small>Redesign preview by Vistrow Technologies</small>
+</div>
 
 <main>
 <div class="hero" id="hero">
@@ -427,10 +473,11 @@ footer a:hover{color:#fff}
  <div class="copy"><span>© 2026 Xceed Beyond. All rights reserved.</span><span>Privacy · Terms · Redesign preview by <a href="https://www.vistrow.com" style="color:#fff">Vistrow Technologies</a></span></div>
 </div></footer>
 
-<a class="wl2" href="#" onclick="return wa('Hi, I have a question for Xceed Beyond.')" aria-label="Chat on WhatsApp"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.400-.7-1.600-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.500 6.500 0 0 1-3.200-2.800c-.2-.4.2-.4.6-1.200.1-.2 0-.3 0-.4l-.7-1.600c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.6.300-.6.600-.9 1.300-.9 2.100 0 .8.4 1.700.8 2.200.1.1 1.400 2.200 3.400 3 1.800.7 2 .6 2.400.5.500-.1 1.300-.6 1.500-1.100.2-.5.2-1 .1-1.100 0-.2-.2-.2-.4-.3z"/></svg></span><span class="t">WhatsApp us</span></a>
-<button class="cbb" id="cbb" aria-expanded="false" aria-controls="cbp"><span class="dot"></span><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.600 7.100L4 20l1-4.500A8 8 0 1 1 21 12z"/></svg></span><span class="t">Ask Xceed Beyond</span></button>
+<a class="fb wl2" href="#" onclick="return wa('Hi, I have a question for Xceed Beyond.')" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span class="t">WhatsApp us</span></a>
+<button class="fb cbb" id="cbb" type="button" aria-label="Open chat assistant" aria-expanded="false" aria-controls="cbp"><span class="dot"></span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4C9.4 4 4 8.9 4 15c0 3.2 1.5 6 3.9 8L7 28l5-2.4c1.200.3 2.600.4 4 .4 6.600 0 12-4.900 12-11S22.600 4 16 4z" fill="#fff"/><circle cx="10.500" cy="15.500" r="1.700" fill="#FF4A41"/><circle cx="16" cy="15.500" r="1.700" fill="#FF4A41"/><circle cx="21.500" cy="15.500" r="1.700" fill="#FF4A41"/></svg><span class="t">Ask Xceed Beyond</span></button>
+<div class="tz" id="tz" role="status">Hi! Got a question or want a free innovation audit?<button class="x" id="tzx" aria-label="Dismiss" type="button">&times;</button></div>
 <div class="cbp" id="cbp" role="dialog" aria-label="Xceed Beyond assistant">
- <div class="cbh"><span class="av">X</span><div><b>Xceed Beyond assistant</b><small>Replies instantly · Human team on WhatsApp</small></div><button id="cbx" aria-label="Close chat">&times;</button></div>
+ <div class="cbh"><span class="av">X</span><div><b>Xceed Beyond assistant</b><small>Online now · Human team on WhatsApp</small></div><button id="cbx" type="button" aria-label="Close chat">&times;</button></div>
  <div class="cbm" id="cbm" aria-live="polite"></div>
  <form class="cbf" id="cbf"><input id="cbi" placeholder="Type your question" aria-label="Type your question"><button>Send</button></form>
 </div>
@@ -491,21 +538,53 @@ addEventListener("scroll",function(){requestAnimationFrame(sc)},{passive:true});
   iso.style.setProperty("--rx",(58+ty*-14)+"deg");iso.style.setProperty("--rz",(-34+tx*22)+"deg");iso.style.setProperty("--ex",ex.toFixed(3));
   requestAnimationFrame(f)}f()})();
 
+/* theme + mobile menu */
+var root=document.documentElement,mm=document.getElementById("mm"),bgb=document.getElementById("bgb");
+function setTheme(t,save){root.setAttribute("data-theme",t);if(save){try{localStorage.setItem("xb-theme",t)}catch(e){}}
+ document.querySelectorAll(".thb").forEach(function(b){b.setAttribute("aria-label",t=="dark"?"Switch to light mode":"Switch to dark mode")});
+ document.querySelectorAll(".thl").forEach(function(l){l.textContent=t=="dark"?"Light mode":"Dark mode"})}
+setTheme(root.getAttribute("data-theme")||"light");
+document.querySelectorAll(".thb").forEach(function(b){b.onclick=function(){setTheme(root.getAttribute("data-theme")=="dark"?"light":"dark",1)}});
+function menu(o){document.body.classList.toggle("mo",o);bgb.setAttribute("aria-expanded",o);bgb.setAttribute("aria-label",o?"Close menu":"Open menu");if(o)mm.style.paddingTop=(hd.getBoundingClientRect().bottom+14)+"px"}
+bgb.onclick=function(){menu(!document.body.classList.contains("mo"))};
+mm.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){menu(false)})});
+addEventListener("keydown",function(e){if(e.key=="Escape")menu(false)});
+addEventListener("resize",function(){if(!MOB())menu(false)});
 /* chatbot */
-(function(){var box=document.getElementById("cbp"),btn=document.getElementById("cbb"),M=document.getElementById("cbm"),st={who:"",need:""},started=false;
+(function(){var box=document.getElementById("cbp"),btn=document.getElementById("cbb"),M=document.getElementById("cbm"),tz=document.getElementById("tz"),st={who:"",need:""},started=false;
  function add(t,c,h){var d=document.createElement("div");d.className="mg "+c;if(h)d.innerHTML=t;else d.textContent=t;M.appendChild(d);M.scrollTop=M.scrollHeight;return d}
- function bot(t,delay,cb){setTimeout(function(){add(t,"b");if(cb)cb()},delay||500)}
- function chips(a,fn){var q=document.createElement("div");q.className="qr";a.forEach(function(x){var b=document.createElement("button");b.textContent=x;b.onclick=function(){q.remove();add(x,"u");fn(x)};q.appendChild(b)});M.appendChild(q);M.scrollTop=M.scrollHeight}
- function ask1(){bot("Hi, I'm the Xceed Beyond assistant. Which best describes you?",300,function(){chips(["Corporate","Academia","Startup","Just exploring"],function(x){st.who=x;ask2()})})}
- function ask2(){bot("Thanks. What are you looking for?",500,function(){chips(["Innovation as a Service","Idea Management Platform","Audit & Certification","Not sure yet"],function(x){st.need=x;lead()})})}
- function lead(){bot("Good choice. Share your name and WhatsApp number and our team will book your free innovation audit.",600,function(){var d=add('<form><input id="bn" placeholder="Your name" required><input id="bp" placeholder="WhatsApp number" inputmode="tel" required><button>Send on WhatsApp</button></form>',"b",1);d.querySelector("form").onsubmit=function(e){e.preventDefault();var n=d.querySelector("#bn").value,p=d.querySelector("#bp").value;wa("Hi, I am "+n+" ("+st.who+"). I am interested in: "+st.need+". Please book my free innovation audit. Phone: "+p);d.innerHTML="Thank you, "+n.replace(/</g,"")+". Your message is ready on WhatsApp. We will reply shortly."}})}
- var KB=[[/price|cost|fee|charge|quote/i,"Pricing depends on scope. A free 15-minute audit call gives you an exact quote."],[/certif|audit|maturity/i,"We offer individual innovation certifications and organisation maturity assessments, with a clear action plan."],[/platform|idea|software|tool/i,"The Idea Management Platform lets your teams collect, score and track ideas with automated workflows and leader dashboards."],[/school|student|college|academ/i,"For academia we run innovation hubs, workshops and certifications for students and faculty."],[/start.?up|founder/i,"For startups we support you from first idea to first customers with a plan, mentors and a tracking platform."],[/contact|call|phone|email|talk|human/i,"The fastest way is WhatsApp, or book a 15-minute call from the Contact section below."]];
- function reply(t){var r=null;KB.forEach(function(k){if(!r&&k[0].test(t))r=k[1]});bot(r||"Good question. Our team can answer this best, and it takes a minute on WhatsApp.",500,function(){chips(["Chat on WhatsApp","Book a call"],function(x){if(x=="Chat on WhatsApp")wa("Hi, I have a question for Xceed Beyond: "+t);else{box.classList.remove("open");location.hash="#contact"}})})}
- function open(){box.classList.add("open");btn.setAttribute("aria-expanded","true");if(!started){started=true;ask1()}document.getElementById("cbi").focus()}
- function close(){box.classList.remove("open");btn.setAttribute("aria-expanded","false")}
+ function say(t,cb,ms){var d=add("<i></i><i></i><i></i>","b typ",1);setTimeout(function(){d.remove();add(t,"b");if(cb)cb()},ms||650)}
+ function chips(a,fn){var q=document.createElement("div");q.className="qr";a.forEach(function(x){var b=document.createElement("button");b.type="button";b.textContent=x;b.onclick=function(){q.remove();add(x,"u");fn(x)};q.appendChild(b)});M.appendChild(q);M.scrollTop=M.scrollHeight}
+ var MENU=["Our services","How it works","Results","Free checklist","Book a free audit","Talk to a human"];
+ function home(){chips(MENU,route)}
+ function hello(){say("Hi, I'm the Xceed Beyond assistant. I can answer quick questions or book your free innovation audit. What would you like to do?",home,500)}
+ function go2(id){var e=document.getElementById(id);if(e)e.scrollIntoView({behavior:"smooth"});if(MOB())close()}
+ function route(x){
+  if(x=="Our services")return say("We offer three things: Innovation as a Service (strategy, capability building and revenue-linked pilots), an Idea Management Platform (collect, score and track ideas), and Audits & Certifications (maturity scores and individual certification).",function(){chips(["Book a free audit","How it works","Back to menu"],route)});
+  if(x=="How it works")return say("Three phases. Launch: we understand your goals and run a quick audit. Immerse: guided workshops that get teams involved. Take off: ideas become pilots with owners, timelines and a dashboard.",function(){chips(["Book a free audit","Results","Back to menu"],route)});
+  if(x=="Results")return say("On this page: a software team doubled capacity (2X), and an academia program trained 400+ people. These are sample figures in this preview; final pages use your real case studies.",function(){chips(["Book a free audit","Back to menu"],route)});
+  if(x=="Free checklist")return say("The Innovation Readiness Checklist has 20 questions to show how future-ready your organisation is. We can send it on WhatsApp in seconds.",function(){chips(["Get it on WhatsApp","Back to menu"],route)});
+  if(x=="Get it on WhatsApp")return wa("Hi, please send me the Innovation Readiness Checklist.");
+  if(x=="Talk to a human"||x=="Chat on WhatsApp")return say("Our team replies fastest on WhatsApp. Opening it for you now.",function(){wa("Hi, I have a question for Xceed Beyond.");home()},400);
+  if(x=="Book a free audit"||x=="Book a call")return who();
+  if(x=="Back to menu")return say("Sure. What else can I help with?",home,400);
+  who()}
+ function who(){say("Great. Which best describes you?",function(){chips(["Corporate","Academia","Startup","Just exploring"],function(x){st.who=x;need()})},500)}
+ function need(){say("Thanks. What are you looking for?",function(){chips(["Innovation as a Service","Idea Management Platform","Audit & Certification","Not sure yet"],function(x){st.need=x;lead()})},500)}
+ function lead(){say("Good choice. Share your name and WhatsApp number and our team will book your free innovation audit.",function(){var d=add('<form><input name="n" placeholder="Your name" required autocomplete="name"><input name="p" placeholder="WhatsApp number" inputmode="tel" required autocomplete="tel"><button>Send on WhatsApp</button></form>',"b",1);d.querySelector("form").onsubmit=function(e){e.preventDefault();var f=e.target,n=f.n.value.trim(),p=f.p.value.trim();if(p.replace(/\D/g,"").length<8){f.p.setCustomValidity("Enter a valid number");f.p.reportValidity();f.p.oninput=function(){f.p.setCustomValidity("")};return}
+  wa("Hi, I am "+n+" ("+st.who+"). I am interested in: "+st.need+". Please book my free innovation audit. Phone: "+p);d.textContent="Thank you, "+n+". Your message is ready on WhatsApp. We will reply shortly.";home()}},500)}
+ var KB=[[/^(hi|hello|hey|namaste)\b/i,"Hello! How can I help you today?"],[/price|cost|fee|charge|quote|budget/i,"Pricing depends on scope. A free 15-minute audit call gives you an exact quote."],[/certif|maturity/i,"We offer individual innovation certifications and organisation maturity assessments, with a clear action plan."],[/platform|idea|software|tool/i,"The Idea Management Platform lets your teams collect, score and track ideas with automated workflows and leader dashboards."],[/school|student|college|academ|universit/i,"For academia we run innovation hubs, workshops and certifications for students and faculty."],[/start.?up|founder/i,"For startups we support you from first idea to first customers with a plan, mentors and a tracking platform."],[/process|how|step|phase|work/i,"Three phases: Launch (goals and audit), Immerse (guided workshops) and Take off (pilots with owners and a dashboard)."],[/time|long|duration|week|month/i,"Timelines depend on the program. The audit call is 15 minutes and we scope the rest with you."],[/where|location|city|office|address/i,"We work with teams across India and remotely. Message us on WhatsApp for in-person options."],[/contact|call|phone|email|talk|human|reach/i,"The fastest way is WhatsApp, or book a 15-minute call from the Contact section below."]];
+ function reply(t){var r=null;KB.forEach(function(k){if(!r&&k[0].test(t))r=k[1]});
+  if(r)say(r,function(){chips(["Book a free audit","Back to menu"],route)},550);
+  else say("I'm not sure about that one. Our team can answer it quickly on WhatsApp.",function(){chips(["Chat on WhatsApp","Back to menu"],route)},550)}
+ function hideTz(){tz.classList.remove("on")}
+ function open(){hideTz();box.classList.add("open");btn.setAttribute("aria-expanded","true");btn.setAttribute("aria-label","Close chat assistant");if(!started){started=true;hello()}if(!MOB())document.getElementById("cbi").focus()}
+ function close(){box.classList.remove("open");btn.setAttribute("aria-expanded","false");btn.setAttribute("aria-label","Open chat assistant")}
  btn.onclick=function(){box.classList.contains("open")?close():open()};document.getElementById("cbx").onclick=close;
- document.getElementById("cbf").onsubmit=function(e){e.preventDefault();var i=document.getElementById("cbi"),t=i.value.trim();if(!t)return;add(t,"u");i.value="";reply(t)};
- setTimeout(function(){if(!started&&!MOB())open()},12000);
+ addEventListener("keydown",function(e){if(e.key=="Escape")close()});
+ tz.onclick=function(e){if(e.target.id=="tzx"){hideTz();return}open()};
+ document.getElementById("cbf").onsubmit=function(e){e.preventDefault();var i=document.getElementById("cbi"),t=i.value.trim().slice(0,300);if(!t)return;add(t,"u");i.value="";M.querySelectorAll(".qr").forEach(function(q){q.remove()});reply(t)};
+ setTimeout(function(){if(!started&&!box.classList.contains("open"))tz.classList.add("on")},6000);
 })();
 /* card tilt + glare */
 if(!RM)document.querySelectorAll(".tilt").forEach(function(c){c.addEventListener("mousemove",function(e){if(MOB())return;var b=c.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;c.style.setProperty("--gx",x*100+"%");c.style.setProperty("--gy",y*100+"%");c.style.setProperty("--tl",((x-.5)*10).toFixed(2));c.style.setProperty("--tt",((.5-y)*8).toFixed(2))})});
