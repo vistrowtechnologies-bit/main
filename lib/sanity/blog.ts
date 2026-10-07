@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import blogMerges from "@/config/blog-merges.json";
 import { blogPosts as localBlogPosts } from "@/content/blog";
 import type { BlogPost } from "@/lib/content-types";
 import { sanityClient } from "@/lib/sanity/client";
@@ -28,7 +29,7 @@ async function getAllBlogPosts(): Promise<BlogPost[]> {
 // Posts that redirect elsewhere stay reachable by slug (so the redirect fires) but are hidden from lists.
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const posts = await getAllBlogPosts();
-  return posts.filter((post) => !post.redirectUrl);
+  return posts.filter((post) => !post.redirectUrl && !(post.slug in blogMerges));
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | undefined> {
