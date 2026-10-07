@@ -4,7 +4,7 @@ import { websitePortfolio } from "@/content/portfolio";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Website Portfolio",
+  title: "Website Portfolio: Websites We Have Built",
   description: "See live websites and products designed and built by Vistrow, across real estate, marketing, and manufacturing clients.",
   path: "/work/website-portfolio",
 });

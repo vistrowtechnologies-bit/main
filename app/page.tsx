@@ -5,6 +5,7 @@ import { Services } from "@/components/sections/services";
 import { ConversionEngine } from "@/components/sections/conversion-engine";
 import { Products } from "@/components/sections/products";
 import { Results } from "@/components/sections/results";
+import { LocalAreas } from "@/components/sections/local-areas";
 import { FinalCta } from "@/components/sections/final-cta";
 import { HomeSearchIntro } from "@/components/sections/home-search-intro";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ConversionEngine />
       <Products />
       <Results />
+      <LocalAreas />
       <FinalCta />
     </>
   );

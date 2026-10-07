@@ -48,10 +48,14 @@ export type LocationContent = {
   metaTitle: string;
   metaDescription: string;
   reasons: Feature[];
+  localContext: { title: string; paragraphs: string[] };
+  businessTypes: { label: string; body: string; href: string }[];
+  visibility: { title: string; body: string; points: string[] };
   solution: { title: string; body: string; points: string[] };
   services: { label: string; href: string }[];
   process: Step[];
   faqs: QA[];
+  hasOffice?: boolean;
 };
 
 export type ProductContent = {

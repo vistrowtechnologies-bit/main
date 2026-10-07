@@ -28,14 +28,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   ...buildMetadata({
-    title: "Vistrow Technologies | Digital Marketing and Business Automation",
+    title: "Vistrow Technologies | Digital Marketing & Automation",
     description:
       "Vistrow connects performance marketing, lead generation, CRM, AI voice agents, automation, and conversion tracking into one measurable growth system.",
     path: "/",
   }),
   metadataBase: new URL("https://www.vistrow.com"),
   title: {
-    default: "Vistrow Technologies | Digital Marketing and Business Automation",
+    default: "Vistrow Technologies | Digital Marketing & Automation",
     template: "%s | Vistrow",
   },
 };

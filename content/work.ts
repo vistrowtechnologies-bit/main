@@ -8,7 +8,7 @@ export const workOverview: OverviewContent = {
   highlight: "promises",
   subtitle:
     "First-party products, system architecture, delivery artefacts, and the measurement standards we use before calling something a result.",
-  metaTitle: "Digital Marketing and Automation Work",
+  metaTitle: "Our Work: Marketing, CRM and Automation",
   metaDescription:
     "Review Vistrow's first-party products, delivery evidence, campaign artefacts, and standards for verifying marketing and automation outcomes.",
   cardsTitle: "Explore the evidence",
@@ -51,7 +51,7 @@ export const workPages: Record<string, WorkContent> = {
     eyebrow: "Work",
     subtitle:
       "First-party systems and observable capabilities that can be demonstrated today, without borrowing credibility from unnamed clients.",
-    metaTitle: "Growth System Evidence",
+    metaTitle: "Case Studies: Marketing and Automation",
     metaDescription: "Inspect first-party Vistrow product and website systems, the workflows they support, and the evidence available in a product walkthrough.",
     items: [
       {
@@ -91,7 +91,7 @@ export const workPages: Record<string, WorkContent> = {
     title: "Campaign Blueprints",
     eyebrow: "Work",
     subtitle: "The artefacts a measurable campaign should produce before anyone presents a performance claim.",
-    metaTitle: "Performance Marketing Campaign Blueprints",
+    metaTitle: "Performance Marketing Campaign Portfolio",
     metaDescription: "See the campaign architecture, creative testing, funnel, tracking, and reporting artefacts Vistrow uses for measurable performance marketing.",
     items: [
       { title: "Paid acquisition architecture", tag: "Delivery artefact", summary: "Account structure mapped to audience, offer, landing experience, CRM source data, and a qualified conversion event.", metric: "Traceable", metricLabel: "Campaign-to-pipeline path", evidence: ["Channel and campaign map", "UTM and CRM field specification", "Qualified conversion definition"] },
@@ -105,7 +105,7 @@ export const workPages: Record<string, WorkContent> = {
     title: "Product Work",
     eyebrow: "Work",
     subtitle: "Owned products and reusable system capabilities built around real operational workflows.",
-    metaTitle: "Custom SaaS and Product Work",
+    metaTitle: "Custom SaaS and Software Development Work",
     metaDescription: "Explore Vistrow Voice, ArthaLeads, and reusable product capabilities for calling, lead operations, reporting, and business workflows.",
     items: [
       { title: "AI voice qualification", tag: "Vistrow Voice", summary: "Knowledge-grounded conversations, qualification, call records, and CRM handoffs in a reviewable workflow.", metric: "24/7", metricLabel: "Configurable availability", evidence: ["Prompt and knowledge configuration", "Call outcome history", "Human handoff and webhook flow"], href: "/products/vistrow-voice", linkLabel: "Explore the product" },
@@ -118,7 +118,7 @@ export const workPages: Record<string, WorkContent> = {
     title: "Measurement Standards",
     eyebrow: "Work",
     subtitle: "The minimum evidence required before Vistrow presents an operational or commercial outcome as a client result.",
-    metaTitle: "Marketing and Automation Measurement Standards",
+    metaTitle: "Client Results and How We Measure Them",
     metaDescription: "See how Vistrow defines baselines, attribution, lead quality, response time, and evidence before publishing client outcomes.",
     items: [
       { title: "Lead response", tag: "Verification standard", summary: "Measure from an agreed lead-created timestamp to the first meaningful automated or human response, with channel and business-hour context.", metric: "Timestamped", metricLabel: "CRM or workflow evidence", evidence: ["Start and end event definition", "Exceptions and failed attempts", "Median and distribution, not a single best case"] },

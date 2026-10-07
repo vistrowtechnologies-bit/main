@@ -7,7 +7,7 @@ export const industriesOverview: OverviewContent = {
   highlight: "industry",
   subtitle:
     "The same connected engine - marketing, CRM, AI voice, and automation - shaped around the way your industry actually generates and closes business.",
-  metaTitle: "Industry-Specific Growth Systems",
+  metaTitle: "Digital Marketing and Automation by Industry",
   metaDescription:
     "Vistrow growth systems for real estate, local businesses, B2B, startups & SaaS, agencies, and education.",
   cardsTitle: "Industries we serve",
@@ -62,7 +62,7 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "In real estate, the first agent to respond usually wins. We build the marketing and instant follow-up systems that turn enquiries into appointments.",
-    metaTitle: "Real Estate Growth Systems",
+    metaTitle: "Digital Marketing for Real Estate in India",
     metaDescription:
       "Marketing, AI voice, and follow-up systems for real estate - capture, qualify, and book more buyers and sellers, faster.",
     challenges: [
@@ -108,7 +108,7 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "For local and service businesses, every missed call is a missed job. We build marketing and follow-up that keep your calendar full.",
-    metaTitle: "Local Business Growth Systems",
+    metaTitle: "Digital Marketing for Local Businesses",
     metaDescription:
       "Local marketing, instant lead response, and follow-up that turn enquiries into booked jobs for service businesses.",
     challenges: [
@@ -147,7 +147,7 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "B2B sales are considered and multi-touch. We build the demand generation and nurture systems that create and mature qualified pipeline.",
-    metaTitle: "B2B Growth Systems",
+    metaTitle: "B2B Lead Generation and Digital Marketing",
     metaDescription:
       "Demand generation, lead scoring, and nurture systems for B2B - qualified pipeline for longer sales cycles.",
     challenges: [
@@ -193,7 +193,7 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "Startups need efficient, measurable growth. We build acquisition and activation systems that scale with you - without wasting runway.",
-    metaTitle: "Startup & SaaS Growth Systems",
+    metaTitle: "Marketing and Automation for Startups and SaaS",
     metaDescription:
       "Efficient acquisition, activation, and retention systems for startups and SaaS - measurable growth that scales.",
     challenges: [
@@ -239,7 +239,7 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "Agencies grow by delivering more without hiring more. We provide the automation, systems, and white-label capabilities to scale delivery.",
-    metaTitle: "Agency Growth & White-Label Systems",
+    metaTitle: "White-Label Digital Marketing for Agencies",
     metaDescription:
       "White-label automation, CRM, and AI voice systems that help agencies deliver more for clients without adding headcount.",
     challenges: [
@@ -285,7 +285,7 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "Education runs on enrolment. We build the marketing and applicant follow-up systems that fill programmes and respond to every enquiry in time.",
-    metaTitle: "Education Growth Systems",
+    metaTitle: "Digital Marketing for Education in India",
     metaDescription:
       "Enrolment marketing and applicant follow-up systems for education - capture, nurture, and convert more applicants.",
     challenges: [

@@ -134,7 +134,9 @@ export function localBusinessSchema(input: {
   description: string;
   path: string;
   areaServed: string[];
+  hasOffice?: boolean;
 }): JsonLdValue {
+  const withOffice = input.hasOffice !== false;
   return {
     "@type": "ProfessionalService",
     "@id": `${siteUrl}${input.path}#localbusiness`,
@@ -143,8 +145,7 @@ export function localBusinessSchema(input: {
     url: `${siteUrl}${input.path}`,
     telephone: businessPhone,
     email: "hello@vistrow.com",
-    address: businessAddress,
-    geo: businessGeo,
+    ...(withOffice ? { address: businessAddress, geo: businessGeo } : {}),
     parentOrganization: { "@id": `${siteUrl}/#organization` },
     areaServed: input.areaServed.map((name) => ({ "@type": "City", name })),
     priceRange: "₹₹",

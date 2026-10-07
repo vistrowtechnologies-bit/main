@@ -55,8 +55,8 @@ const columns: FooterColumn[] = [
         heading: "Products",
         links: [
           { label: "All Products", href: "/products" },
-          { label: "Vistrow Voice", href: "https://www.vistrowvoice.com/", external: true },
-          { label: "ArthaLeads", href: "https://www.arthaleads.com/", external: true },
+          { label: "Vistrow Voice", href: "/products/vistrow-voice" },
+          { label: "ArthaLeads", href: "/products/arthaleads" },
           { label: "Vistrow Labs", href: "/products/vistrow-labs" },
         ],
       },
@@ -77,16 +77,33 @@ const columns: FooterColumn[] = [
   },
   {
     title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Our Approach", href: "/approach" },
-      { label: "Work", href: "/work" },
-      { label: "Blog", href: "/blog" },
-      { label: "Locations", href: "/locations" },
-      { label: "Careers", href: "/careers" },
-      { label: "Partners", href: "/partners" },
-      { label: "Contact", href: "/contact" },
-      { label: "Book a Growth Audit", href: "/growth-audit" },
+    groups: [
+      {
+        heading: "Company",
+        links: [
+          { label: "About", href: "/about" },
+          { label: "Our Approach", href: "/approach" },
+          { label: "Services", href: "/services" },
+          { label: "Work", href: "/work" },
+          { label: "Website Portfolio", href: "/work/website-portfolio" },
+          { label: "Blog", href: "/blog" },
+          { label: "Careers", href: "/careers" },
+          { label: "Partners", href: "/partners" },
+          { label: "Contact", href: "/contact" },
+          { label: "Book a Growth Audit", href: "/growth-audit" },
+        ],
+      },
+      {
+        heading: "Digital Marketing in Pune",
+        links: [
+          { label: "Pune", href: "/locations/pune" },
+          { label: "Baner", href: "/locations/baner" },
+          { label: "Pimpri-Chinchwad", href: "/locations/pimpri-chinchwad" },
+          { label: "Hinjewadi", href: "/locations/hinjewadi" },
+          { label: "Wakad", href: "/locations/wakad" },
+          { label: "Kothrud", href: "/locations/kothrud" },
+        ],
+      },
     ],
   },
 ];

@@ -4,6 +4,7 @@ import { Included } from "@/components/sections/included";
 import { Steps } from "@/components/sections/steps";
 import { Outcomes, Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
+import { LocalAreas } from "@/components/sections/local-areas";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
@@ -129,6 +130,8 @@ export function ServicePage({
       <Chips items={content.tools} />
 
       <Faq items={content.faqs} />
+
+      <LocalAreas compact title={`${content.title} for businesses across Pune`} />
 
       <CtaBand />
     </>

@@ -66,7 +66,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Paid media managed for ROI, not vanity metrics. We buy attention where your best customers are and connect every click to your pipeline.",
-    metaTitle: "Performance Advertising Agency",
+    metaTitle: "Performance Marketing Agency in India",
     metaDescription:
       "ROI-focused paid advertising across Google, Meta, LinkedIn, and more - tracked end to end from click to closed deal.",
     problem: {
@@ -115,7 +115,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "A predictable flow of high-intent leads - captured, qualified, and delivered into your CRM ready for follow-up.",
-    metaTitle: "Lead Generation Services",
+    metaTitle: "Lead Generation Services in India",
     metaDescription:
       "High-intent lead generation across paid, organic, and outbound - captured and routed into your CRM with instant follow-up.",
     problem: {

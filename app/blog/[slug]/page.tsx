@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const twitterImage = post.twitterImage?.url && post.twitterImage.url !== post.featuredImage?.url
     ? post.twitterImage
     : openGraphImage;
-  return buildMetadata({
+  const metadata = buildMetadata({
     title: post.metaTitle,
     description: post.metaDescription,
     path: `/blog/${post.slug}`,
@@ -62,6 +62,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       section: post.category,
     },
   });
+  // Long titles get cut off in search results once the " | Vistrow" suffix is added.
+  if (`${post.metaTitle} | Vistrow`.length > 60) metadata.title = { absolute: post.metaTitle };
+  return metadata;
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {

@@ -67,7 +67,7 @@ export const products: Record<string, ProductContent> = {
     tagline: "India-native voice AI",
     subtitle:
       "AI voice agents that answer, qualify, and book in your customers’ language - across inbound calls, outbound campaigns, and a one-tap website calling widget, live 24/7.",
-    metaTitle: "Vistrow Voice - AI Voice Agents for India",
+    metaTitle: "Vistrow Voice: AI Voice Calling Agent for India",
     metaDescription:
       "Vistrow Voice provides inbound, outbound, and web-based AI calling in 10 Indian languages, with knowledge-grounded answers and CRM webhooks.",
     useCases: [
@@ -140,7 +140,7 @@ export const products: Record<string, ProductContent> = {
     tagline: "Real estate CRM",
     subtitle:
       "A premium real-estate CRM for Indian developers, brokers, and channel partners - bringing Facebook Ads, Google Ads, WhatsApp enquiries, and website leads into one actionable workspace.",
-    metaTitle: "ArthaLeads - Real Estate CRM for India",
+    metaTitle: "ArthaLeads: Real Estate CRM Software India",
     metaDescription:
       "ArthaLeads is a real-estate CRM for Indian developers and channel partners, with multi-channel lead capture, team assignment, site visits, follow-ups, and analytics.",
     useCases: [
@@ -213,7 +213,7 @@ export const products: Record<string, ProductContent> = {
     tagline: "Custom SaaS & internal tools",
     subtitle:
       "Where we build custom SaaS products and internal tools for businesses that need software shaped around their exact workflow.",
-    metaTitle: "Vistrow Labs - Custom SaaS & Tools",
+    metaTitle: "Vistrow Labs: Custom SaaS and Business Tools",
     metaDescription:
       "Vistrow Labs builds custom SaaS and internal tools - dashboards, portals, and automations tailored to your workflow.",
     useCases: [

@@ -46,7 +46,7 @@ export function ProductPage({
           { label: content.name },
         ]}
         eyebrow="Product"
-        title={content.name}
+        title={`${content.name}: ${content.tagline}`}
         subtitle={content.subtitle}
         primaryCta={
           content.externalUrl
