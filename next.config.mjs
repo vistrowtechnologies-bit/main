@@ -7,14 +7,18 @@ const nextConfig = {
   async rewrites() {
     return {
       beforeFiles: [
-        { source: "/demo", destination: "/arth-aspire-demo.html" },
+        { source: "/demo/arthaaspire", destination: "/arth-aspire-demo.html" },
+        { source: "/demo/arthaspire", destination: "/arth-aspire-demo.html" },
         { source: "/demo/xceedbeyond", destination: "/xceedbeyond-demo.html" },
       ],
     };
   },
+  async redirects() {
+    return [{ source: "/demo", destination: "/demo/arthaaspire", permanent: false }];
+  },
   async headers() {
     const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
-    return ["/demo", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html"].map((source) => ({ source, headers: noindex }));
+    return ["/demo", "/demo/arthaaspire", "/demo/arthaspire", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html"].map((source) => ({ source, headers: noindex }));
   },
 };
 
