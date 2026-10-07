@@ -14,7 +14,7 @@ const fetchPublishedBlogPosts = unstable_cache(
   { revalidate: 60, tags: ["sanity-blog-posts"] },
 );
 
-export async function getBlogPosts(): Promise<BlogPost[]> {
+async function getAllBlogPosts(): Promise<BlogPost[]> {
   try {
     const posts = await fetchPublishedBlogPosts();
     if (posts.length > 0) return posts;
@@ -25,7 +25,13 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
   return [...localBlogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
+// Posts that redirect elsewhere stay reachable by slug (so the redirect fires) but are hidden from lists.
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  const posts = await getAllBlogPosts();
+  return posts.filter((post) => !post.redirectUrl);
+}
+
 export async function getBlogPost(slug: string): Promise<BlogPost | undefined> {
-  const posts = await getBlogPosts();
+  const posts = await getAllBlogPosts();
   return posts.find((post) => post.slug === slug);
 }
