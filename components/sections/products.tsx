@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
@@ -117,6 +118,18 @@ export function Products() {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={0.1} direction="right">
+            <div className="relative mt-8 aspect-[3/2] overflow-hidden rounded-lg border border-line">
+              <Image
+                src="/images/home/products.webp"
+                alt="Laptop and phone showing the ArthaLeads CRM and Vistrow Voice products"
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
         </div>
 
         <div className="lg:sticky lg:top-28">

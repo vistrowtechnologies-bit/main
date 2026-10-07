@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
@@ -38,6 +39,17 @@ export function LocalAreas({
   return (
     <section className="py-section">
       <div className="container-edge">
+        <Reveal>
+          <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-xl border border-line sm:aspect-[21/9]">
+            <Image
+              src="/images/home/pune-local.webp"
+              alt="Illustrative view of western Pune with office buildings and residential towers at sunset"
+              fill
+              sizes="(min-width: 1280px) 1240px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </Reveal>
         <SectionHeading eyebrow="Based in Baner, Pune" title={title} description={intro} align="center" className="mb-12" />
         <div className="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3">
           {areas.map((area, i) => (

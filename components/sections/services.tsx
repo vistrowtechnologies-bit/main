@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LineChart, Cog, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
-import { AnimatedBar, TiltCard } from "@/components/ui/motion-primitives";
+import { TiltCard } from "@/components/ui/motion-primitives";
 
 const smallCards = [
   {
@@ -40,7 +41,8 @@ export function Services() {
           {/* Digital Marketing - large glass card */}
           <Reveal className="md:col-span-8">
             <TiltCard className="h-full">
-            <div className="glass glass-hover group relative flex h-full flex-col overflow-hidden rounded-lg p-8 sm:p-10">
+            <div className="glass glass-hover group relative flex h-full flex-col overflow-hidden rounded-lg lg:flex-row">
+              <div className="flex flex-1 flex-col p-8 sm:p-10">
               <div className="flex h-14 w-14 items-center justify-center rounded-sm bg-accent shadow-soft">
                 <LineChart className="h-7 w-7 text-accent-ink" strokeWidth={1.75} />
               </div>
@@ -61,6 +63,16 @@ export function Services() {
                   </li>
                 ))}
               </ul>
+              </div>
+              <div className="relative min-h-[260px] lg:min-h-0 lg:flex-1">
+                <Image
+                  src="/images/home/service-digital-marketing.webp"
+                  alt="Marketer reviewing paid ad campaign results on a laptop"
+                  fill
+                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
             </TiltCard>
           </Reveal>
@@ -79,12 +91,15 @@ export function Services() {
                 Automate what happens after a lead is generated - CRM, calls, and
                 follow-up handled without adding headcount.
               </p>
-              <div className="mt-auto space-y-3 pt-8">
-                <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                  <AnimatedBar width="75%" className="h-full rounded-full bg-accent" />
-                </div>
-                <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                  <AnimatedBar width="50%" delay={0.12} className="h-full rounded-full bg-accent/70" />
+              <div className="mt-auto pt-8">
+                <div className="relative aspect-[3/2] overflow-hidden rounded-sm">
+                  <Image
+                    src="/images/home/service-crm.webp"
+                    alt="Team member reviewing leads in a CRM dashboard"
+                    fill
+                    sizes="(min-width: 768px) 28vw, 100vw"
+                    className="object-cover"
+                  />
                 </div>
               </div>
             </div>
