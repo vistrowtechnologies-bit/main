@@ -13,6 +13,9 @@ const nextConfig = {
       ],
     };
   },
+  async redirects() {
+    return [{ source: "/review", destination: "https://g.page/r/CfHhzV3hPTDiEBM/review", permanent: false }];
+  },
   async headers() {
     const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
     return ["/demo/arthaaspire", "/demo/arthaspire", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html"].map((source) => ({ source, headers: noindex }));
