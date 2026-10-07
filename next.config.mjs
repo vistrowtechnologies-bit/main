@@ -9,6 +9,10 @@ const nextConfig = {
       beforeFiles: [{ source: "/demo/xceedbeyond", destination: "/xceedbeyond-demo.html" }],
     };
   },
+  async headers() {
+    const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
+    return ["/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html"].map((source) => ({ source, headers: noindex }));
+  },
   async redirects() {
     return [{ source: "/demo", destination: "/", permanent: false }];
   },
