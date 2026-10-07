@@ -56,6 +56,7 @@ export type LocationContent = {
   process: Step[];
   faqs: QA[];
   hasOffice?: boolean;
+  image?: { src: string; alt: string };
 };
 
 export type ProductContent = {

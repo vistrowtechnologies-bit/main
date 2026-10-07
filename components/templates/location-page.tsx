@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
@@ -58,6 +59,24 @@ export function LocationPage({ content }: { content: LocationContent }) {
           { label: "Relevant services", items: content.services.slice(0, 3).map((item) => item.label) },
         ]}
       />
+
+      {content.image && (
+        <section className="pt-section">
+          <div className="container-edge">
+            <Reveal>
+              <figure className="relative aspect-[16/9] overflow-hidden rounded-xl border border-line sm:aspect-[21/9]">
+                <Image
+                  src={content.image.src}
+                  alt={content.image.alt}
+                  fill
+                  sizes="(min-width: 1280px) 1240px, 100vw"
+                  className="object-cover"
+                />
+              </figure>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="py-section">
         <div className="container-edge grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">

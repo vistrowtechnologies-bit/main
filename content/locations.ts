@@ -64,6 +64,7 @@ const costFaq = (area: string, drivers: string) => ({
 export const locations: Record<string, LocationContent> = {
   pune: {
     slug: "pune",
+    image: { src: "/images/locations/loc-pune.webp", alt: "Illustrative evening street scene for Pune with offices and apartment buildings" },
     title: "Digital Marketing Agency in Pune",
     area: "Pune",
     nearby: ["Baner", "Pimpri-Chinchwad", "Hinjewadi", "Wakad", "Kothrud"],
@@ -203,6 +204,7 @@ export const locations: Record<string, LocationContent> = {
 
   "pimpri-chinchwad": {
     slug: "pimpri-chinchwad",
+    image: { src: "/images/locations/loc-pimpri-chinchwad.webp", alt: "Illustrative industrial estate scene for Pimpri-Chinchwad with engineers in safety vests" },
     title: "Digital Marketing Company in Pimpri-Chinchwad",
     area: "Pimpri-Chinchwad",
     nearby: ["Pune", "Wakad", "Nigdi", "Akurdi"],
@@ -278,6 +280,7 @@ export const locations: Record<string, LocationContent> = {
 
   hinjewadi: {
     slug: "hinjewadi",
+    image: { src: "/images/locations/loc-hinjewadi.webp", alt: "Illustrative IT park scene for Hinjewadi, Pune with office towers and employees" },
     title: "Digital Marketing Agency in Hinjewadi, Pune",
     area: "Hinjewadi",
     nearby: ["Pune", "Wakad", "Baner", "Marunji"],
@@ -353,6 +356,7 @@ export const locations: Record<string, LocationContent> = {
 
   wakad: {
     slug: "wakad",
+    image: { src: "/images/locations/loc-wakad.webp", alt: "Illustrative evening residential street scene for Wakad, Pune" },
     title: "Digital Marketing Agency in Wakad, Pune",
     area: "Wakad",
     nearby: ["Pune", "Hinjewadi", "Baner", "Pimpri-Chinchwad"],
@@ -428,6 +432,7 @@ export const locations: Record<string, LocationContent> = {
 
   kothrud: {
     slug: "kothrud",
+    image: { src: "/images/locations/loc-kothrud.webp", alt: "Illustrative tree-lined street scene for Kothrud, Pune with students and shops" },
     title: "Digital Marketing Agency in Kothrud, Pune",
     area: "Kothrud",
     nearby: ["Pune", "Baner", "Warje", "Karve Nagar"],
