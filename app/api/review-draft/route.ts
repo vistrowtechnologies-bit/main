@@ -48,6 +48,7 @@ export async function POST(request: Request) {
   const service = typeof input.service === "string" ? input.service.trim().slice(0, 120) : "";
   const experience = typeof input.experience === "string" ? input.experience.trim().slice(0, 900) : "";
   const improvement = typeof input.improvement === "string" ? input.improvement.trim().slice(0, 500) : "";
+  const rating = typeof input.rating === "number" && Number.isInteger(input.rating) && input.rating >= 1 && input.rating <= 5 ? input.rating : null;
 
   if (!business || experience.length < 20) {
     return NextResponse.json(
@@ -83,11 +84,11 @@ export async function POST(request: Request) {
         messages: [
           {
             role: "system",
-            content: `Help a real customer express their own experience with ${business.name} as a Google review. Write in first person, 2-4 plain sentences. Use ONLY details the customer supplies. Preserve their sentiment, including criticism or uncertainty. Never invent outcomes, timelines, staff names, purchases, ratings, or claims. Never add a star rating, promotional call to action, or a request for others to buy. The customer will review and edit the draft before posting. Return JSON only.`,
+            content: `Help a real customer express their own experience with ${business.name} as a Google review. Write in first person, 2-4 plain sentences. Use ONLY details the customer supplies. Preserve their sentiment, including criticism or uncertainty. An optional rating may guide tone, but the customer's written experience takes priority if they conflict. Never invent outcomes, timelines, staff names, purchases, ratings, or claims. Never add a star rating, promotional call to action, or a request for others to buy. The customer will review and edit the draft before posting. Return JSON only.`,
           },
           {
             role: "user",
-            content: JSON.stringify({ service, experience, improvement }),
+            content: JSON.stringify({ service, experience, improvement, rating }),
           },
         ],
       }),
