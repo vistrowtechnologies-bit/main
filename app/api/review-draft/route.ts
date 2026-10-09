@@ -24,9 +24,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please wait a few minutes before trying again." }, { status: 429 });
   }
 
-  const geminiKey = process.env.GEMINI_API_KEY;
-  const openAiKey = process.env.OPENAI_API_KEY;
-  if (!geminiKey && !openAiKey) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
     return NextResponse.json({ error: "The writing assistant is unavailable right now." }, { status: 503 });
   }
 
@@ -62,16 +61,7 @@ export async function POST(request: Request) {
   const answers = JSON.stringify({ service, experience, improvement, rating });
 
   try {
-    let draft = "";
-    if (geminiKey) {
-      try {
-        draft = await draftWithGemini(geminiKey, instruction, answers);
-      } catch (error) {
-        console.error("Gemini review draft failed", error);
-        if (!openAiKey) throw error;
-      }
-    }
-    if (!draft && openAiKey) draft = await draftWithOpenAi(openAiKey, instruction, answers);
+    const draft = await draftWithOpenAi(apiKey, instruction, answers);
     if (!draft) throw new Error("Empty review draft");
 
     return NextResponse.json({ draft }, { headers: { "Cache-Control": "no-store" } });
@@ -84,69 +74,36 @@ export async function POST(request: Request) {
   }
 }
 
-async function draftWithGemini(apiKey: string, instruction: string, answers: string) {
-  const model = process.env.GEMINI_REVIEW_MODEL || "gemini-3.5-flash-lite";
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-    method: "POST",
-    headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: instruction }] },
-      contents: [{ role: "user", parts: [{ text: answers }] }],
-      generationConfig: {
-        temperature: 0.25,
-        maxOutputTokens: 300,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: "OBJECT",
-          properties: { draft: { type: "STRING" } },
-          required: ["draft"],
-        },
-      },
-    }),
-    signal: AbortSignal.timeout(15000),
-  });
-  if (!response.ok) throw new Error(`Gemini response ${response.status}`);
-  const data = await response.json();
-  const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-  return parseDraft(content);
-}
-
 async function draftWithOpenAi(apiKey: string, instruction: string, answers: string) {
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        temperature: 0.35,
-        max_tokens: 220,
-        response_format: {
-          type: "json_schema",
-          json_schema: {
-            name: "review_draft",
-            strict: true,
-            schema: {
-              type: "object",
-              properties: { draft: { type: "string" } },
-              required: ["draft"],
-              additionalProperties: false,
-            },
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      temperature: 0.35,
+      max_tokens: 220,
+      response_format: {
+        type: "json_schema",
+        json_schema: {
+          name: "review_draft",
+          strict: true,
+          schema: {
+            type: "object",
+            properties: { draft: { type: "string" } },
+            required: ["draft"],
+            additionalProperties: false,
           },
         },
-        messages: [
-          {
-            role: "system",
-            content: instruction,
-          },
-          {
-            role: "user",
-            content: answers,
-          },
-        ],
-      }),
-      signal: AbortSignal.timeout(15000),
+      },
+      messages: [
+        { role: "system", content: instruction },
+        { role: "user", content: answers },
+      ],
+    }),
+    signal: AbortSignal.timeout(15000),
   });
 
   if (!response.ok) throw new Error(`OpenAI response ${response.status}`);
