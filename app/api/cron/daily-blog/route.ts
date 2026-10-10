@@ -16,16 +16,15 @@ const MARKDOWN_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
 export async function GET(request: Request) {
   const startedAt = new Date();
   const authHeader = request.headers.get("authorization");
-  const expected = process.env.CRON_SECRET ? `Bearer ${process.env.CRON_SECRET}` : null;
-  if (expected && authHeader !== expected) {
-    // Persisted to Sanity (not just Vercel's own logs) because Hobby-plan log
-    // retention is only 1-12 hours - a run that silently fails every day is
-    // otherwise undiagnosable a day later. Sanity storage has no such limit.
-    await recordCronRun({
-      startedAt,
-      status: "unauthorized",
-      log: [`Rejected: authorization header ${authHeader ? "present but did not match CRON_SECRET" : "missing"}.`],
-    });
+  const secret = process.env.CRON_SECRET;
+  if (!secret) {
+    // Fail closed: without a secret anyone could trigger paid OpenAI runs and Sanity writes.
+    console.error("daily-blog cron refused: CRON_SECRET is not set.");
+    return NextResponse.json({ error: "Cron is not configured." }, { status: 503 });
+  }
+  if (authHeader !== `Bearer ${secret}`) {
+    // Logged only to Vercel, not Sanity, so unauthenticated requests can't fill the dataset.
+    console.warn(`daily-blog cron rejected: authorization header ${authHeader ? "did not match CRON_SECRET" : "missing"}.`);
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

@@ -5,6 +5,7 @@ import { businessPhone, businessWhatsapp, breadcrumbSchema, faqSchema, graph } f
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteUrl } from "@/lib/seo";
+import { PageImage } from "@/components/sections/page-image";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -124,6 +125,8 @@ export default function Page() {
           <ContactForm />
         </div>
       </section>
+
+      <PageImage src="/images/brand/reception-logo.webp" alt="Illustrative reception area with the Vistrow logo on the wall" position="bottom" />
       <FeatureCards eyebrow="What happens next" title="A clear first conversation" items={nextSteps} columns={3} surface />
       <Faq items={faqs} title="Before you send an enquiry" />
     </>

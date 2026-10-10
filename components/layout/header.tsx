@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
@@ -88,9 +88,12 @@ export function Header() {
                 open={openMenu === item.label}
                 active={isActive(item)}
                 onFocus={() => (item.children || item.groups) && openWith(item.label)}
-                onClick={() =>
-                  setOpenMenu((cur) => (cur === item.label ? null : item.label))
-                }
+                onClick={(event) => {
+                  // A mouse click lands after hover/focus has already opened the menu, so keep it open;
+                  // keyboard activation (detail 0) toggles.
+                  if (event.detail > 0) openWith(item.label);
+                  else setOpenMenu((cur) => (cur === item.label ? null : item.label));
+                }}
               />
               {(item.children || item.groups) && openMenu === item.label && (
                 <MegaMenu item={item} onClose={() => setOpenMenu(null)} />
@@ -141,7 +144,7 @@ function NavTrigger({
   item: NavItem;
   open: boolean;
   active: boolean;
-  onClick: () => void;
+  onClick: (event: MouseEvent<HTMLButtonElement>) => void;
   onFocus: () => void;
 }) {
   const base =

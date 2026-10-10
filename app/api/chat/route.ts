@@ -215,7 +215,7 @@ async function sendChatLead({
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL || "hello@vistrow.com";
   const from = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !from) return;
+  if (!apiKey || !from) throw new Error("Resend is not configured for chat leads.");
 
   const transcriptText = transcript
     .map((message) => `${message.role === "user" ? "Visitor" : "Artha"}: ${message.content}`)
@@ -242,7 +242,7 @@ async function sendChatLead({
   });
 
   if (!response.ok) {
-    console.error("Resend chat-lead delivery failed", response.status, await response.text());
+    throw new Error(`Resend chat-lead delivery failed: ${response.status} ${await response.text()}`);
   }
 }
 

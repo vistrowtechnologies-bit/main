@@ -3,14 +3,14 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 const confettiDots = [
-  { x: -46, y: -58, delay: 0, color: "var(--accent)" },
-  { x: 44, y: -52, delay: 0.04, color: "var(--accent-strong)" },
-  { x: -60, y: 10, delay: 0.08, color: "var(--accent-strong)" },
-  { x: 58, y: 4, delay: 0.02, color: "var(--accent)" },
-  { x: -30, y: 56, delay: 0.1, color: "var(--accent)" },
-  { x: 32, y: 58, delay: 0.06, color: "var(--accent-strong)" },
-  { x: 0, y: -68, delay: 0.12, color: "var(--accent)" },
-  { x: 0, y: 66, delay: 0.14, color: "var(--accent-strong)" },
+  { x: -46, y: -58, delay: 0, color: "rgb(var(--accent))" },
+  { x: 44, y: -52, delay: 0.04, color: "rgb(var(--accent-strong))" },
+  { x: -60, y: 10, delay: 0.08, color: "rgb(var(--accent-strong))" },
+  { x: 58, y: 4, delay: 0.02, color: "rgb(var(--accent))" },
+  { x: -30, y: 56, delay: 0.1, color: "rgb(var(--accent))" },
+  { x: 32, y: 58, delay: 0.06, color: "rgb(var(--accent-strong))" },
+  { x: 0, y: -68, delay: 0.12, color: "rgb(var(--accent))" },
+  { x: 0, y: 66, delay: 0.14, color: "rgb(var(--accent-strong))" },
 ];
 
 // Animated checkmark badge with a one-shot confetti burst. Purely decorative

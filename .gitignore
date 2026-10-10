@@ -10,3 +10,6 @@ tsconfig.tsbuildinfo
 !.env.example
 .vercel
 .stitch-home-ref.png
+
+# Local working files (lead lists, proposals, audits) - never publish
+/Claude outputs/

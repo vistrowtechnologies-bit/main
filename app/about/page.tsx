@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Compass, ShieldCheck, LineChart, Layers, Megaphone, Cog, Boxes, Building2, Users, BadgeCheck } from "lucide-react";
+import { PageImage } from "@/components/sections/page-image";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { LinkCardGrid } from "@/components/sections/link-card-grid";
@@ -75,6 +76,8 @@ export default function Page() {
         subtitle="Vistrow helps businesses generate demand and then convert it - by connecting marketing to CRM, AI voice, automation, and the tracking that ties it all to revenue."
         secondaryCta={{ label: "Our approach", href: "/approach" }}
       />
+
+      <PageImage src="/images/brand/office-wall-logo.webp" alt="Illustrative Vistrow-branded modern office with the logo on the wall" />
 
       <section className="py-section">
         <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">

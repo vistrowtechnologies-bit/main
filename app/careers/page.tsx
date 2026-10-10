@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Heart, Globe2, TrendingUp, Sparkles } from "lucide-react";
+import { PageImage } from "@/components/sections/page-image";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Reveal } from "@/components/ui/reveal";
@@ -45,6 +46,8 @@ export default function Page() {
       <FeatureCards eyebrow="Why Vistrow" title="What it's like to work here" items={perks} columns={4} surface />
 
       <FeatureCards eyebrow="A useful introduction" title="What to include when you contact us" items={candidateSignals} columns={3} />
+
+      <PageImage src="/images/brand/desk-branded-items.webp" alt="Illustrative desk with a Vistrow-branded notebook, mug and laptop" />
 
       <section className="py-section">
         <div className="container-edge">

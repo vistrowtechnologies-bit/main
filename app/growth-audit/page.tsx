@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Search, GitCompareArrows, ClipboardList, CalendarCheck, MessagesSquare, ListChecks } from "lucide-react";
+import { PageImage } from "@/components/sections/page-image";
 import { PageHero } from "@/components/sections/page-hero";
 import { GrowthAuditForm } from "@/components/forms/growth-audit-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -84,6 +85,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <PageImage src="/images/brand/meeting-room-logo.webp" alt="Illustrative meeting room with the Vistrow logo on the wall" position="bottom" />
     </>
   );
 }

@@ -36,11 +36,17 @@ export function ScrollProgress() {
 export function RouteTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduce = useReducedMotion();
+  // Skip the fade on the first page load so server-rendered HTML is visible before hydration;
+  // only client-side navigations animate in.
+  const firstRender = useRef(true);
+  useEffect(() => {
+    firstRender.current = false;
+  }, []);
 
   return (
     <motion.div
       key={pathname}
-      initial={reduce ? false : { opacity: 0, y: 8 }}
+      initial={reduce || firstRender.current ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
     >

@@ -21,6 +21,7 @@ export type ServiceContent = {
   steps: Step[];
   tools: string[];
   faqs: QA[];
+  image?: { src: string; alt: string };
 };
 
 export type IndustryContent = {

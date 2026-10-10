@@ -111,6 +111,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "lead-generation": {
     slug: "lead-generation",
+    image: { src: "/images/services/svc-lead-generation.webp", alt: "Illustrative scene of two colleagues reviewing leads in the ArthaLeads dashboard on a tablet" },
     title: "Lead Generation",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -159,6 +160,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "website-development": {
     slug: "website-development",
+    image: { src: "/images/services/svc-website-development.webp", alt: "Illustrative scene of a designer and developer reviewing a website design on a monitor" },
     title: "Website Development",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -208,6 +210,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "landing-pages": {
     slug: "landing-pages",
+    image: { src: "/images/services/svc-landing-pages.webp", alt: "Illustrative scene of a landing page open on a laptop and a phone" },
     title: "Landing Pages & Funnels",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -256,6 +259,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "creative-strategy": {
     slug: "creative-strategy",
+    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Illustrative scene of a creative team reviewing printed ad concepts" },
     title: "Creative Strategy",
     eyebrow: "Digital Marketing",
     subtitle:

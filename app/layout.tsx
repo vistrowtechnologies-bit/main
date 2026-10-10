@@ -73,6 +73,10 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Without JavaScript, entrance animations never run, so show their hidden starting states. */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
         <JsonLd data={graph([websiteSchema])} />
         <GoogleAnalytics />
       </head>

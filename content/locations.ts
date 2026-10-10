@@ -3,7 +3,7 @@ import type { LocationContent, OverviewContent } from "@/lib/content-types";
 
 export const locationsOverview: OverviewContent = {
   eyebrow: "Locations",
-  title: "The digital marketing agency Pune businesses call",
+  title: "The digital marketing agency Pune businesses",
   highlight: "call first",
   subtitle:
     "Vistrow is based in Baner, Pune, and works with businesses across Pimpri-Chinchwad, Hinjewadi, Wakad, Kothrud, and the wider city - connecting marketing, CRM, and automation into one system.",
@@ -135,6 +135,7 @@ export const locations: Record<string, LocationContent> = {
 
   baner: {
     slug: "baner",
+    image: { src: "/images/locations/loc-baner.webp", alt: "Illustrative street scene representing Baner, Pune with cafes, offices and residential buildings" },
     title: "Digital Marketing Agency in Baner, Pune",
     area: "Baner",
     nearby: ["Pune", "Aundh", "Balewadi", "Pashan"],

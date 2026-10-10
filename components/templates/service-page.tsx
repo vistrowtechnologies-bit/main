@@ -5,6 +5,7 @@ import { Steps } from "@/components/sections/steps";
 import { Outcomes, Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
 import { LocalAreas } from "@/components/sections/local-areas";
+import { PageImage } from "@/components/sections/page-image";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
@@ -67,6 +68,8 @@ export function ServicePage({
           { label: "What success looks like", items: content.outcomes.map((item) => `${item.label}: ${item.body}`) },
         ]}
       />
+
+      {content.image && <PageImage src={content.image.src} alt={content.image.alt} />}
 
       {/* Problem */}
       <section className="py-section">

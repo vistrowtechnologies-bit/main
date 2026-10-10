@@ -19,6 +19,7 @@ export const primaryNav: NavItem[] = [
     href: "/services",
     activeMatch: ["/services", "/digital-marketing", "/business-automation"],
     linkRows: [
+      { label: "See every service in one place", cta: "View all services", href: "/services" },
       { label: "Browse services by industry", cta: "Explore Industries", href: "/industries" },
       { label: "Not sure where to start?", cta: "Request a Growth Audit", href: "/growth-audit" },
     ],

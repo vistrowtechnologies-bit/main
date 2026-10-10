@@ -12,7 +12,7 @@ export const websitePortfolio: PortfolioSite[] = [
     slug: "vistrowvoice",
     name: "Vistrow Voice",
     tag: "Owned product",
-    summary: "AI voice platform for Indian businesses — 11 Indian languages, a live tap-to-talk demo, and a product-led conversion funnel.",
+    summary: "AI voice platform for Indian businesses — 10 Indian languages, a live tap-to-talk demo, and a product-led conversion funnel.",
     url: "https://www.vistrowvoice.com",
     image: "/work/portfolio/vistrowvoice.jpg",
   },

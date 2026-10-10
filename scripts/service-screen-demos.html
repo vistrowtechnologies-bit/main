@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service image sample screens</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+    body { font: 15px Arial, Helvetica, sans-serif; color: #202733; background: #f6f8fb; }
+    .app { display: grid; grid-template-columns: 206px 1fr; grid-template-rows: 68px 1fr; width: 100vw; height: 100vh; }
+    header { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; padding: 0 28px; background: #fff; border-bottom: 1px solid #e4e9f1; }
+    .mark { display: flex; align-items: center; gap: 11px; min-width: 178px; font-weight: 700; font-size: 19px; letter-spacing: 0; }
+    .mark i { display: block; width: 26px; height: 26px; border-radius: 6px; background: var(--accent); }
+    .search { height: 38px; width: 430px; display: flex; align-items: center; padding: 0 17px; border-radius: 6px; background: #f4f6f9; color: #8c96a3; }
+    .header-right { margin-left: auto; color: #6b7482; font-size: 13px; }
+    .avatar { width: 30px; height: 30px; border-radius: 50%; margin-left: 14px; background: #dbe5f2; }
+    aside { padding: 25px 15px; background: #fff; border-right: 1px solid #e4e9f1; }
+    .nav-group { margin: 0 13px 18px; color: #a0a8b5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; }
+    .nav-item { height: 42px; display: flex; align-items: center; gap: 12px; padding: 0 14px; border-radius: 6px; color: #657080; }
+    .nav-item::before { content: ''; width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 4px; }
+    .nav-item.active { background: var(--pale); color: var(--accent); font-weight: 700; }
+    main { overflow: hidden; padding: 28px 34px 38px; }
+    .title-row { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+    h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: 0; }
+    .badge { padding: 6px 9px; border-radius: 4px; background: #fff3dd; color: #8d5a05; font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; }
+    .sub { margin: 0 0 24px; color: #8490a0; font-size: 13px; }
+    .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .pill { border: 1px solid #dde5ee; padding: 9px 13px; background: #fff; border-radius: 5px; color: #566272; font-size: 12px; }
+    .spacer { margin-left: auto; }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
+    .card, .panel { background: #fff; border: 1px solid #e5e9ef; border-radius: 7px; }
+    .card { height: 111px; padding: 18px; }
+    .card-label { color: #788494; font-size: 12px; margin-bottom: 11px; }
+    .card-value { color: #263241; font-size: 23px; font-weight: 700; }
+    .card-note { color: #9ba6b4; font-size: 11px; margin-top: 8px; }
+    .two-col { display: grid; grid-template-columns: 1.25fr .75fr; gap: 16px; }
+    .panel { padding: 18px 20px; }
+    .panel-title { display: flex; align-items: center; justify-content: space-between; margin: 0 0 15px; font-size: 14px; font-weight: 700; }
+    .panel-title small { font-size: 11px; color: #8b96a4; font-weight: 400; }
+    .chart { height: 201px; border-bottom: 1px solid #e8edf2; background: repeating-linear-gradient(to bottom, transparent 0, transparent 48px, #edf1f5 49px, transparent 50px); }
+    .chart svg { width: 100%; height: 100%; }
+    .chart-labels { display: flex; justify-content: space-between; color: #9ca7b4; font-size: 10px; margin-top: 10px; }
+    .table { width: 100%; border-collapse: collapse; background: #fff; font-size: 12px; }
+    .table th { text-align: left; color: #8c97a6; font-weight: 600; padding: 13px 16px; background: #fafbfd; border-bottom: 1px solid #e6ebf0; }
+    .table td { padding: 13px 16px; border-bottom: 1px solid #edf0f4; color: #495565; }
+    .status { display: inline-flex; align-items: center; gap: 6px; }
+    .status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #40b883; }
+    .bar { height: 8px; background: #e9eef4; border-radius: 10px; margin: 12px 0 20px; overflow: hidden; }
+    .bar::before { content: ''; display: block; width: 56%; height: 100%; background: var(--accent); border-radius: inherit; }
+    .list-row { display: grid; grid-template-columns: 23px 1fr auto; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid #edf0f4; color: #5b6573; font-size: 12px; }
+    .list-row i { width: 21px; height: 21px; border-radius: 50%; background: var(--pale); }
+    .list-row span:last-child { color: #a1acb8; }
+    #google { --accent: #2873e8; --pale: #eaf2ff; }
+    #meta { --accent: #1877f2; --pale: #eaf3ff; }
+    #artha { --accent: #f46b10; --pale: #fff0e5; }
+    #meta .app { grid-template-columns: 186px 1fr; }
+    #artha .app { grid-template-columns: 198px 1fr; }
+    #artha main { background: #fafbfc; }
+    #artha .card { height: 100px; }
+    #artha .table td { padding: 17px 16px; }
+  </style>
+</head>
+<body>
+<div id="google" hidden>
+  <div class="app">
+    <header><div class="mark"><i></i>Campaign workspace</div><div class="search">Search campaigns and insights</div><div class="header-right">Sample workspace</div><div class="avatar"></div></header>
+    <aside><div class="nav-group">Workspace</div><div class="nav-item active">Overview</div><div class="nav-item">Campaigns</div><div class="nav-item">Ad groups</div><div class="nav-item">Ads</div><div class="nav-item">Assets</div><div class="nav-group" style="margin-top:28px">Insights</div><div class="nav-item">Reports</div><div class="nav-item">Goals</div><div class="nav-item">Settings</div></aside>
+    <main><div class="title-row"><h1>Overview</h1><span class="badge">Illustrative demo</span></div><p class="sub">Campaign performance overview • Sample data only</p><div class="toolbar"><div class="pill">All campaigns</div><div class="pill">Status: All</div><div class="spacer"></div><div class="pill">Last 30 days</div></div><div class="cards"><div class="card"><div class="card-label">Clicks</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div><div class="card"><div class="card-label">Impressions</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div><div class="card"><div class="card-label">Conversions</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div><div class="card"><div class="card-label">Conversion rate</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div></div><div class="two-col"><section class="panel"><div class="panel-title">Performance trend <small>Illustrative view</small></div><div class="chart"><svg viewBox="0 0 650 200" preserveAspectRatio="none"><polyline points="0,153 58,143 112,157 170,112 225,129 282,91 338,105 398,71 456,88 514,51 574,62 650,27" fill="none" stroke="#2873e8" stroke-width="3"/><polyline points="0,179 58,170 112,176 170,164 225,146 282,154 338,131 398,128 456,114 514,95 574,107 650,78" fill="none" stroke="#58a6fa" stroke-width="2" opacity=".5"/></svg></div><div class="chart-labels"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div></section><section class="panel"><div class="panel-title">Campaign health</div><div class="list-row"><i></i><span>Search campaign A</span><span>Active</span></div><div class="list-row"><i></i><span>Search campaign B</span><span>Active</span></div><div class="list-row"><i></i><span>Local campaign</span><span>Active</span></div><div class="bar"></div><div class="card-note">No account names, client details or spend shown</div></section></div><div class="panel" style="margin-top:16px;padding:0"><table class="table"><tr><th>Campaign</th><th>Status</th><th>Type</th><th>Clicks</th><th>Conversions</th></tr><tr><td>Search campaign A</td><td><span class="status">Eligible</span></td><td>Search</td><td>—</td><td>—</td></tr><tr><td>Search campaign B</td><td><span class="status">Eligible</span></td><td>Search</td><td>—</td><td>—</td></tr></table></div></main>
+  </div>
+</div>
+<div id="meta" hidden>
+  <div class="app">
+    <header><div class="mark"><i></i>Ads Manager</div><div class="search">Search campaigns</div><div class="header-right">Sample workspace</div><div class="avatar"></div></header>
+    <aside><div class="nav-group">Manage</div><div class="nav-item active">Campaigns</div><div class="nav-item">Ad sets</div><div class="nav-item">Ads</div><div class="nav-group" style="margin-top:28px">Analyze</div><div class="nav-item">Account overview</div><div class="nav-item">Reports</div><div class="nav-item">Events</div><div class="nav-item">Settings</div></aside>
+    <main><div class="title-row"><h1>Campaigns</h1><span class="badge">Illustrative demo</span></div><p class="sub">Campaign list • Sample data only</p><div class="toolbar"><div class="pill" style="background:#1877f2;color:white;border-color:#1877f2">+ Create</div><div class="pill">Duplicate</div><div class="pill">Edit</div><div class="spacer"></div><div class="pill">Last 30 days</div></div><div class="panel" style="padding:0"><table class="table"><tr><th style="width:32px">□</th><th>Campaign</th><th>Delivery</th><th>Results</th><th>Reach</th><th>Amount spent</th></tr><tr><td>□</td><td>Lead campaign A</td><td><span class="status">Active</span></td><td>—</td><td>—</td><td>Hidden</td></tr><tr><td>□</td><td>Awareness campaign</td><td><span class="status">Active</span></td><td>—</td><td>—</td><td>Hidden</td></tr><tr><td>□</td><td>Retargeting campaign</td><td><span class="status">Active</span></td><td>—</td><td>—</td><td>Hidden</td></tr><tr><td>□</td><td>Lead campaign B</td><td>Paused</td><td>—</td><td>—</td><td>Hidden</td></tr></table></div><div class="two-col" style="margin-top:18px"><section class="panel"><div class="panel-title">Performance <small>Illustrative view</small></div><div class="chart"><svg viewBox="0 0 650 200" preserveAspectRatio="none"><polyline points="0,159 54,132 104,143 162,101 223,115 282,91 337,77 392,86 448,46 506,63 568,31 650,39" fill="none" stroke="#1877f2" stroke-width="3"/></svg></div><div class="chart-labels"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div></section><section class="panel"><div class="panel-title">Campaign summary</div><div class="list-row"><i></i><span>Campaigns</span><span>Sample only</span></div><div class="list-row"><i></i><span>Ad sets</span><span>Sample only</span></div><div class="list-row"><i></i><span>Ads</span><span>Sample only</span></div><div class="bar"></div><div class="card-note">No client details or actual spend shown</div></section></div></main>
+  </div>
+</div>
+<div id="artha" hidden>
+  <div class="app">
+    <header><div class="mark"><i style="border-radius:50%"></i>ArthaLeads</div><div class="search">Search leads</div><div class="header-right">Demo workspace</div><div class="avatar"></div></header>
+    <aside><div class="nav-group">Workspace</div><div class="nav-item">Dashboard</div><div class="nav-item active">Leads</div><div class="nav-item">Pipeline</div><div class="nav-item">Follow-ups</div><div class="nav-item">Activities</div><div class="nav-group" style="margin-top:28px">Manage</div><div class="nav-item">Properties</div><div class="nav-item">Reports</div><div class="nav-item">Settings</div></aside>
+    <main><div class="title-row"><h1>Leads</h1><span class="badge">Illustrative demo</span></div><p class="sub">Lead inbox • Sample entries only • No personal details</p><div class="toolbar"><div class="pill" style="background:#f46b10;color:white;border-color:#f46b10">+ Add lead</div><div class="pill">All sources</div><div class="pill">All statuses</div><div class="spacer"></div><div class="pill">Recent first</div></div><div class="cards"><div class="card"><div class="card-label">New leads</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div><div class="card"><div class="card-label">Follow-ups due</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div><div class="card"><div class="card-label">Site visits</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div><div class="card"><div class="card-label">Open pipeline</div><div class="card-value">—</div><div class="card-note">Demo metric</div></div></div><div class="panel" style="padding:0"><table class="table"><tr><th>Lead</th><th>Source</th><th>Interest</th><th>Stage</th><th>Follow-up</th></tr><tr><td>Sample lead 001</td><td>Website</td><td>Residential</td><td><span class="status">New</span></td><td>Pending</td></tr><tr><td>Sample lead 002</td><td>WhatsApp</td><td>Commercial</td><td>Contacted</td><td>Scheduled</td></tr><tr><td>Sample lead 003</td><td>Ad enquiry</td><td>Residential</td><td>Qualified</td><td>Scheduled</td></tr><tr><td>Sample lead 004</td><td>Walk-in</td><td>Residential</td><td>Site visit</td><td>Pending</td></tr><tr><td>Sample lead 005</td><td>Website</td><td>Commercial</td><td>Contacted</td><td>Pending</td></tr></table></div></main>
+  </div>
+</div>
+<script>
+  const view = new URLSearchParams(location.search).get('view') || 'google';
+  document.getElementById(view)?.removeAttribute('hidden');
+</script>
+</body>
+</html>
