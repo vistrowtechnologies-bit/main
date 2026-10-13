@@ -76,7 +76,7 @@ export async function GET(request: Request) {
       linkTo: entry.linkTo,
     }));
 
-    log.push("Asking OpenAI to write 1 long-form post...");
+    log.push(`Asking ${process.env.ANTHROPIC_API_KEY ? "Claude" : "OpenAI"} (${process.env.BLOG_MODEL || (process.env.ANTHROPIC_API_KEY ? "claude-sonnet-5-5" : "gpt-4o")}) to write 1 long-form post...`);
     const posts = await generateDailyPosts({ signals: [], existingPosts, fixedTopics, longForm: true });
     log.push(`Generated ${posts.length} post(s).`);
 
