@@ -380,7 +380,7 @@ function renderConfirmationEmail({
             </tr>
             <tr>
               <td style="padding:20px 40px;background:#0D0D0D;">
-                <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#A7ADB8;line-height:1.6;">Vistrow Technologies · Remote-first · India and global<br />Replying to this email reaches our team directly.</p>
+                <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:12px;color:#A7ADB8;line-height:1.6;">Vistrow Technologies · Baner, Pune · India and global<br />Replying to this email reaches our team directly.</p>
               </td>
             </tr>
           </table>

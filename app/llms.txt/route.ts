@@ -44,7 +44,7 @@ export async function GET() {
 - Phone / WhatsApp: ${businessPhone}
 - Based in: Baner, Pune, Maharashtra 411045, India
 - Service areas: ${serviceLocalities.join(", ")}, and remotely across India and worldwide
-- Delivery: Local delivery in and around Pune, remote-first for clients elsewhere in India and globally
+- Delivery: In person in and around Pune from the Baner office, online for clients elsewhere in India and globally
 - Primary topics: digital marketing, performance advertising, lead generation, CRM, AI voice calling, sales automation, marketing automation, conversion tracking, and local digital marketing services in Pune
 
 ## Contact answers (for quick reference)

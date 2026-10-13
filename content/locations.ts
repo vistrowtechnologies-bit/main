@@ -128,7 +128,7 @@ export const locations: Record<string, LocationContent> = {
       { q: "Do you only run ads, or also build the systems behind them?", a: "Both. We run performance advertising and SEO, and we build the CRM, AI voice calling and follow-up automation that converts the leads those campaigns generate." },
       costFaq("Pune", "your goals, the channels involved, how competitive your market is and whether you also need CRM and follow-up automation"),
       { q: "How soon will we see enquiries?", a: "Paid campaigns usually start producing enquiries within the first few weeks. SEO and Google Maps visibility build over a longer horizon, typically a few months. We set expectations clearly in the plan." },
-      { q: "Do you also build websites for Pune businesses?", a: "Yes. We design and develop fast, SEO-ready websites and landing pages, with lead forms connected to your CRM and tracking set up before launch. Our website development page explains what affects the cost." },
+      { q: "Do you also build websites for Pune businesses?", a: "Yes. We design and develop fast, SEO-ready websites and landing pages, with lead forms connected to your CRM and tracking set up before launch. Websites for Indian businesses start from ₹9,999, and our website development page explains what affects the final cost." },
       { q: "Can you help my business show up on Google Maps in Pune?", a: "Yes. We set up and optimise your Google Business Profile, build a review request process, keep your listings consistent and create local pages that support your Maps ranking." },
       { q: "How fast can we start?", a: "Most engagements begin with a Growth Audit, usually completed within a few days, followed by a clear proposal and timeline." },
     ],

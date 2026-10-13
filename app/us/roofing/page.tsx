@@ -107,7 +107,7 @@ const faqs = [
   },
   {
     q: "You're based in India. How does that work for a US roofer?",
-    a: "Vistrow is remote-first. Calls happen in your time zone, quotes are in USD, and you keep ownership of your domain, site and data. Your leads are answered instantly by the system, not by an offshore call centre.",
+    a: "We work with US roofers online from our office in Pune, India. Calls happen in your time zone, quotes are in USD, and you keep ownership of your domain, site and data. Your leads are answered instantly by the system, not by an offshore call centre.",
   },
   {
     q: "Can you guarantee more roofing leads?",

@@ -63,7 +63,7 @@ export function buildChatKnowledge(): string {
   lines.push("");
 
   lines.push(
-    "PRICING POLICY: Vistrow does not publish fixed prices. Every engagement is scoped around the channels, systems, and outcomes needed. Never invent a number - point pricing questions to a Growth Audit or Contact.",
+    "PRICING POLICY: The only published price is website development for Indian businesses, which starts from ₹9,999 (the final quote depends on pages, content, integrations and support). US roofing packages are listed on /us/roofing. Every other engagement is scoped around the channels, systems, and outcomes needed. Never invent any other number - point other pricing questions to a Growth Audit or Contact.",
   );
 
   return lines.join("\n");

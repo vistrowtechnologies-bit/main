@@ -34,7 +34,7 @@ const whatWeDo = [
 ];
 
 const companyFacts = [
-  { icon: Building2, title: "Vistrow Technologies", body: "An India-based, remote-first company serving Indian and global businesses." },
+  { icon: Building2, title: "Vistrow Technologies", body: "Based in Baner, Pune, serving businesses across India and globally." },
   { icon: Users, title: "Small senior team", body: "The relevant delivery owner, responsibilities, and communication path are named before an engagement begins." },
   { icon: Boxes, title: "Product operators", body: "Vistrow builds and operates Vistrow Voice, ArthaLeads, and custom systems through Vistrow Labs." },
   { icon: BadgeCheck, title: "Evidence policy", body: "No guaranteed outcomes or anonymous performance claims presented as verified client results." },
@@ -51,7 +51,7 @@ const faqs = [
   },
   {
     q: "Where is Vistrow based, and who do you work with?",
-    a: "Vistrow is remote-first, serving clients across India and globally, across real estate, local businesses, B2B, startups and SaaS, agencies, and education.",
+    a: "Vistrow is based in Baner, Pune. We meet Pune clients in person and work online with clients across India and globally, across real estate, local businesses, B2B, startups and SaaS, agencies, and education.",
   },
   {
     q: "Does Vistrow guarantee specific results?",

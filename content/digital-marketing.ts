@@ -166,10 +166,10 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     highlight: "Pune",
     eyebrow: "Digital Marketing",
     subtitle:
-      "Vistrow builds fast, SEO-ready websites from our office in Baner, Pune, for businesses in Pune and across India. Lead forms go straight into your CRM and tracking is set up before launch, so the site brings in enquiries, not just visits.",
+      "Vistrow builds fast, SEO-ready websites from our office in Baner, Pune, for businesses in Pune and across India. Lead forms go straight into your CRM and tracking is set up before launch, so the site brings in enquiries, not just visits. Websites for Indian businesses start from ₹9,999.",
     metaTitle: "Website Development Company in Pune: Fast, SEO-Ready Sites",
     metaDescription:
-      "Website development company in Pune building fast, SEO-ready sites with CRM and tracking built in. See our work and what drives website cost in India.",
+      "Website development company in Pune. Fast, SEO-ready websites with CRM and tracking built in, starting from ₹9,999 for Indian businesses.",
     problem: {
       title: "A slow, generic website quietly costs you leads.",
       body: "Templated builders and unmaintained sites load slowly, rank poorly, and disconnect from the systems that turn visitors into pipeline.",
@@ -203,7 +203,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     ],
     costGuide: {
       title: "What website development costs in India, and why quotes differ",
-      body: "Two quotes for \"a business website\" can be far apart because they describe different work. These are the things that actually move the price. Check each one when you compare quotes, and share your page list and integrations with us for a line-by-line quote.",
+      body: "Websites for Indian businesses start from ₹9,999. Two quotes for \"a business website\" can still be far apart because they describe different work, so these are the things that move the price above that. Share your page list and integrations with us for a line-by-line quote.",
       factors: [
         { label: "Pages and content depth", body: "A five-page brochure site is a different job from thirty service and location pages, each written and optimised for search." },
         { label: "Template or custom build", body: "Themes and page builders cost less up front but are slower and harder to extend. A custom build (we use Next.js) costs more and loads faster." },
@@ -215,7 +215,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     },
     tools: ["Next.js", "Sanity", "Tailwind CSS", "Vercel", "GA4", "Google Tag Manager", "HubSpot"],
     faqs: [
-      { q: "How much does website development cost in Pune?", a: "It depends on the factors above: how many pages, whether it is a custom build or a template, who writes the content, the integrations, and the support you want after launch. After a short call we send a line-by-line quote, so you can see what each part costs and compare it fairly with other quotes." },
+      { q: "How much does website development cost in Pune?", a: "Websites for Indian businesses start from ₹9,999. The final price depends on the factors above: how many pages, whether it is a custom build or a template, who writes the content, the integrations, and the support you want after launch. After a short call we send a line-by-line quote, so you can see what each part costs and compare it fairly with other quotes." },
       { q: "Is Vistrow a website development company based in Pune?", a: "Yes. Our office is in Baner, Pune. We meet Pune clients in person when it helps, and also build websites for businesses across India and abroad." },
       { q: "Who owns the website after launch?", a: "You do - the domain, the content and the code. We can hand everything over to your team or stay on for updates and improvements." },
       { q: "Do you also handle ongoing maintenance?", a: "Yes - we can hand the site fully over to your team or stay on for updates, content, and improvements." },
