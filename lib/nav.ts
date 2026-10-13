@@ -39,7 +39,7 @@ export const primaryNav: NavItem[] = [
         ],
       },
       {
-        title: "Automation",
+        title: "AI Automation",
         items: [
           { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
           { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },

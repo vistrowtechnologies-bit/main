@@ -85,7 +85,7 @@ export function Services() {
                 <Cog className="h-7 w-7 text-accent-ink" strokeWidth={2} />
               </div>
               <h3 className="mt-6 font-display text-h3 text-inverse-ink">
-                Business Automation
+                AI Automation
               </h3>
               <p className="mt-3 font-sans text-base leading-relaxed text-inverse-ink-2">
                 Automate what happens after a lead is generated - CRM, calls, and

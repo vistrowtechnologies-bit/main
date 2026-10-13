@@ -24,7 +24,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <ServicePage
       content={content}
-      section={{ label: "Business Automation", href: "/business-automation" }}
+      section={{ label: "AI Automation", href: "/business-automation" }}
     />
   );
 }

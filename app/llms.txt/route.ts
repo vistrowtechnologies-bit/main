@@ -33,7 +33,7 @@ export async function GET() {
 
   const body = `# Vistrow Technologies
 
-> Vistrow is a digital marketing and business automation company that connects demand generation, CRM, AI voice agents, lead follow-up, and conversion tracking into measurable growth systems.
+> Vistrow is an AI-powered digital marketing and automation agency in Pune that connects demand generation, CRM, AI voice agents, lead follow-up, and conversion tracking into measurable growth systems.
 
 ## Official entity information
 
@@ -60,7 +60,7 @@ export async function GET() {
 
 ${linkList(digitalMarketingServices, "digital-marketing")}
 
-## Business automation services
+## AI automation services
 
 ${linkList(businessAutomationServices, "business-automation")}
 

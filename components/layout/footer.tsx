@@ -37,9 +37,9 @@ const columns: FooterColumn[] = [
     ],
   },
   {
-    title: "Business Automation",
+    title: "AI Automation",
     links: [
-      { label: "All Business Automation", href: "/business-automation" },
+      { label: "All AI Automation", href: "/business-automation" },
       { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
       { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },
       { label: "Sales Automation", href: "/business-automation/sales-automation" },
@@ -150,8 +150,8 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Wordmark />
             <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-muted">
-              Digital marketing connected to the CRM, automation, and AI systems that
-              turn opportunities into revenue.
+              An AI-powered digital marketing and automation agency, connecting
+              campaigns to the CRM, AI voice and automation that turn leads into revenue.
             </p>
             <div className="mt-5 space-y-3">
               <a

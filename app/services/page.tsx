@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, collectionSchema, graph } from "@/lib/structured-data";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Digital Marketing and Business Automation Services",
+  title: "Digital Marketing and AI Automation Services",
   description:
     "Marketing and automation, working as one system: performance marketing, CRM, AI voice, and the automation that connects them.",
   path: "/services",

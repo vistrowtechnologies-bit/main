@@ -15,7 +15,7 @@ import { breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
 export const metadata: Metadata = buildMetadata({
   title: "About Vistrow Technologies",
   description:
-    "Meet Vistrow Technologies, an India-based digital marketing and automation company connecting campaigns, CRM, AI voice, follow-up, and revenue tracking.",
+    "Meet Vistrow Technologies, an AI-powered digital marketing and automation agency in Baner, Pune, connecting campaigns, CRM, AI voice, follow-up and revenue tracking.",
   path: "/about",
 });
 
@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     q: "Is Vistrow a marketing agency or a software company?",
-    a: "Both. Vistrow runs marketing and automation engagements for clients, and also builds and operates its own products - Vistrow Voice, ArthaLeads, and Vistrow Labs - which can be used standalone or as part of a Vistrow engagement.",
+    a: "Both. Vistrow is an AI-powered digital marketing and automation agency that runs engagements for clients, and also builds and operates its own products - Vistrow Voice, ArthaLeads, and Vistrow Labs - which can be used standalone or as part of a Vistrow engagement.",
   },
   {
     q: "Where is Vistrow based, and who do you work with?",
@@ -71,8 +71,8 @@ export default function Page() {
       <PageHero
         breadcrumb={[{ label: "Home", href: "/" }, { label: "About" }]}
         eyebrow="About Vistrow"
-        title="A digital-marketing-first"
-        highlight="technology company"
+        title="An AI-powered digital marketing and"
+        highlight="automation agency"
         subtitle="Vistrow helps businesses generate demand and then convert it - by connecting marketing to CRM, AI voice, automation, and the tracking that ties it all to revenue."
         secondaryCta={{ label: "Our approach", href: "/approach" }}
       />

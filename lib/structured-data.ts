@@ -79,7 +79,7 @@ export const organizationSchema: JsonLdValue = {
   geo: businessGeo,
   sameAs: socialProfiles.map((profile) => profile.href),
   description:
-    "Vistrow connects digital marketing, CRM, AI voice calling, business automation, and conversion tracking into measurable growth systems.",
+    "Vistrow is an AI-powered digital marketing and automation agency in Pune, connecting digital marketing, CRM, AI voice calling, business automation and conversion tracking into measurable growth systems.",
   areaServed: [...serviceLocalities, "Maharashtra", "India", "Worldwide"],
   knowsAbout: [
     "Digital marketing",
@@ -88,6 +88,7 @@ export const organizationSchema: JsonLdValue = {
     "CRM implementation",
     "AI voice agents",
     "Business automation",
+    "AI automation",
     "Conversion tracking",
   ],
 };

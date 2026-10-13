@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <OverviewPage
       content={businessAutomationOverview}
-      parent={{ label: "Business Automation", href: "/business-automation" }}
+      parent={{ label: "AI Automation", href: "/business-automation" }}
     />
   );
 }

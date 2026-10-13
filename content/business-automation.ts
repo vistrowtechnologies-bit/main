@@ -2,15 +2,15 @@ import { Database, PhoneCall, Zap, MessageSquare, Repeat, Wrench } from "lucide-
 import type { ServiceContent, OverviewContent } from "@/lib/content-types";
 
 export const businessAutomationOverview: OverviewContent = {
-  eyebrow: "Business Automation",
-  title: "Automate what happens after a",
-  highlight: "lead is generated",
+  eyebrow: "AI Automation Agency",
+  title: "AI automation agency for",
+  highlight: "Indian businesses",
   subtitle:
-    "CRM, AI voice, follow-up, and custom workflows that respond in seconds and convert more of the demand you already create - without adding headcount.",
-  metaTitle: "Business Automation Services",
+    "Vistrow builds AI voice agents, CRM automation, WhatsApp follow-up and custom workflows for businesses across India, from our office in Pune. They respond in seconds and convert more of the demand you already create, without adding headcount.",
+  metaTitle: "AI Automation Agency in India: AI Voice, CRM and WhatsApp",
   metaDescription:
-    "CRM and lead management, AI voice calling, sales automation, communication automation, follow-up systems, and custom automation.",
-  cardsTitle: "Business automation services",
+    "AI automation agency in India building AI voice agents, CRM automation, WhatsApp follow-up and custom workflows. Based in Pune. Get a free Growth Audit.",
+  cardsTitle: "AI automation services",
   cards: [
     { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management", body: "One source of truth for every lead and deal.", icon: Database },
     { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling", body: "Respond and qualify by phone in seconds, 24/7.", icon: PhoneCall },
@@ -20,15 +20,15 @@ export const businessAutomationOverview: OverviewContent = {
     { label: "Custom Automation", href: "/business-automation/custom-automation", body: "Workflows built around how your business actually runs.", icon: Wrench },
   ],
   intro: {
-    eyebrow: "After the lead arrives",
-    title: "Make the next action automatic, visible, and consistent.",
+    eyebrow: "Not just an integrator",
+    title: "We build and run our own AI products.",
     body:
-      "Automation should remove delay and repetitive work without making the customer experience feel mechanical. We map the real process first, then connect CRM, voice, messaging, calendars, and reporting around it.",
+      "Vistrow Voice (AI voice calling in 10 Indian languages) and ArthaLeads (AI lead scoring and follow-up for real estate) are products we built and operate. When we automate your process, we bring what we've learned running them: how Indian callers respond, how WhatsApp templates get approved, and how messy CRM data really is. We map your real process first, then connect CRM, voice, messaging, calendars and reporting around it.",
     points: [
-      "One source of truth for every lead and deal",
-      "Immediate response across voice and messaging",
-      "Consistent routing, reminders, and handoffs",
-      "Clear visibility into pipeline and team activity",
+      "AI voice agents that call in Hindi, Hinglish and other Indian languages",
+      "AI lead scoring and WhatsApp follow-up drafted for each lead",
+      "CRM, calendars and messaging connected around your real process",
+      "Human handoff wherever a conversation needs a person",
     ],
   },
   process: [
@@ -38,6 +38,8 @@ export const businessAutomationOverview: OverviewContent = {
     { title: "Monitor and refine", body: "Review exceptions and outcomes, then improve the automation over time." },
   ],
   faqs: [
+    { q: "What does an AI automation agency do?", a: "It sets up AI and automation to handle the repetitive work in your sales and support process: answering and qualifying calls, sending follow-ups, routing leads, updating the CRM and reporting. Vistrow designs the process, builds it, connects it to the tools you already use and keeps people in charge of the decisions that need judgement." },
+    { q: "Do you work with businesses outside Pune?", a: "Yes. We're based in Baner, Pune, and set up AI automation for businesses across India, mostly online, with in-person workshops in Pune when useful." },
     { q: "Do we need to replace our current CRM?", a: "Usually not. We first assess whether your existing CRM can support the process, then improve or replace only what is genuinely holding the team back." },
     { q: "Will customers know they are interacting with automation?", a: "We design clear, helpful interactions and use human handoff wherever judgement or a personal conversation is more appropriate." },
     { q: "Can you automate a process unique to our business?", a: "Yes. Custom Automation starts from your actual workflow rather than forcing your team into a generic template." },
@@ -48,7 +50,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "crm-lead-management": {
     slug: "crm-lead-management",
     title: "CRM & Lead Management",
-    eyebrow: "Business Automation",
+    eyebrow: "AI Automation",
     subtitle:
       "One clean, connected source of truth for every lead and deal - set up, integrated, and automated around your sales process.",
     metaTitle: "CRM Implementation and Lead Management",
@@ -96,7 +98,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "ai-voice-calling": {
     slug: "ai-voice-calling",
     title: "AI Voice Calling",
-    eyebrow: "Business Automation",
+    eyebrow: "AI Automation",
     subtitle:
       "Vistrow Voice handles inbound, outbound, and website calls in 10 Indian languages - answering questions, qualifying intent, booking next steps, and pushing outcomes into your workflow 24/7.",
     metaTitle: "AI Voice Calling Agents for India",
@@ -145,7 +147,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "sales-automation": {
     slug: "sales-automation",
     title: "Sales Automation",
-    eyebrow: "Business Automation",
+    eyebrow: "AI Automation",
     subtitle:
       "Take the manual, repetitive work out of selling - so your team spends time on conversations, not admin.",
     metaTitle: "Sales Automation Services",
@@ -193,7 +195,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "communication-automation": {
     slug: "communication-automation",
     title: "WhatsApp, Email & SMS Automation",
-    eyebrow: "Business Automation",
+    eyebrow: "AI Automation",
     subtitle:
       "Reach leads and customers where they actually reply - coordinated across WhatsApp, email, and SMS, triggered by behaviour.",
     metaTitle: "WhatsApp, Email and SMS Automation",
@@ -241,7 +243,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "lead-follow-up": {
     slug: "lead-follow-up",
     title: "Lead Follow-Up Systems",
-    eyebrow: "Business Automation",
+    eyebrow: "AI Automation",
     subtitle:
       "Persistent, automated follow-up that keeps working every lead until they respond, book, or opt out - so nothing slips.",
     metaTitle: "Automated Lead Follow-Up Systems",
@@ -289,7 +291,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "custom-automation": {
     slug: "custom-automation",
     title: "Custom Automation",
-    eyebrow: "Business Automation",
+    eyebrow: "AI Automation",
     subtitle:
       "When off-the-shelf tools don't fit, we build the workflows and integrations that match how your business actually runs.",
     metaTitle: "Custom Business Automation Services",
