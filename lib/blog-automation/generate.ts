@@ -17,6 +17,42 @@ function bodyText(post: GeneratedPost) {
     .trim();
 }
 
+const META_DESCRIPTION_MIN = 120;
+const META_DESCRIPTION_MAX = 160;
+const META_DESCRIPTION_ENDINGS = [
+  " See how Vistrow can help.",
+  " Learn what to fix first.",
+  " A practical guide from Vistrow.",
+  " Here is what to do next.",
+];
+
+// The model often misses the 120-160 character window by a few characters, which used to
+// fail the whole run and leave the calendar topic stuck. Nudge the length into range
+// deterministically instead, keeping the focus keyword intact.
+function fitMetaDescription(post: GeneratedPost): GeneratedPost {
+  let text = post.metaDescription.trim().replace(/\s+/g, " ");
+  const keyword = post.focusKeyword.toLowerCase().trim();
+
+  if (text.length > META_DESCRIPTION_MAX) {
+    const cut = text.slice(0, META_DESCRIPTION_MAX - 1);
+    const trimmed = cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,;:.-]+$/, "") + ".";
+    if (!keyword || trimmed.toLowerCase().includes(keyword)) text = trimmed;
+  }
+
+  if (text.length < META_DESCRIPTION_MIN) {
+    const base = /[.!?]$/.test(text) ? text : `${text}.`;
+    const ending = [...META_DESCRIPTION_ENDINGS]
+      .sort((a, b) => b.length - a.length)
+      .find((candidate) => {
+        const length = base.length + candidate.length;
+        return length >= META_DESCRIPTION_MIN && length <= META_DESCRIPTION_MAX;
+      });
+    if (ending) text = base + ending;
+  }
+
+  return text === post.metaDescription ? post : { ...post, metaDescription: text };
+}
+
 function seoIssues(post: GeneratedPost): string[] {
   const issues: string[] = [];
   const title = post.title.toLowerCase();
@@ -504,6 +540,7 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
     if (typeof raw !== "string") throw new Error("OpenAI returned no content");
 
     const parsed = JSON.parse(raw) as { posts: GeneratedPost[] };
+    parsed.posts = parsed.posts.map(fitMetaDescription);
     const allHaveLinks = parsed.posts.every((post) =>
       post.sections.some((section) => MARKDOWN_LINK_TEST.test(section.paragraphs.join(" "))),
     );
