@@ -17,6 +17,7 @@ function bodyText(post: GeneratedPost) {
     .trim();
 }
 
+export const LONG_FORM_MIN_WORDS = 1200;
 const META_DESCRIPTION_MIN = 120;
 const META_DESCRIPTION_MAX = 160;
 const META_DESCRIPTION_ENDINGS = [
@@ -53,7 +54,7 @@ function fitMetaDescription(post: GeneratedPost): GeneratedPost {
   return text === post.metaDescription ? post : { ...post, metaDescription: text };
 }
 
-function seoIssues(post: GeneratedPost): string[] {
+function seoIssues(post: GeneratedPost, minWords: number): string[] {
   const issues: string[] = [];
   const title = post.title.toLowerCase();
   const metaTitle = post.metaTitle.toLowerCase();
@@ -67,13 +68,15 @@ function seoIssues(post: GeneratedPost): string[] {
   const keywordDensity = wordCount ? (keywordMentions * keywordWords * 100) / wordCount : 0;
 
   if (!keyword) issues.push(`"${post.title}": focusKeyword is empty.`);
-  if (keywordWords > 4) issues.push(`"${post.title}": focusKeyword "${post.focusKeyword}" is ${keywordWords} words - it must be a short 2-4 word phrase, not a long headline copied verbatim. A long keyword makes the density math nearly impossible to pass.`);
+  // Long-form posts target researched long-tail phrases (e.g. "site visit management in real estate").
+  const maxKeywordWords = minWords >= LONG_FORM_MIN_WORDS ? 6 : 4;
+  if (keywordWords > maxKeywordWords) issues.push(`"${post.title}": focusKeyword "${post.focusKeyword}" is ${keywordWords} words - it must be a short phrase of at most ${maxKeywordWords} words, not a long headline copied verbatim. A long keyword makes the density math nearly impossible to pass.`);
   if (keyword && !title.includes(keyword)) issues.push(`"${post.title}": title does not contain the exact focusKeyword "${post.focusKeyword}".`);
   if (keyword && !metaTitle.includes(keyword)) issues.push(`"${post.title}": metaTitle does not contain the exact focusKeyword.`);
   if (keyword && !metaDescription.includes(keyword)) issues.push(`"${post.title}": metaDescription does not contain the exact focusKeyword.`);
   if (post.metaTitle.length < 30 || post.metaTitle.length > 60) issues.push(`"${post.title}": metaTitle is ${post.metaTitle.length} chars, needs 30-60.`);
   if (post.metaDescription.length < 120 || post.metaDescription.length > 160) issues.push(`"${post.title}": metaDescription is ${post.metaDescription.length} chars, needs 120-160.`);
-  if (wordCount < 320) issues.push(`"${post.title}": body is only ${wordCount} words (from paragraphs only, not headings/points), needs at least 320.`);
+  if (wordCount < minWords) issues.push(`"${post.title}": body is only ${wordCount} words (from paragraphs only, not headings/points), needs at least ${minWords}.`);
   if (keyword && (keywordDensity < 0.5 || keywordDensity > 2.5) && wordCount > 0 && keywordWords > 0) {
     const minMentions = Math.max(1, Math.ceil((0.5 * wordCount) / (keywordWords * 100)));
     const maxMentions = Math.max(minMentions, Math.floor((2.5 * wordCount) / (keywordWords * 100)));
@@ -83,6 +86,33 @@ function seoIssues(post: GeneratedPost): string[] {
   }
 
   return issues;
+}
+
+// Stock AI phrasing that marks a post as generic. Any hit fails the attempt and is sent back for a rewrite.
+const GENERIC_PHRASES = [
+  "in today's", "imagine a", "imagine you", "game-changer", "game changer", "unlock", "leverage", "seamless",
+  "in the ever-evolving", "ever-changing landscape", "it's no secret", "look no further", "delve", "embark",
+  "revolutionize", "revolutionise", "transformative", "cutting-edge", "in conclusion",
+];
+
+function genericPhraseIssues(post: GeneratedPost): string[] {
+  const text = [post.title, post.excerpt, ...post.sections.flatMap((s) => [s.heading ?? "", ...s.paragraphs, ...(s.points ?? [])])]
+    .join(" ")
+    .toLowerCase();
+  const hits = GENERIC_PHRASES.filter((phrase) => text.includes(phrase));
+  return hits.length ? [`"${post.title}": remove generic AI phrasing (${hits.map((h) => `"${h}"`).join(", ")}) and say something specific instead.`] : [];
+}
+
+// The insight is the reason the post exists. If it contains concrete numbers, at least one must
+// appear in the body - a cheap check that the model actually built on it instead of ignoring it.
+function insightIssues(post: GeneratedPost, insight: string | undefined): string[] {
+  if (!insight) return [];
+  const numbers = [...new Set(insight.match(/\d[\d,.]*%?/g) ?? [])].filter((n) => n.replace(/\D/g, "").length >= 2);
+  if (numbers.length === 0) return [];
+  const body = bodyText(post);
+  return numbers.some((n) => body.includes(n))
+    ? []
+    : [`"${post.title}": the post does not use any of the concrete figures from the insight (${numbers.slice(0, 6).join(", ")}). Build the argument on them.`];
 }
 
 export const BLOG_CATEGORIES = [
@@ -375,6 +405,12 @@ export type CalendarTopic = {
   focusKeyword: string;
   angle: string;
   sourceUrl?: string;
+  // First-hand material from the Vistrow team (numbers, a client story, a process, an opinion).
+  // When present, the post is written in long-form mode and must be built around it.
+  insight?: string;
+  secondaryKeywords?: string[];
+  searchIntent?: string;
+  linkTo?: string;
 };
 
 export async function generateDailyPosts({
@@ -383,6 +419,7 @@ export async function generateDailyPosts({
   count = 2,
   includeProductSeed = true,
   fixedTopics,
+  longForm = false,
 }: {
   signals: TrendSignal[];
   existingPosts: ExistingPost[];
@@ -396,6 +433,8 @@ export async function generateDailyPosts({
   // cron consumes the 30-day content calendar so topics are decided once, in
   // one batch, instead of re-decided (and re-collided) every single day.
   fixedTopics?: CalendarTopic[];
+  // One deep post (1,200+ words, 6-10 sections) instead of short daily posts.
+  longForm?: boolean;
 }): Promise<GeneratedPost[]> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
@@ -433,11 +472,39 @@ export async function generateDailyPosts({
     .filter(([, count]) => count === 0)
     .map(([category]) => category);
 
-  const schema = { ...responseSchema, schema: { ...responseSchema.schema, properties: { posts: { ...responseSchema.schema.properties.posts, minItems: count, maxItems: count } } } };
+  const minWords = longForm ? LONG_FORM_MIN_WORDS : 320;
+  const postsSchema = responseSchema.schema.properties.posts;
+  const sectionsSchema = postsSchema.items.properties.sections;
+  const itemSchema = longForm
+    ? {
+        ...postsSchema.items,
+        properties: {
+          ...postsSchema.items.properties,
+          sections: {
+            ...sectionsSchema,
+            minItems: 6,
+            maxItems: 10,
+            items: {
+              ...sectionsSchema.items,
+              properties: { ...sectionsSchema.items.properties, paragraphs: { ...sectionsSchema.items.properties.paragraphs, maxItems: 5 } },
+            },
+          },
+        },
+      }
+    : postsSchema.items;
+  const schema = { ...responseSchema, schema: { ...responseSchema.schema, properties: { posts: { ...postsSchema, items: itemSchema, minItems: count, maxItems: count } } } };
 
   const topicInstruction = fixedTopics
     ? `You have been assigned the exact ${fixedTopics.length} topic(s) below from Vistrow's pre-planned 30-day content calendar. Do not swap them for a different topic, category, or focusKeyword, and do not invent a new angle - that calendar was already checked against every existing post to guarantee it doesn't repeat anything, so deviating from it is what would reintroduce duplicates. Write the full post for each exactly as assigned, using the given angle as your opening hook or thesis:
-${fixedTopics.map((t, i) => `${i + 1}. Title: "${t.title}" | Category: ${t.category} | focusKeyword: "${t.focusKeyword}" | Angle: ${t.angle}${t.sourceUrl ? ` | Official source: ${t.sourceUrl}` : ""}`).join("\n")}`
+${fixedTopics.map((t, i) => `${i + 1}. Title: "${t.title}" | Category: ${t.category} | focusKeyword: "${t.focusKeyword}" | Angle: ${t.angle}${t.sourceUrl ? ` | Official source: ${t.sourceUrl}` : ""}${t.secondaryKeywords?.length ? ` | Secondary keywords: ${t.secondaryKeywords.join(", ")}` : ""}${t.searchIntent ? ` | Search intent: ${t.searchIntent}` : ""}${t.linkTo ? ` | Main page to link: ${t.linkTo}` : ""}`).join("\n")}
+${fixedTopics.some((t) => t.insight) ? `
+VISTROW'S FIRST-HAND INSIGHT - this is the whole reason the post exists and what makes it different from every generic article already ranking. Build the post around it:
+${fixedTopics.map((t, i) => (t.insight ? `Post ${i + 1} insight (written by the Vistrow team):\n"""\n${t.insight}\n"""` : "")).filter(Boolean).join("\n\n")}
+- Open with the most specific part of the insight (a number, a situation, a mistake you saw), not with background.
+- Use the insight's concrete details (figures, steps, tools, outcomes, client situation) in at least three different sections, and explain what they mean for the reader.
+- Treat the insight as the only source of Vistrow's own results. Never invent extra numbers, clients, timeframes or outcomes beyond it and the product facts below. If something isn't in the insight, describe it qualitatively.
+- Do not name a client unless the insight names them. Write "a Pune real-estate developer we work with", not an invented name.
+- Answer the searcher's question fully: cover what a reader would expect from the top results for this keyword, then add the insight as the part nobody else has.` : ""}`
     : `Pick the ${count} most relevant topic(s) from the signals below - a mix of genuinely trending news and, where it fits, a [product-seo] evergreen topic (ranking ArthaLeads or Vistrow Voice) or a [service-seo] evergreen topic (ranking one of Vistrow's own digital marketing SERVICES - performance advertising, SEO, social media, landing pages, website development, creative strategy, conversion tracking, marketing automation). Everything you pick must genuinely fit one of the ${BLOG_CATEGORIES.length} blog categories and attract search traffic from people researching marketing, CRM, AI voice, or automation. Ignore anything off-topic (celebrity news, sports, politics, unrelated tech). Don't pick two [product-seo] topics for the same product on the same day, and don't pick two [service-seo] topics for the same specific service on the same day.
 
 SIGNAL RELIABILITY - not all sources below are equally trustworthy for "will someone actually search this":
@@ -478,13 +545,13 @@ ${internalLinksReference}
 
 BULLET LISTS - never write a bullet list as dashes or a numbered list inside a paragraph string (no "- item one\n- item two" inside "paragraphs"). If a section needs a list, put each item as its own entry in that section's "points" array instead, and keep "paragraphs" as normal prose sentences only.
 
-4-6 sections, first section has an empty heading (it's the intro, no linking needed there). 2-4 paragraphs per section, each paragraph 2-4 sentences - this is not padding, it's what gets the body past the word-count requirement below.
+${longForm ? "6-10 sections, first section has an empty heading (it's the intro, no linking needed there). 2-5 paragraphs per section, each paragraph 2-5 sentences. Include at least one practical section (steps, a checklist in \"points\", a worked example or a cost breakdown) and one section answering the questions people also ask about this keyword." : "4-6 sections, first section has an empty heading (it's the intro, no linking needed there). 2-4 paragraphs per section, each paragraph 2-4 sentences - this is not padding, it's what gets the body past the word-count requirement below."}
 
 SEO REQUIREMENTS - these are checked by an automated scorer with hard pass/fail rules, not style suggestions:
 1. Pick focusKeyword FIRST: a HARD MAXIMUM of 4 words, a real phrase someone would actually search (e.g. "AI voice calling India" or "real estate CRM software"). Never copy a topic or headline verbatim as the keyword even if it's longer - extract the short core phrase from it instead (from a topic like "Best AI voice calling agent for Indian businesses", the keyword is "AI voice calling agent" or "AI voice calling India", NOT the full 8-word topic). Then make title, metaTitle, and metaDescription each literally contain that exact short phrase, word for word - not a rephrasing or synonym.
 2. metaTitle must be 30-60 characters. metaDescription must be 120-160 characters - count the characters before finalizing, both are hard limits.
-3. The article body (all paragraphs across all sections, combined) must be at least 320 words. Headings and "points" don't count toward this - the paragraphs alone must reach it.
-4. The exact focusKeyword phrase MUST appear literally, word for word, at least once in the body paragraphs (not just in the title/meta fields) - zero mentions in the body always fails, this is never optional. Be sparing about how many more: for a 3-4 word keyword, exactly ONE mention total in the body is correct - do not add a second. For a 2-word keyword, 2-3 mentions total in the body is fine. The density formula is (mentions x keyword-word-count x 100 / total-body-words) and it must land between 0.5% and 2.5%.
+3. The article body (all paragraphs across all sections, combined) must be at least ${minWords} words. Headings and "points" don't count toward this - the paragraphs alone must reach it.
+4. The exact focusKeyword phrase MUST appear literally, word for word, at least once in the body paragraphs (not just in the title/meta fields) - zero mentions in the body always fails, this is never optional. ${longForm ? "Aim for roughly 1% density: for a body of about 1,400 words that is 4-6 mentions of a 2-word keyword, or 3-4 mentions of a 3-4 word keyword, spread naturally across sections." : "Be sparing about how many more: for a 3-4 word keyword, exactly ONE mention total in the body is correct - do not add a second. For a 2-word keyword, 2-3 mentions total in the body is fine."} The density formula is (mentions x keyword-word-count x 100 / total-body-words) and it must land between 0.5% and 2.5%.
 
 IMAGE PROMPT FORMAT - imageGenerationPrompt must be one detailed, paste-ready prompt for ChatGPT/DALL-E, written as flowing sentences (not labelled fields), covering every point below in order:
 
@@ -523,11 +590,11 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: process.env.BLOG_MODEL || "gpt-4o",
         messages,
         response_format: { type: "json_schema", json_schema: schema },
         temperature: 0.7,
-        max_tokens: 4000,
+        max_tokens: longForm ? 12000 : 4000,
       }),
     });
 
@@ -536,6 +603,7 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
     }
 
     const data = await response.json();
+    if (data?.choices?.[0]?.finish_reason === "length") throw new Error("OpenAI response was cut off at max_tokens before the post was finished.");
     const raw = data?.choices?.[0]?.message?.content;
     if (typeof raw !== "string") throw new Error("OpenAI returned no content");
 
@@ -547,8 +615,14 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
     const noBakedLists = parsed.posts.every((post) =>
       post.sections.every((section) => !BULLET_DASH_TEST.test(section.paragraphs.join("\n"))),
     );
-    const seoProblems = parsed.posts.flatMap(seoIssues);
-    const duplicateProblems = duplicateIssues(parsed.posts, existingTitleList);
+    const seoProblems = parsed.posts.flatMap((post, index) => [
+      ...seoIssues(post, minWords),
+      ...genericPhraseIssues(post),
+      ...insightIssues(post, fixedTopics?.[index]?.insight),
+    ]);
+    // Insight-led topics were chosen by a person from the keyword plan, so a loose title overlap with an
+    // old generic post must not block them forever.
+    const duplicateProblems = fixedTopics?.every((topic) => topic.insight) ? [] : duplicateIssues(parsed.posts, existingTitleList);
 
     const assignmentProblems = fixedTopics ? parsed.posts.flatMap((post, index) => {
       const assigned = fixedTopics[index];

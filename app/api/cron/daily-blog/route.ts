@@ -1,14 +1,18 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
-import { collectOfficialAiUpdates, collectTrendSignals } from "@/lib/blog-automation/trending";
 import { generateDailyPosts, VALID_INTERNAL_LINKS, type CalendarTopic, type ExistingPost } from "@/lib/blog-automation/generate";
-import { generateContentCalendar } from "@/lib/blog-automation/calendar";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
 
-const CALENDAR_SIZE = 30;
+// A post is only written for a calendar entry the team has added a first-hand insight to.
+// No insight, no post - this is what stops generic filler from being generated.
+const MIN_INSIGHT_LENGTH = 200;
+// At most one long-form post every few days, however many insights are waiting.
+const MIN_DAYS_BETWEEN_POSTS = 3;
+// An entry that fails this many runs is skipped (so it can't block the queue) until someone edits it in Studio.
+const MAX_FAILED_RUNS = 3;
 
 export const runtime = "nodejs";
-export const maxDuration = 120;
+export const maxDuration = 300;
 
 const STUDIO_URL = "https://vistrow.sanity.studio";
 const MARKDOWN_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -29,48 +33,51 @@ export async function GET(request: Request) {
   }
 
   const { searchParams } = new URL(request.url);
-  const requestedCount = Number(searchParams.get("count"));
-  const count = Number.isInteger(requestedCount) && requestedCount > 0 && requestedCount <= 2 ? requestedCount : 2;
+  const force = searchParams.get("force") === "1";
 
   const log: string[] = [];
+  let currentEntryId: string | null = null;
   try {
     const writeClient = getSanityWriteClient();
 
-    const existingPosts = await fetchExistingPosts();
-    log.push(`Loaded ${existingPosts.length} existing posts for de-duplication and category rotation.`);
-
-    let queue = await fetchPendingCalendarEntries(writeClient, count);
-    log.push(`Found ${queue.length} pending topic(s) in the content calendar.`);
-
-    if (queue.length < count) {
-      log.push("Calendar queue is running low - generating 15 days of topics at two per day...");
-      const reservedTitles = queue.map((entry) => entry.title);
-      const officialAiUpdates = await collectOfficialAiUpdates();
-      log.push(`Found ${officialAiUpdates.length} recent official AI updates.`);
-      const topics = await generateContentCalendar({ size: CALENDAR_SIZE, existingPosts, reservedTitles, officialAiUpdates });
-      if (topics.length < count - queue.length) throw new Error("Calendar generation did not produce enough distinct topics.");
-      log.push(`Generated ${topics.length} new calendar topic(s).`);
-      await writeCalendarEntries(writeClient, topics);
-      queue = await fetchPendingCalendarEntries(writeClient, count);
-      log.push(`Queue now has ${queue.length} pending topic(s) available.`);
-      await notifyCalendarRefill(topics, log);
+    const lastUsedAt = await writeClient.fetch<string | null>(
+      `*[_type == "contentCalendarEntry" && status == "used" && defined(usedAt)] | order(usedAt desc)[0].usedAt`,
+    );
+    const daysSinceLast = lastUsedAt ? (Date.now() - new Date(lastUsedAt).getTime()) / 86_400_000 : Infinity;
+    if (!force && daysSinceLast < MIN_DAYS_BETWEEN_POSTS) {
+      log.push(`Last post was generated ${daysSinceLast.toFixed(1)} day(s) ago; waiting until ${MIN_DAYS_BETWEEN_POSTS} days have passed.`);
+      await recordCronRun({ startedAt, status: "ok", log, postsCreated: 0 });
+      return NextResponse.json({ ok: true, created: [], log });
     }
 
-    const assigned = queue.slice(0, count);
+    const queue = await fetchReadyCalendarEntries(writeClient, 1);
+    if (queue.length === 0) {
+      log.push(`No calendar entry has an insight of ${MIN_INSIGHT_LENGTH}+ characters yet - nothing generated.`);
+      await remindAboutMissingInsights(writeClient, startedAt, log);
+      await recordCronRun({ startedAt, status: "ok", log, postsCreated: 0 });
+      return NextResponse.json({ ok: true, created: [], log });
+    }
+    currentEntryId = queue[0]._id;
+    log.push(`Writing "${queue[0].title}" from its insight (${queue[0].insight.length} characters).`);
+
+    const existingPosts = await fetchExistingPosts();
+    log.push(`Loaded ${existingPosts.length} existing posts for de-duplication.`);
+
+    const assigned = queue;
     const fixedTopics: CalendarTopic[] = assigned.map((entry) => ({
       title: entry.title,
       category: entry.category,
       focusKeyword: entry.focusKeyword,
-      angle: entry.angle,
+      angle: entry.angle ?? "",
       sourceUrl: entry.sourceUrl,
+      insight: entry.insight,
+      secondaryKeywords: entry.secondaryKeywords,
+      searchIntent: entry.searchIntent,
+      linkTo: entry.linkTo,
     }));
 
-    log.push("Fetching trend signals...");
-    const signals = await collectTrendSignals();
-    log.push(`Collected ${signals.length} trend signals.`);
-
-    log.push(`Asking OpenAI to write ${fixedTopics.length} assigned calendar topic(s)...`);
-    const posts = await generateDailyPosts({ signals, existingPosts, count, fixedTopics });
+    log.push("Asking OpenAI to write 1 long-form post...");
+    const posts = await generateDailyPosts({ signals: [], existingPosts, fixedTopics, longForm: true });
     log.push(`Generated ${posts.length} post(s).`);
 
     const created: { title: string; studioUrl: string }[] = [];
@@ -130,6 +137,7 @@ export async function GET(request: Request) {
   } catch (error) {
     log.push(`Error: ${String(error)}`);
     console.error("Daily blog cron failed", error);
+    if (currentEntryId) await recordEntryFailure(currentEntryId, String(error), log);
     await recordCronRun({ startedAt, status: "error", log, error: String(error) });
     return NextResponse.json({ ok: false, error: String(error), log }, { status: 500 });
   }
@@ -197,57 +205,90 @@ async function fetchExistingPosts(): Promise<ExistingPost[]> {
   }
 }
 
-type PendingCalendarEntry = {
+type ReadyCalendarEntry = {
   _id: string;
   title: string;
   category: CalendarTopic["category"];
   focusKeyword: string;
-  angle: string;
+  angle?: string;
   sourceUrl?: string;
+  insight: string;
+  secondaryKeywords?: string[];
+  searchIntent?: string;
+  linkTo?: string;
 };
 
-// Reads the next unused topics off the 30-day content calendar, oldest
-// (lowest dayIndex) first - this is the queue the daily cron consumes
-// instead of re-deciding a topic every run.
-async function fetchPendingCalendarEntries(
+// Next calendar entries that have a real insight attached, in planned order.
+async function fetchReadyCalendarEntries(
   writeClient: ReturnType<typeof getSanityWriteClient>,
   limit: number,
-): Promise<PendingCalendarEntry[]> {
-  return writeClient.fetch<PendingCalendarEntry[]>(
-    `*[_type == "contentCalendarEntry" && status == "pending"] | order(dayIndex asc)[0...$limit]{_id, title, category, focusKeyword, angle, sourceUrl}`,
-    { limit },
+): Promise<ReadyCalendarEntry[]> {
+  return writeClient.fetch<ReadyCalendarEntry[]>(
+    `*[_type == "contentCalendarEntry" && !(_id in path("drafts.**")) && !(status in ["used", "archived"]) && length(insight) >= $minInsight && coalesce(failedRuns, 0) < $maxFailures]
+      | order(dayIndex asc)[0...$limit]{_id, title, category, focusKeyword, angle, sourceUrl, insight, secondaryKeywords, searchIntent, linkTo}`,
+    { limit, minInsight: MIN_INSIGHT_LENGTH, maxFailures: MAX_FAILED_RUNS },
   );
 }
 
-// Persists a freshly generated calendar batch as pending entries, numbered
-// after whatever dayIndex already exists so multiple top-up batches over
-// time keep a continuously increasing, easy-to-read order in the Studio.
-async function writeCalendarEntries(
-  writeClient: ReturnType<typeof getSanityWriteClient>,
-  topics: CalendarTopic[],
-): Promise<void> {
-  const maxDayIndex = await writeClient.fetch<number | null>(
-    `*[_type == "contentCalendarEntry"] | order(dayIndex desc)[0].dayIndex`,
-  );
-  const startIndex = (maxDayIndex ?? 0) + 1;
-  const now = new Date().toISOString();
+// Counts a failed attempt on the entry and stores the reason where the team can see it in Studio.
+// Never throws.
+async function recordEntryFailure(entryId: string, error: string, log: string[]): Promise<void> {
+  try {
+    await getSanityWriteClient()
+      .patch(entryId)
+      .setIfMissing({ failedRuns: 0 })
+      .inc({ failedRuns: 1 })
+      .set({ lastError: error.slice(0, 2000) })
+      .commit();
+  } catch (patchError) {
+    log.push(`Warning: failed to record the failure on calendar entry ${entryId}: ${String(patchError)}`);
+  }
+}
 
-  const transaction = writeClient.transaction();
-  topics.forEach((topic, offset) => {
-    transaction.create({
-      _id: randomUUID(),
-      _type: "contentCalendarEntry",
-      dayIndex: startIndex + offset,
-      title: topic.title,
-      category: topic.category,
-      focusKeyword: topic.focusKeyword,
-      angle: topic.angle,
-      sourceUrl: topic.sourceUrl || undefined,
-      status: "pending",
-      createdAt: now,
+// Once a week (Mondays), email the team the topics waiting for an insight, so the
+// pipeline doesn't silently stall. Never throws.
+async function remindAboutMissingInsights(
+  writeClient: ReturnType<typeof getSanityWriteClient>,
+  startedAt: Date,
+  log: string[],
+): Promise<void> {
+  if (startedAt.getUTCDay() !== 1) return;
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.CONTACT_FROM_EMAIL;
+  const to = process.env.CONTACT_TO_EMAIL || "hello@vistrow.com";
+  if (!apiKey || !from) {
+    log.push("Skipped insight reminder email: RESEND_API_KEY or CONTACT_FROM_EMAIL is not configured.");
+    return;
+  }
+
+  try {
+    const waiting = await writeClient.fetch<{ title: string; focusKeyword: string; insightNeeded?: string }[]>(
+      `*[_type == "contentCalendarEntry" && !(_id in path("drafts.**")) && status == "needs-insight"] | order(dayIndex asc)[0...5]{title, focusKeyword, insightNeeded}`,
+    );
+    if (waiting.length === 0) return;
+
+    const subject = `Blog: ${waiting.length} planned post(s) are waiting for your insight`;
+    const text = `No blog post was written this week because no planned topic has an insight yet. Add one in Studio to the next topic:\n\n${waiting
+      .map((t, i) => `${i + 1}. ${t.title} (keyword: ${t.focusKeyword})${t.insightNeeded ? `\n   Needed: ${t.insightNeeded}` : ""}`)
+      .join("\n")}\n\n${STUDIO_URL}/structure/contentCalendarEntry`;
+    const html = `<p>No blog post was written this week because no planned topic has an insight yet. Add one in Studio to the next topic:</p><ol>${waiting
+      .map((t) => `<li><strong>${escapeHtml(t.title)}</strong> (keyword: ${escapeHtml(t.focusKeyword)})${t.insightNeeded ? `<br>Needed: ${escapeHtml(t.insightNeeded)}` : ""}</li>`)
+      .join("")}</ol><p><a href="${STUDIO_URL}/structure/contentCalendarEntry">Open the content calendar</a></p>`;
+
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to: [to], subject, text, html }),
     });
-  });
-  await transaction.commit();
+    if (!response.ok) log.push(`Insight reminder email failed: ${response.status} ${await response.text()}`);
+    else log.push(`Insight reminder email sent to ${to}.`);
+  } catch (error) {
+    log.push(`Insight reminder email failed: ${String(error)}`);
+  }
+}
+
+function escapeHtml(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
 // Marks a calendar entry consumed the moment its draft is created, never
@@ -266,41 +307,6 @@ async function markCalendarEntryUsed(
       .commit();
   } catch (error) {
     log.push(`Warning: failed to mark calendar entry ${entryId} as used: ${String(error)}`);
-  }
-}
-
-// Emails the team the moment the daily cron auto-refills the content
-// calendar, since that refill already happens without any manual step - the
-// only real gap was visibility into when and with what topics it happened.
-// Reuses the same Resend config as the contact form, so it needs no new
-// environment variables. Never throws - a notification failure must not
-// affect the actual calendar generation or post creation that already succeeded.
-async function notifyCalendarRefill(topics: CalendarTopic[], log: string[]): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  const to = process.env.CONTACT_TO_EMAIL || "hello@vistrow.com";
-  if (!apiKey || !from) {
-    log.push("Skipped calendar-refill email: RESEND_API_KEY or CONTACT_FROM_EMAIL is not configured.");
-    return;
-  }
-
-  const subject = `Content calendar refreshed - ${topics.length} new topics generated`;
-  const list = topics.map((t, i) => `${i + 1}. [${t.category}] ${t.title}`).join("\n");
-  const text = `The blog content calendar ran low and a new batch was generated automatically.\n\n${list}\n\nView the queue: ${STUDIO_URL}/structure/contentCalendarEntry`;
-  const html = `<p>The blog content calendar ran low and a new batch of ${topics.length} topics was generated automatically.</p><ol>${topics
-    .map((t) => `<li><strong>[${t.category}]</strong> ${t.title}</li>`)
-    .join("")}</ol><p><a href="${STUDIO_URL}/structure/contentCalendarEntry">View the queue in Sanity Studio</a></p>`;
-
-  try {
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], subject, text, html }),
-    });
-    if (!response.ok) log.push(`Calendar-refill email failed: ${response.status} ${await response.text()}`);
-    else log.push(`Calendar-refill email sent to ${to}.`);
-  } catch (error) {
-    log.push(`Calendar-refill email failed: ${String(error)}`);
   }
 }
 
