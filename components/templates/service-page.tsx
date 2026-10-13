@@ -53,7 +53,7 @@ export function ServicePage({
           { label: content.title },
         ]}
         eyebrow={content.eyebrow}
-        title={content.title}
+        title={content.heroTitle ?? content.title}
         highlight={content.highlight}
         subtitle={content.subtitle}
         secondaryCta={{ label: `All ${section.label}`, href: section.href }}
@@ -107,6 +107,28 @@ export function ServicePage({
       )}
 
       <Included title="What's included" items={content.included} surface={!content.features} />
+
+      {content.costGuide && (
+        <section className="border-t border-line py-section">
+          <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <Reveal>
+              <p className="eyebrow">Cost</p>
+              <h2 className="mt-3 font-display text-h2 text-ink">{content.costGuide.title}</h2>
+              <p className="mt-5 max-w-md font-sans text-lg leading-relaxed text-muted">{content.costGuide.body}</p>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <dl className="grid gap-3 sm:grid-cols-2">
+                {content.costGuide.factors.map((factor) => (
+                  <div key={factor.label} className="rounded-lg border border-line bg-card p-5">
+                    <dt className="font-display text-base font-bold text-ink">{factor.label}</dt>
+                    <dd className="mt-2 font-sans text-[15px] leading-relaxed text-muted">{factor.body}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="border-y border-line bg-surface py-section">
         <div className="container-edge">

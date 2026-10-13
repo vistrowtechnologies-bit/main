@@ -116,7 +116,7 @@ export const locations: Record<string, LocationContent> = {
         "CRM pipelines that make follow-up visible, not manual",
       ],
     },
-    services: [...dmServices, ...baServices],
+    services: [...dmServices, { label: "Website Development", href: "/digital-marketing/website-development" }, ...baServices],
     process: [
       { title: "Audit", body: "We review your marketing, website and lead response against Pune competitors." },
       { title: "Plan", body: "A channel and automation plan matched to your budget and sales cycle." },
@@ -128,6 +128,7 @@ export const locations: Record<string, LocationContent> = {
       { q: "Do you only run ads, or also build the systems behind them?", a: "Both. We run performance advertising and SEO, and we build the CRM, AI voice calling and follow-up automation that converts the leads those campaigns generate." },
       costFaq("Pune", "your goals, the channels involved, how competitive your market is and whether you also need CRM and follow-up automation"),
       { q: "How soon will we see enquiries?", a: "Paid campaigns usually start producing enquiries within the first few weeks. SEO and Google Maps visibility build over a longer horizon, typically a few months. We set expectations clearly in the plan." },
+      { q: "Do you also build websites for Pune businesses?", a: "Yes. We design and develop fast, SEO-ready websites and landing pages, with lead forms connected to your CRM and tracking set up before launch. Our website development page explains what affects the cost." },
       { q: "Can you help my business show up on Google Maps in Pune?", a: "Yes. We set up and optimise your Google Business Profile, build a review request process, keep your listings consistent and create local pages that support your Maps ranking." },
       { q: "How fast can we start?", a: "Most engagements begin with a Growth Audit, usually completed within a few days, followed by a clear proposal and timeline." },
     ],
@@ -187,7 +188,7 @@ export const locations: Record<string, LocationContent> = {
         "CRM pipelines built around how your team actually sells",
       ],
     },
-    services: [...dmServices, ...baServices],
+    services: [...dmServices, { label: "Website Development", href: "/digital-marketing/website-development" }, ...baServices],
     process: [
       { title: "Local audit", body: "We review your marketing and lead response against nearby competitors." },
       { title: "Strategy", body: "A plan for the channels and automation that fit your business type." },

@@ -22,7 +22,12 @@ export type ServiceContent = {
   tools: string[];
   faqs: QA[];
   image?: { src: string; alt: string };
+  /** H1 text when it should differ from the short title used in breadcrumbs and headings. */
+  heroTitle?: string;
+  costGuide?: CostGuide;
 };
+
+export type CostGuide = { title: string; body: string; factors: { label: string; body: string }[] };
 
 export type IndustryContent = {
   slug: string;

@@ -162,12 +162,14 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     slug: "website-development",
     image: { src: "/images/services/svc-website-development.webp", alt: "Illustrative scene of a designer and developer reviewing a website design on a monitor" },
     title: "Website Development",
+    heroTitle: "Website development company in",
+    highlight: "Pune",
     eyebrow: "Digital Marketing",
     subtitle:
-      "Fast, accessible websites built on modern infrastructure - designed to support your whole funnel, not just look good.",
-    metaTitle: "Website Development Services",
+      "Vistrow builds fast, SEO-ready websites from our office in Baner, Pune, for businesses in Pune and across India. Lead forms go straight into your CRM and tracking is set up before launch, so the site brings in enquiries, not just visits.",
+    metaTitle: "Website Development Company in Pune: Fast, SEO-Ready Sites",
     metaDescription:
-      "Custom website development - fast, SEO-ready, and built to convert, with tracking and CRM handoff wired in from day one.",
+      "Website development company in Pune building fast, SEO-ready sites with CRM and tracking built in. See our work and what drives website cost in India.",
     problem: {
       title: "A slow, generic website quietly costs you leads.",
       body: "Templated builders and unmaintained sites load slowly, rank poorly, and disconnect from the systems that turn visitors into pipeline.",
@@ -199,8 +201,23 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
       { title: "Build", body: "Design and develop a fast, tracked, CRM-connected site." },
       { title: "Improve", body: "Monitor performance and iterate after launch." },
     ],
+    costGuide: {
+      title: "What website development costs in India, and why quotes differ",
+      body: "Two quotes for \"a business website\" can be far apart because they describe different work. These are the things that actually move the price. Check each one when you compare quotes, and share your page list and integrations with us for a line-by-line quote.",
+      factors: [
+        { label: "Pages and content depth", body: "A five-page brochure site is a different job from thirty service and location pages, each written and optimised for search." },
+        { label: "Template or custom build", body: "Themes and page builders cost less up front but are slower and harder to extend. A custom build (we use Next.js) costs more and loads faster." },
+        { label: "Copy, photos and translation", body: "Low quotes often leave out who writes the words, sources the photos and handles Hindi or Marathi versions." },
+        { label: "Integrations", body: "Each connection adds work: CRM, WhatsApp, payment gateway, booking calendar, or property portal and ad lead feeds." },
+        { label: "SEO and tracking setup", body: "Structured data, redirects from your old site, GA4 and conversion events, and a Google Business Profile link-up." },
+        { label: "Hosting, support and ownership", body: "Ask what hosting costs each year, what changes cost after launch, and whether you own the domain and the code." },
+      ],
+    },
     tools: ["Next.js", "Sanity", "Tailwind CSS", "Vercel", "GA4", "Google Tag Manager", "HubSpot"],
     faqs: [
+      { q: "How much does website development cost in Pune?", a: "It depends on the factors above: how many pages, whether it is a custom build or a template, who writes the content, the integrations, and the support you want after launch. After a short call we send a line-by-line quote, so you can see what each part costs and compare it fairly with other quotes." },
+      { q: "Is Vistrow a website development company based in Pune?", a: "Yes. Our office is in Baner, Pune. We meet Pune clients in person when it helps, and also build websites for businesses across India and abroad." },
+      { q: "Who owns the website after launch?", a: "You do - the domain, the content and the code. We can hand everything over to your team or stay on for updates and improvements." },
       { q: "Do you also handle ongoing maintenance?", a: "Yes - we can hand the site fully over to your team or stay on for updates, content, and improvements." },
       { q: "Will the site be built on a page builder?", a: "No. We build custom on modern infrastructure (Next.js) for speed and flexibility, with a CMS so non-developers can still edit content." },
       { q: "Can this connect to our CRM and tracking?", a: "Yes - forms, events, and conversions are wired into your CRM and analytics from launch, the same as our landing pages and funnels." },
