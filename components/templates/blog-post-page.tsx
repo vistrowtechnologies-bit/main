@@ -11,6 +11,7 @@ import { articleSchema, breadcrumbSchema, graph } from "@/lib/structured-data";
 import { BlogExplorer } from "@/components/blog/blog-explorer";
 import { ReadingProgress } from "@/components/blog/reading-progress";
 import { ShareRow } from "@/components/blog/share-row";
+import { SectionVisuals } from "@/components/blog/section-visuals";
 import { siteUrl } from "@/lib/seo";
 
 const MARKDOWN_LINK = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -210,6 +211,7 @@ export function BlogPostPage({
                           ))}
                         </ul>
                       )}
+                      <SectionVisuals section={section} />
                     </section>
                   </Reveal>
                     );

@@ -108,6 +108,26 @@ export async function GET(request: Request) {
           ...(index > 0 && section.heading ? { heading: stripDashes(section.heading) } : {}),
           paragraphs: section.paragraphs.map((p) => stripDashes(sanitizeLinks(p))),
           ...(section.points && section.points.length > 0 ? { points: section.points.map((p) => stripDashes(sanitizeLinks(p))) } : {}),
+          ...(section.table && section.table.rows.length > 0
+            ? {
+                table: {
+                  caption: stripDashes(section.table.caption),
+                  columns: section.table.columns.map(stripDashes),
+                  rows: section.table.rows.map((row) => ({ _key: randomUUID(), _type: "tableRow", cells: row.cells.map(stripDashes) })),
+                },
+              }
+            : {}),
+          ...(section.steps && section.steps.length > 0
+            ? { steps: section.steps.map((step) => ({ _key: randomUUID(), _type: "diagramStep", title: stripDashes(step.title), body: stripDashes(step.body) })) }
+            : {}),
+        })),
+        visualChecklist: post.visualPlan.map((visual) => ({
+          _key: randomUUID(),
+          _type: "plannedVisual",
+          type: visual.type,
+          afterSection: stripDashes(visual.afterSection),
+          description: stripDashes(visual.description),
+          done: false,
         })),
         focusKeyword: post.focusKeyword,
         secondaryKeywords: post.secondaryKeywords,
@@ -120,6 +140,13 @@ export async function GET(request: Request) {
         openGraphTitle: stripDashes(post.metaTitle),
         openGraphDescription: stripDashes(post.metaDescription),
       });
+
+      // Leave enough of the function's time limit for bookkeeping; the image can be added in Studio instead.
+      if (Date.now() - startedAt.getTime() < 180_000) {
+        await attachFeaturedImage(writeClient, docId, post.imageGenerationPrompt, post.imageAltSuggestion, slug, log);
+      } else {
+        log.push("Skipped featured image generation: not enough time left in this run.");
+      }
 
       created.push({
         title: post.title,
@@ -228,6 +255,50 @@ async function fetchReadyCalendarEntries(
       | order(dayIndex asc)[0...$limit]{_id, title, category, focusKeyword, angle, sourceUrl, insight, secondaryKeywords, searchIntent, linkTo}`,
     { limit, minInsight: MIN_INSIGHT_LENGTH, maxFailures: MAX_FAILED_RUNS },
   );
+}
+
+// Generates the featured image from the post's own prompt and attaches it to the draft.
+// Never throws - a missing image only means the editor adds one in Studio before publishing.
+async function attachFeaturedImage(
+  writeClient: ReturnType<typeof getSanityWriteClient>,
+  docId: string,
+  prompt: string,
+  alt: string,
+  slug: string,
+  log: string[],
+): Promise<void> {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    log.push("Skipped featured image: OPENAI_API_KEY is not configured.");
+    return;
+  }
+  try {
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ model: process.env.BLOG_IMAGE_MODEL || "gpt-image-2", prompt, size: "1536x1024", quality: "high", n: 1 }),
+      signal: AbortSignal.timeout(90_000),
+    });
+    if (!response.ok) {
+      log.push(`Featured image generation failed: ${response.status} ${await response.text()}`);
+      return;
+    }
+    const data = await response.json();
+    const b64 = data?.data?.[0]?.b64_json;
+    if (typeof b64 !== "string") {
+      log.push("Featured image generation returned no image.");
+      return;
+    }
+    const asset = await writeClient.assets.upload("image", Buffer.from(b64, "base64"), { filename: `${slug}.png` });
+    // The blog shows featured images in a 16:9 frame with object-cover, so the 3:2 image is centre-cropped on display.
+    await writeClient
+      .patch(docId)
+      .set({ featuredImage: { _type: "image", asset: { _type: "reference", _ref: asset._id }, alt } })
+      .commit();
+    log.push("Featured image generated and attached.");
+  } catch (error) {
+    log.push(`Featured image generation failed: ${String(error)}`);
+  }
 }
 
 // Counts a failed attempt on the entry and stores the reason where the team can see it in Studio.

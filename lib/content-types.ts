@@ -116,7 +116,17 @@ export type LegalContent = {
   sections: { heading: string; body: string[] }[];
 };
 
-export type BlogSection = { heading?: string; paragraphs: string[]; points?: string[] };
+export type BlogSectionImage = { url: string; alt?: string; caption?: string; width?: number; height?: number };
+export type BlogSectionTable = { caption?: string; columns?: string[]; rows: string[][] };
+export type BlogSectionStep = { title: string; body?: string };
+export type BlogSection = {
+  heading?: string;
+  paragraphs: string[];
+  points?: string[];
+  image?: BlogSectionImage;
+  table?: BlogSectionTable;
+  steps?: BlogSectionStep[];
+};
 
 export type BlogSeoImage = {
   url: string;

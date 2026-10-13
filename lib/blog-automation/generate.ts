@@ -116,6 +116,22 @@ function insightIssues(post: GeneratedPost, insight: string | undefined): string
     : [`"${post.title}": the post does not use any of the concrete figures from the insight (${numbers.slice(0, 6).join(", ")}). Build the argument on them.`];
 }
 
+// Long-form posts must carry real, readable visuals: at least two tables or step diagrams written
+// into the post, plus a plan for real screenshots or photos the team adds before publishing.
+function visualIssues(post: GeneratedPost): string[] {
+  const built = post.sections.filter((s) => (s.table?.rows.length ?? 0) > 0 || (s.steps?.length ?? 0) > 0).length;
+  const realPlanned = post.visualPlan.filter((v) => ["screenshot", "photo", "chart"].includes(v.type)).length;
+  const issues: string[] = [];
+  if (built < 2) issues.push(`"${post.title}": include at least 2 visuals inside the post (a "table" or "steps" on different sections) - currently ${built}.`);
+  if (realPlanned < 2) issues.push(`"${post.title}": "visualPlan" must list at least 2 real screenshots, photos or charts for the team to add - currently ${realPlanned}.`);
+  const headings = new Set(post.sections.map((s) => (s.heading ?? "").trim()));
+  const misplaced = post.visualPlan.filter((v) => !headings.has(v.afterSection.trim()));
+  if (misplaced.length) issues.push(`"${post.title}": every visualPlan "afterSection" must exactly match a section heading (check: ${misplaced.map((v) => `"${v.afterSection}"`).join(", ")}).`);
+  const badTables = post.sections.filter((s) => s.table && s.table.rows.length > 0 && s.table.rows.some((r) => r.cells.length !== s.table!.columns.length));
+  if (badTables.length) issues.push(`"${post.title}": every table row must have the same number of cells as there are columns.`);
+  return issues;
+}
+
 export const BLOG_CATEGORIES = [
   "AI Voice",
   "Business Automation",
@@ -142,7 +158,14 @@ export type GeneratedPost = {
   imageBrief: string;
   imageGenerationPrompt: string;
   imageAltSuggestion: string;
-  sections: { heading?: string; paragraphs: string[]; points?: string[] }[];
+  sections: {
+    heading?: string;
+    paragraphs: string[];
+    points?: string[];
+    table?: { caption: string; columns: string[]; rows: { cells: string[] }[] };
+    steps?: { title: string; body: string }[];
+  }[];
+  visualPlan: { type: "screenshot" | "photo" | "chart" | "diagram" | "table"; afterSection: string; description: string }[];
 };
 
 // Pages the model is allowed to link to internally - keeps generated links real.
@@ -290,6 +313,20 @@ const responseSchema = {
               type: "string",
               description: "A ready-to-use alt text for that featured image, under 125 characters, descriptive not keyword-stuffed.",
             },
+            visualPlan: {
+              type: "array",
+              description: "Real visuals the Vistrow team should capture and add to the post. See VISUALS.",
+              items: {
+                type: "object",
+                properties: {
+                  type: { type: "string", enum: ["screenshot", "photo", "chart", "diagram", "table"] },
+                  afterSection: { type: "string", description: "The exact heading of the section the visual belongs after." },
+                  description: { type: "string", description: "Exactly what to capture or build, specific enough to act on." },
+                },
+                required: ["type", "afterSection", "description"],
+                additionalProperties: false,
+              },
+            },
             sections: {
               type: "array",
               minItems: 4,
@@ -309,8 +346,37 @@ const responseSchema = {
                     },
                   },
                   points: { type: "array", maxItems: 6, items: { type: "string" } },
+                  table: {
+                    type: "object",
+                    description: "A real HTML table shown after this section. Leave columns and rows empty when the section has no table. See VISUALS.",
+                    properties: {
+                      caption: { type: "string" },
+                      columns: { type: "array", items: { type: "string" } },
+                      rows: {
+                        type: "array",
+                        items: {
+                          type: "object",
+                          properties: { cells: { type: "array", items: { type: "string" } } },
+                          required: ["cells"],
+                          additionalProperties: false,
+                        },
+                      },
+                    },
+                    required: ["caption", "columns", "rows"],
+                    additionalProperties: false,
+                  },
+                  steps: {
+                    type: "array",
+                    description: "A numbered step diagram shown after this section (a process or timeline). Empty when the section has none. See VISUALS.",
+                    items: {
+                      type: "object",
+                      properties: { title: { type: "string" }, body: { type: "string" } },
+                      required: ["title", "body"],
+                      additionalProperties: false,
+                    },
+                  },
                 },
-                required: ["heading", "paragraphs", "points"],
+                required: ["heading", "paragraphs", "points", "table", "steps"],
                 additionalProperties: false,
               },
             },
@@ -330,6 +396,7 @@ const responseSchema = {
             "imageGenerationPrompt",
             "imageAltSuggestion",
             "sections",
+            "visualPlan",
           ],
           additionalProperties: false,
         },
@@ -555,6 +622,12 @@ SEO REQUIREMENTS - these are checked by an automated scorer with hard pass/fail 
 3. The article body (all paragraphs across all sections, combined) must be at least ${minWords} words. Headings and "points" don't count toward this - the paragraphs alone must reach it.
 4. The exact focusKeyword phrase MUST appear literally, word for word, at least once in the body paragraphs (not just in the title/meta fields) - zero mentions in the body always fails, this is never optional. ${longForm ? "Aim for roughly 1% density: for a body of about 1,400 words that is 4-6 mentions of a 2-word keyword, or 3-4 mentions of a 3-4 word keyword, spread naturally across sections." : "Be sparing about how many more: for a 3-4 word keyword, exactly ONE mention total in the body is correct - do not add a second. For a 2-word keyword, 2-3 mentions total in the body is fine."} The density formula is (mentions x keyword-word-count x 100 / total-body-words) and it must land between 0.5% and 2.5%.
 
+VISUALS - original visuals inside the article are what help a post rank and get read; a decorative top image alone does not. Search engines read the text around each visual, so every visual must sit right after the section it supports.
+- Fill "table" on at least one section where a comparison, price list, line-item breakdown or checklist is clearer as a table. Use only facts from the insight, the product facts above, or neutral structure (e.g. "What to ask | Why it matters"). Never invent prices, percentages or results to fill a table. Keep columns to 2-4, every row the same number of cells as columns, and add a one-line caption.
+- Fill "steps" on at least one section that describes a process or timeline (3-6 short steps, each with a title and a one-line detail).
+- Leave "table" with empty columns and rows, and "steps" empty, on every other section. Don't put a table and steps in the same section.
+- In "visualPlan", list 2-4 real visuals the Vistrow team should capture and add: screenshots of real Vistrow work or products (a client website built by Vistrow, the ArthaLeads pipeline, the Vistrow Voice agent builder, a redacted Google or Meta ads report, a redacted real quote), photos of the team at work, or charts from the insight's own numbers. Never suggest stock photos or generic AI art. Set "afterSection" to the exact heading of the section it belongs after, and describe exactly what to capture.
+
 IMAGE PROMPT FORMAT - imageGenerationPrompt must be one detailed, paste-ready prompt for ChatGPT/DALL-E, written as flowing sentences (not labelled fields), covering every point below in order:
 
 1. Lead with a specific human moment that tells this article's story. Name the person's role, action, expression, and setting. One to three people may appear. Describe the real work object they are using - for example a campaign proof, property brochure, CRM screen, phone conversation, or printed report - but do not make a floating dashboard or abstract diagram the main subject. A laptop is allowed when the story calls for it, but avoid the repeated lone-person-at-laptop office shot. Use a distinct action and viewpoint for each post, such as a team reviewing creative options, a broker showing a buyer a property plan, or a founder checking a lead handoff on a phone.
@@ -602,6 +675,7 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
       ...seoIssues(post, minWords),
       ...genericPhraseIssues(post),
       ...insightIssues(post, fixedTopics?.[index]?.insight),
+      ...(longForm ? visualIssues(post) : []),
     ]);
     // Insight-led topics were chosen by a person from the keyword plan, so a loose title overlap with an
     // old generic post must not block them forever.

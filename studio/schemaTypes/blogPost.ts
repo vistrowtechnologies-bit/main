@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SeoAuditInput } from "../components/SeoAuditInput";
+import { sectionVisualFields, visualChecklistField, visualProblems } from "./blogVisuals";
 
 const categories = [
   "AI Voice",
@@ -15,6 +16,12 @@ export const blogPost = defineType({
   name: "blogPost",
   title: "Blog Post",
   type: "document",
+  // New posts can't be published without real in-article visuals (see blogVisuals.ts).
+  validation: (rule) =>
+    rule.custom((doc) => {
+      const problems = visualProblems((doc ?? {}) as Parameters<typeof visualProblems>[0]);
+      return problems.length ? `Visuals needed before publishing: ${problems.join(" ")}` : true;
+    }),
   groups: [
     { name: "content", title: "Content", default: true },
     { name: "seo", title: "SEO" },
@@ -171,19 +178,23 @@ export const blogPost = defineType({
               type: "array",
               of: [defineArrayMember({ type: "string" })],
             }),
+            ...sectionVisualFields,
           ],
           preview: {
-            select: { title: "heading", paragraphs: "paragraphs" },
-            prepare({ title, paragraphs }) {
+            select: { title: "heading", paragraphs: "paragraphs", image: "image", table: "table.rows", steps: "steps" },
+            prepare({ title, paragraphs, image, table, steps }) {
+              const visuals = [image?.asset && "image", Array.isArray(table) && table.length && "table", Array.isArray(steps) && steps.length && "diagram"].filter(Boolean);
               return {
-                title: title || "Opening section",
+                title: `${title || "Opening section"}${visuals.length ? `  [${visuals.join(", ")}]` : ""}`,
                 subtitle: Array.isArray(paragraphs) ? paragraphs[0] : "",
+                media: image,
               };
             },
           },
         }),
       ],
     }),
+    visualChecklistField,
     defineField({
       name: "seoAudit",
       title: "SEO Analysis",

@@ -1,8 +1,9 @@
 import { Badge, Box, Card, Flex, Grid, Stack, Text } from "@sanity/ui";
 import { useFormValue, type StringInputProps } from "sanity";
+import { countVisuals, visualProblems } from "../schemaTypes/blogVisuals";
 
 type SlugValue = { current?: string };
-type SectionValue = { heading?: string; paragraphs?: string[] };
+type SectionValue = { heading?: string; paragraphs?: string[]; image?: { asset?: unknown }; table?: { rows?: unknown[] }; steps?: unknown[] };
 
 function asText(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -23,6 +24,8 @@ export function SeoAuditInput(_: StringInputProps) {
   const openGraphTitle = asText(useFormValue(["openGraphTitle"]));
   const openGraphDescription = asText(useFormValue(["openGraphDescription"]));
   const openGraphImage = useFormValue(["openGraphImage"]);
+  const featuredImage = useFormValue(["featuredImage"]) as { asset?: unknown } | undefined;
+  const createdAt = useFormValue(["_createdAt"]) as string | undefined;
   const sections = (useFormValue(["sections"]) || []) as SectionValue[];
   const body = sections
     .flatMap((section) => section.paragraphs || [])
@@ -43,7 +46,15 @@ export function SeoAuditInput(_: StringInputProps) {
   const hasSubheading = sections.some((section) => Boolean(section.heading));
   const canonicalIsValid = !canonicalUrl || /^https:\/\//i.test(canonicalUrl);
 
+  const visuals = countVisuals(sections);
+  const visualIssues = visualProblems({ _createdAt: createdAt, sections, featuredImage });
+
   const checks = [
+    {
+      label: `Real visuals in the article: ${visuals.images} image(s), ${visuals.tables} table(s), ${visuals.diagrams} diagram(s) - needs 1+ image and 3+ visuals, plus a featured image`,
+      pass: Boolean(featuredImage?.asset) && visuals.images >= 1 && visuals.total >= 3,
+      weight: 20,
+    },
     { label: "Focus keyword selected", pass: Boolean(focusKeyword), weight: 10 },
     { label: "Keyword appears in article title", pass: includesPhrase(title, focusKeyword), weight: 10 },
     { label: "Keyword appears in SEO title", pass: includesPhrase(metaTitle, focusKeyword), weight: 10 },
@@ -57,7 +68,8 @@ export function SeoAuditInput(_: StringInputProps) {
     { label: "Canonical URL is blank or secure", pass: canonicalIsValid, weight: 5 },
     { label: "Keyword density is between 0.5% and 2.5%", pass: keywordDensity >= 0.5 && keywordDensity <= 2.5, weight: 5 },
   ];
-  const score = checks.reduce((total, check) => total + (check.pass ? check.weight : 0), 0);
+  const maxScore = checks.reduce((total, check) => total + check.weight, 0);
+  const score = Math.round((checks.reduce((total, check) => total + (check.pass ? check.weight : 0), 0) * 100) / maxScore);
   const tone = score >= 80 ? "positive" : score >= 60 ? "caution" : "critical";
   const previewTitle = metaTitle || title || "Your SEO title will appear here";
   const previewDescription = metaDescription || excerpt || "Add an SEO description to preview how this page may appear in search results.";
@@ -87,6 +99,17 @@ export function SeoAuditInput(_: StringInputProps) {
           </Flex>
         </Stack>
       </Card>
+
+      {visualIssues.length > 0 && (
+        <Card padding={4} radius={2} border tone="critical">
+          <Stack space={3}>
+            <Text size={1} weight="semibold">Can't publish yet: visuals needed</Text>
+            {visualIssues.map((issue) => (
+              <Text key={issue} size={1}>{issue}</Text>
+            ))}
+          </Stack>
+        </Card>
+      )}
 
       <Box>
         <Text size={1} weight="semibold">SEO checklist</Text>

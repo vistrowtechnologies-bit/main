@@ -56,7 +56,20 @@ export const blogPostsQuery = `
     "sections": coalesce(sections[]{
       heading,
       "paragraphs": coalesce(paragraphs, []),
-      "points": select(count(points) > 0 => points)
+      "points": select(count(points) > 0 => points),
+      "image": select(defined(image.asset) => image{
+        alt,
+        caption,
+        "url": asset->url,
+        "width": asset->metadata.dimensions.width,
+        "height": asset->metadata.dimensions.height
+      }),
+      "table": select(count(table.rows) > 0 => table{
+        caption,
+        "columns": coalesce(columns, []),
+        "rows": rows[].cells
+      }),
+      "steps": select(count(steps) > 0 => steps[]{title, body})
     }, [])
   }
 `;
