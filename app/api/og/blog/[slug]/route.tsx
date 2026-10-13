@@ -7,10 +7,12 @@ export const runtime = "nodejs";
 export const revalidate = 60;
 
 const assets = Promise.all([
-  readFile(join(process.cwd(), "public/logo-light.png")),
+  readFile(join(process.cwd(), "public/logo-dark.png")),
   readFile(join(process.cwd(), "public/fonts/manrope-bold.ttf")),
 ]);
 
+// The branded cover used for social shares, search snippets and article schema: Vistrow branding,
+// the title, and the post's first real in-article image (or its featured image) as proof.
 export async function GET(
   _request: Request,
   { params }: { params: { slug: string } },
@@ -20,7 +22,14 @@ export async function GET(
 
   const [logo, font] = await assets;
   const title = post.title.trim();
-  const fontSize = title.length > 140 ? 46 : title.length > 80 ? 54 : 64;
+  const sourceImage = post.sections.find((section) => section.image?.url)?.image?.url ?? post.featuredImage?.url;
+  // Satori can't decode WebP, so ask the Sanity CDN for a cropped JPEG at the frame size.
+  const visual = sourceImage?.startsWith("https://cdn.sanity.io/")
+    ? `${sourceImage}?w=880&h=1000&fit=crop&fm=jpg&q=85`
+    : undefined;
+  const fontSize = visual
+    ? title.length > 90 ? 40 : title.length > 60 ? 46 : 54
+    : title.length > 120 ? 48 : title.length > 70 ? 56 : 66;
 
   return new ImageResponse(
     (
@@ -29,58 +38,70 @@ export async function GET(
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          padding: "48px 64px",
-          background: "#ffffff",
-          color: "#0D0D0D",
+          background: "#0D0D0D",
+          color: "#FFFFFF",
           fontFamily: "Manrope",
           fontWeight: 700,
-          borderLeft: "12px solid #C6FF00",
+          position: "relative",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          {/* Embedded assets keep social crawlers independent of external image/font requests. */}
+        {/* Brand glow and grid texture */}
+        <div style={{ position: "absolute", right: -160, top: -160, width: 520, height: 520, borderRadius: 520, background: "rgba(198,255,0,0.14)", display: "flex" }} />
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 14, background: "#C6FF00", display: "flex" }} />
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: visual ? 690 : 1200,
+            padding: "52px 40px 44px 70px",
+          }}
+        >
+          {/* Embedded assets keep social crawlers independent of external font requests. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`data:image/png;base64,${logo.toString("base64")}`}
-            width={300}
-            height={87}
-            alt="Vistrow Technologies"
-          />
-          <div style={{ display: "flex", maxWidth: 470, fontSize: 21, color: "#4E6700" }}>
-            {post.category}
+          <img src={`data:image/png;base64,${logo.toString("base64")}`} width={220} height={68} alt="Vistrow Technologies" />
+          <div style={{ display: "flex", marginTop: 40 }}>
+            <div
+              style={{
+                display: "flex",
+                padding: "8px 18px",
+                borderRadius: 999,
+                background: "#C6FF00",
+                color: "#0D0D0D",
+                fontSize: 20,
+                letterSpacing: 1,
+                textTransform: "uppercase",
+              }}
+            >
+              {post.category}
+            </div>
+          </div>
+          <div style={{ display: "flex", flex: 1, alignItems: "center", fontSize, lineHeight: 1.14, letterSpacing: -1 }}>
+            {title}
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 19, color: "#A7ADB8" }}>
+            <span>AI-powered marketing &amp; automation · Pune</span>
+            {!visual && <span style={{ color: "#C6FF00" }}>vistrow.com</span>}
           </div>
         </div>
-        <div style={{ display: "flex", marginTop: 46, fontSize: 18, color: "#6B7280" }}>
-          VISTROW INSIGHTS
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flex: 1,
-            fontSize,
-            lineHeight: 1.16,
-            letterSpacing: 0,
-            overflowWrap: "anywhere",
-          }}
-        >
-          {title}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderTop: "2px solid #E5E7EB",
-            paddingTop: 24,
-            fontSize: 18,
-            color: "#6B7280",
-          }}
-        >
-          <span>Digital marketing. Connected systems. Measurable growth.</span>
-          <span style={{ color: "#0D0D0D" }}>vistrow.com | 9067097779</span>
-        </div>
+
+        {visual && (
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", width: 510, padding: "44px 48px 44px 0" }}>
+            <div
+              style={{
+                display: "flex",
+                borderRadius: 26,
+                overflow: "hidden",
+                border: "3px solid #C6FF00",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.55)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={visual} width={456} height={518} alt="" style={{ objectFit: "cover" }} />
+            </div>
+            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 18, fontSize: 19, color: "#C6FF00" }}>vistrow.com</div>
+          </div>
+        )}
       </div>
     ),
     {

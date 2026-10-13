@@ -100,6 +100,20 @@ export function SeoAuditInput(_: StringInputProps) {
         </Stack>
       </Card>
 
+      {slug.current && (
+        <Card padding={4} radius={2} border>
+          <Stack space={3}>
+            <Text size={1} weight="semibold">Branded cover (used for Google, WhatsApp, LinkedIn and X)</Text>
+            <Text size={1} muted>Built automatically from the title, category and the first in-article image (or the featured image). Updates about a minute after publishing.</Text>
+            <img
+              src={`https://www.vistrow.com/api/og/blog/${encodeURIComponent(slug.current)}`}
+              alt="Branded cover preview"
+              style={{ width: "100%", maxWidth: 600, borderRadius: 6, border: "1px solid rgba(128,128,128,0.3)" }}
+            />
+          </Stack>
+        </Card>
+      )}
+
       {visualIssues.length > 0 && (
         <Card padding={4} radius={2} border tone="critical">
           <Stack space={3}>

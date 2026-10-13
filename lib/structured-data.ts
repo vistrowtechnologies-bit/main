@@ -197,7 +197,7 @@ export function articleSchema(input: {
   datePublished: string;
   dateModified?: string;
   schemaType?: "BlogPosting" | "Article" | "NewsArticle";
-  image?: string;
+  image?: string | string[];
   keywords?: string[];
   articleSection?: string;
 }): JsonLdValue {

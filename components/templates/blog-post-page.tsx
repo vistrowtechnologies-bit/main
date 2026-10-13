@@ -98,7 +98,10 @@ export function BlogPostPage({
             datePublished: post.date,
             dateModified: post.dateModified,
             schemaType: post.schemaType,
-            image: post.featuredImage?.url,
+            // Branded cover plus the featured image, so search engines can pick a thumbnail.
+            image: [`${siteUrl}/api/og/blog/${encodeURIComponent(post.slug)}`, post.featuredImage?.url].filter(
+              (url): url is string => Boolean(url),
+            ),
             keywords: [post.focusKeyword, ...(post.secondaryKeywords || [])].filter(
               (keyword): keyword is string => Boolean(keyword),
             ),
