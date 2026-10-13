@@ -1,3 +1,4 @@
+import Anthropic from "@anthropic-ai/sdk";
 import type { TrendSignal } from "@/lib/blog-automation/trending";
 import { digitalMarketingOverview } from "@/content/digital-marketing";
 import { businessAutomationOverview } from "@/content/business-automation";
@@ -436,8 +437,9 @@ export async function generateDailyPosts({
   // One deep post (1,200+ words, 6-10 sections) instead of short daily posts.
   longForm?: boolean;
 }): Promise<GeneratedPost[]> {
+  const useClaude = Boolean(process.env.ANTHROPIC_API_KEY);
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) throw new Error("OPENAI_API_KEY is not configured");
+  if (!useClaude && !apiKey) throw new Error("Neither ANTHROPIC_API_KEY nor OPENAI_API_KEY is configured");
 
   count = fixedTopics?.length ?? count;
 
@@ -583,31 +585,12 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
   ];
 
   for (let attempt = 1; attempt <= 3; attempt++) {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: process.env.BLOG_MODEL || "gpt-4o",
-        messages,
-        response_format: { type: "json_schema", json_schema: schema },
-        temperature: 0.7,
-        max_tokens: longForm ? 12000 : 4000,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`OpenAI request failed: ${response.status} ${await response.text()}`);
-    }
-
-    const data = await response.json();
-    if (data?.choices?.[0]?.finish_reason === "length") throw new Error("OpenAI response was cut off at max_tokens before the post was finished.");
-    const raw = data?.choices?.[0]?.message?.content;
-    if (typeof raw !== "string") throw new Error("OpenAI returned no content");
+    const raw = useClaude
+      ? await requestClaude(systemPrompt, messages.slice(1), schema.schema)
+      : await requestOpenAI(apiKey!, messages, schema, longForm);
 
     const parsed = JSON.parse(raw) as { posts: GeneratedPost[] };
+    if (parsed.posts.length !== count) throw new Error(`Model returned ${parsed.posts.length} post(s), expected ${count}.`);
     parsed.posts = parsed.posts.map(fitMetaDescription);
     const allHaveLinks = parsed.posts.every((post) =>
       post.sections.some((section) => MARKDOWN_LINK_TEST.test(section.paragraphs.join(" "))),
@@ -653,4 +636,67 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
   }
 
   throw new Error("unreachable");
+}
+
+type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
+
+// Claude structured outputs reject array-length and string-length constraints, so they are
+// dropped from the schema sent to the API. The quality checks above still enforce lengths.
+function claudeCompatibleSchema(node: unknown): unknown {
+  if (Array.isArray(node)) return node.map(claudeCompatibleSchema);
+  if (!node || typeof node !== "object") return node;
+  const unsupported = new Set(["minItems", "maxItems", "minLength", "maxLength", "minimum", "maximum"]);
+  return Object.fromEntries(
+    Object.entries(node).filter(([key]) => !unsupported.has(key)).map(([key, value]) => [key, claudeCompatibleSchema(value)]),
+  );
+}
+
+// Writes the post with Claude Sonnet 5.5. Streams because long-form output can run past the
+// SDK's non-streaming timeout; finalMessage() returns the complete response.
+async function requestClaude(system: string, conversation: ChatMessage[], schema: object): Promise<string> {
+  const client = new Anthropic();
+  const stream = client.beta.messages.stream({
+    model: process.env.BLOG_MODEL || "claude-sonnet-5-5",
+    max_tokens: 32000,
+    system,
+    messages: conversation.map((message) => ({ role: message.role === "assistant" ? "assistant" : "user", content: message.content })),
+    output_config: { effort: "medium", format: { type: "json_schema", schema: claudeCompatibleSchema(schema) as Record<string, unknown> } },
+    // On a safety decline, the API re-runs the request on a fallback model chosen by refusal category.
+    betas: ["server-side-fallback-2026-07-01"],
+    fallbacks: "default",
+  });
+  const message = await stream.finalMessage();
+
+  if (message.stop_reason === "max_tokens") throw new Error("Claude response was cut off at max_tokens before the post was finished.");
+  if (message.stop_reason === "refusal") throw new Error(`Claude declined to write the post (${message.stop_details?.category ?? "no category"}).`);
+  const text = message.content.flatMap((block) => (block.type === "text" ? [block.text] : [])).join("");
+  if (!text) throw new Error("Claude returned no content");
+  return text;
+}
+
+async function requestOpenAI(apiKey: string, messages: ChatMessage[], schema: object, longForm: boolean): Promise<string> {
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: process.env.BLOG_MODEL || "gpt-4o",
+      messages,
+      response_format: { type: "json_schema", json_schema: schema },
+      temperature: 0.7,
+      max_tokens: longForm ? 12000 : 4000,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenAI request failed: ${response.status} ${await response.text()}`);
+  }
+
+  const data = await response.json();
+  if (data?.choices?.[0]?.finish_reason === "length") throw new Error("OpenAI response was cut off at max_tokens before the post was finished.");
+  const raw = data?.choices?.[0]?.message?.content;
+  if (typeof raw !== "string") throw new Error("OpenAI returned no content");
+  return raw;
 }
