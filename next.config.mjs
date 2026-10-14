@@ -26,8 +26,12 @@ const nextConfig = {
       ["/blog/when-to-automate-and-when-not-to", "/business-automation"],
       ["/blog/connected-marketing-system-what-it-actually-means", "/services"],
       ["/blog/why-most-crm-implementations-fail", "/business-automation/crm-lead-management"],
+      // Folded into the AI voice calling page so they stop competing with it for "multilingual AI voice assistant".
+      ["/blog/top-multilingual-ai-voice-assistant-for-indian-service", "/business-automation/ai-voice-calling"],
+      ["/blog/best-multilingual-ai-voice-assistant-for-indian-customer-service", "/business-automation/ai-voice-calling"],
     ].map(([source, destination]) => ({ source, destination, permanent: true }));
-    return [...merged, ...retired, { source: "/review", destination: "https://g.page/r/CfHhzV3hPTDiEBM/review", permanent: false }];
+    // Retired paths go first so they win over the blog-to-blog merges.
+    return [...retired, ...merged, { source: "/review", destination: "https://g.page/r/CfHhzV3hPTDiEBM/review", permanent: false }];
   },
   async headers() {
     const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
