@@ -34,14 +34,14 @@ const products = [
   {
     name: "ArthaLeads",
     href: "/products/arthaleads",
-    body: "A real-estate CRM that brings Facebook, Google, WhatsApp, and website leads into one workspace.",
+    body: "An AI-powered real estate CRM: every enquiry in one workspace, AI lead scoring, and a WhatsApp AI agent that replies to buyers 24/7.",
     icon: Database,
     accent: "border-l-accent-strong",
     status: "Pipeline live",
     metric: "Property leads in one place",
     rows: [
-      ["Lead sources", "Connected"],
-      ["Team assignment", "Active"],
+      ["WhatsApp AI agent", "24/7"],
+      ["AI lead scoring", "0-100"],
       ["Site visits", "Tracked"],
     ],
     bars: [45, 68, 52, 88, 64, 76, 92, 58, 72, 82, 66, 90, 62, 78, 55],

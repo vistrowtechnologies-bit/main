@@ -247,6 +247,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["WhatsApp Business API", "Twilio", "Customer.io", "Klaviyo", "HubSpot", "Zapier"],
     faqs: [
+      { q: "Do you have a WhatsApp CRM for real estate teams?", a: "Yes. ArthaLeads, the AI-powered real estate CRM we build, includes a WhatsApp CRM on the official WhatsApp Business Platform: one shared team inbox, every chat saved as a lead, and a WhatsApp AI agent that replies to buyers 24/7 in English, Hinglish, Hindi or Marathi. See arthaleads.com/whatsapp-crm." },
       { q: "Is WhatsApp automation compliant?", a: "Yes - we use the official WhatsApp Business API with proper opt-in and approved templates." },
       { q: "How do you avoid spamming people?", a: "Behaviour triggers, frequency caps, and clear opt-outs keep messaging relevant and respectful." },
       { q: "Can it all run from one place?", a: "Yes - channels connect to your CRM so conversations and history live in one system." },

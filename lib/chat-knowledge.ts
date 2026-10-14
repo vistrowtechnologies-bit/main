@@ -63,7 +63,7 @@ export function buildChatKnowledge(): string {
   lines.push("");
 
   lines.push(
-    "PRICING POLICY: The only published price is website development for Indian businesses, which starts from ₹9,999 (the final quote depends on pages, content, integrations and support). US roofing packages are listed on /us/roofing. Every other engagement is scoped around the channels, systems, and outcomes needed. Never invent any other number - point other pricing questions to a Growth Audit or Contact.",
+    "PRICING POLICY: The only published price is website development for Indian businesses, which starts from ₹9,999 (the final quote depends on pages, content, integrations and support). US roofing packages are listed on /us/roofing. ArthaLeads (AI-powered real estate CRM) is Starter ₹599 and Growth ₹999 per user per month plus 18% GST, five-seat minimum, Enterprise custom-quoted, with a 14-day free trial and no card needed (details at arthaleads.com/pricing). Every other engagement is scoped around the channels, systems, and outcomes needed. Never invent any other number - point other pricing questions to a Growth Audit or Contact.",
   );
 
   return lines.join("\n");

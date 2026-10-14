@@ -417,7 +417,9 @@ function sanitizeLinks(text: string): string {
       const url = new URL(href);
       const isBareHomepage = url.pathname === "/" || url.pathname === "";
       const isOfficialAiSource = url.protocol === "https:" && ["openai.com", "www.openai.com", "blog.google"].includes(url.hostname);
-      return isBareHomepage || isOfficialAiSource ? full : label;
+      // Vistrow's own product sites are allowed with full paths (e.g. arthaleads.com/whatsapp-crm).
+      const isOwnProduct = url.protocol === "https:" && ["www.arthaleads.com", "arthaleads.com", "www.vistrowvoice.com", "vistrowvoice.com"].includes(url.hostname);
+      return isBareHomepage || isOfficialAiSource || isOwnProduct ? full : label;
     } catch {
       return label;
     }
