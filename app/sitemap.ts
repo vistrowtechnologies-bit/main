@@ -48,8 +48,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .map((post) => `/blog/${post.slug}`),
   ];
 
+  // Real modification dates for posts, so search engines know which ones changed.
+  const postModified = new Map(blogPosts.map((post) => [`/blog/${post.slug}`, post.dateModified || post.date]));
+
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({
     url: `${siteUrl}${route}`,
+    ...(postModified.get(route) ? { lastModified: postModified.get(route) } : {}),
     changeFrequency: route.includes("policy") || route === "/terms" || route === "/disclaimer" ? "yearly" : "monthly",
     priority: route === "" ? 1 : route.split("/").length === 2 ? 0.8 : 0.7,
   }));

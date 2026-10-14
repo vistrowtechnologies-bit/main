@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { querySearchAnalytics, type SearchRow } from "@/lib/seo-report/search-console";
 import { KEYWORD_VOLUMES, volumeFor } from "@/lib/seo-report/keyword-volumes";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
+import { notifySearchEngines } from "@/lib/indexing/notify";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -10,14 +11,26 @@ export const maxDuration = 120;
 const STUDIO_URL = "https://vistrow.sanity.studio";
 const SITE_URL = process.env.GSC_SITE_URL || "https://www.vistrow.com/";
 
-// Monthly SEO report: last 28 days of Search Console data, matched with Keyword Planner volumes,
-// turned into a short list of pages and searches to act on. Saved to Sanity and emailed.
+// Runs daily. Every run tells search engines about changed pages (see lib/indexing/notify.ts).
+// On the 1st of the month (or with ?report=1) it also builds the SEO report: the last 4 weeks of
+// Search Console data, matched with Keyword Planner volumes, saved to Sanity and emailed.
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;
   if (!secret) return NextResponse.json({ error: "Cron is not configured." }, { status: 503 });
   if (request.headers.get("authorization") !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  const log: string[] = [];
+  try {
+    await notifySearchEngines(log);
+  } catch (error) {
+    log.push(`Indexing notification failed: ${String(error)}`);
+  }
+
+  const wantsReport = new URL(request.url).searchParams.get("report") === "1" || new Date().getUTCDate() === 1;
+  if (!wantsReport) return NextResponse.json({ ok: true, indexing: log });
+  if (!process.env.GSC_SERVICE_ACCOUNT_JSON) return NextResponse.json({ ok: true, indexing: log, report: "skipped: GSC_SERVICE_ACCOUNT_JSON is not configured" });
 
   try {
     // Search Console data lags 2-3 days, so the window ends 3 days ago.
@@ -44,10 +57,10 @@ export async function GET(request: Request) {
       plannedKeywordsNotRanking: report.plannedKeywordsNotRanking,
     });
     const emailStatus = await emailReport(report, start, end, docId);
-    return NextResponse.json({ ok: true, docId, emailStatus, totals: report.totals });
+    return NextResponse.json({ ok: true, indexing: log, docId, emailStatus, totals: report.totals });
   } catch (error) {
     console.error("SEO report failed", error);
-    return NextResponse.json({ ok: false, error: String(error) }, { status: 500 });
+    return NextResponse.json({ ok: false, indexing: log, error: String(error) }, { status: 500 });
   }
 }
 

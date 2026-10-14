@@ -23,7 +23,8 @@ async function getAccessToken(): Promise<string> {
   const encode = (value: object) => Buffer.from(JSON.stringify(value)).toString("base64url");
   const unsigned = `${encode({ alg: "RS256", typ: "JWT" })}.${encode({
     iss: account.client_email,
-    scope: "https://www.googleapis.com/auth/webmasters.readonly",
+    // Read/write scope: reading reports plus resubmitting the sitemap (needs Full permission in Search Console).
+    scope: "https://www.googleapis.com/auth/webmasters",
     aud: "https://oauth2.googleapis.com/token",
     iat: now,
     exp: now + 3600,
@@ -68,4 +69,15 @@ export async function querySearchAnalytics(input: {
   if (!response.ok) throw new Error(`Search Console query failed: ${response.status} ${await response.text()}`);
   const data = (await response.json()) as { rows?: SearchRow[] };
   return data.rows ?? [];
+}
+
+// Asks Google to re-read the sitemap. Google's supported way to flag updated pages for normal sites
+// (its Indexing API is limited to job postings and livestreams).
+export async function submitSitemap(siteUrl: string, sitemapUrl: string): Promise<void> {
+  const token = await getAccessToken();
+  const response = await fetch(
+    `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/sitemaps/${encodeURIComponent(sitemapUrl)}`,
+    { method: "PUT", headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(20_000) },
+  );
+  if (!response.ok) throw new Error(`Sitemap submit failed: ${response.status} ${await response.text()}`);
 }
