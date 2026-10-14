@@ -212,10 +212,10 @@ export const locations: Record<string, LocationContent> = {
     nearby: ["Pune", "Wakad", "Nigdi", "Akurdi"],
     eyebrow: "Location",
     subtitle:
-      "Vistrow is a digital marketing company working with manufacturers, industrial suppliers and local businesses in Pimpri Chinchwad on B2B lead generation, performance advertising and follow-up systems that stop enquiries going cold.",
-    metaTitle: "Digital Marketing Company in Pimpri-Chinchwad",
+      "Vistrow is a digital marketing company working with manufacturers, industrial suppliers and local businesses across Pimpri Chinchwad (PCMC) on B2B lead generation, performance advertising and follow-up systems that stop enquiries going cold.",
+    metaTitle: "Digital Marketing Company in Pimpri-Chinchwad, PCMC",
     metaDescription:
-      "Digital marketing company for Pimpri-Chinchwad businesses: B2B lead generation, Google and Meta ads, CRM and instant follow-up. Free Growth Audit.",
+      "Digital marketing company in Pimpri-Chinchwad (PCMC): B2B lead generation, Google and Meta ads, websites, CRM and instant follow-up. Free Growth Audit.",
     reasons: [
       { title: "B2B and industrial fluency", body: "We adapt qualification and follow-up to longer, considered purchase cycles, not quick retail clicks." },
       { title: "Follow-up that never sleeps", body: "WhatsApp, email and AI voice replies go out on every enquiry, including after hours." },
@@ -264,6 +264,7 @@ export const locations: Record<string, LocationContent> = {
       { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
       { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up" },
       { label: "Landing Pages & Funnels", href: "/digital-marketing/landing-pages" },
+      { label: "Website Development", href: "/digital-marketing/website-development" },
     ],
     process: [
       { title: "Audit", body: "We map your current lead sources and where enquiries drop off." },
@@ -272,6 +273,8 @@ export const locations: Record<string, LocationContent> = {
       { title: "Optimise", body: "We tune toward enquiries that actually convert to business." },
     ],
     faqs: [
+      { q: "Do you cover all of PCMC?", a: "Yes. We work with businesses across Pimpri-Chinchwad (PCMC), including Pimpri, Chinchwad, Bhosari, Nigdi, Akurdi and Pimple Saudagar, from our office in Baner. Meetings happen online or in person when useful." },
+      { q: "Do you build websites for Pimpri-Chinchwad businesses?", a: "Yes. Websites for Indian businesses start from Rs 9,999 for a 5-page site with a contact form, WhatsApp button and basic SEO. Larger product catalogues and quote-request funnels are quoted on your requirements." },
       { q: "Do you work with industrial and B2B businesses, not just retail?", a: "Yes. Pimpri-Chinchwad's industrial base is a common client type, and we adapt qualification and follow-up to longer B2B sales cycles." },
       { q: "Can you generate B2B leads for a manufacturing company?", a: "We can build the pages, search and ad campaigns, and quote-request flow that bring qualified buyers to a manufacturer, then follow up on every enquiry. Results depend on your market, product and budget, and we do not promise specific lead numbers." },
       costFaq("Pimpri-Chinchwad", "your sales cycle, the channels involved, your budget and whether you need CRM and follow-up automation"),
@@ -437,13 +440,13 @@ export const locations: Record<string, LocationContent> = {
     image: { src: "/images/locations/loc-kothrud.webp", alt: "Illustrative tree-lined street scene for Kothrud, Pune with students and shops" },
     title: "Digital Marketing Agency in Kothrud, Pune",
     area: "Kothrud",
-    nearby: ["Pune", "Baner", "Warje", "Karve Nagar"],
+    nearby: ["Pune", "Baner", "Warje", "Karve Nagar", "Paud Road", "Erandwane"],
     eyebrow: "Location",
     subtitle:
       "Vistrow supports Kothrud's coaching classes, clinics, retailers and local service businesses with local SEO, Google and Meta ads and follow-up systems that turn enquiries into booked business.",
-    metaTitle: "Digital Marketing Agency in Kothrud, Pune",
+    metaTitle: "Digital Marketing Agency in Kothrud & Paud Road",
     metaDescription:
-      "Digital marketing for Kothrud businesses, classes and clinics: local SEO, Google and Meta ads, lead generation and WhatsApp follow-up. Free Growth Audit.",
+      "Digital marketers for Kothrud and Paud Road businesses: local SEO, Google and Meta ads, websites, lead generation and WhatsApp follow-up. Free Growth Audit.",
     reasons: [
       { title: "Admissions and appointments", body: "We build funnels that end in a booked class, visit or appointment, not just a click." },
       { title: "Local trust signals", body: "Reviews, photos, results and clear contact details placed where Kothrud customers look." },
@@ -455,7 +458,7 @@ export const locations: Record<string, LocationContent> = {
       paragraphs: [
         "Kothrud is one of Pune's long-established residential areas, known for its schools, colleges and coaching classes, its clinics and hospitals, and busy retail and food streets along Karve Road and Paud Road. Nearby Warje and Karve Nagar add more housing and local businesses. Families here tend to ask neighbours and then check Google before they decide.",
         "That makes reputation and visibility close to inseparable. A coaching class with strong, recent reviews and clear batch details gets more enquiries than a better class with an empty profile. A clinic that shows timings, services and a direct booking option wins over one that does not.",
-        "We help Kothrud businesses build that visibility and then handle the enquiries properly: an instant reply on WhatsApp, a reminder for the demo class or appointment, and a record of every lead so nothing is forgotten in a busy week.",
+        "Our office in Baner is a short drive from Kothrud and Paud Road, so we can meet in person when it helps. We help Kothrud businesses build that visibility and then handle the enquiries properly: an instant reply on WhatsApp, a reminder for the demo class or appointment, and a record of every lead so nothing is forgotten in a busy week.",
       ],
     },
     businessTypes: [
@@ -492,6 +495,7 @@ export const locations: Record<string, LocationContent> = {
       { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
       { label: "Lead Generation", href: "/digital-marketing/lead-generation" },
       { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
+      { label: "Website Development", href: "/digital-marketing/website-development" },
     ],
     process: [
       { title: "Audit", body: "We review your marketing and enquiry handling." },
@@ -500,6 +504,8 @@ export const locations: Record<string, LocationContent> = {
       { title: "Optimise", body: "We tune toward booked business, not just enquiries." },
     ],
     faqs: [
+      { q: "Are you digital marketers near Kothrud and Paud Road?", a: "Yes. Vistrow's office is in Baner, a short drive from Kothrud and Paud Road. We work with Kothrud businesses in person or online, from local SEO and Google Maps to ads, websites and lead follow-up." },
+      { q: "Do you build websites for Kothrud businesses?", a: "Yes. Websites for Indian businesses start from Rs 9,999 for a 5-page site with a contact form, WhatsApp button and basic SEO, delivered in 3 to 5 days once we have your content. Bigger sites are quoted on your requirements." },
       { q: "Do you work with education and retail businesses, not just B2B?", a: "Yes. Kothrud's mix of education institutes, clinics, retail and local services is a common client type, and we adapt the approach to each." },
       { q: "Can you help my coaching class get more admission enquiries?", a: "Yes. We build the pages, ads and local visibility that bring enquiries, and set up instant replies and demo-class reminders. Results depend on your course, fees, competition and budget, so we do not promise specific numbers." },
       costFaq("Kothrud", "the channels, your budget, the season and how many courses or services you promote"),

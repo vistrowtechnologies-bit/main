@@ -20,7 +20,14 @@ const nextConfig = {
   },
   async redirects() {
     const merged = Object.entries(blogMerges).map(([from, to]) => ({ source: `/blog/${from}`, destination: `/blog/${to}`, permanent: true }));
-    return [...merged, { source: "/review", destination: "https://g.page/r/CfHhzV3hPTDiEBM/review", permanent: false }];
+    // Early posts that were never moved to Sanity; Google still requests them.
+    const retired = [
+      ["/blog/marketing-attribution-that-sales-will-actually-trust", "/digital-marketing/conversion-tracking"],
+      ["/blog/when-to-automate-and-when-not-to", "/business-automation"],
+      ["/blog/connected-marketing-system-what-it-actually-means", "/services"],
+      ["/blog/why-most-crm-implementations-fail", "/business-automation/crm-lead-management"],
+    ].map(([source, destination]) => ({ source, destination, permanent: true }));
+    return [...merged, ...retired, { source: "/review", destination: "https://g.page/r/CfHhzV3hPTDiEBM/review", permanent: false }];
   },
   async headers() {
     const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];

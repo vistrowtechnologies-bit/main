@@ -1,4 +1,4 @@
-import { Database, PhoneCall, Zap, MessageSquare, Repeat, Wrench } from "lucide-react";
+import { Database, PhoneCall, Zap, MessageSquare, Repeat, Wrench, Languages, PhoneIncoming, PhoneOutgoing, Globe, BookOpen, Webhook } from "lucide-react";
 import type { ServiceContent, OverviewContent } from "@/lib/content-types";
 
 export const businessAutomationOverview: OverviewContent = {
@@ -98,12 +98,14 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
   "ai-voice-calling": {
     slug: "ai-voice-calling",
     title: "AI Voice Calling",
+    heroTitle: "Multilingual AI voice assistant for",
+    highlight: "Indian businesses",
     eyebrow: "AI Automation",
     subtitle:
-      "Vistrow Voice handles inbound, outbound, and website calls in 10 Indian languages - answering questions, qualifying intent, booking next steps, and pushing outcomes into your workflow 24/7.",
-    metaTitle: "AI Voice Calling Agents for India",
+      "Vistrow Voice is a multilingual AI voice assistant and AI calling software that handles inbound, outbound and website calls in 10 Indian languages, including Hindi and Hinglish - answering questions, qualifying intent, booking next steps and pushing outcomes into your workflow 24/7.",
+    metaTitle: "Multilingual AI Voice Assistant & Calling Software",
     metaDescription:
-      "Vistrow Voice provides inbound, outbound, and website AI calling in 10 Indian languages, with knowledge-grounded answers and CRM webhooks.",
+      "Multilingual AI voice assistant and AI calling software for Indian businesses: inbound, outbound and website calls in 10 Indian languages, with CRM webhooks.",
     problem: {
       title: "Every unanswered or delayed call creates avoidable leakage.",
       body: "Teams cannot answer every enquiry, reminder, support question, or follow-up at the right moment. Vistrow Voice adds always-on coverage while keeping the rules, knowledge, and handoffs under your control.",
@@ -114,6 +116,14 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
         "Customer questions repeated across phone and website",
       ],
     },
+    features: [
+      { icon: Languages, title: "10 Indian languages", body: "Callers speak Hindi, Hinglish or one of eight more Indian languages, and the agent replies in the same language." },
+      { icon: PhoneIncoming, title: "Inbound calls, 24/7", body: "Answers, qualifies and routes or books the next step, including nights, weekends and peak hours." },
+      { icon: PhoneOutgoing, title: "Outbound campaigns", body: "Reminders, follow-ups and collections called at scale, with outcomes logged for every call." },
+      { icon: Globe, title: "Website voice widget", body: "Visitors talk to the agent in the browser without sharing a phone number." },
+      { icon: BookOpen, title: "Grounded in your documents", body: "Answers come from the PDFs and documents you upload, so replies stay on your facts." },
+      { icon: Webhook, title: "CRM handoff", body: "Leads, outcomes and transcripts are pushed to your CRM through webhooks, with escalation to a person when needed." },
+    ],
     outcomes: [
       { stat: "10", label: "Indian languages", body: "Serve customers in Hindi, Hinglish, and eight more languages." },
       { stat: "24/7", label: "Coverage", body: "Nights, weekends, and peak volume handled." },
@@ -137,6 +147,9 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["Vistrow Voice", "Phone numbers", "Website call widget", "CRM webhooks", "PDF knowledge base", "Custom workflows"],
     faqs: [
+      { q: "What is a multilingual AI voice assistant?", a: "It is an AI agent that talks to callers by voice in more than one language. Vistrow Voice answers and makes calls in 10 Indian languages, including Hindi and Hinglish, so customers can speak the way they normally do while the agent answers questions, qualifies the enquiry and books the next step." },
+      { q: "Is Vistrow Voice AI calling software or a service?", a: "Both. Vistrow Voice is the AI calling software, with a no-code agent builder you can run yourself. Vistrow can also set it up for you as a service: call flows, knowledge base, CRM connection and ongoing tuning." },
+      { q: "Can it call and qualify real estate leads?", a: "Yes. It can call new enquiries from your ads and portals, ask your qualification questions, book site visits and pass the lead to your sales team with a transcript. It works alongside a CRM such as ArthaLeads." },
       { q: "Which languages does Vistrow Voice support?", a: "The current platform supports 10 Indian languages, including Hindi and Hinglish. Confirm the exact language and voice fit during your product test." },
       { q: "Can it handle inbound and outbound calls?", a: "Yes. Vistrow Voice supports inbound calling, outbound campaigns, and a browser-based website call widget." },
       { q: "How does it answer business-specific questions?", a: "You can upload PDFs and documents to create a retrieval-grounded knowledge base, then configure the agent's persona, prompt, language, and rules." },
