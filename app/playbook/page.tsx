@@ -7,13 +7,20 @@ import type { Metadata } from "next";
 import { PlaybookIndexPage } from "@/components/templates/playbook-page";
 import { buildMetadata, siteUrl } from "@/lib/seo";
 
-export const metadata: Metadata = buildMetadata({
-  title: "100 Din Playbook: Free Small Business Marketing Checklists & Templates",
+const title = "Free Small Business Marketing Checklists (PDF) | Vistrow";
+const base = buildMetadata({
+  title,
   description:
-    "Free checklists, WhatsApp templates and trackers for Indian small businesses. One new chapter unlocks with every reel of the Vistrow 100-day challenge.",
+    "100 din, 100 free chapters: dukan, salon, clinic aur restaurant ke liye marketing checklists, WhatsApp templates aur printable PDFs. No signup.",
   path: "/playbook",
-  keywords: ["small business marketing checklist", "free marketing templates India", "Google Business Profile checklist", "WhatsApp templates for business", "100 day marketing challenge"],
+  keywords: ["small business marketing checklist", "small business marketing checklist pdf", "free marketing templates India", "chhote business ki marketing kaise kare", "Google Business Profile checklist", "WhatsApp templates for business", "100 day marketing challenge"],
 });
+// absolute: the title already carries the brand, so the layout template must not append it again
+export const metadata: Metadata = {
+  ...base,
+  title: { absolute: title },
+  alternates: { ...base.alternates, types: { "application/rss+xml": "https://www.vistrow.com/playbook/feed.xml" } },
+};
 
 // chapters appear as soon as their reel is posted, so re-check every minute
 export const revalidate = 60;

@@ -55,7 +55,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Real modification dates for posts, so search engines know which ones changed.
-  const postModified = new Map(blogPosts.map((post) => [`/blog/${post.slug}`, post.dateModified || post.date]));
+  const postModified = new Map<string, string | undefined>(
+    blogPosts.map((post) => [`/blog/${post.slug}`, post.dateModified || post.date]),
+  );
+
+  // Playbook chapters: lastModified = the real unlock time (reel publishedAt from the worker);
+  // the scheduled slot is used only when the worker is unreachable.
+  const liveChapters = playbookChapters.filter((c) => isLive(c, live));
+  for (const c of liveChapters) {
+    postModified.set(`/playbook/${c.slug}`, live?.[c.day]?.publishedAt || `${c.release}:00+05:30`);
+  }
+  const newestLive = liveChapters
+    .map((c) => live?.[c.day]?.publishedAt)
+    .filter((d): d is string => Boolean(d) && !Number.isNaN(Date.parse(d as string)))
+    .sort((a, b) => Date.parse(b) - Date.parse(a))[0];
+  if (newestLive) postModified.set("/playbook", newestLive);
 
   return [...staticRoutes, ...dynamicRoutes].map((route) => ({
     url: `${siteUrl}${route}`,

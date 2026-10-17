@@ -19,6 +19,8 @@ export const playbookHub = {
     ["Who is it for?", "Owners of local small businesses in India (shops, restaurants, salons, clinics, service businesses) who want more customers from Google, Instagram and WhatsApp without hiring an agency first."],
     ["How often is a new chapter added?", "One chapter goes live with each reel of the Vistrow 100-day challenge on Instagram (@vistrow_technologies)."],
     ["What language is it in?", "Hinglish (Hindi in English script) with the key marketing terms in English, so it is easy to read on a phone."],
+    ["Chhote business ki marketing free mein kaise kare?", "Free tools se shuru karo: Google Business Profile (Google Search aur Maps pe dikhne ke liye), WhatsApp Business (customers ko jaldi reply ke liye) aur khush customers se Google reviews maango. Playbook ke chapters yeh sab step-by-step, free checklists aur templates ke saath sikhate hain."],
+    ["Kya yeh salon, clinic aur restaurant ke liye bhi kaam karega?", "Haan. Playbook local businesses ke liye likha gaya hai: dukan, salon, clinic, restaurant aur service businesses. Steps wahi hain: Google pe dikhna, reviews lena, website aur WhatsApp pe leads ko jaldi jawab dena."],
   ] as [string, string][],
 };
 

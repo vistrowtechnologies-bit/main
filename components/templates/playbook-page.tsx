@@ -240,6 +240,33 @@ function HelpCard({ c, className = "" }: { c?: PlaybookChapter; className?: stri
   );
 }
 
+/** "Aage padho": internal links to related chapters, only those already live (unreleased ones are never named). */
+function Related({ chapter, preview, live }: { chapter: PlaybookChapter; preview: boolean; live: LiveReels | null }) {
+  const q = preview ? "?preview=1" : "";
+  const items = (chapter.related ?? [])
+    .map((r) => ({ ...r, c: chapters.find((x) => x.slug === r.slug) }))
+    .filter((r): r is { slug: string; anchor: string; c: PlaybookChapter } => Boolean(r.c && (preview || isLive(r.c, live))));
+  if (!items.length) return null;
+  return (
+    <section aria-labelledby="related" className="rounded-lg border border-line bg-surface p-4 sm:p-6">
+      <H2><span id="related">Aage padho</span></H2>
+      <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
+        {items.map(({ c, anchor }) => (
+          <li key={c.slug}>
+            <Link href={`/playbook/${c.slug}${q}`} className="group flex h-full items-center gap-3 rounded-lg border border-line p-3 transition hover:-translate-y-0.5 hover:border-accent">
+              <span className="min-w-0 flex-1">
+                <small className="block font-sans text-xs font-semibold text-muted">Day {c.day}</small>
+                <b className="block font-sans text-sm font-semibold leading-snug text-ink">{anchor}</b>
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0 text-accent-strong transition group-hover:translate-x-1" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export function PlaybookChapterPage({ chapter, preview = false, live = null }: { chapter: PlaybookChapter; preview?: boolean; live?: LiveReels | null }) {
   const open = preview || isLive(chapter, live);
   // the exact reel on Instagram (from the publisher); profile only as a fallback
@@ -297,6 +324,7 @@ export function PlaybookChapterPage({ chapter, preview = false, live = null }: {
               </Card>
             )}
             {open && seo && <Faq items={seo.faq} />}
+            {open && <Related chapter={chapter} preview={preview} live={live} />}
 
             <nav className="grid grid-cols-2 gap-2.5 pt-3 sm:gap-3">
               {prev ? (
@@ -347,6 +375,7 @@ export function PlaybookIndexPage({ preview = false, live = null }: { preview?: 
               <p className="mt-3 font-display text-xl font-bold text-ink sm:text-3xl">
                 Free <SwapWord words={["checklists", "WhatsApp templates", "trackers", "printable PDFs"]} className="text-accent-strong" />
               </p>
+              <h2 className="mt-2 font-sans text-base font-semibold text-ink-2 sm:text-xl">Free small business marketing checklists aur templates</h2>
               <p className="mt-4 max-w-xl font-sans text-[15px] leading-relaxed text-muted sm:text-lg">{playbook.intro}</p>
 
               <div className="mt-6 max-w-md rounded-md border border-line p-3.5">

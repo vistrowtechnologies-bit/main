@@ -7,10 +7,11 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { createHash } from "node:crypto";
+import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
 const { transform } = require("sucrase");
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."); // fileURLToPath: the repo folder name has spaces
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
 // load content/playbook.ts without a TS toolchain
@@ -57,9 +58,9 @@ function block(b, c) {
     case "task":
       return `<section class="task"><span class="pill">⏱ Aaj ka 5-minute kaam</span><p>${esc(b.text)}</p><div class="done">Done on: ____ / ____ / ________</div></section>`;
     case "check":
-      return `<section><h2>${esc(b.title)}</h2><ul class="check">${b.items.map(([t, d]) => `<li><span class="box"></span><div><b>${esc(t)}</b><small>${esc(d)}</small></div></li>`).join("")}</ul><div class="score">Mera score: ______ / ${b.items.length}</div></section>`;
+      return `<section class="flow"><h2>${esc(b.title)}</h2><ul class="check">${b.items.map(([t, d]) => `<li><span class="box"></span><div><b>${esc(t)}</b><small>${esc(d)}</small></div></li>`).join("")}</ul><div class="score">Mera score: ______ / ${b.items.length}</div></section>`;
     case "steps":
-      return `<section><h2>${esc(b.title)}</h2><ol class="steps">${b.items.map(([t, d], i) => `<li><span class="n">${i + 1}</span><div><b>${esc(t)}</b><small>${esc(d)}</small></div><span class="box sm"></span></li>`).join("")}</ol></section>`;
+      return `<section class="flow"><h2>${esc(b.title)}</h2><ol class="steps">${b.items.map(([t, d], i) => `<li><span class="n">${i + 1}</span><div><b>${esc(t)}</b><small>${esc(d)}</small></div><span class="box sm"></span></li>`).join("")}</ol></section>`;
     case "table":
       return `<section><h2>${esc(b.title)}</h2><table><thead><tr>${b.head.map((h) => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${b.rows.map((r) => `<tr>${r.map((x) => `<td>${esc(x) || "&nbsp;"}</td>`).join("")}</tr>`).join("")}</tbody></table></section>`;
     case "templates":
@@ -103,6 +104,8 @@ h1, h2, .display { font-family: Manrope, Inter, sans-serif; letter-spacing: -0.0
 .runner { position: fixed; bottom: -12mm; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 8.5pt; color: #888; border-top: 1px solid #e5e5e5; padding-top: 2.5mm; }
 .cover ~ .runner { }
 section { margin-bottom: 8mm; break-inside: avoid; }
+section.flow { break-inside: auto; } /* long checklists/steps may continue on the next page (rows stay whole) */
+section.flow h2 { break-after: avoid; }
 h2 { font-size: 16pt; font-weight: 800; margin-bottom: 3mm; }
 .why { border-left: 5px solid #c6ff00; background: #f6f7f2; padding: 5mm 6mm; border-radius: 0 8px 8px 0; }
 .why p { color: #333; }

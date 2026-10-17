@@ -9,6 +9,7 @@ export type PlaybookChapter = {
   day: number; slug: string; keyword: string; release: string; title: string; seoTitle: string;
   /** search-led H1 (the short Hinglish `title` stays for cards, DMs and reels) */ h1?: string;
   description: string; summary: string; blocks: PlaybookBlock[];
+  /** internal links to the most relevant other chapters (shown only once each is live) */ related?: { slug: string; anchor: string }[];
 };
 
 // 100 Din Playbook (vistrow.com/playbook): one chapter per series reel. A chapter "unlocks" (shows its content) at its reel's posting slot (IST, same as posting-queue.json).
@@ -45,7 +46,8 @@ export const chapters: PlaybookChapter[] = [
       ] },
       { type: 'table', title: 'Apna score dekho', head: ['Score (✓ gino)', 'Matlab'], rows: [['0–4', 'Online chehra kamzor hai. Shuruaat Google profile se karo (Day 2).'], ['5–7', 'Theek hai, par customer abhi bhi nikal rahe hain.'], ['8–10', 'Strong! Ab reviews aur fast reply pe kaam karo.']] },
       { type: 'task', text: 'Google pe apne business ka naam search karo aur screenshot rakh lo. Day 100 pe dobara karenge aur dono milayenge.' }
-    ]
+    ],
+    related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   },
   {
     day: 2, slug: 'google-business-profile-checklist', keyword: 'BOARD', release: '2026-10-20T13:00',
@@ -70,7 +72,8 @@ export const chapters: PlaybookChapter[] = [
       ] },
       { type: 'note', text: 'Google Business Profile bilkul free hai. Koi "verification fee" maange toh woh scam hai.' },
       { type: 'task', text: 'Google pe apni dukaan dhoondho. Nahi mili? Aaj hi upar wale steps se profile banao.' }
-    ]
+    ],
+    related: [{ slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
     day: 3, slug: 'website-must-haves-checklist', keyword: 'SHOWROOM', release: '2026-10-21T09:30',
@@ -95,7 +98,8 @@ export const chapters: PlaybookChapter[] = [
       ] },
       { type: 'table', title: 'Worksheet: kal ke DM gino', head: ['Sawaal', 'Kitni baar (tally)', 'Website pe jawab hai?'], rows: [['Price kya hai?', '', '☐'], ['Address / location?', '', '☐'], ['Size / variety?', '', '☐'], ['Delivery / timing?', '', '☐'], ['Discount / offer?', '', '☐']] },
       { type: 'task', text: 'Kal ke saare DM gino. Jo sawaal sabse zyada baar aaya, woh website ke pehle page pe hona chahiye.' }
-    ]
+    ],
+    related: [{ slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   },
   {
     day: 4, slug: 'google-review-request-templates', keyword: 'REVIEWS', release: '2026-10-22T17:30',
@@ -116,7 +120,8 @@ export const chapters: PlaybookChapter[] = [
       { type: 'note', text: 'Google ke niyam: review ke badle discount, gift ya cashback mat do. Sirf khush customers ko mat poocho: sabko same message bhejo. 5 star ya koi khaas shabd likhne ko mat bolo. Dukaan pe khade-khade review mat likhwao. Family ya staff ke reviews bhi nahi. Asli customers, asli reviews.' },
       { type: 'table', title: 'Tracker: aap vs paas wale', head: ['Business', 'Rating', 'Reviews', 'Farak (target)'], rows: [['Aap', '', '', '—'], ['Paas wala #1', '', '', ''], ['Paas wala #2', '', '', ''], ['Paas wala #3', '', '', '']] },
       { type: 'task', text: 'Google pe apne aur paas ke 3 competitors ke reviews gino. Pehla target: sabse paas wale ke barabar.' }
-    ]
+    ],
+    related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
     day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-23T12:00',
@@ -137,7 +142,8 @@ export const chapters: PlaybookChapter[] = [
       ] },
       { type: 'download', title: 'Tracker download karo', text: 'CSV file Google Sheets ya Excel mein khul jaati hai (File → Import).', href: '/playbook/lead-tracker.csv', label: 'Lead tracker (CSV) download' },
       { type: 'task', text: 'Kal ke saare leads dekho: kitni der mein reply kiya? Har lead ke aage follow-up date likho.' }
-    ]
+    ],
+    related: [{ slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   }
 ];
 
