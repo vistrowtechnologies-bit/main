@@ -111,7 +111,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "lead-generation": {
     slug: "lead-generation",
-    image: { src: "/images/services/svc-lead-generation.webp", alt: "Illustrative scene of two colleagues reviewing leads in the ArthaLeads dashboard on a tablet" },
+    image: { src: "/images/services/svc-lead-generation.webp", alt: "Two sales professionals reviewing new property leads on the ArthaLeads dashboard" },
     title: "Lead Generation",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -160,7 +160,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "website-development": {
     slug: "website-development",
-    image: { src: "/images/services/svc-website-development.webp", alt: "Illustrative scene of a designer and developer reviewing a website design on a monitor" },
+    image: { src: "/images/services/svc-website-development.webp", alt: "Designer and developer reviewing a client website Vistrow built, on an iMac and an iPhone" },
     title: "Website Development",
     heroTitle: "Website development company in",
     highlight: "Pune",
@@ -227,7 +227,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "landing-pages": {
     slug: "landing-pages",
-    image: { src: "/images/services/svc-landing-pages.webp", alt: "Illustrative scene of a landing page open on a laptop and a phone" },
+    image: { src: "/images/services/svc-landing-pages.webp", alt: "Marketer checking a landing page on a MacBook Air before launching an ad campaign" },
     title: "Landing Pages & Funnels",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -276,7 +276,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "creative-strategy": {
     slug: "creative-strategy",
-    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Illustrative scene of a creative team reviewing printed ad concepts" },
+    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Creative team reviewing printed ad concepts and a live brand website on an iMac" },
     title: "Creative Strategy",
     eyebrow: "Digital Marketing",
     subtitle:

@@ -47,7 +47,7 @@ export default function Page() {
 
       <FeatureCards eyebrow="A useful introduction" title="What to include when you contact us" items={candidateSignals} columns={3} />
 
-      <PageImage src="/images/brand/desk-branded-items.webp" alt="Illustrative desk with a Vistrow-branded notebook, mug and laptop" />
+      <PageImage src="/images/brand/desk-branded-items.webp" alt="New Vistrow team member opening the careers page on a MacBook Air, Vistrow notebook on the desk" />
 
       <section className="py-section">
         <div className="container-edge">

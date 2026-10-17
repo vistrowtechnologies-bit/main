@@ -77,7 +77,7 @@ export default function Page() {
         secondaryCta={{ label: "Our approach", href: "/approach" }}
       />
 
-      <PageImage src="/images/brand/office-wall-logo.webp" alt="Illustrative Vistrow-branded modern office with the logo on the wall" />
+      <PageImage src="/images/brand/office-wall-logo.webp" alt="Vistrow team reviewing the Vistrow website on an iMac in the Baner office, logo on the wall" />
 
       <section className="py-section">
         <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
