@@ -87,6 +87,7 @@ const columns: FooterColumn[] = [
           { label: "Work", href: "/work" },
           { label: "Website Portfolio", href: "/work/website-portfolio" },
           { label: "Blog", href: "/blog" },
+          { label: "100 Din Playbook", href: "/playbook" },
           { label: "Careers", href: "/careers" },
           { label: "Partners", href: "/partners" },
           { label: "Contact", href: "/contact" },

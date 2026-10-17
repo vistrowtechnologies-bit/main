@@ -70,7 +70,16 @@ export const primaryNav: NavItem[] = [
       { label: "Client Results", href: "/work/client-results" },
     ],
   },
-  { label: "Blog", href: "/blog" },
+  {
+    label: "Resources",
+    href: "/blog",
+    activeMatch: ["/blog", "/playbook"],
+    children: [
+      { label: "Blog", href: "/blog", desc: "Guides and growth ideas" },
+      { label: "100 Din Playbook", href: "/playbook", desc: "Free checklists, templates & PDFs" },
+      { label: "Case Studies", href: "/work/case-studies", desc: "Systems we have built" },
+    ],
+  },
   {
     label: "About Us",
     href: "/about",

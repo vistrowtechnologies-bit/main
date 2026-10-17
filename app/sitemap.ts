@@ -6,11 +6,14 @@ import { industries } from "@/content/industries";
 import { locations } from "@/content/locations";
 import { workPages } from "@/content/work";
 import { siteUrl } from "@/lib/seo";
+import { chapters as playbookChapters } from "@/content/playbook";
+import { getLiveReels, isLive } from "@/lib/playbook-live";
 import { getBlogPosts } from "@/lib/sanity/blog";
 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const live = await getLiveReels();
   const blogPosts = await getBlogPosts();
   const staticRoutes = [
     "",
@@ -23,6 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/work",
     "/work/website-portfolio",
     "/blog",
+    "/playbook",
     "/about",
     "/approach",
     "/careers",
@@ -46,6 +50,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogPosts
       .filter((post) => !post.excludeFromSitemap && post.robotsIndex !== false && !post.redirectUrl)
       .map((post) => `/blog/${post.slug}`),
+    // 100 Din Playbook chapters appear in the sitemap only once they are unlocked (reel released)
+    ...playbookChapters.filter((c) => isLive(c, live)).map((c) => `/playbook/${c.slug}`),
   ];
 
   // Real modification dates for posts, so search engines know which ones changed.
