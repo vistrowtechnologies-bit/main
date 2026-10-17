@@ -144,6 +144,44 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Kal ke saare leads dekho: kitni der mein reply kiya? Har lead ke aage follow-up date likho.' }
     ],
     related: [{ slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
+  },
+  {
+    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-10-25T16:00',
+    title: 'Pehle second ke 10 hook ideas',
+    h1: 'Reel Hook Ideas for Product Ads: Pehle Second Ki 10-Point Checklist',
+    seoTitle: 'Product Reel Hook Ideas + First-Second Checklist (Free PDF)',
+    description: 'Shoot zaroori nahi, pehla second zaroori hai. 10 hook ideas for product reels and ads, a 10-point first-second checklist and a free printable PDF.',
+    summary: 'Shoot zaroori nahi, pehla second zaroori hai: 10 checks + 10 hook ideas.',
+    blocks: [
+      { type: 'why', title: 'Shoot nahi, pehla second', text: 'Bade brands ek ad pe camera, set, model aur editing mein lakhon tak laga dete hain. Aaj ek achhi product photo aur ek tez idea se bhi AI product video ban jaati hai. Par asli cheez AI nahi, pehla second hai. Marketing mein isko hook kehte hain: woh pal jo scroll rok de. Instagram dekhta hai ki log reel poori dekhte hain, like ya share karte hain ya nahi. Log ruke, toh reel aur logon tak pahunchti hai.' },
+      { type: 'check', title: 'Pehle second ka hook: 10-point checklist', items: [
+        ['Product pehle frame mein', 'Logo, intro ya "Namaste dosto" baad mein. Pehle frame mein product ya uska kaam dikhe.'],
+        ['Sabse dhamakedaar pal sabse pehle', 'Jo pal sabse zyada "wow" hai (bhaap, crunch, pehla pour, dhakkan khulna), wahi shuru mein.'],
+        ['Pehle frame mein movement', 'Kuch gire, khule, ghoome ya uthe. Ruki hui tasveer pe angootha nahi rukta.'],
+        ['Frame mein ek hi hero', 'Ek product, saaf background. Bhara hua table ya poori dukaan nahi.'],
+        ['Bina awaaz ke samajh aaye', 'Bahut log awaaz band karke scroll karte hain. Bina sound ke bhi pata chale kya ho raha hai.'],
+        ['3–5 shabd, bada text', 'Mota font, screen ke beech mein. Sabse upar aur neeche Instagram ke naam aur buttons aa jaate hain.'],
+        ['Saaf photo se shuru', 'Din ki roshni, saaf background, product ka sabse achha angle. Dhundhli photo se video bhi dhundhli banti hai.'],
+        ['Asli product jaisa dikhe', 'AI se product ko behtar dikhao, alag nahi. Rang, size aur quantity wahi jo customer ko milega.'],
+        ['Ant mein naam + ek kaam', 'Dukaan ka naam aur ek clear button: "WhatsApp karo" ya "Aaj hi order karo".'],
+        ['Phone pe khud test karo', 'Post se pehle scroll karte hue dekho: kya aap khud rukoge? Nahi, toh pehla second badlo.']
+      ] },
+      { type: 'table', title: '10 hook ideas (examples)', head: ['Hook idea', 'Example: pehla second kaisa dikhe'], rows: [
+        ['Slow-motion pal', 'Example: garam chai glass mein girti hui, bhaap ke saath.'],
+        ['Bilkul paas se (close-up)', 'Example: bun maska pe pighalta makkhan, itna paas ki texture dikhe.'],
+        ['Khulna ya unboxing', 'Example: gift box ka dhakkan khulta hai, andar se product chamakta hai.'],
+        ['Before / after', 'Example: furniture shop: khaali kona, ek cut mein wahi kona naye sofa ke saath.'],
+        ['Result pehle, kahani baad mein', 'Example: saaf ki hui thali, phir rewind hoke wapas bhari thali.'],
+        ['Ajeeb lagne wala frame', 'Example: kurta hawa mein khud lehra raha hai, koi hanger nahi.'],
+        ['Size ka khel', 'Example: perfume ki bottle building jitni badi, shehar ke beech khadi.'],
+        ['Ruka hua samay (freeze)', 'Example: paani ki boondein hawa mein ruki hui, beech mein product.'],
+        ['Sawaal wala text', 'Example: "Andaaza lagao, yeh kis cheez se bana hai?" aur product ka close-up.'],
+        ['Haath mein product', 'Example: customer ka haath shelf se product uthata hai, jaise abhi khareedega.']
+      ] },
+      { type: 'note', text: 'Upar sab example hain: apne product ke hisaab se badlo. AI video ke 2 niyam: (1) product wahi dikhao jo customer ko sach mein milega. (2) Meta kehta hai ki AI se bani ya badli hui asli-jaisi video share karte waqt bata do; Instagram pe post karte waqt AI label ka option milta hai.' },
+      { type: 'task', text: 'Apna best product chuno. Uska sabse dhamakedaar pal likho (girna, khulna, bhaap, crunch). Agli reel ka pehla second wahi pal banao, aur phone pe scroll karke dekho: kya aap khud rukoge?' }
+    ],
+    related: [{ slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   }
 ];
 

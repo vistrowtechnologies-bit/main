@@ -1,5 +1,6 @@
 // Builds the free printable PDF (and a cover preview PNG) for every 100 Din Playbook chapter.
 //   node scripts/playbook-pdf.mjs            -> public/playbook/pdf/vistrow-day-N-<slug>.pdf + day-N-cover.png
+//   node scripts/playbook-pdf.mjs 7          -> only Day 7 (other days' files and playbook-pdfs.json entries stay as they are)
 // Content comes from content/playbook.ts (same source as the web pages). Uses local Google Chrome headless.
 import { execFileSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync, mkdtempSync, statSync } from "node:fs";
@@ -199,8 +200,10 @@ function cardHtml(c) {
   <div class="f">Checklist + printable PDF</div></body></html>`;
 }
 
-const meta = {};
-for (const c of chapters) {
+const only = process.argv.slice(2).map(Number).filter(Boolean);
+const metaPath = path.join(root, "content/playbook-pdfs.json");
+const meta = only.length ? JSON.parse(readFileSync(metaPath, "utf8")) : {};
+for (const c of chapters.filter((c) => !only.length || only.includes(c.day))) {
   const h = path.join(work, `day-${c.day}.html`);
   writeFileSync(h, html(c));
   const pdf = path.join(outDir, pdfName(c));
@@ -221,7 +224,7 @@ for (const c of chapters) {
   meta[c.day] = { file: `/playbook/pdf/${pdfName(c)}`, cover: `/playbook/pdf/${coverName(c)}`, reel: `/playbook/pdf/${reelName(c)}`, card: `/playbook/pdf/${cardName(c)}`, pages, kb: Math.round(statSync(pdf).size / 1024) };
   console.log(`Day ${c.day}: ${pdfName(c)} · ${pages} pages · ${meta[c.day].kb} KB`);
 }
-{
+if (!only.length) {
   const hub = `<!doctype html><html><head><meta charset="utf-8"><style>${css}
   body{width:1080px;height:1080px;margin:0;background:#0b0b0c;color:#fff;overflow:hidden;position:relative}
   .g{position:absolute;right:-220px;top:-220px;width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(198,255,0,.32),rgba(198,255,0,0) 65%)}
@@ -236,4 +239,4 @@ for (const c of chapters) {
   execFileSync(CHROME, ["--headless=new", "--disable-gpu", "--allow-file-access-from-files", "--hide-scrollbars", "--window-size=1080,1080", `--screenshot=${path.join(work, "hub.png")}`, "file://" + path.join(work, "hub.html")], { stdio: "ignore" });
   execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "78", path.join(work, "hub.png"), "--out", path.join(outDir, "card-hub.jpg")], { stdio: "ignore" });
 }
-writeFileSync(path.join(root, "content/playbook-pdfs.json"), JSON.stringify(meta, null, 2) + "\n");
+writeFileSync(metaPath, JSON.stringify(Object.fromEntries(Object.entries(meta).sort((a, b) => a[0] - b[0])), null, 2) + "\n");

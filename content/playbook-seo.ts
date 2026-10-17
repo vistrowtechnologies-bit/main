@@ -105,4 +105,19 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
       ["Raat ko lead aaye toh kya karein?", "WhatsApp Business mein away message laga do, aur subah sabse pehle us lead ko reply karo."],
     ],
   },
+  "product-reel-hook-ideas": {
+    question: "How do I make a product reel or ad that stops the scroll?",
+    answer:
+      "Show your product's most dramatic moment in the very first second, with movement, a close-up, an unboxing or a before/after, and keep the logo and intro for later. Keep one hero product in frame, make it understandable without sound, use 3–5 words of big text and make sure the product looks exactly like what the customer gets. You don't need a shoot: a clear product photo and a sharp idea are enough to make an AI product video.",
+    keywords: ["reel hook ideas", "product reel ideas", "hook ideas for instagram reels", "reel me hook kaise lagaye", "AI product video", "first 3 seconds of reel"],
+    time: "PT10M",
+    faq: [
+      ["What is a hook in a reel?", "The hook is the first moment of a reel or ad that makes someone stop scrolling. For a product it is usually its most dramatic moment: a pour, a crunch, an unboxing or a before/after."],
+      ["Why does the first second matter so much on Instagram?", "Instagram says that when it ranks Reels it predicts how likely you are to watch a reel all the way through, like it or reshare it. People who scroll past in the first second never get that far, so a strong opening gives the rest of the reel a chance."],
+      ["Do I need a professional shoot for a product ad?", "Not to start. A clear product photo (daylight, clean background, best angle) and one sharp idea are enough to make a product video with AI tools. Put the effort into the first second, not the set."],
+      ["Can I use AI to make my product look better?", "Make it look better, not different: colour, size and quantity should match what the customer receives. Meta also asks people to disclose photorealistic video that was made or changed with AI, and Instagram offers an AI label when you post."],
+      ["Should a product reel work without sound?", "Yes. Many people scroll with the sound off, so the first second should work as a picture: clear movement plus 3–5 words of large text."],
+      ["Reel me hook kaise lagaye?", "Sabse dhamakedaar pal ko pehle second mein rakho, logo ya intro baad mein. Frame mein movement ho, ek hi product ho, aur bina awaaz ke bhi samajh aaye."],
+    ],
+  },
 };
