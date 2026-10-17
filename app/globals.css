@@ -324,3 +324,83 @@ body:has(.review-experience) .vistrow-shell-tools {
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Notched photo frame (after marketixstudio.com): a card sits in a corner of the photo and the
+ * photo's edge curves around it. The notch is painted in the page background colour, so set
+ * --notch-bg to the section background when it isn't the default page background.
+ */
+.notch-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: rgb(var(--surface));
+}
+.notch {
+  --r: 28px;
+  position: absolute;
+  z-index: 1;
+  background: rgb(var(--notch-bg, var(--bg)));
+}
+.notch::before,
+.notch::after {
+  content: "";
+  position: absolute;
+  width: var(--r);
+  height: var(--r);
+  pointer-events: none;
+}
+.notch--br {
+  right: 0;
+  bottom: 0;
+  padding: 16px 0 0 16px;
+  border-top-left-radius: calc(var(--r) + 16px);
+}
+.notch--br::before {
+  bottom: 0;
+  right: 100%;
+}
+.notch--br::after {
+  bottom: 100%;
+  right: 0;
+}
+.notch--br::before,
+.notch--br::after {
+  background: radial-gradient(circle at 0 0, transparent calc(var(--r) - 0.5px), rgb(var(--notch-bg, var(--bg))) var(--r));
+}
+.notch--tl {
+  top: 0;
+  left: 0;
+  padding: 0 16px 16px 0;
+  border-bottom-right-radius: calc(var(--r) + 16px);
+}
+.notch--tl::before {
+  top: 0;
+  left: 100%;
+}
+.notch--tl::after {
+  top: 100%;
+  left: 0;
+}
+.notch--tl::before,
+.notch--tl::after {
+  background: radial-gradient(circle at 100% 100%, transparent calc(var(--r) - 0.5px), rgb(var(--notch-bg, var(--bg))) var(--r));
+}
+/* On phones the card sits under the photo instead of covering it. */
+@media (max-width: 639px) {
+  .notch {
+    position: static;
+    padding: 12px 0 0;
+    background: transparent;
+  }
+  .notch::before,
+  .notch::after {
+    display: none;
+  }
+}
+.glow-card {
+  border-radius: 28px;
+  border: 1px solid rgb(var(--accent) / 0.45);
+  background: linear-gradient(160deg, rgb(var(--surface)) 0%, rgb(var(--card)) 60%);
+  box-shadow: 0 0 28px -6px rgb(var(--accent) / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.04);
+}

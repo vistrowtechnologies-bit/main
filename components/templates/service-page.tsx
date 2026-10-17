@@ -5,7 +5,7 @@ import { Steps } from "@/components/sections/steps";
 import { Outcomes, Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
 import { LocalAreas } from "@/components/sections/local-areas";
-import { PageImage } from "@/components/sections/page-image";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
@@ -69,29 +69,31 @@ export function ServicePage({
         ]}
       />
 
-      {content.image && <PageImage src={content.image.src} alt={content.image.alt} />}
-
-      {/* Problem */}
+      {/* Problem: heading across the top, then the page photo beside the copy */}
       <section className="py-section">
-        <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal>
-            <h2 className="font-display text-h2 text-ink">{content.problem.title}</h2>
-            <p className="mt-5 max-w-md font-sans text-lg leading-relaxed text-muted">
-              {content.problem.body}
-            </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {content.problem.points.map((point) => (
-                <li
-                  key={point}
-                  className="rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2"
-                >
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
+        <div className="container-edge">
+          <h2 className="max-w-3xl font-display text-h2 text-ink">{content.problem.title}</h2>
+          <div className={`mt-10 grid items-center gap-10 lg:gap-14 ${content.image ? "lg:grid-cols-2" : ""}`}>
+            {content.image && (
+              <Reveal>
+                <NotchPhoto
+                  src={content.image.src}
+                  alt={content.image.alt}
+                  card={{ title: "Not sure where your leads are slipping away?", cta: { label: "Request a free Growth Audit", href: "/growth-audit" } }}
+                />
+              </Reveal>
+            )}
+            <Reveal delay={0.08}>
+              <p className="max-w-xl font-sans text-lg leading-relaxed text-muted">{content.problem.body}</p>
+              <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${content.image ? "lg:grid-cols-1" : "lg:grid-cols-4"}`}>
+                {content.problem.points.map((point) => (
+                  <li key={point} className="rounded-lg border border-line bg-card p-4 font-sans text-[15px] text-ink-2">
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
         </div>
       </section>
 

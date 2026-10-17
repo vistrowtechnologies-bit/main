@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
@@ -9,6 +8,7 @@ import { Steps } from "@/components/sections/steps";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -60,35 +60,36 @@ export function LocationPage({ content }: { content: LocationContent }) {
         ]}
       />
 
-      {content.image && (
-        <section className="pt-section">
-          <div className="container-edge">
-            <Reveal>
-              <figure className="relative aspect-[16/9] overflow-hidden rounded-xl border border-line sm:aspect-[21/9]">
-                <Image
-                  src={content.image.src}
-                  alt={content.image.alt}
-                  fill
-                  sizes="(min-width: 1280px) 1240px, 100vw"
-                  className="object-cover"
-                />
-              </figure>
-            </Reveal>
-          </div>
-        </section>
-      )}
 
       <section className="py-section">
-        <div className="container-edge grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-          <SectionHeading eyebrow={`${content.area} market`} title={content.localContext.title} />
-          <Reveal delay={0.08}>
-            <div className="space-y-5 font-sans text-lg leading-relaxed text-muted">
-              {content.localContext.paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+        {content.image ? (
+          <div className="container-edge">
+            <SectionHeading eyebrow={`${content.area} market`} title={content.localContext.title} className="mb-10 max-w-3xl" />
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+              <Reveal>
+                <NotchPhoto src={content.image.src} alt={content.image.alt} />
+              </Reveal>
+              <Reveal delay={0.08}>
+                <div className="space-y-5 font-sans text-base leading-[1.75] text-muted">
+                  {content.localContext.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </Reveal>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        ) : (
+          <div className="container-edge grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+            <SectionHeading eyebrow={`${content.area} market`} title={content.localContext.title} />
+            <Reveal delay={0.08}>
+              <div className="space-y-5 font-sans text-lg leading-relaxed text-muted">
+                {content.localContext.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        )}
       </section>
 
       <FeatureCards

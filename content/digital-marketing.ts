@@ -62,6 +62,7 @@ const cta = "Request a Growth Audit";
 export const digitalMarketingServices: Record<string, ServiceContent> = {
   "performance-advertising": {
     slug: "performance-advertising",
+    image: { src: "/images/services/svc-performance-advertising.webp", alt: "Performance marketer reviewing campaign results on an iMac with a colleague holding the weekly ad report" },
     title: "Performance Advertising",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -160,7 +161,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "website-development": {
     slug: "website-development",
-    image: { src: "/images/services/svc-website-development.webp", alt: "Designer and developer reviewing a client website Vistrow built, on an iMac and an iPhone" },
+    image: { src: "/images/services/svc-website-development.webp", alt: "Designer and developer reviewing a client website Vistrow built, on a blue iMac" },
     title: "Website Development",
     heroTitle: "Website development company in",
     highlight: "Pune",
@@ -276,7 +277,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "creative-strategy": {
     slug: "creative-strategy",
-    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Creative team reviewing printed ad concepts and a live brand website on an iMac" },
+    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Creative team reviewing a live brand website on an iMac with ad concepts pinned behind them" },
     title: "Creative Strategy",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -325,6 +326,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "social-media": {
     slug: "social-media",
+    image: { src: "/images/services/svc-social-media.webp", alt: "Social media manager planning posts on a MacBook Air and checking a draft on her phone" },
     title: "Social Media Marketing",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -373,6 +375,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "seo-content": {
     slug: "seo-content",
+    image: { src: "/images/services/svc-seo-content.webp", alt: "Content strategist reviewing the Vistrow blog on an iMac with a printed keyword list" },
     title: "SEO & Content Marketing",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -421,6 +424,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "conversion-tracking": {
     slug: "conversion-tracking",
+    image: { src: "/images/services/svc-conversion-tracking.webp", alt: "Analyst and business owner reviewing performance reports in ArthaLeads on a MacBook Air" },
     title: "Conversion Tracking",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -469,6 +473,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "marketing-automation": {
     slug: "marketing-automation",
+    image: { src: "/images/services/svc-marketing-automation.webp", alt: "Marketing executive reviewing automated WhatsApp follow-ups in the ArthaLeads team inbox" },
     title: "Marketing Automation",
     eyebrow: "Digital Marketing",
     subtitle:

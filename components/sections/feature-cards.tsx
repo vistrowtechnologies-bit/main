@@ -19,6 +19,9 @@ export function FeatureCards({
   columns?: 2 | 3 | 4;
   surface?: boolean;
 }) {
+  // Never leave a lone card on the last row: 4 items fill one row of 4, 3 items one row of 3.
+  if (columns === 3 && items.length === 4) columns = 4;
+  if (columns === 4 && items.length === 3) columns = 3;
   const cols =
     columns === 2 ? "sm:grid-cols-2" : columns === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3";
   return (
@@ -36,7 +39,7 @@ export function FeatureCards({
                     <item.icon className="h-6 w-6 text-accent-ink" strokeWidth={1.75} />
                   </div>
                 )}
-                <h3 className="mt-5 font-display text-lg font-bold text-ink">{item.title}</h3>
+                <h3 className={`${item.icon ? "mt-5" : ""} font-display text-lg font-bold text-ink`}>{item.title}</h3>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{item.body}</p>
               </div>
             </Reveal>

@@ -49,6 +49,7 @@ export const businessAutomationOverview: OverviewContent = {
 export const businessAutomationServices: Record<string, ServiceContent> = {
   "crm-lead-management": {
     slug: "crm-lead-management",
+    image: { src: "/images/services/svc-crm-lead-management.webp", alt: "Sales manager reviewing the ArthaLeads lead pipeline on an iMac with a telecaller" },
     title: "CRM & Lead Management",
     eyebrow: "AI Automation",
     subtitle:
@@ -97,6 +98,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "ai-voice-calling": {
     slug: "ai-voice-calling",
+    image: { src: "/images/services/svc-ai-voice-calling.webp", alt: "Support lead with a headset reviewing the Vistrow Voice AI calling agent on a MacBook Air" },
     title: "AI Voice Calling",
     heroTitle: "Multilingual AI voice assistant for",
     highlight: "Indian businesses",
@@ -159,6 +161,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "sales-automation": {
     slug: "sales-automation",
+    image: { src: "/images/services/svc-sales-automation.webp", alt: "Sales executive reviewing a lead record in ArthaLeads before a follow-up call" },
     title: "Sales Automation",
     eyebrow: "AI Automation",
     subtitle:
@@ -207,6 +210,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "communication-automation": {
     slug: "communication-automation",
+    image: { src: "/images/services/svc-communication-automation.webp", alt: "Customer success executive managing WhatsApp conversations in the ArthaLeads inbox and on his phone" },
     title: "WhatsApp, Email & SMS Automation",
     eyebrow: "AI Automation",
     subtitle:
@@ -256,6 +260,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "lead-follow-up": {
     slug: "lead-follow-up",
+    image: { src: "/images/services/svc-lead-follow-up.webp", alt: "Telecaller team lead checking overdue follow-ups and hot leads in ArthaLeads on an iMac" },
     title: "Lead Follow-Up Systems",
     eyebrow: "AI Automation",
     subtitle:
@@ -304,6 +309,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "custom-automation": {
     slug: "custom-automation",
+    image: { src: "/images/services/svc-custom-automation.webp", alt: "Operations manager and a Vistrow engineer mapping a workflow beside a business dashboard" },
     title: "Custom Automation",
     eyebrow: "AI Automation",
     subtitle:

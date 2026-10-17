@@ -40,12 +40,12 @@ export function LocalAreas({
     <section className="py-section">
       <div className="container-edge">
         <Reveal>
-          <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-xl border border-line sm:aspect-[21/9]">
+          <div className="relative mx-auto mb-12 aspect-[3/2] max-w-5xl overflow-hidden rounded-xl border border-line">
             <Image
               src="/images/home/pune-local.webp"
               alt="Pune showroom owner reviewing WhatsApp enquiries in the ArthaLeads inbox with her assistant"
               fill
-              sizes="(min-width: 1280px) 1240px, 100vw"
+              sizes="(min-width: 1080px) 1024px, 100vw"
               className="object-cover"
             />
           </div>

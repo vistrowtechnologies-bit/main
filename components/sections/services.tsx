@@ -64,13 +64,23 @@ export function Services() {
                 ))}
               </ul>
               </div>
-              <div className="relative min-h-[260px] lg:min-h-0 lg:flex-1">
+              {/* Landscape photo when stacked, a portrait version beside the text on desktop, so neither is cropped. */}
+              <div className="relative aspect-[3/2] lg:hidden">
                 <Image
                   src="/images/home/service-digital-marketing.webp"
                   alt="Marketers reviewing the Vistrow website on a blue iMac in a Pune office"
                   fill
-                  sizes="(min-width: 1024px) 33vw, 100vw"
+                  sizes="100vw"
                   className="object-cover"
+                />
+              </div>
+              <div className="relative hidden lg:block lg:w-[42%] lg:shrink-0">
+                <Image
+                  src="/images/home/service-digital-marketing-portrait.webp"
+                  alt="Marketers reviewing the Vistrow website on a blue iMac in a Pune office"
+                  fill
+                  sizes="28vw"
+                  className="object-cover object-top"
                 />
               </div>
             </div>
