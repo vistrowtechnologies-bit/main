@@ -40,8 +40,8 @@ const config: Config = {
         error: withOpacity("--error"),
       },
       fontFamily: {
-        display: ["var(--font-manrope)", "system-ui", "sans-serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["Manrope Rupee", "var(--font-manrope)", "system-ui", "sans-serif"],
+        sans: ["Inter Rupee", "var(--font-inter)", "system-ui", "sans-serif"],
       },
       fontSize: {
         "hero-lg": ["clamp(2.5rem, 4.4vw, 3.75rem)", { lineHeight: "1.08", letterSpacing: "-0.035em", fontWeight: "800" }],

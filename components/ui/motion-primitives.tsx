@@ -72,10 +72,30 @@ export function ScrollParallax({
   });
   const y = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
 
+  // Written straight to the element: under LazyMotion the first scroll measurement
+  // lands before the animation features load and would not reach the DOM until a scroll.
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    if (reduce) {
+      node.style.transform = "";
+      return;
+    }
+    const apply = (value: number) => {
+      node.style.transform = `translateY(${value}px)`;
+    };
+    apply(y.get());
+    return y.on("change", apply);
+  }, [reduce, y]);
+
   return (
-    <m.div ref={ref} className={`relative ${className}`} style={{ y: reduce ? 0 : y }}>
+    <div
+      ref={ref}
+      className={`relative ${className}`}
+      style={reduce ? undefined : { transform: `translateY(${distance}px)` }}
+    >
       {children}
-    </m.div>
+    </div>
   );
 }
 

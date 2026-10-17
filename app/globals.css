@@ -129,6 +129,24 @@ body:has(.review-experience) .vistrow-shell-tools {
   --accent-strong: 191 92 255; /* softened neon violet for readable text on carbon */
 }
 
+/* The rupee sign (U+20B9) is the only character the site uses from the Inter/Manrope
+   latin-ext subsets, which are 85 KB+ each. These 1 KB files hold just that glyph,
+   cut from the same fonts, so the large subsets are never downloaded. */
+@font-face {
+  font-family: "Inter Rupee";
+  src: url("/fonts/inter-rupee.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+@font-face {
+  font-family: "Manrope Rupee";
+  src: url("/fonts/manrope-rupee.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+
 @layer base {
   * {
     border-color: rgb(var(--line) / 1);
