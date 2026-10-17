@@ -67,7 +67,7 @@ export const workPages: Record<string, WorkContent> = {
       {
         title: "ArthaLeads: real-estate lead operations",
         tag: "Owned product",
-        summary: "A unified workflow for leads from advertising, WhatsApp, websites, and property portals, with assignment and follow-up visibility.",
+        summary: "A unified workflow for leads from advertising, WhatsApp and websites, plus imported property-portal leads, with assignment and follow-up visibility.",
         metric: "One",
         metricLabel: "Operational lead workspace",
         evidence: ["Live product walkthrough", "Lead-source and pipeline demonstration", "Role and follow-up workflow review"],
@@ -77,10 +77,10 @@ export const workPages: Record<string, WorkContent> = {
       {
         title: "Vistrow.com: connected acquisition journey",
         tag: "First-party build",
-        summary: "A content, conversion, CRM-enquiry, analytics-consent, and measurement foundation built as one public system.",
+        summary: "A content, conversion, CRM-enquiry, and measurement foundation built as one public system.",
         metric: "End-to-end",
         metricLabel: "Publicly inspectable journey",
-        evidence: ["Route-specific metadata and schema", "Consent-aware analytics", "Validated enquiry and confirmation workflow"],
+        evidence: ["Route-specific metadata and schema", "GA4 analytics with conversion events", "Validated enquiry and confirmation workflow"],
         href: "/approach",
         linkLabel: "See the delivery method",
       },
