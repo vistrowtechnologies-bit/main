@@ -33,6 +33,7 @@ const tag = (c) => createHash("sha256").update(`${c.slug}:vistrow-playbook`).dig
 export const pdfName = (c) => `vistrow-day-${c.day}-${c.slug}-${tag(c)}.pdf`;
 const coverName = (c) => `cover-day-${c.day}-${tag(c)}.jpg`;
 const reelName = (c) => `reel-day-${c.day}-${tag(c)}.jpg`;
+const cardName = (c) => `card-day-${c.day}-${tag(c)}.jpg`;
 
 function inside(c) {
   const out = [];
@@ -177,6 +178,24 @@ function html(c, coverOnly = false) {
   </main></body></html>`;
 }
 
+// 1200x628 card for the Instagram DM flow (Instagram shows template images at ~1.91:1)
+function cardHtml(c) {
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${css}
+  body{width:1200px;height:628px;margin:0;background:#0b0b0c;color:#fff;overflow:hidden;position:relative}
+  .g{position:absolute;right:-160px;top:-200px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(198,255,0,.35),rgba(198,255,0,0) 65%)}
+  .l{position:absolute;left:64px;top:56px;height:44px}
+  .k{position:absolute;left:64px;top:150px;background:#c6ff00;color:#0b0b0c;font-weight:800;font-size:22px;padding:8px 18px;border-radius:99px;letter-spacing:.05em}
+  .d{position:absolute;left:60px;top:205px;font-family:Manrope;font-weight:800;font-size:150px;line-height:1;color:#c6ff00;letter-spacing:-.05em}
+  .t{position:absolute;left:64px;top:375px;width:560px;font-family:Manrope;font-weight:800;font-size:44px;line-height:1.08}
+  .f{position:absolute;left:64px;bottom:44px;font-size:22px;color:#aaa}
+  .p{position:absolute;right:70px;top:70px;width:330px;height:466px;object-fit:cover;border-radius:10px;transform:rotate(4deg);border:6px solid #fff}
+  .q{position:absolute;right:330px;top:150px;width:250px;height:330px;object-fit:cover;border-radius:8px;transform:rotate(-6deg);border:6px solid #fff}
+  </style></head><body><div class="g"></div><img class="l" src="${asset("logo-dark.png")}">
+  <span class="k">FREE · 100 DIN PLAYBOOK</span><div class="d">Day ${c.day}</div><div class="t">${esc(c.title)}</div>
+  <div class="f">Checklist + printable PDF · vistrow.com/playbook</div>
+  <img class="q" src="${photo(c, 2)}"><img class="p" src="file://${path.join(outDir, coverName(c))}"></body></html>`;
+}
+
 const meta = {};
 for (const c of chapters) {
   const h = path.join(work, `day-${c.day}.html`);
@@ -190,9 +209,13 @@ for (const c of chapters) {
   // small JPEGs keep every page light (Next/Image resizes them again on the site)
   execFileSync("sips", ["-Z", "600", "-s", "format", "jpeg", "-s", "formatOptions", "70", path.join(work, "cover.png"), "--out", path.join(outDir, coverName(c))], { stdio: "ignore" });
   execFileSync("sips", ["-Z", "540", "-s", "formatOptions", "72", path.join(root, "assets/reel-covers", `day-${c.day}.jpg`), "--out", path.join(outDir, reelName(c))], { stdio: "ignore" });
+  const kh = path.join(work, `card-${c.day}.html`);
+  writeFileSync(kh, cardHtml(c));
+  execFileSync(CHROME, ["--headless=new", "--disable-gpu", "--allow-file-access-from-files", "--hide-scrollbars", "--window-size=1200,628", `--screenshot=${path.join(work, "card.png")}`, "file://" + kh], { stdio: "ignore" });
+  execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "78", path.join(work, "card.png"), "--out", path.join(outDir, cardName(c))], { stdio: "ignore" });
   const buf = readFileSync(pdf);
   const pages = (buf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
-  meta[c.day] = { file: `/playbook/pdf/${pdfName(c)}`, cover: `/playbook/pdf/${coverName(c)}`, reel: `/playbook/pdf/${reelName(c)}`, pages, kb: Math.round(statSync(pdf).size / 1024) };
+  meta[c.day] = { file: `/playbook/pdf/${pdfName(c)}`, cover: `/playbook/pdf/${coverName(c)}`, reel: `/playbook/pdf/${reelName(c)}`, card: `/playbook/pdf/${cardName(c)}`, pages, kb: Math.round(statSync(pdf).size / 1024) };
   console.log(`Day ${c.day}: ${pdfName(c)} · ${pages} pages · ${meta[c.day].kb} KB`);
 }
 writeFileSync(path.join(root, "content/playbook-pdfs.json"), JSON.stringify(meta, null, 2) + "\n");
