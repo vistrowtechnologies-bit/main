@@ -6,7 +6,7 @@ export const legalPages: Record<string, LegalContent> = {
   "privacy-policy": {
     slug: "privacy-policy",
     title: "Privacy Policy",
-    updated,
+    updated: "17 October 2026",
     intro:
       "This Privacy Policy explains how Vistrow Technologies collects, uses, shares, and protects personal information submitted through this website and our business services.",
     sections: [
@@ -33,6 +33,16 @@ export const legalPages: Record<string, LegalContent> = {
       { heading: "Your choices and rights", body: [
         "Depending on applicable law, you may ask for access to personal information, correction of inaccurate information, deletion, withdrawal of consent, or information about how a request has been handled.",
         "To make a request or raise a grievance, email hello@vistrow.com. We may need to verify your identity before acting on a request.",
+      ]},
+      { heading: "Instagram, Facebook and WhatsApp interactions", id: "social-media-data", body: [
+        "When you comment on or message our Instagram or Facebook accounts, or message us on WhatsApp, we receive the information those platforms share with us through Meta's official APIs: your public username, an app-scoped account ID, the text of your comment or message, its time, and whether you follow our account.",
+        "We use this only to reply to you, to send the free resource you asked for (for example, a 100 Din Playbook link when you comment a keyword such as START), to answer questions, and to understand which content is useful. We do not sell this information or use it for unrelated advertising.",
+        "Comment and message records used for automated replies are kept for up to 90 days, then deleted. Conversations that turn into an enquiry or a client relationship are handled under 'Retention and security' above.",
+      ]},
+      { heading: "How to delete your data", id: "data-deletion", body: [
+        "You can ask us to delete any personal information we hold about you, including data received through Instagram, Facebook or WhatsApp. Send the request to hello@vistrow.com, or message us on WhatsApp at +91 90670 97779 or by Instagram DM to @vistrow_technologies, with the subject 'Delete my data' and your username or phone number.",
+        "We will confirm receipt and delete or anonymise the information within 30 days, unless we must keep a record by law (for example, invoices). We will tell you when it is done.",
+        "You can also remove our app's access at any time from your Instagram or Facebook settings: Settings → Apps and websites (or Business integrations) → select Vistrow Publisher → Remove. Deleting a comment or message on Instagram also removes it from the platform.",
       ]},
       { heading: "Children", body: [
         "This website and our business services are not directed to children. Please do not submit a child's personal information through our forms or chat.",

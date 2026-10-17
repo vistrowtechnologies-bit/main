@@ -19,7 +19,7 @@ export function LegalPage({ content }: { content: LegalContent }) {
 
           <div className="mt-10 space-y-10">
             {content.sections.map((section) => (
-              <section key={section.heading}>
+              <section key={section.heading} id={section.id} className="scroll-mt-28">
                 <h2 className="font-display text-h3 text-ink">{section.heading}</h2>
                 {section.body.map((para, i) => (
                   <p key={i} className="mt-3 font-sans text-base leading-relaxed text-ink-2">

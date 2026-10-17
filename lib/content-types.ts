@@ -113,7 +113,7 @@ export type LegalContent = {
   title: string;
   updated: string;
   intro: string;
-  sections: { heading: string; body: string[] }[];
+  sections: { heading: string; body: string[]; /** optional anchor, e.g. "data-deletion" */ id?: string }[];
 };
 
 export type BlogSectionImage = { url: string; alt?: string; caption?: string; width?: number; height?: number };
