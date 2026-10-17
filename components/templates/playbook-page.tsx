@@ -263,7 +263,7 @@ export function PlaybookChapterPage({ chapter, preview = false, live = null }: {
                 <Chip><Clock className="h-3.5 w-3.5" /> 5 min</Chip>
                 <Chip>Free</Chip>
               </div>
-              <h1 className="mt-3 max-w-4xl font-display text-[clamp(1.6rem,4.6vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink">{chapter.title}</h1>
+              <h1 className="mt-3 max-w-4xl font-display text-[clamp(1.6rem,4.6vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink">{chapter.h1 ?? chapter.title}</h1>
               <p className="mt-3 max-w-2xl font-sans text-[15px] leading-relaxed text-muted sm:text-lg">{chapter.summary}</p>
               <div className="mt-6 hidden gap-3 sm:flex">
                 <a href={reel} target="_blank" rel="noopener" className="btn-primary">Day {chapter.day} reel dekho <ArrowRight className="h-4 w-4" /></a>

@@ -30,6 +30,9 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
     keywords: ["online presence checklist", "small business online presence India", "business ko online kaise laye", "Google pe business kaise dikhe", "local business audit"],
     time: "PT5M",
     faq: [
+      ["How do I know if my business shows on Google?", "Search your business name with your city. If a profile appears on the right with “Own this business?”, it exists but is unclaimed: claim it. If nothing appears, create a free Google Business Profile."],
+      ["Is Instagram enough for a small business?", "No. Customers check Google and Maps first; Instagram supports it. Start with the free Google profile, WhatsApp Business and Instagram, and add a simple website when you can."],
+
       ["What is online presence for a small business?", "It is everything a customer finds when they look you up on their phone: your Google profile, reviews, photos, Instagram, website and WhatsApp. Customers usually check this before they visit or call."],
       ["Where should I start if my score is low?", "Start with a free Google Business Profile (Day 2), because it is what shows up on Google Search and Maps when people search for your type of business nearby."],
       ["Why must name, address and phone be the same everywhere?", "Matching details on Google, Instagram, your website and directories help customers trust that the listing is correct and help search engines connect them to one business."],
@@ -43,6 +46,9 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
     keywords: ["Google Business Profile kaise banaye", "create Google Business Profile free", "Google My Business India", "Google Maps pe dukaan kaise dale", "GBP verification"],
     time: "PT30M",
     faq: [
+      ["How long does the Google verification postcard take?", "Google says most postcards arrive within 14 days and the code expires after 30 days. While you wait, don't change the name, address or category, and don't request a new code."],
+      ["Can I put prices in the description?", "No. The 750-character description is for what you do, for whom and where, with no links, offers or prices. Add prices in the Services section (or Menu for food businesses)."],
+
       ["Is Google Business Profile free?", "Yes, it is completely free. Anyone asking for a 'verification fee' is not Google and is likely a scam."],
       ["Can I add keywords to my business name?", "No. Use the real name on your signboard. Adding extra keywords goes against Google's guidelines and can get the profile suspended."],
       ["How do I verify my Google Business Profile?", "Google shows the verification options available for your business, such as phone, email, a short video or a postcard. The profile is not fully live until it is verified."],
@@ -57,6 +63,9 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
     keywords: ["small business website checklist", "website must haves", "website kaisi honi chahiye", "website for small business India", "website conversion checklist"],
     time: "PT10M",
     faq: [
+      ["Is a one-page website enough?", "For most local businesses, yes, if it has the 10 must-haves: prices, photos, Maps link, WhatsApp and call buttons, reviews, FAQ and one clear action button."],
+      ["What is the difference between a website and a Google Business Profile?", "The Google profile helps people find you on Search and Maps. The website is your showroom with prices, photos and answers. Link them to each other."],
+
       ["Do I need a website if I already have Instagram?", "Instagram works like a shop window where people look; the website is the showroom where they see everything, the prices and the order button in one place. That step from looking to buying is called conversion."],
       ["What should go on the website's first page?", "The answer to the question customers ask you most often. Count your DMs for a day; the most repeated question belongs on the first page."],
       ["Should I show prices on my website?", "Yes, at least a 'starting from' price. When the price is hidden, many customers leave instead of asking."],
@@ -70,6 +79,9 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
     keywords: ["Google review request message", "WhatsApp review message template", "Google review kaise maange", "how to get more Google reviews", "review request template Hindi"],
     time: "PT5M",
     faq: [
+      ["Can I ask only happy customers for a review?", "No. Google's policy does not allow selectively asking for positive reviews. Send the same polite message to every customer and handle complaints separately."],
+      ["Can I ask customers to give 5 stars or mention a product?", "No. Ask for honest feedback only. Requesting specific ratings or content, or pressuring people at the shop, is against Google's rules."],
+
       ["Where do I get my Google review link?", "Open your Google Business Profile and use the 'Ask for reviews' or 'Share review form' option; it gives you a link you can paste into WhatsApp."],
       ["Can I give a discount in exchange for a review?", "No. Offering incentives for reviews is against Google's policies and can get reviews removed. Ask real customers, politely."],
       ["How many times should I remind a customer?", "Once. Send one polite reminder 2–3 days later, then stop."],
@@ -83,6 +95,8 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
     keywords: ["lead tracker sheet", "free lead tracker Google Sheets", "follow up schedule", "speed to lead", "lead follow up kaise kare"],
     time: "PT10M",
     faq: [
+      ["Do I need a CRM to track leads?", "Not to start. A simple sheet with a reply-time and next follow-up column is enough for a small business. Move to a CRM when the sheet gets too big to manage."],
+
       ["What is speed to lead?", "It is how quickly you reply after an enquiry arrives. Customers often ask 2–3 businesses at once, and the one that answers first often gets the deal."],
       ["What columns should a lead tracker have?", "Date, name and number, source, requirement, message time, reply time, status (new, in discussion, visit, won, lost), next follow-up date and notes."],
       ["How do I open the free tracker?", "Download the CSV and open it in Google Sheets (File → Import) or Excel."],
