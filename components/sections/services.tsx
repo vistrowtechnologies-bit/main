@@ -67,7 +67,7 @@ export function Services() {
               <div className="relative min-h-[260px] lg:min-h-0 lg:flex-1">
                 <Image
                   src="/images/home/service-digital-marketing.webp"
-                  alt="Marketer reviewing paid ad campaign results on a laptop"
+                  alt="Marketers reviewing the Vistrow website on a blue iMac in a Pune office"
                   fill
                   sizes="(min-width: 1024px) 33vw, 100vw"
                   className="object-cover"
@@ -95,7 +95,7 @@ export function Services() {
                 <div className="relative aspect-[3/2] overflow-hidden rounded-sm">
                   <Image
                     src="/images/home/service-crm.webp"
-                    alt="Team member reviewing leads in a CRM dashboard"
+                    alt="Telecaller working through the ArthaLeads lead pipeline on a MacBook Air while his manager looks on"
                     fill
                     sizes="(min-width: 768px) 28vw, 100vw"
                     className="object-cover"

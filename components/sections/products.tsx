@@ -19,11 +19,11 @@ const products = [
   {
     name: "Vistrow Voice",
     href: "/products/vistrow-voice",
-    body: "India-native AI voice agents for inbound, outbound, and web calls in 10 languages - available 24/7.",
+    body: "India-native AI voice agents for inbound, outbound, and web calls in 11 languages - available 24/7.",
     icon: Phone,
     accent: "border-l-accent",
     status: "On call",
-    metric: "10 Indian languages",
+    metric: "11 languages",
     rows: [
       ["Inbound calls", "Answering"],
       ["Knowledge base", "Grounded"],
@@ -123,7 +123,7 @@ export function Products() {
             <div className="relative mt-8 aspect-[3/2] overflow-hidden rounded-lg border border-line">
               <Image
                 src="/images/home/products.webp"
-                alt="Laptop and phone showing the ArthaLeads CRM and Vistrow Voice products"
+                alt="ArthaLeads CRM dashboard on a MacBook Air beside Vistrow Voice on an iPhone"
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"

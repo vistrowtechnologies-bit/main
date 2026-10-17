@@ -126,7 +126,7 @@ export default function Page() {
         </div>
       </section>
 
-      <PageImage src="/images/brand/reception-logo.webp" alt="Illustrative reception area with the Vistrow logo on the wall" position="bottom" />
+      <PageImage src="/images/brand/reception-logo.webp" alt="Vistrow reception in Baner, Pune, with the contact page open on an iMac and the logo on the wall" position="bottom" />
       <FeatureCards eyebrow="What happens next" title="A clear first conversation" items={nextSteps} columns={3} surface />
       <Faq items={faqs} title="Before you send an enquiry" />
     </>

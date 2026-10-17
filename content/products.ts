@@ -31,7 +31,7 @@ export const productsOverview: OverviewContent = {
   metaDescription: "Explore Vistrow Voice AI calling agents, ArthaLeads real estate CRM, and custom SaaS and internal software from Vistrow Labs.",
   cardsTitle: "Our products",
   cards: [
-    { label: "Vistrow Voice", href: "/products/vistrow-voice", body: "India-native AI voice agents for inbound, outbound, and web calls in 10 languages.", icon: Phone },
+    { label: "Vistrow Voice", href: "/products/vistrow-voice", body: "India-native AI voice agents for inbound, outbound, and web calls in 11 languages.", icon: Phone },
     { label: "ArthaLeads", href: "/products/arthaleads", body: "A real-estate CRM that brings Facebook, Google, WhatsApp, and website leads into one workspace.", icon: Database },
     { label: "Vistrow Labs", href: "/products/vistrow-labs", body: "Custom SaaS and internal tools built for your workflow.", icon: FlaskConical },
   ],
@@ -69,14 +69,14 @@ export const products: Record<string, ProductContent> = {
       "AI voice agents that answer, qualify, and book in your customers’ language - across inbound calls, outbound campaigns, and a one-tap website calling widget, live 24/7.",
     metaTitle: "Vistrow Voice: AI Voice Calling Agent for India",
     metaDescription:
-      "Vistrow Voice provides inbound, outbound, and web-based AI calling in 10 Indian languages, with knowledge-grounded answers and CRM webhooks.",
+      "Vistrow Voice provides inbound, outbound, and web-based AI calling in 11 languages (Hindi, English and 9 more Indian languages), with knowledge-grounded answers and CRM webhooks.",
     useCases: [
       { icon: Phone, title: "Inbound call handling", body: "Answer every incoming call, qualify intent, and route or book the next step." },
       { icon: Activity, title: "Outbound campaigns", body: "Run reminder, follow-up, and collection calls at scale without manual dialling." },
       { icon: Globe2, title: "Website voice widget", body: "Let visitors talk to your AI agent in the browser without sharing a phone number." },
     ],
     features: [
-      { icon: Languages, title: "10 Indian languages", body: "Speak with customers in Hindi, Hinglish, and eight more Indian languages." },
+      { icon: Languages, title: "11 languages", body: "Speak with customers in Hindi, English, Hinglish and 9 more Indian languages, with mid-sentence language switching." },
       { icon: Activity, title: "Low-latency conversation", body: "Real-time, emotion-aware conversations designed to feel responsive." },
       { icon: BookOpen, title: "Knowledge base", body: "Ground answers in uploaded PDFs and documents using retrieval-based knowledge." },
       { icon: Filter, title: "No-code agent builder", body: "Configure persona, prompts, voice, language, and business rules without coding." },
@@ -122,7 +122,7 @@ export const products: Record<string, ProductContent> = {
     ],
     preview: {
       stats: [
-        { value: "10", label: "Indian languages" },
+        { value: "11", label: "Languages" },
         { value: "24/7", label: "Always answering" },
         { value: "3", label: "Calling channels" },
       ],

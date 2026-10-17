@@ -86,7 +86,7 @@ export default function Page() {
         </div>
       </section>
 
-      <PageImage src="/images/brand/meeting-room-logo.webp" alt="Illustrative meeting room with the Vistrow logo on the wall" position="bottom" />
+      <PageImage src="/images/brand/meeting-room-logo.webp" alt="Vistrow consultant walking a client through a growth audit on a MacBook Air" position="bottom" />
     </>
   );
 }

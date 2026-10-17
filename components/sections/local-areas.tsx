@@ -43,7 +43,7 @@ export function LocalAreas({
           <div className="relative mb-12 aspect-[16/9] overflow-hidden rounded-xl border border-line sm:aspect-[21/9]">
             <Image
               src="/images/home/pune-local.webp"
-              alt="Illustrative view of western Pune with office buildings and residential towers at sunset"
+              alt="Pune showroom owner reviewing WhatsApp enquiries in the ArthaLeads inbox with her assistant"
               fill
               sizes="(min-width: 1280px) 1240px, 100vw"
               className="object-cover"
