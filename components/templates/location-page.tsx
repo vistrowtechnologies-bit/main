@@ -18,6 +18,12 @@ import { breadcrumbSchema, businessPhone, businessWhatsapp, faqSchema, graph, lo
 export function LocationPage({ content }: { content: LocationContent }) {
   const path = `/locations/${content.slug}`;
   const otherAreas = Object.values(locations).filter((area) => area.slug !== content.slug);
+  // Service links fill whole rows: add an "All services" card when the count divides by neither 3 nor 4.
+  const serviceLinks =
+    content.services.length % 3 === 0 || content.services.length % 4 === 0
+      ? content.services
+      : [...content.services, { label: "All services", href: "/services" }];
+  const serviceCols = serviceLinks.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4";
 
   return (
     <>
@@ -65,12 +71,12 @@ export function LocationPage({ content }: { content: LocationContent }) {
         {content.image ? (
           <div className="container-edge">
             <SectionHeading eyebrow={`${content.area} market`} title={content.localContext.title} className="mb-10 max-w-3xl" />
-            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-              <Reveal>
+            <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
+              <Reveal className="max-w-2xl xl:max-w-none">
                 <NotchPhoto src={content.image.src} alt={content.image.alt} />
               </Reveal>
               <Reveal delay={0.08}>
-                <div className="space-y-5 font-sans text-base leading-[1.75] text-muted">
+                <div className="max-w-2xl space-y-5 font-sans text-base leading-[1.75] text-muted xl:max-w-none">
                   {content.localContext.paragraphs.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
@@ -129,10 +135,10 @@ export function LocationPage({ content }: { content: LocationContent }) {
           <SectionHeading eyebrow="The Vistrow approach" title={content.solution.title} description={content.solution.body} />
           <Reveal delay={0.08}>
             <ul className="grid gap-3 sm:grid-cols-2">
-              {content.solution.points.map((point) => (
+              {content.solution.points.map((point, i, all) => (
                 <li
                   key={point}
-                  className="rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2"
+                  className={`rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2 ${all.length % 2 === 1 && i === all.length - 1 ? "sm:col-span-2" : ""}`}
                 >
                   {point}
                 </li>
@@ -145,8 +151,8 @@ export function LocationPage({ content }: { content: LocationContent }) {
       <section className="border-t border-line bg-surface py-section">
         <div className="container-edge">
           <SectionHeading eyebrow="Relevant services" title={`Services for ${content.area} businesses`} align="center" className="mb-12" />
-          <div className="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-3">
-            {content.services.map((service, i) => (
+          <div className={`grid grid-cols-1 gap-gutter sm:grid-cols-2 ${serviceCols}`}>
+            {serviceLinks.map((service, i) => (
               <Reveal key={service.href} delay={(i % 3) * 0.06}>
                 <Link
                   href={service.href}
@@ -169,8 +175,11 @@ export function LocationPage({ content }: { content: LocationContent }) {
           <SectionHeading eyebrow="Local visibility" title={content.visibility.title} description={content.visibility.body} />
           <Reveal delay={0.08}>
             <ul className="grid gap-3 sm:grid-cols-2">
-              {content.visibility.points.map((point) => (
-                <li key={point} className="rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2">
+              {content.visibility.points.map((point, i, all) => (
+                <li
+                  key={point}
+                  className={`rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2 ${all.length % 2 === 1 && i === all.length - 1 ? "sm:col-span-2" : ""}`}
+                >
                   {point}
                 </li>
               ))}
@@ -225,10 +234,18 @@ export function LocationPage({ content }: { content: LocationContent }) {
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    href="/locations"
+                    className="group flex items-center justify-between gap-3 rounded-lg border border-accent/40 bg-card px-4 py-3 font-sans text-[15px] font-semibold text-accent-strong transition-colors hover:border-accent"
+                  >
+                    All locations
+                    <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+                  </Link>
+                </li>
               </ul>
               <p className="mt-5 font-sans text-sm text-muted">
-                Also serving nearby areas including {content.nearby.filter((n) => !otherAreas.some((a) => a.area === n)).join(", ") || "the wider Pune region"}.{" "}
-                <Link href="/locations" className="font-semibold text-accent-strong hover:underline">All locations</Link>
+                Also serving nearby areas including {content.nearby.filter((n) => !otherAreas.some((a) => a.area === n)).join(", ") || "the wider Pune region"}.
               </p>
             </div>
           </Reveal>

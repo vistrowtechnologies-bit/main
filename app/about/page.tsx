@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Compass, ShieldCheck, LineChart, Layers, Megaphone, Cog, Boxes, Building2, Users, BadgeCheck } from "lucide-react";
-import { PageImage } from "@/components/sections/page-image";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { LinkCardGrid } from "@/components/sections/link-card-grid";
@@ -77,13 +77,15 @@ export default function Page() {
         secondaryCta={{ label: "Our approach", href: "/approach" }}
       />
 
-      <PageImage src="/images/brand/office-wall-logo.webp" alt="Vistrow team reviewing the Vistrow website on an iMac in the Baner office, logo on the wall" />
-
       <section className="py-section">
-        <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading eyebrow="Why we exist" title="Marketing shouldn't stop at the click." />
-          <Reveal>
-            <div className="space-y-5 font-sans text-lg leading-relaxed text-muted">
+        <div className="container-edge">
+          <SectionHeading eyebrow="Why we exist" title="Marketing shouldn't stop at the click." className="mb-10 max-w-3xl" />
+          <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
+          <Reveal className="max-w-2xl xl:max-w-none">
+            <NotchPhoto src="/images/brand/office-wall-logo.webp" alt="Vistrow team reviewing the Vistrow website on an iMac in the Baner office, logo on the wall" />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="max-w-2xl space-y-5 font-sans text-lg leading-relaxed text-muted xl:max-w-none">
               <p>
                 Most businesses can generate attention. The harder problem is what happens
                 next - slow responses, disconnected CRMs, missed follow-ups, and no clear link
@@ -100,6 +102,7 @@ export default function Page() {
               </p>
             </div>
           </Reveal>
+          </div>
         </div>
       </section>
 

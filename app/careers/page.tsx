@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Heart, Globe2, TrendingUp, Sparkles } from "lucide-react";
-import { PageImage } from "@/components/sections/page-image";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Reveal } from "@/components/ui/reveal";
@@ -47,24 +47,33 @@ export default function Page() {
 
       <FeatureCards eyebrow="A useful introduction" title="What to include when you contact us" items={candidateSignals} columns={3} />
 
-      <PageImage src="/images/brand/desk-branded-items.webp" alt="New Vistrow team member opening the careers page on a MacBook Air, Vistrow notebook on the desk" />
-
       <section className="py-section">
         <div className="container-edge">
-          <SectionHeading eyebrow="Open roles" title="Current openings" align="center" className="mb-10" />
-          <Reveal>
-            <div className="mx-auto max-w-2xl rounded-xl border border-dashed border-line bg-card p-10 text-center">
-              <p className="font-display text-lg font-bold text-ink">No open roles right now</p>
-              <p className="mx-auto mt-2 max-w-md font-sans text-muted">
-                We hire ahead of need. If you&apos;re excellent at performance marketing,
-                automation, design, or product engineering, send a concise introduction with
-                one relevant work sample. We do not ask for unpaid speculative work.
-              </p>
-              <Link href="/contact" className="btn-primary mt-6">
-                Send your details
-              </Link>
-            </div>
-          </Reveal>
+          <SectionHeading eyebrow="Open roles" title="Current openings" className="mb-10" />
+          <div className="grid gap-gutter lg:grid-cols-2">
+            <Reveal>
+              <NotchPhoto
+                src="/images/brand/desk-branded-items.webp"
+                alt="New Vistrow team member opening the careers page on a MacBook Air, Vistrow notebook on the desk"
+                sizes="(min-width: 1024px) 600px, 100vw"
+              />
+            </Reveal>
+            <Reveal delay={0.08} className="h-full">
+              <div className="flex h-full flex-col justify-center rounded-[28px] border border-dashed border-line bg-card p-8 sm:p-10">
+                <p className="font-display text-h3 text-ink">No open roles right now</p>
+                <p className="mt-3 max-w-md font-sans leading-relaxed text-muted">
+                  We hire ahead of need. If you&apos;re excellent at performance marketing,
+                  automation, design, or product engineering, send a concise introduction with
+                  one relevant work sample. We do not ask for unpaid speculative work.
+                </p>
+                <div>
+                  <Link href="/contact" className="btn-primary mt-7">
+                    Send your details
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
     </>

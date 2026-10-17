@@ -73,9 +73,9 @@ export function ServicePage({
       <section className="py-section">
         <div className="container-edge">
           <h2 className="max-w-3xl font-display text-h2 text-ink">{content.problem.title}</h2>
-          <div className={`mt-10 grid items-center gap-10 lg:gap-14 ${content.image ? "lg:grid-cols-2" : ""}`}>
+          <div className={`mt-10 grid items-center gap-10 xl:gap-14 ${content.image ? "xl:grid-cols-2" : ""}`}>
             {content.image && (
-              <Reveal>
+              <Reveal className="max-w-2xl xl:max-w-none">
                 <NotchPhoto
                   src={content.image.src}
                   alt={content.image.alt}
@@ -85,7 +85,7 @@ export function ServicePage({
             )}
             <Reveal delay={0.08}>
               <p className="max-w-xl font-sans text-lg leading-relaxed text-muted">{content.problem.body}</p>
-              <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${content.image ? "lg:grid-cols-1" : "lg:grid-cols-4"}`}>
+              <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${content.image ? "xl:grid-cols-1" : "lg:grid-cols-4"}`}>
                 {content.problem.points.map((point) => (
                   <li key={point} className="rounded-lg border border-line bg-card p-4 font-sans text-[15px] text-ink-2">
                     {point}

@@ -23,7 +23,13 @@ export function FeatureCards({
   if (columns === 3 && items.length === 4) columns = 4;
   if (columns === 4 && items.length === 3) columns = 3;
   const cols =
-    columns === 2 ? "sm:grid-cols-2" : columns === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3";
+    columns === 2
+      ? "sm:grid-cols-2"
+      : columns === 4
+        ? "sm:grid-cols-2 lg:grid-cols-4"
+        : items.length === 3
+          ? "md:grid-cols-3"
+          : "sm:grid-cols-2 lg:grid-cols-3";
   return (
     <section className={`py-section ${surface ? "bg-surface" : ""}`}>
       <div className="container-edge">

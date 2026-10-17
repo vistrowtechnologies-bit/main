@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Search, GitCompareArrows, ClipboardList, CalendarCheck, MessagesSquare, ListChecks } from "lucide-react";
-import { PageImage } from "@/components/sections/page-image";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { PageHero } from "@/components/sections/page-hero";
 import { GrowthAuditForm } from "@/components/forms/growth-audit-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -73,20 +73,27 @@ export default function Page() {
       <Steps eyebrow="What happens next" title="From request to useful priorities" steps={auditSteps} />
       <section id="audit-form" className="py-section">
         <div className="container-edge">
-          <div className="mx-auto max-w-3xl">
-            <div className="mb-8 text-center">
-              <span className="eyebrow">Request your audit</span>
-              <h2 className="mt-3 font-display text-h2 text-ink">A couple of quick details</h2>
-              <p className="mx-auto mt-3 max-w-xl font-sans text-muted">
-                We only ask what we need to assess fit and prepare the first conversation. It takes about a minute.
-              </p>
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <span className="eyebrow">Request your audit</span>
+            <h2 className="mt-3 font-display text-h2 text-ink">A couple of quick details</h2>
+            <p className="mx-auto mt-3 max-w-xl font-sans text-muted">
+              We only ask what we need to assess fit and prepare the first conversation. It takes about a minute.
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-3xl items-center gap-10 xl:max-w-none xl:grid-cols-2 xl:gap-14">
+            <div className="order-2 xl:order-1">
+              <NotchPhoto
+                src="/images/brand/meeting-room-logo.webp"
+                alt="Vistrow consultant walking a client through a growth audit on a MacBook Air"
+                sizes="(min-width: 1280px) 600px, 100vw"
+              />
             </div>
-            <GrowthAuditForm />
+            <div className="order-1 xl:order-2">
+              <GrowthAuditForm />
+            </div>
           </div>
         </div>
       </section>
-
-      <PageImage src="/images/brand/meeting-room-logo.webp" alt="Vistrow consultant walking a client through a growth audit on a MacBook Air" position="bottom" />
     </>
   );
 }

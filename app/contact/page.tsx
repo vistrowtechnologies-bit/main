@@ -5,7 +5,7 @@ import { businessPhone, businessWhatsapp, breadcrumbSchema, faqSchema, graph } f
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteUrl } from "@/lib/seo";
-import { PageImage } from "@/components/sections/page-image";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { PageHero } from "@/components/sections/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -126,7 +126,35 @@ export default function Page() {
         </div>
       </section>
 
-      <PageImage src="/images/brand/reception-logo.webp" alt="Vistrow reception in Baner, Pune, with the contact page open on an iMac and the logo on the wall" position="bottom" />
+      <section className="pb-section">
+        <div className="container-edge grid gap-gutter lg:grid-cols-2">
+          <Reveal>
+            <NotchPhoto
+              src="/images/brand/reception-logo.webp"
+              alt="Vistrow reception in Baner, Pune, with the contact page open on an iMac and the logo on the wall"
+              sizes="(min-width: 1024px) 600px, 100vw"
+            />
+          </Reveal>
+          <Reveal delay={0.08} className="h-full">
+            <div className="glass flex h-full flex-col justify-center rounded-[28px] p-8 sm:p-10">
+              <span className="eyebrow">Visit us</span>
+              <h2 className="mt-3 font-display text-h3 text-ink">Our office in Baner, Pune</h2>
+              <p className="mt-3 max-w-md font-sans leading-relaxed text-muted">
+                Meet the team in person by appointment, or book an online call if you are outside Pune. Either way, you speak with the people doing the work.
+              </p>
+              <ul className="mt-6 space-y-3 font-sans text-[15px] text-ink-2">
+                <li className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 shrink-0 text-accent-strong" strokeWidth={1.75} /> Baner, Pune, Maharashtra 411045
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 shrink-0 text-accent-strong" strokeWidth={1.75} />
+                  <a href={`tel:${businessPhone.replace(/\s/g, "")}`} className="hover:text-accent-strong">{businessPhone}</a>
+                </li>
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
       <FeatureCards eyebrow="What happens next" title="A clear first conversation" items={nextSteps} columns={3} surface />
       <Faq items={faqs} title="Before you send an enquiry" />
     </>

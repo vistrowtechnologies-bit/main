@@ -17,7 +17,15 @@ export function LinkCardGrid({
   columns?: 2 | 3;
   surface?: boolean;
 }) {
-  const cols = columns === 2 ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3";
+  // Never leave a lone card on the last row.
+  const cols =
+    columns === 2
+      ? "sm:grid-cols-2"
+      : cards.length === 3
+        ? "md:grid-cols-3"
+        : cards.length === 4
+          ? "sm:grid-cols-2 lg:grid-cols-4"
+          : "sm:grid-cols-2 lg:grid-cols-3";
   return (
     <section className={`py-section ${surface ? "bg-surface" : ""}`}>
       <div className="container-edge">
