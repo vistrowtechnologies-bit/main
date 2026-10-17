@@ -6,6 +6,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
+import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
+import { postJson } from "@/lib/forms/post-json";
 
 type Errors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -50,10 +52,7 @@ export function ContactForm() {
 
     setStatus("submitting");
     try {
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      await postJson("/api/inquiries", {
           type: "contact",
           name,
           email,
@@ -64,11 +63,8 @@ export function ContactForm() {
           message,
           preferredContact: String(data.get("preferredContact") || ""),
           consent,
-          _gotcha: String(data.get("_gotcha") || ""),
-        }),
+          ...readSpamGuard(form),
       });
-      const result = (await response.json()) as { ok?: boolean; error?: string };
-      if (!response.ok || !result.ok) throw new Error(result.error || "Message delivery failed.");
       trackLead("contact_form");
       form.reset();
       setStatus("success");
@@ -87,7 +83,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="glass rounded-xl p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="glass relative rounded-xl p-6 sm:p-8">
       <div className="mb-7">
         <span className="eyebrow">Start a conversation</span>
         <h2 className="mt-3 font-display text-h3 text-ink">Tell us what you&apos;re trying to improve</h2>
@@ -144,10 +140,7 @@ export function ContactForm() {
           />
         </Field>
 
-        <div className="hidden" aria-hidden="true">
-          <label htmlFor="_gotcha">Leave this field empty</label>
-          <input id="_gotcha" name="_gotcha" tabIndex={-1} autoComplete="off" />
-        </div>
+        <SpamGuard />
 
         <div className="sm:col-span-2">
           <label className="flex items-start gap-3">

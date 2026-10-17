@@ -11,6 +11,7 @@ import { graph, websiteSchema } from "@/lib/structured-data";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { AccentSwitcher } from "@/components/accent-switcher";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
+import { CookieBanner } from "@/components/analytics/cookie-banner";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -100,6 +101,7 @@ export default function RootLayout({
           <ChatWidget />
           <AccentSwitcher />
         </div>
+        <CookieBanner />
       </body>
     </html>
   );

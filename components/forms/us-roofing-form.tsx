@@ -4,6 +4,8 @@ import { useState, type FormEvent } from "react";
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
+import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
+import { postJson } from "@/lib/forms/post-json";
 
 type Errors = Partial<Record<"name" | "email" | "website" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -57,10 +59,7 @@ export function UsRoofingForm() {
 
     setStatus("submitting");
     try {
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      await postJson("/api/inquiries", {
           type: "contact",
           name,
           email,
@@ -79,11 +78,8 @@ export function UsRoofingForm() {
             .filter(Boolean)
             .join("\n"),
           consent,
-          _gotcha: String(data.get("_gotcha") || ""),
-        }),
+          ...readSpamGuard(form),
       });
-      const result = (await response.json()) as { ok?: boolean; error?: string };
-      if (!response.ok || !result.ok) throw new Error(result.error || "Message delivery failed.");
       trackLead("us_roofing_form");
       form.reset();
       setStatus("success");
@@ -161,10 +157,7 @@ export function UsRoofingForm() {
           />
         </Field>
 
-        <div className="hidden" aria-hidden="true">
-          <label htmlFor="rf-gotcha">Leave this field empty</label>
-          <input id="rf-gotcha" name="_gotcha" tabIndex={-1} autoComplete="off" />
-        </div>
+        <SpamGuard />
 
         <div className="sm:col-span-2">
           <label className="flex items-start gap-3">

@@ -56,6 +56,7 @@ type ClientDiscoverySubmission = {
   biggestChallengeOther?: string;
   timeline?: string;
   _gotcha?: string;
+  _elapsed?: number;
 };
 
 export async function POST(request: Request) {
@@ -71,7 +72,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid form submission." }, { status: 400 });
   }
 
-  if (data._gotcha) return NextResponse.json({ ok: true });
+  // Bot checks (see components/forms/spam-guard.tsx): answer "ok" so bots learn nothing.
+  if (data._gotcha || (typeof data._elapsed === "number" && data._elapsed < 2000)) {
+    console.info("Form submission dropped as spam", { gotcha: Boolean(data._gotcha), elapsed: data._elapsed });
+    return NextResponse.json({ ok: true });
+  }
 
   const record = {
     name: clean(data.name, 100),
@@ -113,7 +118,7 @@ export async function POST(request: Request) {
     await notifyTeam(record, docId);
   } catch (error) {
     console.error("Client discovery submission failed", error);
-    return NextResponse.json({ error: "We couldn't save your response. Please email hello@vistrow.com." }, { status: 502 });
+    return NextResponse.json({ error: "We couldn't save your response." }, { status: 502 });
   }
 
   return NextResponse.json({ ok: true });

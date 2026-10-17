@@ -34,7 +34,7 @@ export function ReviewExperience({ business }: { business: ReviewBusiness }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ slug: business.slug, service, experience, improvement, rating }),
       });
-      const result = (await response.json()) as { draft?: string; error?: string };
+      const result = (await response.json().catch(() => ({}))) as { draft?: string; error?: string };
       if (!response.ok || !result.draft) throw new Error(result.error || "Could not create a draft.");
       setDraft(result.draft);
       requestAnimationFrame(() => draftRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));

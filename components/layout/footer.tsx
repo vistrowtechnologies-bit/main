@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieSettingsButton } from "@/components/analytics/cookie-banner";
 import {
   Facebook,
   Instagram,
@@ -248,6 +249,9 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <CookieSettingsButton className="inline-flex items-center font-sans text-[13px] text-muted transition-colors hover:text-accent-strong" />
+            </li>
           </ul>
         </div>
       </div>

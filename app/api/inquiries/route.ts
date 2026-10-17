@@ -23,6 +23,7 @@ type Inquiry = {
   preferredContact?: string;
   consent?: boolean;
   _gotcha?: string;
+  _elapsed?: number;
 };
 
 export async function POST(request: Request) {
@@ -41,7 +42,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid form submission." }, { status: 400 });
   }
 
-  if (data._gotcha) return NextResponse.json({ ok: true });
+  // Bot checks (see components/forms/spam-guard.tsx): answer "ok" so bots learn nothing.
+  if (data._gotcha || (typeof data._elapsed === "number" && data._elapsed < 2000)) {
+    console.info("Form submission dropped as spam", { gotcha: Boolean(data._gotcha), elapsed: data._elapsed });
+    return NextResponse.json({ ok: true });
+  }
 
   const name = clean(data.name, 100);
   const email = clean(data.email, 160).toLowerCase();
@@ -76,7 +81,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "Online form delivery is being configured. Please email hello@vistrow.com in the meantime.",
+          "Online form delivery is being configured.",
       },
       { status: 503 },
     );
@@ -118,14 +123,14 @@ export async function POST(request: Request) {
     if (!response.ok) {
       console.error("Resend delivery failed", response.status, await response.text());
       return NextResponse.json(
-        { error: "We couldn't send your message right now. Please email hello@vistrow.com." },
+        { error: "We couldn't send your message right now." },
         { status: 502 },
       );
     }
   } catch (error) {
     console.error("Inquiry delivery error", error);
     return NextResponse.json(
-      { error: "We couldn't send your message right now. Please email hello@vistrow.com." },
+      { error: "We couldn't send your message right now." },
       { status: 502 },
     );
   }

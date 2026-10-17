@@ -5,6 +5,8 @@ import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input } from "@/components/forms/fields";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
+import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
+import { postJson } from "@/lib/forms/post-json";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -79,6 +81,7 @@ export function ClientDiscoveryForm() {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     const err: Record<string, string> = {};
     if (!contact.name.trim()) err.name = "Please enter your name.";
     if (!emailRe.test(contact.email)) err.email = "Please enter a valid email address.";
@@ -100,13 +103,7 @@ export function ClientDiscoveryForm() {
           freeTextFields[q.freeTextFieldName ?? `${q.key}Other`] = freeText[q.key] ?? "";
         }
       }
-      const response = await fetch("/api/client-discovery", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...contact, ...answers, ...freeTextFields }),
-      });
-      const result = (await response.json()) as { ok?: boolean; error?: string };
-      if (!response.ok || !result.ok) throw new Error(result.error || "Submission failed.");
+      await postJson("/api/client-discovery", { ...contact, ...answers, ...freeTextFields, ...readSpamGuard(form) });
       setSubmitted(true);
     } catch (error) {
       setServerError(error instanceof Error ? error.message : "We couldn't save your response. Please email hello@vistrow.com.");
@@ -118,7 +115,8 @@ export function ClientDiscoveryForm() {
   if (submitted) return <DiscoverySuccess />;
 
   return (
-    <form onSubmit={onSubmit} noValidate className="glass rounded-xl p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="glass relative rounded-xl p-6 sm:p-8">
+      <SpamGuard />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" htmlFor="dc-name" required error={errors.name}>
           <Input id="dc-name" value={contact.name} onChange={(e) => setContact((p) => ({ ...p, name: e.target.value }))} placeholder="Your name" />

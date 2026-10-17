@@ -5,6 +5,8 @@ import { AlertCircle, ArrowRight, ArrowLeft, Loader2, Search, Link2, ListChecks 
 import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
+import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
+import { postJson } from "@/lib/forms/post-json";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,6 +45,7 @@ export function GrowthAuditForm() {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
     const err: Record<string, string> = {};
     if (!consent) err.consent = "Please agree to be contacted.";
     setErrors(err);
@@ -51,10 +54,7 @@ export function GrowthAuditForm() {
     setSubmitting(true);
     setServerError("");
     try {
-      const response = await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      await postJson("/api/inquiries", {
           type: "growth-audit",
           ...values,
           message: values.challenge || "Growth Audit requested",
@@ -62,10 +62,8 @@ export function GrowthAuditForm() {
           services,
           preferredContact: values.contact,
           consent,
-        }),
+          ...readSpamGuard(form),
       });
-      const result = (await response.json()) as { ok?: boolean; error?: string };
-      if (!response.ok || !result.ok) throw new Error(result.error || "Request delivery failed.");
       trackLead("growth_audit_form");
       setSubmitted(true);
     } catch (error) {
@@ -87,7 +85,8 @@ export function GrowthAuditForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="glass rounded-xl p-6 sm:p-8">
+    <form onSubmit={onSubmit} noValidate className="glass relative rounded-xl p-6 sm:p-8">
+      <SpamGuard />
       {/* progress */}
       <div className="mb-6 flex items-center gap-3">
         {[0, 1].map((s) => (

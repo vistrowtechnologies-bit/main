@@ -1,6 +1,6 @@
 import type { LegalContent } from "@/lib/content-types";
 
-const updated = "4 August 2026";
+const updated = "17 October 2026";
 
 export const legalPages: Record<string, LegalContent> = {
   "privacy-policy": {
@@ -19,8 +19,8 @@ export const legalPages: Record<string, LegalContent> = {
         "We process information for the stated purpose, with consent where required, or where it is reasonably necessary to respond to a request, operate the site, protect the service, or comply with law. We do not sell personal information.",
       ]},
       { heading: "Cookies and analytics", body: [
-        "Essential browser storage remembers choices such as theme and accent colour. We use Google Analytics to understand how visitors use this website, which sets its own analytics cookies.",
-        "You can block or clear cookies through your browser settings at any time. See the Cookie Policy for more detail.",
+        "Essential browser storage remembers choices such as theme and accent colour. With your permission, we use Google Analytics to understand how visitors use this website. Analytics cookies are only set after you accept them in the cookie banner.",
+        "You can change your choice at any time through \"Cookie settings\" in the website footer, or block and clear cookies through your browser. See the Cookie Policy for more detail.",
       ]},
       { heading: "Service providers and international processing", body: [
         "We use trusted providers for hosting, email delivery, analytics, content management, CRM, AI-assisted chat, and communication workflows. They receive only the information reasonably needed to provide the relevant service and are expected to protect it.",
@@ -103,11 +103,12 @@ export const legalPages: Record<string, LegalContent> = {
         "The site stores choices such as light or dark theme and accent colour. These choices are used to provide the experience you requested and are not used for advertising.",
       ]},
       { heading: "Analytics", body: [
-        "We use Google Analytics to understand how visitors use this website - usage events and limited device, browser, referral, and approximate location information. We configure IP anonymisation where supported.",
+        "With your permission, we use Google Analytics to understand how visitors use this website - usage events and limited device, browser, referral, and approximate location information. We configure IP anonymisation where supported.",
+        "Analytics cookies are only set after you choose Accept in the cookie banner. Until then, or if you decline, Google Analytics runs in a cookieless mode that sends basic, anonymous signals without identifiers that could recognise you.",
         "We do not currently use advertising cookies on this website.",
       ]},
       { heading: "Managing cookies", body: [
-        "You can block or delete cookies at any time through your browser settings, or use a browser extension that blocks analytics scripts. Blocking cookies does not prevent use of the website.",
+        "You can change your choice at any time through \"Cookie settings\" in the website footer. You can also block or delete cookies through your browser settings, or use a browser extension that blocks analytics scripts. Declining or blocking cookies does not prevent use of the website.",
       ]},
       { heading: "Contact", body: [
         "Questions about cookies or analytics can be sent to hello@vistrow.com or through our Contact page.",
