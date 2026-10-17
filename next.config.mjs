@@ -15,6 +15,7 @@ const nextConfig = {
         { source: "/demo/arthaaspire", destination: "/arth-aspire-demo.html" },
         { source: "/demo/arthaspire", destination: "/arth-aspire-demo.html" },
         { source: "/demo/xceedbeyond", destination: "/xceedbeyond-demo.html" },
+        { source: "/demo/asma-travel", destination: "/asma-travel-demo.html" },
       ],
     };
   },
@@ -35,7 +36,7 @@ const nextConfig = {
   },
   async headers() {
     const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
-    return ["/demo/arthaaspire", "/demo/arthaspire", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html"].map((source) => ({ source, headers: noindex }));
+    return ["/demo/arthaaspire", "/demo/arthaspire", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html", "/demo/asma-travel", "/asma-travel-demo.html"].map((source) => ({ source, headers: noindex }));
   },
 };
 
