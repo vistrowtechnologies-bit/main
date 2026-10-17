@@ -9,6 +9,7 @@ import { ChecklistCard, HeroGlow, SwapWord, UnlockCountdown } from "@/components
 import { chapters, playbook, waLink, type PlaybookBlock, type PlaybookChapter } from "@/content/playbook";
 import pdfs from "@/content/playbook-pdfs.json";
 import { isLive, reelUrl, type LiveReels } from "@/lib/playbook-live";
+import { playbookHub, playbookSeo } from "@/content/playbook-seo";
 
 const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const unlockLabel = (c: PlaybookChapter) => {
@@ -198,6 +199,36 @@ function PdfCard({ c, open, className = "" }: { c: PlaybookChapter; open: boolea
   );
 }
 
+/** Answer-first box: the direct answer AI search and featured snippets quote. */
+function QuickAnswer({ question, answer }: { question: string; answer: string }) {
+  return (
+    <section aria-labelledby="quick-answer" className="rounded-lg border border-line bg-surface p-4 sm:p-6">
+      <p className="font-sans text-[11px] font-extrabold uppercase tracking-wider text-accent-strong">Quick answer</p>
+      <h2 id="quick-answer" className="mt-1 font-display text-lg font-bold leading-snug tracking-[-0.02em] text-ink sm:text-xl">{question}</h2>
+      <p className="mt-2 font-sans text-[15px] leading-relaxed text-ink-2 sm:text-base">{answer}</p>
+    </section>
+  );
+}
+
+function Faq({ items }: { items: [string, string][] }) {
+  return (
+    <section aria-labelledby="faq" className="rounded-lg border border-line bg-surface p-4 sm:p-6">
+      <H2><span id="faq">Aksar pooche jaane wale sawaal (FAQ)</span></H2>
+      <div className="mt-3 divide-y divide-line">
+        {items.map(([q, a], k) => (
+          <details key={q} className="group py-3" open={k === 0}>
+            <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-sans text-[15px] font-semibold text-ink [&::-webkit-details-marker]:hidden">
+              <span>{q}</span>
+              <span aria-hidden className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-tint font-bold text-accent-strong transition group-open:rotate-45">+</span>
+            </summary>
+            <p className="mt-2 pr-8 font-sans text-sm leading-relaxed text-ink-2">{a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function HelpCard({ c, className = "" }: { c?: PlaybookChapter; className?: string }) {
   return (
     <section className={`rounded-lg border border-line bg-surface p-4 sm:p-6 ${className}`}>
@@ -212,6 +243,7 @@ export function PlaybookChapterPage({ chapter, preview = false, live = null }: {
   const open = preview || isLive(chapter, live);
   // the exact reel on Instagram (from the publisher); profile only as a fallback
   const reel = reelUrl(chapter, live) ?? playbook.instagram;
+  const seo = playbookSeo[chapter.slug];
   const i = chapters.indexOf(chapter);
   const prev = chapters[i - 1];
   const next = chapters[i + 1] && (preview || isLive(chapters[i + 1], live)) ? chapters[i + 1] : undefined;
@@ -245,6 +277,7 @@ export function PlaybookChapterPage({ chapter, preview = false, live = null }: {
 
         <div className="mt-5 grid gap-5 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
           <div className="min-w-0 space-y-4 sm:space-y-5">
+            {open && seo && <QuickAnswer question={seo.question} answer={seo.answer} />}
             <PdfCard c={chapter} open={open} className="lg:hidden" />
             {open ? (
               chapter.blocks.map((b, k) => (
@@ -262,6 +295,7 @@ export function PlaybookChapterPage({ chapter, preview = false, live = null }: {
                 </p>
               </Card>
             )}
+            {open && seo && <Faq items={seo.faq} />}
 
             <nav className="grid grid-cols-2 gap-2.5 pt-3 sm:gap-3">
               {prev ? (
@@ -398,6 +432,11 @@ export function PlaybookIndexPage({ preview = false, live = null }: { preview?: 
             </ol>
           </>
         )}
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          <QuickAnswer question="What is the 100 Din Playbook?" answer={playbookHub.answer} />
+          <Faq items={playbookHub.faq} />
+        </div>
 
         <section className="relative mt-10 overflow-hidden rounded-lg bg-[#0b0b0c] p-5 sm:p-10">
           <span aria-hidden className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />

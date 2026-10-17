@@ -4,9 +4,13 @@ import { products } from "@/content/products";
 import { industries } from "@/content/industries";
 import { locations } from "@/content/locations";
 import { siteUrl } from "@/lib/seo";
+import { chapters as playbookChapters } from "@/content/playbook";
+import { playbookHub, playbookSeo } from "@/content/playbook-seo";
+import { getLiveReels, isLive } from "@/lib/playbook-live";
 import { businessPhone, serviceLocalities } from "@/lib/structured-data";
 
-export const dynamic = "force-static";
+// re-built every 10 minutes so new 100 Din Playbook chapters appear once their reel is posted
+export const revalidate = 600;
 
 function linkList<T extends { slug: string; metaTitle: string; metaDescription: string }>(
   records: Record<string, T>,
@@ -18,6 +22,11 @@ function linkList<T extends { slug: string; metaTitle: string; metaDescription: 
 }
 
 export async function GET() {
+  const live = await getLiveReels();
+  const playbookLinks = playbookChapters
+    .filter((c) => isLive(c, live))
+    .map((c) => `- [Day ${c.day}: ${playbookSeo[c.slug]?.question ?? c.title}](${siteUrl}/playbook/${c.slug}): ${playbookSeo[c.slug]?.answer ?? c.description}`)
+    .join("\n");
   const locationLinks = Object.values(locations)
     .map((item) => `- [${item.title}](${siteUrl}/locations/${item.slug}): ${item.metaDescription}`)
     .join("\n");
@@ -75,6 +84,12 @@ ${linkList(industries, "industries")}
 ## Locations served
 
 ${locationLinks}
+
+## 100 Din Playbook (free small business guides)
+
+${playbookHub.answer} Hub: ${siteUrl}/playbook
+
+${playbookLinks || "- First chapter goes live with Day 1 of the challenge."}
 
 ## Important supporting pages
 
