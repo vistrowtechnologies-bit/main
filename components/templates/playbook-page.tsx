@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Download, Lock, Play, ShieldCheck, Sparkles } from "lucide-react";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { Reveal } from "@/components/ui/reveal";
 import { AnimatedBar } from "@/components/ui/motion-primitives";
 import { CopyButton } from "@/components/playbook/copy-button";
@@ -189,7 +190,7 @@ function PdfCard({ c, open, className = "" }: { c: PlaybookChapter; open: boolea
           </a>
           <div className="relative mt-2.5 flex items-center justify-between font-sans text-xs text-muted">
             <span>{pdf.pages} pages · {pdf.kb} KB · A4</span>
-            <a href={share} target="_blank" rel="noopener" className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-2">Dost ko WhatsApp karo</a>
+            <a href={share} target="_blank" rel="noopener" className="inline-flex items-center gap-1 font-semibold text-ink underline decoration-accent decoration-2 underline-offset-2"><WhatsappIcon className="h-3.5 w-3.5 text-[#25D366]" />Dost ko WhatsApp karo</a>
           </div>
         </>
       ) : (
@@ -234,7 +235,7 @@ function HelpCard({ c, className = "" }: { c?: PlaybookChapter; className?: stri
     <section className={`rounded-lg border border-line bg-surface p-4 sm:p-6 ${className}`}>
       <H2>No time to do it yourself?</H2>
       <p className="mt-1.5 font-sans text-sm leading-relaxed text-ink-2">Vistrow sets all of this up for your business: Google profile, reviews, website and leads.</p>
-      <a href={waLink(c ? `Day ${c.day}: ${c.title}` : "Playbook home page")} target="_blank" rel="noopener" className="btn-secondary mt-4 w-full">Chat on WhatsApp: 90670 97779</a>
+      <a href={waLink(c ? `Day ${c.day}: ${c.title}` : "Playbook home page")} target="_blank" rel="noopener" className="btn-secondary mt-4 w-full"><WhatsappIcon className="h-5 w-5 text-[#25D366]" /> Chat on WhatsApp: 90670 97779</a>
     </section>
   );
 }
@@ -339,7 +340,7 @@ export function PlaybookIndexPage({ preview = false, live = null }: { preview?: 
 
         <header className="relative mt-4 overflow-hidden rounded-lg border border-line bg-surface p-4 sm:p-8 lg:p-12">
           <HeroGlow />
-          <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div className={`relative grid grid-cols-1 items-center gap-8 ${fan.length ? "lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-12"}`}>
             <div>
               <Chip solid><Sparkles className="h-3.5 w-3.5" /> Free · 100-day challenge</Chip>
               <h1 className="mt-4 font-display text-[clamp(2.2rem,6vw,4.5rem)] font-extrabold leading-[1] tracking-[-0.045em] text-ink">100 Din Playbook</h1>
@@ -445,7 +446,7 @@ export function PlaybookIndexPage({ preview = false, live = null }: { preview?: 
               <h2 className="font-display text-2xl font-extrabold tracking-[-0.03em] text-white sm:text-4xl">No time to do it yourself?</h2>
               <p className="mt-2 max-w-xl font-sans text-[15px] text-white/70 sm:text-lg">Vistrow sets all of this up for your business: Google profile, reviews, website and leads.</p>
             </div>
-            <a href={waLink("Playbook home page")} target="_blank" rel="noopener" className="btn-primary w-full shrink-0 lg:w-auto">Chat on WhatsApp: 90670 97779 <ArrowRight className="h-4 w-4" /></a>
+            <a href={waLink("Playbook home page")} target="_blank" rel="noopener" className="btn-primary w-full shrink-0 lg:w-auto"><WhatsappIcon className="h-5 w-5" /> Chat on WhatsApp: 90670 97779 <ArrowRight className="h-4 w-4" /></a>
           </div>
         </section>
       </div>

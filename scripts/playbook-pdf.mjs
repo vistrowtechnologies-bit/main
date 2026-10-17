@@ -69,6 +69,8 @@ function block(b, c) {
   return "";
 }
 
+const WA_ICON = `<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" style="vertical-align:-3px;margin-right:6px"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.36c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.21-8.24 8.21Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.24-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.24-.02-.37.11-.5.11-.11.25-.29.37-.43.13-.14.17-.24.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.24-.87.85-.87 2.08 0 1.22.89 2.4 1.01 2.57.13.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.28Z"/></svg>`;
+
 const css = `
 @page { size: A4; margin: 15mm 16mm 20mm; }
 @page :first { margin: 0; }
@@ -133,6 +135,7 @@ td { height: 8mm; }
 .cta h2 { font-size: 18pt; color: #fff; }
 .cta p { color: #bbb; margin-top: 1.5mm; font-size: 10.5pt; }
 .cta .btn { white-space: nowrap; display: inline-block; margin-top: 4mm; background: #c6ff00; color: #0b0b0c; font-weight: 800; padding: 3mm 6mm; border-radius: 8px; text-decoration: none; font-size: 11pt; }
+.cta .tap { margin-top: 2mm; font-size: 8.5pt; color: #888; }
 .cta .next { flex: none; width: 52mm; border-left: 1px solid #333; padding-left: 7mm; font-size: 10pt; color: #bbb; }
 .cta .next b { display: block; color: #c6ff00; font-family: Manrope; font-size: 10pt; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 1.5mm; }
 .cta .next a { color: #fff; }
@@ -167,7 +170,7 @@ function html(c, coverOnly = false) {
       <div style="flex:1">
         <h2>No time to do it yourself?</h2>
         <p>Vistrow sets all of this up for your business: Google profile, reviews, website and leads.</p>
-        <a class="btn" href="${esc(wa(`Day ${c.day}: ${c.title}`))}">WhatsApp: 90670 97779 →</a>
+        <a class="btn" href="${esc(wa(`Day ${c.day}: ${c.title}`))}">${WA_ICON}Chat on WhatsApp: 90670 97779 →</a><div class="tap">👆 Tap the button to chat · wa.me/919067097779</div>
       </div>
       <div class="next"><b>${next ? `Next · Day ${next.day}` : "Next chapter"}</b>${next ? esc(next.title) : "Har din naya chapter"}<br><br>Follow <a href="${playbook.instagram}">@vistrow_technologies</a> taaki agla chapter miss na ho.</div>
     </div>

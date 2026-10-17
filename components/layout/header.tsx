@@ -68,7 +68,7 @@ export function Header() {
       }`}
     >
       <nav
-        className="container-edge grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]"
+        className="container-edge grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-4 xl:grid-cols-[1fr_auto_1fr]"
         aria-label="Primary"
       >
         <div className="flex min-w-0 items-center">
@@ -106,7 +106,7 @@ export function Header() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="btn-secondary hidden whitespace-nowrap lg:inline-flex"
+            className="btn-secondary hidden whitespace-nowrap xl:inline-flex"
           >
             Contact Us
           </Link>
@@ -114,7 +114,9 @@ export function Header() {
             href="/growth-audit"
             className="btn-primary hidden whitespace-nowrap sm:inline-flex"
           >
-            Request a Growth Audit
+            {/* short label on small laptops so the menu never overflows (1024–1279px) */}
+            <span className="hidden lg:inline xl:hidden">Free Audit</span>
+            <span className="lg:hidden xl:inline">Request a Growth Audit</span>
           </Link>
           <button
             type="button"
@@ -148,7 +150,7 @@ function NavTrigger({
   onFocus: () => void;
 }) {
   const base =
-    "nav-link-motion relative flex items-center gap-1 whitespace-nowrap rounded-sm px-2.5 py-2 font-sans text-[15px] font-medium transition-colors";
+    "nav-link-motion relative flex items-center gap-1 whitespace-nowrap rounded-sm px-2 py-2 font-sans text-[14px] font-medium transition-colors xl:px-2.5 xl:text-[15px]";
   const tone = active ? "text-ink" : open ? "text-ink" : "text-ink-2 hover:text-ink";
   const indicator = active ? (
     <span className="absolute -bottom-[3px] left-2.5 right-2.5 h-[2px] rounded-full bg-accent" />
