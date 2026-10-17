@@ -37,15 +37,15 @@ export function Hero() {
             </span>
           </h1>
 
-          <Reveal delay={0.16} direction="right" distance={24}>
+          <div className="hero-enter" style={{ "--enter-delay": "0.16s", "--enter-x": "-24px" } as React.CSSProperties}>
             <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
               Vistrow combines performance marketing, landing pages, CRM, AI voice,
               automation, and conversion tracking to help businesses generate more
               opportunities - and manage them more effectively.
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.24} direction="right" distance={18}>
+          <div className="hero-enter" style={{ "--enter-delay": "0.24s", "--enter-x": "-18px" } as React.CSSProperties}>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
                 Request a Growth Audit
@@ -55,7 +55,7 @@ export function Hero() {
                 Explore Services
               </Link>
             </div>
-          </Reveal>
+          </div>
         </div>
 
         <Reveal delay={0.14} direction="left" distance={36} className="relative hidden md:block lg:pl-4">

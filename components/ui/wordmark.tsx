@@ -8,11 +8,12 @@ const LOGO_H = 152;
 export function Wordmark({
   className = "",
   height = 38,
-  priority = false,
+  eager = false,
 }: {
   className?: string;
   height?: number;
-  priority?: boolean;
+  /** Load immediately (above the fold) without a high-priority preload competing with the hero text. */
+  eager?: boolean;
 }) {
   const width = Math.round((height * LOGO_W) / LOGO_H);
   return (
@@ -27,7 +28,7 @@ export function Wordmark({
         alt="Vistrow"
         width={width}
         height={height}
-        priority={priority}
+        loading={eager ? "eager" : "lazy"}
         className="block dark:hidden"
       />
       {/* Dark-mode lockup */}
@@ -36,7 +37,7 @@ export function Wordmark({
         alt="Vistrow"
         width={width}
         height={height}
-        priority={priority}
+        loading={eager ? "eager" : "lazy"}
         className="hidden dark:block"
       />
     </Link>

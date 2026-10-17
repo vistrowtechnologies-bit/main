@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Phone,
@@ -137,7 +137,7 @@ export function Products() {
             <ScrollParallax distance={18}>
               <div className="glass overflow-hidden rounded-xl p-5 shadow-lift">
                 <AnimatePresence mode="wait">
-                  <motion.div
+                  <m.div
                     key={active.name}
                     initial={reduce ? false : { opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -162,7 +162,7 @@ export function Products() {
                         <p className="mb-2 font-sans text-xs font-semibold text-ink">{active.metric}</p>
                         <div className="flex h-10 items-center gap-[3px]">
                           {active.bars.map((height, i) => (
-                            <motion.div
+                            <m.div
                               key={`${active.name}-${i}`}
                               className="flex-1 rounded-full bg-accent-strong/60"
                               initial={reduce ? false : { height: "12%" }}
@@ -176,7 +176,7 @@ export function Products() {
 
                     <div className="mt-5 space-y-2.5">
                       {active.rows.map(([label, value], i) => (
-                        <motion.div
+                        <m.div
                           key={label}
                           className="flex items-center justify-between rounded-sm border border-line/70 bg-card/70 px-4 py-2.5"
                           initial={reduce ? false : { opacity: 0, x: 12 }}
@@ -188,10 +188,10 @@ export function Products() {
                             <CheckCircle2 className="h-3.5 w-3.5 text-success" />
                             {value}
                           </span>
-                        </motion.div>
+                        </m.div>
                       ))}
                     </div>
-                  </motion.div>
+                  </m.div>
                 </AnimatePresence>
               </div>
               <div className="absolute -right-3 -top-4 hidden animate-float items-center gap-2 rounded-lg glass p-3 shadow-soft sm:flex">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 
 const storeKey = (slug: string) => `vistrow-playbook-${slug}`;
@@ -36,7 +36,7 @@ export function ChecklistCard({ slug, title, items }: { slug: string; title: str
       <div className="border-b border-line px-4 py-3.5 sm:px-6">
         <div className="flex items-baseline justify-between gap-3">
           <h2 className="font-display text-lg font-bold tracking-[-0.02em] text-ink sm:text-xl">{title}</h2>
-          <motion.span
+          <m.span
             key={all ? "all" : "some"}
             initial={all && !reduce ? { scale: 0.6 } : false}
             animate={{ scale: 1 }}
@@ -44,10 +44,10 @@ export function ChecklistCard({ slug, title, items }: { slug: string; title: str
             className={`shrink-0 rounded-full px-2.5 py-0.5 font-sans text-sm font-extrabold ${all ? "bg-accent text-accent-ink" : "text-accent-strong"}`}
           >
             {all ? "✓ " : ""}{done.length}/{items.length}
-          </motion.span>
+          </m.span>
         </div>
         <div className="mt-2 h-2 overflow-hidden rounded-full bg-ink/10">
-          <motion.div
+          <m.div
             className="h-full rounded-full bg-accent"
             initial={false}
             animate={{ width: `${pct}%` }}
@@ -61,13 +61,13 @@ export function ChecklistCard({ slug, title, items }: { slug: string; title: str
           return (
             <li key={t}>
               <button type="button" onClick={() => toggle(i)} className="flex w-full items-start gap-3 px-4 py-3.5 text-left transition active:bg-accent-tint sm:px-6">
-                <motion.span
+                <m.span
                   animate={on ? { scale: [1, 1.25, 1] } : { scale: 1 }}
                   transition={{ duration: 0.25 }}
                   className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 ${on ? "border-accent bg-accent text-accent-ink" : "border-muted/40"}`}
                 >
                   {on && <Check className="h-4 w-4" strokeWidth={3} />}
-                </motion.span>
+                </m.span>
                 <span className={on ? "opacity-55" : ""}>
                   <b className={`block font-sans text-[15px] font-semibold text-ink ${on ? "line-through decoration-accent-strong/60" : ""}`}>{t}</b>
                   <small className="block font-sans text-sm leading-snug text-muted">{d}</small>
@@ -79,7 +79,7 @@ export function ChecklistCard({ slug, title, items }: { slug: string; title: str
       </ul>
       <AnimatePresence>
         {all && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -88,7 +88,7 @@ export function ChecklistCard({ slug, title, items }: { slug: string; title: str
           >
             {!reduce && <Confetti />}
             <div className="relative px-4 py-5 text-center sm:px-6">
-              <motion.p
+              <m.p
                 initial={{ scale: 0.5, rotate: -8 }}
                 animate={{ scale: [0.5, 1.25, 1], rotate: [-8, 6, 0] }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -96,11 +96,11 @@ export function ChecklistCard({ slug, title, items }: { slug: string; title: str
                 aria-hidden
               >
                 🎉
-              </motion.p>
+              </m.p>
               <p className="mt-1 font-display text-xl font-extrabold tracking-[-0.02em] text-accent-ink">Sab done! {items.length}/{items.length}</p>
               <p className="mt-1 font-sans text-sm font-semibold text-accent-ink/80">Screenshot lo aur @vistrow_technologies ko tag karo.</p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>
@@ -135,7 +135,7 @@ export function UnlockCountdown({ release }: { release: string }) {
 export function HeroGlow() {
   const reduce = useReducedMotion();
   return (
-    <motion.div
+    <m.div
       aria-hidden
       className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/25 blur-3xl"
       animate={reduce ? undefined : { x: [0, -40, 0], y: [0, 30, 0], scale: [1, 1.15, 1] }}
@@ -156,7 +156,7 @@ export function SwapWord({ words, interval = 2200, className = "" }: { words: st
   return (
     <span className={`inline-block ${className}`}>
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+        <m.span
           key={words[i]}
           className="inline-block"
           initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
@@ -165,7 +165,7 @@ export function SwapWord({ words, interval = 2200, className = "" }: { words: st
           transition={{ duration: 0.28 }}
         >
           {words[i]}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </span>
   );
@@ -181,7 +181,7 @@ function Confetti() {
   return (
     <span aria-hidden className="pointer-events-none absolute left-1/2 top-1/2">
       {bits.map((b, i) => (
-        <motion.span
+        <m.span
           key={i}
           className="absolute block rounded-[2px]"
           style={{ width: b.w, height: b.w * 0.5, background: b.c }}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { m, useInView, useReducedMotion } from "framer-motion";
 import { Phone, TrendingUp, Users, CheckCircle2 } from "lucide-react";
 import { CountUp } from "@/components/ui/motion-primitives";
 
@@ -40,7 +40,7 @@ export function HeroDashboard() {
             { label: "Calling channels", end: 3, decimals: 0, suffix: "", icon: TrendingUp },
             { label: "Always active", end: 24, decimals: 0, suffix: "/7", icon: Phone },
           ].map((kpi, i) => (
-            <motion.div
+            <m.div
               key={kpi.label}
               className="rounded-sm border border-line/70 bg-card/70 p-3"
               initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -52,7 +52,7 @@ export function HeroDashboard() {
                 <CountUp end={kpi.end} decimals={kpi.decimals} suffix={kpi.suffix} />
               </p>
               <p className="font-sans text-[11px] text-muted">{kpi.label}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -66,7 +66,7 @@ export function HeroDashboard() {
           </div>
           <div className="mt-4 flex h-24 items-end gap-1.5">
             {bars.map((h, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 className={`flex-1 rounded-t-[3px] ${
                   i === bars.length - 1 ? "bg-accent" : "bg-accent/25"
@@ -98,7 +98,7 @@ export function HeroDashboard() {
                     <span className="font-sans text-[11px] text-ink-2">{row.stage}</span>
                   </div>
                   <div className="mt-1 h-1.5 w-full rounded-full bg-line/70">
-                    <motion.div
+                    <m.div
                       className="h-full rounded-full bg-accent-strong"
                       initial={reduce ? false : { width: 0 }}
                       animate={inView ? { width: row.w } : undefined}

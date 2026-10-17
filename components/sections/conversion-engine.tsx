@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import {
   AnimatePresence,
-  motion,
+  m,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -172,14 +172,14 @@ export function ConversionEngine() {
           <div className="mt-8 grid items-center gap-8 lg:mt-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
             <div className="relative flex min-h-[235px] flex-col rounded-xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm sm:p-8 lg:min-h-[360px]">
               <div className="absolute bottom-6 left-0 top-6 w-[3px] overflow-hidden rounded-full bg-white/10">
-                <motion.div
+                <m.div
                   className="h-full origin-top bg-accent shadow-[0_0_16px_rgb(var(--accent)/0.65)]"
                   style={{ scaleY: smoothProgress }}
                 />
               </div>
 
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={activeStep.label}
                   variants={contentVariants}
                   initial="hidden"
@@ -187,35 +187,35 @@ export function ConversionEngine() {
                   exit="exit"
                   aria-live="polite"
                 >
-                  <motion.div variants={childVariants} className="flex items-center justify-between gap-4">
+                  <m.div variants={childVariants} className="flex items-center justify-between gap-4">
                     <span className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                       Stage {String(activeIndex + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
                     </span>
                     <div className="relative">
                       <StageSignal index={activeIndex} />
-                      <motion.div
+                      <m.div
                         className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full bg-accent shadow-[0_0_24px_rgb(var(--accent)/0.28)]"
                         animate={{ rotate: activeIndex === 4 ? 360 : 0, scale: [1, 1.06, 1] }}
                         transition={{ rotate: { duration: 1.2 }, scale: { duration: 0.5 } }}
                       >
                         <ActiveIcon className="h-5 w-5 text-accent-ink" strokeWidth={2} />
-                      </motion.div>
+                      </m.div>
                     </div>
-                  </motion.div>
-                  <motion.p variants={childVariants} className="mt-5 font-sans text-sm font-semibold text-[#a7adb8]">
+                  </m.div>
+                  <m.p variants={childVariants} className="mt-5 font-sans text-sm font-semibold text-[#a7adb8]">
                     {activeStep.desc}
-                  </motion.p>
-                  <motion.h3 variants={childVariants} className="mt-1 font-display text-3xl font-extrabold tracking-tight text-[#f5f7fa] sm:text-4xl">
+                  </m.p>
+                  <m.h3 variants={childVariants} className="mt-1 font-display text-3xl font-extrabold tracking-tight text-[#f5f7fa] sm:text-4xl">
                     {activeStep.label}
-                  </motion.h3>
-                  <motion.p variants={childVariants} className="mt-4 max-w-lg font-sans text-sm leading-relaxed text-[#c6cad1] sm:text-base">
+                  </m.h3>
+                  <m.p variants={childVariants} className="mt-4 max-w-lg font-sans text-sm leading-relaxed text-[#c6cad1] sm:text-base">
                     {activeStep.detail}
-                  </motion.p>
-                  <motion.div variants={childVariants} className="mt-6 flex items-center gap-2.5 rounded-sm border border-accent/25 bg-accent/10 px-4 py-3">
+                  </m.p>
+                  <m.div variants={childVariants} className="mt-6 flex items-center gap-2.5 rounded-sm border border-accent/25 bg-accent/10 px-4 py-3">
                     <Check className="h-4 w-4 shrink-0 text-accent" strokeWidth={2.5} />
                     <span className="font-sans text-sm font-semibold text-[#f5f7fa]">{activeStep.outcome}</span>
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
               </AnimatePresence>
 
               <div className="mt-auto pt-6">
@@ -242,18 +242,18 @@ export function ConversionEngine() {
                 <span>Higher intent</span>
               </div>
               <div className="relative">
-                <motion.div
+                <m.div
                   aria-hidden
                   className="pointer-events-none absolute left-1/2 top-0 z-0 h-20 w-[72%] -translate-x-1/2 rounded-full bg-accent/20 blur-3xl"
                   style={{ y: glowY }}
                 />
-                <motion.div
+                <m.div
                   aria-hidden
                   className="pointer-events-none absolute left-[29%] top-0 z-30 -ml-1.5 h-3 w-3 rounded-full border border-white/60 bg-accent shadow-[0_0_8px_rgb(var(--accent)),0_0_24px_rgb(var(--accent)/0.8)]"
                   style={{ y: particleY }}
                 >
                   <span className="absolute inset-[-7px] animate-ping rounded-full border border-accent/30" />
-                </motion.div>
+                </m.div>
 
               <ol className="relative z-10 flex flex-col items-center gap-1.5" aria-label="Conversion funnel stages">
                 {steps.map((step, index) => {
@@ -261,7 +261,7 @@ export function ConversionEngine() {
                   const active = index === activeIndex;
                   const complete = index < activeIndex;
                   return (
-                    <motion.li
+                    <m.li
                       key={step.label}
                       animate={{
                         opacity: index <= activeIndex ? 1 : 0.38,
@@ -300,12 +300,12 @@ export function ConversionEngine() {
                         <span className="text-sm font-bold sm:text-[15px]">{step.label}</span>
                         {active && (
                           <>
-                            <motion.span
+                            <m.span
                               layoutId="funnel-pulse"
                               className="absolute inset-0 border border-black/10"
                               style={{ clipPath: "polygon(3% 0, 97% 0, 92% 100%, 8% 100%)" }}
                             />
-                            <motion.span
+                            <m.span
                               aria-hidden
                               className="absolute inset-y-0 w-16 -skew-x-12 bg-white/35 blur-md"
                               initial={{ left: "-20%" }}
@@ -315,12 +315,12 @@ export function ConversionEngine() {
                           </>
                         )}
                       </button>
-                    </motion.li>
+                    </m.li>
                   );
                 })}
               </ol>
               </div>
-              <motion.div
+              <m.div
                 className="mx-auto mt-2 flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 font-sans text-xs font-semibold text-accent"
                 animate={{
                   opacity: activeIndex === steps.length - 1 ? 1 : 0.38,
@@ -332,13 +332,13 @@ export function ConversionEngine() {
                 }}
                 transition={{ duration: 0.35 }}
               >
-                <motion.span
+                <m.span
                   className="h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgb(var(--accent)/0.75)]"
                   animate={{ scale: activeIndex === steps.length - 1 ? [1, 1.7, 1] : 1 }}
                   transition={{ duration: 1.2, repeat: activeIndex === steps.length - 1 ? Infinity : 0 }}
                 />
                 Revenue connected back to source
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -464,13 +464,13 @@ function MobileConversionEngine({
                     </div>
                     <div className="relative shrink-0">
                       {isActive && <StageSignal index={index} />}
-                      <motion.div
+                      <m.div
                         className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_0_24px_rgb(var(--accent)/0.24)]"
                         animate={isActive ? { scale: [1, 1.08, 1] } : { scale: 1 }}
                         transition={{ duration: 0.5 }}
                       >
                         <Icon className="h-5 w-5" strokeWidth={2} />
-                      </motion.div>
+                      </m.div>
                     </div>
                   </div>
 
@@ -482,7 +482,7 @@ function MobileConversionEngine({
 
                   <div className="mt-6 flex items-center gap-2 border-t border-white/10 pt-5">
                     {steps.map((_, progressIndex) => (
-                      <motion.span
+                      <m.span
                         key={progressIndex}
                         className={`h-1.5 flex-1 rounded-full ${progressIndex <= index ? "bg-accent" : "bg-white/10"}`}
                         initial={false}
@@ -496,7 +496,7 @@ function MobileConversionEngine({
           })}
         </ScrollStack>
 
-        <motion.div
+        <m.div
           className="mx-auto mt-8 flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2.5 font-sans text-xs font-semibold text-accent"
           initial={{ opacity: 0.45 }}
           whileInView={{ opacity: 1, scale: [0.98, 1.03, 1] }}
@@ -504,7 +504,7 @@ function MobileConversionEngine({
         >
           <span className="h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgb(var(--accent)/0.75)]" />
           Revenue connected back to source
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
@@ -515,7 +515,7 @@ function StageSignal({ index }: { index: number }) {
     return (
       <div aria-hidden className="pointer-events-none absolute inset-[-16px]">
         {[-1, 0, 1].map((position, i) => (
-          <motion.span
+          <m.span
             key={position}
             className="absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full bg-accent"
             initial={{ x: position * 28, y: (i - 1) * 13, opacity: 0 }}
@@ -531,7 +531,7 @@ function StageSignal({ index }: { index: number }) {
     return (
       <div aria-hidden className="pointer-events-none absolute inset-[-15px]">
         {[0, 1].map((ring) => (
-          <motion.span
+          <m.span
             key={ring}
             className="absolute inset-0 rounded-full border border-accent/45"
             initial={{ scale: 1.55, opacity: 0 }}
@@ -547,7 +547,7 @@ function StageSignal({ index }: { index: number }) {
     return (
       <div aria-hidden className="pointer-events-none absolute -right-3 bottom-0 flex h-8 items-end gap-1">
         {[10, 20, 14, 25].map((height, i) => (
-          <motion.span
+          <m.span
             key={height}
             className="w-1 rounded-full bg-accent/70"
             animate={{ height: [6, height, 8] }}
@@ -562,7 +562,7 @@ function StageSignal({ index }: { index: number }) {
     return (
       <div aria-hidden className="pointer-events-none absolute -right-5 top-1/2 flex -translate-y-1/2 flex-col items-end gap-1.5">
         {[14, 22, 30].map((width, i) => (
-          <motion.span
+          <m.span
             key={width}
             className="h-1 rounded-full bg-accent/60"
             style={{ width }}
@@ -576,7 +576,7 @@ function StageSignal({ index }: { index: number }) {
 
   if (index === 4) {
     return (
-      <motion.div
+      <m.div
         aria-hidden
         className="pointer-events-none absolute inset-[-12px] rounded-full border border-dashed border-accent/40"
         animate={{ rotate: 360 }}
@@ -584,14 +584,14 @@ function StageSignal({ index }: { index: number }) {
       >
         <span className="absolute left-1/2 top-[-3px] h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent))]" />
         <span className="absolute bottom-[-3px] left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-accent/60" />
-      </motion.div>
+      </m.div>
     );
   }
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-[-16px]">
       {[0, 1].map((ring) => (
-        <motion.span
+        <m.span
           key={ring}
           className="absolute inset-0 rounded-full border border-accent/50"
           animate={{ scale: [0.7, 1.45], opacity: [0.8, 0] }}

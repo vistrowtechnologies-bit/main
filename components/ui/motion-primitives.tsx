@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
-  motion,
+  m,
   useInView,
   useMotionValue,
   useReducedMotion,
@@ -25,7 +25,7 @@ export function ScrollProgress() {
   if (reduce) return null;
 
   return (
-    <motion.div
+    <m.div
       aria-hidden
       className="fixed inset-x-0 top-0 z-[100] h-[3px] origin-left bg-accent shadow-[0_0_12px_rgb(var(--accent)/0.65)]"
       style={{ scaleX }}
@@ -44,14 +44,14 @@ export function RouteTransition({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <motion.div
+    <m.div
       key={pathname}
       initial={reduce || firstRender.current ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -73,9 +73,9 @@ export function ScrollParallax({
   const y = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
 
   return (
-    <motion.div ref={ref} className={`relative ${className}`} style={{ y: reduce ? 0 : y }}>
+    <m.div ref={ref} className={`relative ${className}`} style={{ y: reduce ? 0 : y }}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -107,7 +107,7 @@ export function TiltCard({
   };
 
   return (
-    <motion.div
+    <m.div
       className={className}
       style={{
         rotateX: reduce ? 0 : smoothX,
@@ -118,7 +118,7 @@ export function TiltCard({
       onPointerLeave={reset}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -184,7 +184,7 @@ export function AnimatedBar({
   const reduce = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={reduce ? false : { width: 0 }}
@@ -227,7 +227,7 @@ export function RotatingWord({
         {longest}
       </span>
       <AnimatePresence initial={false}>
-        <motion.span
+        <m.span
           key={words[index]}
           aria-hidden
           className="col-start-1 row-start-1"
@@ -237,7 +237,7 @@ export function RotatingWord({
           transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
         >
           {words[index]}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
       <span className="sr-only">{words[0]}</span>
     </span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Easing } from "motion/react";
+import { m, useReducedMotion, type Easing } from "framer-motion";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 type AnimationSnapshot = Record<string, string | number>;
@@ -115,7 +115,7 @@ export default function BlurText({
   );
 
   const segments = elements.map((segment, index) => (
-    <motion.span
+    <m.span
       aria-hidden="true"
       className="inline-block will-change-[transform,filter,opacity]"
       key={`${segment}-${index}`}
@@ -131,7 +131,7 @@ export default function BlurText({
     >
       {segment === " " ? "\u00A0" : segment}
       {animateBy === "words" && index < elements.length - 1 ? "\u00A0" : null}
-    </motion.span>
+    </m.span>
   ));
 
   const wrapperStyle: CSSProperties =

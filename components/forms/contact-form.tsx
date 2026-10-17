@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { AlertCircle, Loader2, Search, MessageCircle, Compass, Send } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
@@ -227,7 +227,7 @@ function ContactSuccess({ onReset }: { onReset: () => void }) {
   const reduce = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       initial={reduce ? undefined : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -243,7 +243,7 @@ function ContactSuccess({ onReset }: { onReset: () => void }) {
 
       <div className="mx-auto mt-8 grid max-w-2xl gap-3 text-left sm:grid-cols-3">
         {nextSteps.map((step, index) => (
-          <motion.div
+          <m.div
             key={step.title}
             initial={reduce ? undefined : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -255,7 +255,7 @@ function ContactSuccess({ onReset }: { onReset: () => void }) {
             </div>
             <p className="mt-3 font-sans text-sm font-bold text-ink">{step.title}</p>
             <p className="mt-1 font-sans text-[13px] leading-relaxed text-muted">{step.body}</p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
@@ -267,6 +267,6 @@ function ContactSuccess({ onReset }: { onReset: () => void }) {
           Explore what we do
         </a>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

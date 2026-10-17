@@ -404,3 +404,19 @@ body:has(.review-experience) .vistrow-shell-tools {
   background: linear-gradient(160deg, rgb(var(--surface)) 0%, rgb(var(--card)) 60%);
   box-shadow: 0 0 28px -6px rgb(var(--accent) / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.04);
 }
+/* Above-the-fold entrance that runs from first paint instead of waiting for hydration,
+   so the hero copy counts as painted early (LCP). Matches <Reveal direction="right">. */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--enter-x, -24px));
+  }
+}
+.hero-enter {
+  animation: hero-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--enter-delay, 0s) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+  }
+}

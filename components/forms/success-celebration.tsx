@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 const confettiDots = [
   { x: -46, y: -58, delay: 0, color: "rgb(var(--accent))" },
@@ -22,7 +22,7 @@ export function SuccessCelebration() {
     <div className="relative mx-auto flex h-16 w-16 items-center justify-center">
       {!reduce &&
         confettiDots.map((dot, i) => (
-          <motion.span
+          <m.span
             key={i}
             className="absolute h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: dot.color }}
@@ -31,14 +31,14 @@ export function SuccessCelebration() {
             transition={{ duration: 0.7, delay: dot.delay, ease: [0.16, 1, 0.3, 1] }}
           />
         ))}
-      <motion.div
+      <m.div
         initial={reduce ? undefined : { scale: 0.6, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className="flex h-16 w-16 items-center justify-center rounded-full bg-accent"
       >
         <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none">
-          <motion.path
+          <m.path
             d="M5 13l4 4L19 7"
             stroke="rgb(var(--accent-ink))"
             strokeWidth={2.5}
@@ -49,7 +49,7 @@ export function SuccessCelebration() {
             transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" }}
           />
         </svg>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

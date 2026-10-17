@@ -72,7 +72,7 @@ export function Header() {
         aria-label="Primary"
       >
         <div className="flex min-w-0 items-center">
-          <Wordmark className="shrink-0" priority />
+          <Wordmark className="shrink-0" eager />
         </div>
 
         <ul className="hidden items-center justify-self-center gap-0.5 lg:flex xl:gap-1">

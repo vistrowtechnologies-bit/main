@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { AlertCircle, ArrowRight, Loader2 } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { Field, Input } from "@/components/forms/fields";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
 
@@ -194,7 +194,7 @@ export function ClientDiscoveryForm() {
 function DiscoverySuccess() {
   const reduce = useReducedMotion();
   return (
-    <motion.div
+    <m.div
       initial={reduce ? undefined : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -206,7 +206,7 @@ function DiscoverySuccess() {
       <p className="mx-auto mt-3 max-w-md font-sans text-muted">
         Your answers are with the Vistrow team now. We&apos;ll use them to prepare for our next conversation.
       </p>
-    </motion.div>
+    </m.div>
   );
 }
 

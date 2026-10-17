@@ -8,8 +8,8 @@ import { RouteTransition, ScrollProgress } from "@/components/ui/motion-primitiv
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo";
 import { graph, websiteSchema } from "@/lib/structured-data";
-import { ChatWidget } from "@/components/chat/chat-widget";
-import { AccentSwitcher } from "@/components/accent-switcher";
+import { DeferredWidgets } from "@/components/layout/deferred-widgets";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 
 const manrope = Manrope({
@@ -81,25 +81,26 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body className="font-sans antialiased">
-        <div className="vistrow-shell-tools"><ScrollProgress /></div>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:font-semibold focus:text-accent-ink"
-        >
-          Skip to content
-        </a>
-        <div className="vistrow-shell-top">
-          <AnnouncementBar />
-          <Header />
-        </div>
-        <main id="main">
-          <RouteTransition>{children}</RouteTransition>
-        </main>
-        <div className="vistrow-shell-bottom"><Footer /></div>
-        <div className="vistrow-shell-tools">
-          <ChatWidget />
-          <AccentSwitcher />
-        </div>
+        <MotionProvider>
+          <div className="vistrow-shell-tools"><ScrollProgress /></div>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:font-semibold focus:text-accent-ink"
+          >
+            Skip to content
+          </a>
+          <div className="vistrow-shell-top">
+            <AnnouncementBar />
+            <Header />
+          </div>
+          <main id="main">
+            <RouteTransition>{children}</RouteTransition>
+          </main>
+          <div className="vistrow-shell-bottom"><Footer /></div>
+          <div className="vistrow-shell-tools">
+            <DeferredWidgets />
+          </div>
+        </MotionProvider>
       </body>
     </html>
   );

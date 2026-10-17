@@ -11,7 +11,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { trackLead } from "@/lib/analytics";
 
@@ -144,7 +144,7 @@ export function ChatWidget() {
     <div className="fixed bottom-4 right-4 z-[55] sm:bottom-6 sm:right-6 print:hidden">
       <AnimatePresence>
         {open ? (
-          <motion.section
+          <m.section
             key="chat-panel"
             role="dialog"
             aria-modal="false"
@@ -208,7 +208,7 @@ export function ChatWidget() {
             <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-5" aria-live="polite">
               <div className="space-y-4">
                 {messages.map((message) => (
-                  <motion.div
+                  <m.div
                     key={message.id}
                     initial={reduceMotion ? false : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -254,7 +254,7 @@ export function ChatWidget() {
                         </div>
                       )}
                     </div>
-                  </motion.div>
+                  </m.div>
                 ))}
 
                 {messages.length === 1 && !typing && (
@@ -297,7 +297,7 @@ export function ChatWidget() {
                   <div className="flex justify-start" role="status" aria-label="Artha is typing">
                     <div className="flex items-center gap-1 rounded-lg rounded-bl-sm border border-line/70 bg-surface px-4 py-3">
                       {[0, 1, 2].map((index) => (
-                        <motion.span
+                        <m.span
                           key={index}
                           className="h-1.5 w-1.5 rounded-full bg-muted"
                           animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], y: [0, -2, 0] }}
@@ -335,9 +335,9 @@ export function ChatWidget() {
                 Automated guidance. For detailed advice, contact the Vistrow team.
               </p>
             </form>
-          </motion.section>
+          </m.section>
         ) : (
-          <motion.button
+          <m.button
             key="chat-trigger"
             type="button"
             onClick={() => setOpen(true)}
@@ -362,7 +362,7 @@ export function ChatWidget() {
               </span>
               <span className="absolute -right-0.5 -top-0.5 z-20 h-3.5 w-3.5 rounded-full border-2 border-ink bg-success shadow-[0_0_8px_rgb(var(--success)/0.65)]" />
             </span>
-          </motion.button>
+          </m.button>
         )}
       </AnimatePresence>
     </div>

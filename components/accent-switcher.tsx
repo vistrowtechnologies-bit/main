@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { animate, motion, useMotionValue } from "framer-motion";
+import { animate, m, useMotionValue } from "framer-motion";
 import { Palette } from "lucide-react";
 
 type AccentKey = "lime" | "orange" | "cyan" | "pink" | "purple";
@@ -251,7 +251,7 @@ export function AccentSwitcher() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[56] print:hidden">
-      <motion.div
+      <m.div
         ref={rootRef}
         style={{ x, y }}
         className="pointer-events-auto absolute left-0 top-0 cursor-grab active:cursor-grabbing"
@@ -303,7 +303,7 @@ export function AccentSwitcher() {
             ))}
           </div>
         )}
-      </motion.div>
+      </m.div>
     </div>
   );
 }
