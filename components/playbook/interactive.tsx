@@ -120,11 +120,11 @@ export function UnlockCountdown({ release }: { release: string }) {
   const s = Math.max(0, Math.floor((target - now) / 1000));
   const parts: [number, string][] = [[Math.floor(s / 86400), "din"], [Math.floor((s % 86400) / 3600), "ghante"], [Math.floor((s % 3600) / 60), "min"], [s % 60, "sec"]];
   return (
-    <div className="flex justify-center gap-2">
+    <div className="mx-auto grid max-w-[18rem] grid-cols-4 gap-1.5 sm:gap-2">
       {parts.map(([v, l]) => (
-        <span key={l} className="flex w-16 flex-col items-center rounded-md border border-line bg-surface py-2">
+        <span key={l} className="flex min-w-0 flex-col items-center rounded-md border border-line bg-surface py-2">
           <b className="font-display text-2xl font-extrabold tabular-nums text-ink">{String(v).padStart(2, "0")}</b>
-          <small className="font-sans text-[11px] font-semibold uppercase tracking-wide text-muted">{l}</small>
+          <small className="font-sans text-[10px] font-semibold uppercase tracking-wide text-muted sm:text-[11px]">{l}</small>
         </span>
       ))}
     </div>
