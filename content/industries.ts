@@ -95,9 +95,10 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Viewing booked", body: "Qualified leads book into the agent's calendar." },
       { title: "Follow-up runs", body: "Unbooked leads get persistent nurture." },
     ],
+    image: { src: "/images/industries/real-estate-crm-lead-management-team.webp", alt: "Real estate agent showing a young couple the living room and balcony view of a sample flat in a Pune high-rise" },
     faqs: [
       { q: "Does this work for agencies and individual agents?", a: "Both - we scale the system from solo agents to multi-branch agencies." },
-      { q: "Will it integrate with our portal leads?", a: "Yes - leads from major portals and your website route into the same fast-response system." },
+      { q: "Will it integrate with our portal leads?", a: "Website, ad and WhatsApp leads flow in automatically. Leads from portals such as 99acres, Housing.com and MagicBricks can be imported from a sheet into the same fast-response system." },
       { q: "Can the AI book viewings directly?", a: "Yes - it qualifies and books straight into agent calendars, with human handoff when needed." },
     ],
   },
@@ -134,6 +135,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Quote & follow-up", body: "Quotes go out and get chased automatically." },
       { title: "Job booked", body: "Booked into your schedule, logged in CRM." },
     ],
+    image: { src: "/images/industries/local-business-clinic-digital-marketing.webp", alt: "Receptionist at a Pune dental clinic smiling as she hands a patient his appointment card" },
     faqs: [
       { q: "We're a small team - is this too much?", a: "No - the point is to do the work you can't, like answering and following up while you're busy on jobs." },
       { q: "What kinds of local business fit?", a: "Trades, clinics, salons, home services, and similar appointment- or quote-driven businesses." },
@@ -180,6 +182,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Sales-ready handoff", body: "Qualified leads reach sales with context." },
       { title: "Measured to revenue", body: "Attribution ties activity to closed deals." },
     ],
+    image: { src: "/images/industries/b2b-lead-generation-sales-team.webp", alt: "Plant manager and sales engineer on a Pimpri-Chinchwad factory floor reviewing an example B2B enquiry and quote report on an iPad" },
     faqs: [
       { q: "Do you support ABM?", a: "Yes - we can focus demand generation and nurture around target accounts." },
       { q: "How do you improve lead quality?", a: "Through targeting, qualification, scoring, and tight sales feedback loops." },
@@ -226,6 +229,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Retain & expand", body: "Lifecycle automation keeps users engaged." },
       { title: "Measure & scale", body: "Clean metrics guide where to invest next." },
     ],
+    image: { src: "/images/industries/startup-growth-marketing-founders.webp", alt: "Overhead view of startup founders planning growth with sticky notes beside a laptop showing their website" },
     faqs: [
       { q: "We're pre-product-market fit - can you help?", a: "We focus on efficient experiments and measurement so you learn fast without overspending." },
       { q: "Do you work with product-led growth?", a: "Yes - we build activation and lifecycle systems around your product signals." },
@@ -272,6 +276,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Deliver at scale", body: "Automation handles repetitive delivery." },
       { title: "Expand offering", body: "Add AI voice and automation as services." },
     ],
+    image: { src: "/images/industries/agency-white-label-growth-audit.webp", alt: "Creative agency owner and strategist in Pune reviewing a client growth audit on an iMac" },
     faqs: [
       { q: "Is this truly white-label?", a: "Yes - systems run under your brand; we operate behind the scenes as your partner." },
       { q: "Can we resell AI voice to clients?", a: "Yes - many agency partners add AI calling and automation as premium services." },
@@ -318,6 +323,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Nurtured to apply", body: "Sequences guide them through the decision." },
       { title: "Enrolled", body: "Applicant converts, tracked end to end." },
     ],
+    image: { src: "/images/industries/education-admissions-marketing.webp", alt: "Admissions counsellor at a Kothrud coaching institute on the phone with a parent, noting the enquiry" },
     faqs: [
       { q: "Which institutions do you work with?", a: "Colleges, training providers, and course businesses with enrolment targets." },
       { q: "Can you handle high enquiry volume?", a: "Yes - automation and AI voice ensure every enquiry gets a timely response." },

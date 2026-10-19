@@ -6,6 +6,7 @@ import { Outcomes, Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
 import { LocalAreas } from "@/components/sections/local-areas";
 import { NotchPhoto } from "@/components/sections/notch-photo";
+import { SERVICE_STAGES, SystemMap } from "@/components/sections/system-map";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
@@ -98,6 +99,15 @@ export function ServicePage({
       </section>
 
       <Outcomes items={content.outcomes} />
+
+      {SERVICE_STAGES[content.slug] && (
+        <SystemMap
+          title={`Where ${content.title.toLowerCase()} fits in your growth system`}
+          description="Every service works on one part of the same system: from the first click to the closed sale."
+          highlight={SERVICE_STAGES[content.slug].stages}
+          note={SERVICE_STAGES[content.slug].note}
+        />
+      )}
 
       {content.features && content.features.length > 0 && (
         <FeatureCards

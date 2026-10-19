@@ -10,6 +10,7 @@ import {
   Code2,
 } from "lucide-react";
 import type { ServiceContent, OverviewContent } from "@/lib/content-types";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const digitalMarketingOverview: OverviewContent = {
   eyebrow: "Digital Marketing",
@@ -37,6 +38,7 @@ export const digitalMarketingOverview: OverviewContent = {
     title: "Demand generation is only valuable when it reaches revenue.",
     body:
       "We plan media, creative, landing pages, tracking, and lead handoff as one operating system. That means every campaign has a clear audience, offer, conversion path, and measurement model before budget is scaled.",
+    image: PAGE_IMAGES.digitalMarketing,
     points: [
       "Channel strategy tied to commercial goals",
       "Creative and landing pages built around one offer",
@@ -62,7 +64,7 @@ const cta = "Request a Growth Audit";
 export const digitalMarketingServices: Record<string, ServiceContent> = {
   "performance-advertising": {
     slug: "performance-advertising",
-    image: { src: "/images/services/svc-performance-advertising.webp", alt: "Performance marketer reviewing campaign results on an iMac with a colleague holding the weekly ad report" },
+    image: { src: "/images/services/svc-performance-advertising.webp", alt: "Overhead view of a marketer's desk with an example Google Ads and Meta campaign dashboard showing cost per lead and site visits, beside a printed ad report" },
     title: "Performance Advertising",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -277,7 +279,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "creative-strategy": {
     slug: "creative-strategy",
-    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Creative team reviewing a live brand website on an iMac with ad concepts pinned behind them" },
+    image: { src: "/images/services/svc-creative-strategy.webp", alt: "Creative team in Pune pinning printed ad concepts to a board while an example creative testing board shows hook rate and cost per lead on an iMac" },
     title: "Creative Strategy",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -326,7 +328,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "social-media": {
     slug: "social-media",
-    image: { src: "/images/services/svc-social-media.webp", alt: "Social media manager planning posts on a MacBook Air and checking a draft on her phone" },
+    image: { src: "/images/services/svc-social-media.webp", alt: "Close-up of a phone showing an example sponsored Instagram post for a Pune dental clinic, with a reel being shot behind" },
     title: "Social Media Marketing",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -375,7 +377,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "seo-content": {
     slug: "seo-content",
-    image: { src: "/images/services/svc-seo-content.webp", alt: "Content strategist reviewing the Vistrow blog on an iMac with a printed keyword list" },
+    image: { src: "/images/services/svc-seo-content.webp", alt: "iMac on a desk showing an example Google search performance report with keywords moving up the rankings, beside a printed keyword list" },
     title: "SEO & Content Marketing",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -424,7 +426,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "conversion-tracking": {
     slug: "conversion-tracking",
-    image: { src: "/images/services/svc-conversion-tracking.webp", alt: "Analyst and business owner reviewing performance reports in ArthaLeads on a MacBook Air" },
+    image: { src: "/images/services/svc-conversion-tracking.webp", alt: "Analyst walking a business owner through an example lead-to-revenue tracking report showing which ad sources produce bookings" },
     title: "Conversion Tracking",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -473,7 +475,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "marketing-automation": {
     slug: "marketing-automation",
-    image: { src: "/images/services/svc-marketing-automation.webp", alt: "Marketing executive reviewing automated WhatsApp follow-ups in the ArthaLeads team inbox" },
+    image: { src: "/images/services/svc-marketing-automation.webp", alt: "Close-up of a phone showing an automated WhatsApp reply to a new property enquiry, with a workflow on a laptop behind" },
     title: "Marketing Automation",
     eyebrow: "Digital Marketing",
     subtitle:

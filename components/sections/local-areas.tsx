@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { locations } from "@/content/locations";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export function LocalAreas({
   title = "Digital marketing agency in Pune",
@@ -42,8 +43,8 @@ export function LocalAreas({
         <Reveal>
           <div className="relative mx-auto mb-12 aspect-[3/2] max-w-5xl overflow-hidden rounded-xl border border-line">
             <Image
-              src="/images/home/pune-local.webp"
-              alt="Pune showroom owner reviewing WhatsApp enquiries in the ArthaLeads inbox with her assistant"
+              src={PAGE_IMAGES.homePune.src}
+              alt={PAGE_IMAGES.homePune.alt}
               fill
               sizes="(min-width: 1080px) 1024px, 100vw"
               className="object-cover"

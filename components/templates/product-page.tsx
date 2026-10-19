@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
@@ -70,6 +71,8 @@ export function ProductPage({
           { label: "Connects with", items: content.integrations.slice(0, 3) },
         ]}
       />
+
+      {content.screenshots && content.screenshots.length > 0 && <ProductScreens name={content.name} screens={content.screenshots} />}
 
       <FeatureCards eyebrow="Use cases" title="Where it earns its place" items={content.useCases} surface />
 
@@ -145,5 +148,61 @@ export function ProductPage({
         secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
       />
     </>
+  );
+}
+
+type Screen = NonNullable<ProductContent["screenshots"]>[number];
+
+// Real screens from the live product, each captioned so the image and its meaning are both indexable.
+function ProductScreens({ name, screens }: { name: string; screens: Screen[] }) {
+  const isPhone = (screen: Screen) => screen.height > screen.width;
+  const phone = screens.find(isPhone);
+  const desktop = screens.filter((screen) => !isPhone(screen));
+  const [lead, ...rest] = desktop;
+
+  const Shot = ({ screen, sizes, priority }: { screen: Screen; sizes: string; priority?: boolean }) => (
+    <figure className="h-full">
+      <div className="overflow-hidden rounded-xl border border-line bg-card shadow-sm">
+        <Image src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} sizes={sizes} priority={priority} className="h-auto w-full" />
+      </div>
+      <figcaption className="mt-3">
+        <p className="font-display text-base font-bold text-ink">{screen.title}</p>
+        <p className="mt-1 font-sans text-sm leading-relaxed text-muted">{screen.body}</p>
+      </figcaption>
+    </figure>
+  );
+
+  return (
+    <section className="py-section">
+      <div className="container-edge">
+        <SectionHeading
+          eyebrow="Real product screens"
+          title={`See inside ${name}`}
+          description="These are screens from the live product, shown with a demo workspace."
+          className="mb-10 max-w-3xl"
+        />
+        <div className={`grid items-start gap-gutter ${phone ? "lg:grid-cols-[1fr_260px]" : ""}`}>
+          {lead && (
+            <Reveal>
+              <Shot screen={lead} sizes="(min-width: 1024px) 900px, 100vw" />
+            </Reveal>
+          )}
+          {phone && (
+            <Reveal delay={0.06} className="mx-auto w-full max-w-[260px]">
+              <Shot screen={phone} sizes="260px" />
+            </Reveal>
+          )}
+        </div>
+        {rest.length > 0 && (
+          <div className={`mt-gutter grid gap-gutter ${rest.length > 1 ? "md:grid-cols-2" : ""}`}>
+            {rest.map((screen, index) => (
+              <Reveal key={screen.src} delay={index * 0.06}>
+                <Shot screen={screen} sizes={rest.length > 1 ? "(min-width: 768px) 600px, 100vw" : "(min-width: 1024px) 1200px, 100vw"} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
   );
 }

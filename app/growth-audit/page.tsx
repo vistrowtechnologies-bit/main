@@ -6,6 +6,7 @@ import { GrowthAuditForm } from "@/components/forms/growth-audit-form";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Steps } from "@/components/sections/steps";
 import { buildMetadata } from "@/lib/seo";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "Digital Marketing and Sales Growth Audit",
@@ -83,8 +84,8 @@ export default function Page() {
           <div className="mx-auto grid max-w-3xl items-center gap-10 xl:max-w-none xl:grid-cols-2 xl:gap-14">
             <div className="order-2 xl:order-1">
               <NotchPhoto
-                src="/images/brand/meeting-room-logo.webp"
-                alt="Vistrow consultant walking a client through a growth audit on a MacBook Air"
+                src={PAGE_IMAGES.growthAudit.src}
+                alt={PAGE_IMAGES.growthAudit.alt}
                 sizes="(min-width: 1280px) 600px, 100vw"
               />
             </div>

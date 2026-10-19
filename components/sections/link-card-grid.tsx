@@ -21,7 +21,7 @@ export function LinkCardGrid({
   const cols =
     columns === 2
       ? "sm:grid-cols-2"
-      : cards.length === 3
+      : cards.length === 3 || (cards.length % 3 === 0 && cards.length % 2 === 1)
         ? "md:grid-cols-3"
         : cards.length === 4
           ? "sm:grid-cols-2 lg:grid-cols-4"

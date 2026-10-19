@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "GPTBot", allow: "/", disallow: ["/api/"] },
       { userAgent: "ChatGPT-User", allow: "/", disallow: ["/api/"] },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: [`${siteUrl}/sitemap.xml`, `${siteUrl}/image-sitemap.xml`],
     host: siteUrl,
   };
 }

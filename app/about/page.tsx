@@ -11,6 +11,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "About Vistrow Technologies",
@@ -82,7 +83,7 @@ export default function Page() {
           <SectionHeading eyebrow="Why we exist" title="Marketing shouldn't stop at the click." className="mb-10 max-w-3xl" />
           <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
           <Reveal className="max-w-2xl xl:max-w-none">
-            <NotchPhoto src="/images/brand/office-wall-logo.webp" alt="Vistrow team reviewing the Vistrow website on an iMac in the Baner office, logo on the wall" />
+            <NotchPhoto src={PAGE_IMAGES.about.src} alt={PAGE_IMAGES.about.alt} />
           </Reveal>
           <Reveal delay={0.08}>
             <div className="max-w-2xl space-y-5 font-sans text-lg leading-relaxed text-muted xl:max-w-none">

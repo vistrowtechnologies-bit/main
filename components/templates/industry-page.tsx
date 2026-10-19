@@ -3,6 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { Steps } from "@/components/sections/steps";
+import { NotchPhoto } from "@/components/sections/notch-photo";
+import { SystemMap, stagesForServices } from "@/components/sections/system-map";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
@@ -63,24 +65,48 @@ export function IndustryPage({ content }: { content: IndustryContent }) {
         surface
       />
 
-      {/* Solution */}
+      {/* Solution: heading across the top, then the page photo beside the copy when there is one */}
       <section className="py-section">
-        <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading eyebrow="The Vistrow solution" title={content.solution.title} description={content.solution.body} />
-          <Reveal delay={0.08}>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {content.solution.points.map((point) => (
-                <li
-                  key={point}
-                  className="rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2"
-                >
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
+        {content.image ? (
+          <div className="container-edge">
+            <SectionHeading eyebrow="The Vistrow solution" title={content.solution.title} className="mb-10 max-w-3xl" />
+            <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
+              <Reveal className="max-w-2xl xl:max-w-none">
+                <NotchPhoto src={content.image.src} alt={content.image.alt} />
+              </Reveal>
+              <Reveal delay={0.08}>
+                <p className="max-w-xl font-sans text-lg leading-relaxed text-muted">{content.solution.body}</p>
+                <ul className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                  {content.solution.points.map((point) => (
+                    <li key={point} className="rounded-lg border border-line bg-card p-4 font-sans text-[15px] text-ink-2">
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+        ) : (
+          <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <SectionHeading eyebrow="The Vistrow solution" title={content.solution.title} description={content.solution.body} />
+            <Reveal delay={0.08}>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {content.solution.points.map((point) => (
+                  <li key={point} className="rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2">
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        )}
       </section>
+
+      <SystemMap
+        title={`Where Vistrow usually starts for ${content.title.toLowerCase()}`}
+        description="The highlighted stages are where teams in this industry most often lose enquiries, and where we start."
+        highlight={stagesForServices(content.services.map((service) => service.href))}
+      />
 
       {/* Relevant services */}
       <section className="border-t border-line bg-surface py-section">

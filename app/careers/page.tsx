@@ -8,6 +8,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { buildMetadata } from "@/lib/seo";
 import { CareersLanyard } from "@/components/3d/careers-lanyard";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "Careers at Vistrow Technologies",
@@ -53,8 +54,8 @@ export default function Page() {
           <div className="grid gap-gutter lg:grid-cols-2">
             <Reveal>
               <NotchPhoto
-                src="/images/brand/desk-branded-items.webp"
-                alt="New Vistrow team member opening the careers page on a MacBook Air, Vistrow notebook on the desk"
+                src={PAGE_IMAGES.careers.src}
+                alt={PAGE_IMAGES.careers.alt}
                 sizes="(min-width: 1024px) 600px, 100vw"
               />
             </Reveal>

@@ -1,5 +1,6 @@
 import { Database, PhoneCall, Zap, MessageSquare, Repeat, Wrench, Languages, PhoneIncoming, PhoneOutgoing, Globe, BookOpen, Webhook } from "lucide-react";
 import type { ServiceContent, OverviewContent } from "@/lib/content-types";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const businessAutomationOverview: OverviewContent = {
   eyebrow: "AI Automation Agency",
@@ -24,6 +25,7 @@ export const businessAutomationOverview: OverviewContent = {
     title: "We build and run our own AI products.",
     body:
       "Vistrow Voice (AI voice calling in 11 languages, including Hindi and English) and ArthaLeads (AI lead scoring and follow-up for real estate) are products we built and operate. When we automate your process, we bring what we've learned running them: how Indian callers respond, how WhatsApp templates get approved, and how messy CRM data really is. We map your real process first, then connect CRM, voice, messaging, calendars and reporting around it.",
+    image: PAGE_IMAGES.businessAutomation,
     points: [
       "AI voice agents that call in Hindi, Hinglish and other Indian languages",
       "AI lead scoring and WhatsApp follow-up drafted for each lead",
@@ -98,7 +100,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "ai-voice-calling": {
     slug: "ai-voice-calling",
-    image: { src: "/images/services/svc-ai-voice-calling.webp", alt: "Support lead with a headset reviewing the Vistrow Voice AI calling agent on a MacBook Air" },
+    image: { src: "/images/services/svc-ai-voice-calling.webp", alt: "Telecaller in Pune with a headset mid-conversation while an example Vistrow Voice AI call transcript runs on her laptop" },
     title: "AI Voice Calling",
     heroTitle: "Multilingual AI voice assistant for",
     highlight: "Indian businesses",
@@ -309,7 +311,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "custom-automation": {
     slug: "custom-automation",
-    image: { src: "/images/services/svc-custom-automation.webp", alt: "Operations manager and a Vistrow engineer mapping a workflow beside a business dashboard" },
+    image: { src: "/images/services/svc-custom-automation.webp", alt: "Operations team mapping a workflow on a whiteboard beside an iMac showing an example order-desk automation" },
     title: "Custom Automation",
     eyebrow: "AI Automation",
     subtitle:

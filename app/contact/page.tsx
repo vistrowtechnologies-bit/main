@@ -12,6 +12,7 @@ import { FeatureCards } from "@/components/sections/feature-cards";
 import { Faq } from "@/components/sections/faq";
 import { Reveal } from "@/components/ui/reveal";
 import { buildMetadata } from "@/lib/seo";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact Vistrow Technologies",
@@ -130,8 +131,8 @@ export default function Page() {
         <div className="container-edge grid gap-gutter lg:grid-cols-2">
           <Reveal>
             <NotchPhoto
-              src="/images/brand/reception-logo.webp"
-              alt="Vistrow reception in Baner, Pune, with the contact page open on an iMac and the logo on the wall"
+              src={PAGE_IMAGES.contact.src}
+              alt={PAGE_IMAGES.contact.alt}
               sizes="(min-width: 1024px) 600px, 100vw"
             />
           </Reveal>

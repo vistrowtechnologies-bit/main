@@ -1,5 +1,6 @@
 import { MapPin, Zap, Users2, LineChart } from "lucide-react";
 import type { LocationContent, OverviewContent } from "@/lib/content-types";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const locationsOverview: OverviewContent = {
   eyebrow: "Locations",
@@ -24,6 +25,7 @@ export const locationsOverview: OverviewContent = {
     title: "One connected system, wherever your business sits in Pune.",
     body:
       "Whether you're in Baner, Pimpri-Chinchwad, Hinjewadi, Wakad, or Kothrud, the same engine applies: marketing that generates real enquiries, and CRM plus AI voice systems that respond before a competitor does.",
+    image: PAGE_IMAGES.locations,
     points: [
       "Based in Baner, Pune - available for in-person meetings",
       "Same-timezone support across all working hours",

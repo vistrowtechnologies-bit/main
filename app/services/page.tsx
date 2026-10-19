@@ -10,6 +10,9 @@ import { digitalMarketingOverview } from "@/content/digital-marketing";
 import { businessAutomationOverview } from "@/content/business-automation";
 import { buildMetadata } from "@/lib/seo";
 import { breadcrumbSchema, collectionSchema, graph } from "@/lib/structured-data";
+import { PhotoSplit } from "@/components/sections/photo-split";
+import { SystemMap } from "@/components/sections/system-map";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "Digital Marketing and AI Automation Services",
@@ -47,17 +50,38 @@ export default function Page() {
         secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
       />
 
+      <PhotoSplit
+        eyebrow="One connected team"
+        title="Marketing and the systems behind it, run as one"
+        body="Many businesses hire one agency for ads, another for the website and someone else for the CRM, and enquiries fall through the gaps between them. Vistrow plans and runs all of it together, so a lead from an ad is answered, followed up and traced back to revenue."
+        points={[
+          "Marketing and automation planned together",
+          "One owner for every stage of the journey",
+          "Built on our own products, ArthaLeads and Vistrow Voice",
+          "Reporting tied to enquiries and sales, not clicks",
+        ]}
+        image={PAGE_IMAGES.services}
+      />
+
+      <SystemMap
+        eyebrow="The system"
+        title="Six stages, from the first click to the closed sale"
+        description="Marketing brings the right people in. Automation makes sure every enquiry is answered, qualified, followed up and measured. Each service below works on one or more of these stages."
+        highlight={["attract", "capture", "respond", "qualify", "follow-up", "convert"]}
+        surface
+      />
+
       <LinkCardGrid
         eyebrow="Marketing"
         title="Generate demand"
         cards={digitalMarketingOverview.cards}
-        surface
       />
 
       <LinkCardGrid
         eyebrow="Automation"
         title="Convert what you generate"
         cards={businessAutomationOverview.cards}
+        surface
       />
 
       <section className="border-t border-line bg-surface py-section">

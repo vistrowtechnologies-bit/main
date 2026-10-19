@@ -5,6 +5,8 @@ import { FeatureCards } from "@/components/sections/feature-cards";
 import { Steps } from "@/components/sections/steps";
 import { CtaBand } from "@/components/sections/cta-band";
 import { buildMetadata } from "@/lib/seo";
+import { PhotoSplit } from "@/components/sections/photo-split";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "Agency and Technology Partnerships",
@@ -45,6 +47,19 @@ export default function Page() {
         primaryCta={{ label: "Become a partner", href: "/contact" }}
         secondaryCta={{ label: "Explore products", href: "/products" }}
       />
+      <PhotoSplit
+        eyebrow="Partnerships"
+        title="Offer CRM, AI voice and automation without building them yourself"
+        body="Agencies, consultants and technology providers partner with Vistrow to give their clients the systems behind the marketing. Brand, client ownership, support and payment are agreed in writing before we serve a client together."
+        points={[
+          "White-label or co-branded delivery",
+          "Client ownership agreed before the work starts",
+          "A named owner on each side for every workflow",
+          "Clear support boundaries and escalation",
+        ]}
+        image={PAGE_IMAGES.partners}
+      />
+
       <FeatureCards eyebrow="Ways to partner" title="How we work with partners" items={partnerTypes} columns={4} surface />
       <Steps eyebrow="Getting started" title="How a partnership begins" steps={steps} />
       <FeatureCards eyebrow="Partnership guardrails" title="What we agree before serving a client together" items={guardrails} columns={3} surface />

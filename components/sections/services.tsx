@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LineChart, Cog, ChevronRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { TiltCard } from "@/components/ui/motion-primitives";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 const smallCards = [
   {
@@ -67,8 +68,8 @@ export function Services() {
               {/* Landscape photo when stacked, a portrait version beside the text on desktop, so neither is cropped. */}
               <div className="relative aspect-[3/2] lg:hidden">
                 <Image
-                  src="/images/home/service-digital-marketing.webp"
-                  alt="Marketers reviewing the Vistrow website on a blue iMac in a Pune office"
+                  src={PAGE_IMAGES.homeDigitalMarketing.src}
+                  alt={PAGE_IMAGES.homeDigitalMarketing.alt}
                   fill
                   sizes="100vw"
                   className="object-cover"
@@ -76,8 +77,8 @@ export function Services() {
               </div>
               <div className="relative hidden lg:block lg:w-[42%] lg:shrink-0">
                 <Image
-                  src="/images/home/service-digital-marketing-portrait.webp"
-                  alt="Marketers reviewing the Vistrow website on a blue iMac in a Pune office"
+                  src={PAGE_IMAGES.homeDigitalMarketingPortrait.src}
+                  alt={PAGE_IMAGES.homeDigitalMarketingPortrait.alt}
                   fill
                   sizes="28vw"
                   className="object-cover object-top"
@@ -104,8 +105,8 @@ export function Services() {
               <div className="mt-auto pt-8">
                 <div className="relative aspect-[3/2] overflow-hidden rounded-sm">
                   <Image
-                    src="/images/home/service-crm.webp"
-                    alt="Telecaller working through the ArthaLeads lead pipeline on a MacBook Air while his manager looks on"
+                    src={PAGE_IMAGES.homeCrm.src}
+                    alt={PAGE_IMAGES.homeCrm.alt}
                     fill
                     sizes="(min-width: 768px) 28vw, 100vw"
                     className="object-cover"

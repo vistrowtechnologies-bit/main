@@ -3,6 +3,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { LinkCardGrid } from "@/components/sections/link-card-grid";
 import { Steps } from "@/components/sections/steps";
+import { NotchPhoto } from "@/components/sections/notch-photo";
 import { Faq } from "@/components/sections/faq";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -52,7 +53,29 @@ export function OverviewPage({
         secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
       />
 
-      {content.intro && (
+      {content.intro?.image ? (
+        <section className="py-section">
+          <div className="container-edge">
+            <SectionHeading eyebrow={content.intro.eyebrow ?? "The connected system"} title={content.intro.title} className="mb-10 max-w-3xl" />
+            <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
+              <Reveal className="max-w-2xl xl:max-w-none">
+                <NotchPhoto src={content.intro.image.src} alt={content.intro.image.alt} />
+              </Reveal>
+              <Reveal delay={0.08}>
+                <p className="max-w-xl font-sans text-lg leading-relaxed text-muted">{content.intro.body}</p>
+                <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${content.intro.body.length > 400 ? "" : "xl:grid-cols-1"}`}>
+                  {content.intro.points.map((point) => (
+                    <li key={point} className="flex items-start gap-3 rounded-lg border border-line bg-card p-4">
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" strokeWidth={2} />
+                      <span className="font-sans text-[15px] leading-relaxed text-ink-2">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      ) : content.intro ? (
         <section className="py-section">
           <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <SectionHeading
@@ -75,7 +98,7 @@ export function OverviewPage({
             </Reveal>
           </div>
         </section>
-      )}
+      ) : null}
 
       <LinkCardGrid title={content.cardsTitle} cards={content.cards} surface />
 

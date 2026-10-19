@@ -42,6 +42,7 @@ export type IndustryContent = {
   services: { label: string; href: string }[];
   workflow: Step[];
   faqs: QA[];
+  image?: { src: string; alt: string };
 };
 
 export type LocationContent = {
@@ -81,6 +82,8 @@ export type ProductContent = {
   externalUrl?: string;
   externalLabel?: string;
   faqs?: QA[];
+  /** Real product screens: the first is shown large, a portrait phone screen sits beside it. */
+  screenshots?: { src: string; alt: string; title: string; body: string; width: number; height: number }[];
   preview?: {
     stats: { value: string; label: string }[];
     rows: { label: string; value: string }[];
@@ -103,7 +106,7 @@ export type OverviewContent = {
   metaDescription: string;
   cards: OverviewCard[];
   cardsTitle?: string;
-  intro?: { eyebrow?: string; title: string; body: string; points: string[] };
+  intro?: { eyebrow?: string; title: string; body: string; points: string[]; image?: { src: string; alt: string } };
   process?: Step[];
   faqs?: QA[];
 };

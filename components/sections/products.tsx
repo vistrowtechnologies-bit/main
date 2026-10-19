@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { ScrollParallax } from "@/components/ui/motion-primitives";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 const products = [
   {
@@ -122,8 +123,8 @@ export function Products() {
           <Reveal delay={0.1} direction="right">
             <div className="relative mt-8 aspect-[3/2] overflow-hidden rounded-lg border border-line">
               <Image
-                src="/images/home/products.webp"
-                alt="ArthaLeads CRM dashboard on a MacBook Air beside Vistrow Voice on an iPhone"
+                src={PAGE_IMAGES.homeProducts.src}
+                alt={PAGE_IMAGES.homeProducts.alt}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"

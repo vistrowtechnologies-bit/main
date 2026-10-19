@@ -5,6 +5,8 @@ import { Steps } from "@/components/sections/steps";
 import { FeatureCards } from "@/components/sections/feature-cards";
 import { CtaBand } from "@/components/sections/cta-band";
 import { buildMetadata } from "@/lib/seo";
+import { PhotoSplit } from "@/components/sections/photo-split";
+import { PAGE_IMAGES } from "@/lib/page-images";
 
 export const metadata: Metadata = buildMetadata({
   title: "Our Growth System Approach",
@@ -44,6 +46,19 @@ export default function Page() {
         subtitle="A simple, repeatable method for connecting marketing to conversion - so growth is engineered, measured, and improvable rather than left to chance."
         secondaryCta={{ label: "About Vistrow", href: "/about" }}
       />
+      <PhotoSplit
+        eyebrow="Where it starts"
+        title="Every engagement starts with an audit"
+        body="Before we recommend anything, we map how enquiries arrive today, how fast they are answered, where follow-up happens and how sales are tracked. The plan comes from what that audit finds, not from a standard package."
+        points={[
+          "Funnel, spend, CRM and response times reviewed first",
+          "A written plan with the fixes in priority order",
+          "Built and launched in agreed stages",
+          "Reviewed against enquiries and sales every month",
+        ]}
+        image={PAGE_IMAGES.approach}
+      />
+
       <Steps eyebrow="The method" title="How every engagement runs" steps={steps} />
       <FeatureCards eyebrow="Principles" title="What guides the work" items={principles} columns={4} surface />
       <FeatureCards eyebrow="Engagement clarity" title="What is agreed before the build begins" items={engagementClarity} columns={3} />
