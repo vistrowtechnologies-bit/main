@@ -120,4 +120,19 @@ export const playbookSeo: Record<string, PlaybookSeo> = {
       ["Reel me hook kaise lagaye?", "Sabse dhamakedaar pal ko pehle second mein rakho, logo ya intro baad mein. Frame mein movement ho, ek hi product ho, aur bina awaaz ke bhi samajh aaye."],
     ],
   },
+  "missed-call-auto-reply-message": {
+    question: "What should a small business do about missed calls?",
+    answer:
+      "During the day, call back every missed call within 10 minutes: say your name and business, ask what they needed and offer two clear times, then confirm on WhatsApp. If you can't call back, send a short WhatsApp message. At night, forward the number to someone who answers or use an AI receptionist, and set a WhatsApp Business away message for chats outside business hours.",
+    keywords: ["missed call auto reply message", "missed call message template", "what to say when calling back a missed call", "whatsapp business away message example", "missed call log template", "ai receptionist for clinics", "call forwarding kaise kare"],
+    time: "PT10M",
+    faq: [
+      ["What is a good missed call auto reply message?", "Short and specific: who you are, that you missed the call, when you will call back, and a request to type what they need. For example: \"Namaste, {Business} se. Aapka call miss ho gaya, 10 minute mein call back karte hain.\""],
+      ["What should I say when calling back a missed call?", "Your name and business first, then \"aapka call aaya tha\". Ask what they needed, listen, and end with one clear next step, such as two appointment times, confirmed on WhatsApp."],
+      ["Does the WhatsApp Business away message reply to phone calls?", "No. The away message in the WhatsApp Business app replies to WhatsApp chats, on a schedule you choose (always, outside business hours or a custom schedule). It does not answer normal phone calls, so for calls at night forward the number or use an AI receptionist."],
+      ["How do I handle calls after business hours?", "Forward the number (\"forward when unanswered\") to someone who answers, or use an AI receptionist that takes the caller's name and need. Set a WhatsApp away message with your timings, and call back the night's list first thing in the morning."],
+      ["Should a clinic give advice in a missed-call message?", "No. Keep missed-call messages and call-backs to timings, appointments and directions. The night message can add one line: in an emergency, go to the nearest hospital."],
+      ["Missed call ka reply kaise karein?", "Din mein 10 minute ke andar call back karo: naam, business, \"aapka call aaya tha\", aur do time ke option. Call na lage toh WhatsApp pe chhota message bhejo. Raat ke liye number forward karo ya AI receptionist rakho."],
+    ],
+  },
 };

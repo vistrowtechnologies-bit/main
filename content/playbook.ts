@@ -24,7 +24,7 @@ export const playbook = {
 
 export const chapters: PlaybookChapter[] = [
   {
-    day: 1, slug: 'online-presence-checklist', keyword: 'START', release: '2026-10-19T18:30',
+    day: 1, slug: 'online-presence-checklist', keyword: 'START', release: '2026-10-26T18:30',
     title: 'Apna online chehra check karo',
     h1: 'Aapka Business Online Kaisa Dikhta Hai? 10-Point Online Presence Checklist',
     seoTitle: 'Online Presence Checklist for Small Business (Free PDF)',
@@ -50,7 +50,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   },
   {
-    day: 2, slug: 'google-business-profile-checklist', keyword: 'BOARD', release: '2026-10-20T13:00',
+    day: 2, slug: 'google-business-profile-checklist', keyword: 'BOARD', release: '2026-10-27T13:00',
     title: 'Google Business Profile kaise banaye (free)',
     h1: 'Google Business Profile Kaise Banaye: 10 Steps Ki Free Checklist (PDF)',
     seoTitle: 'Google Business Profile Kaise Banaye: Free 10-Step Checklist',
@@ -76,7 +76,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
-    day: 3, slug: 'website-must-haves-checklist', keyword: 'SHOWROOM', release: '2026-10-21T09:30',
+    day: 3, slug: 'website-must-haves-checklist', keyword: 'SHOWROOM', release: '2026-10-28T09:30',
     title: 'Website ke 10 must-haves',
     h1: 'Small Business Website Checklist: 10 Cheezein Jo Har Website Mein Honi Chahiye',
     seoTitle: 'Small Business Website Checklist India: 10 Must-Haves (PDF)',
@@ -102,7 +102,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   },
   {
-    day: 4, slug: 'google-review-request-templates', keyword: 'REVIEWS', release: '2026-10-22T17:30',
+    day: 4, slug: 'google-review-request-templates', keyword: 'REVIEWS', release: '2026-10-29T17:30',
     title: '5 WhatsApp templates: Google review kaise maangein',
     h1: 'Google Review Kaise Badhaye: 5 WhatsApp Messages Jo Customer Ko Bhejo',
     seoTitle: 'Google Review Request Message for WhatsApp (Hindi + English)',
@@ -124,7 +124,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
-    day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-23T12:00',
+    day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-30T12:00',
     title: 'Lead tracker: garam jawab + follow-up',
     h1: 'Free Lead Tracker + Follow-Up Schedule (lead = garam chai)',
     seoTitle: 'Free Lead Tracker (Google Sheets) + Follow-Up Schedule',
@@ -146,7 +146,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   },
   {
-    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-10-25T16:00',
+    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-11-01T16:00',
     title: 'Pehle second ke 10 hook ideas',
     h1: 'Reel Hook Ideas for Product Ads: Pehle Second Ki 10-Point Checklist',
     seoTitle: 'Product Reel Hook Ideas + First-Second Checklist (Free PDF)',
@@ -182,6 +182,39 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Apna best product chuno. Uska sabse dhamakedaar pal likho (girna, khulna, bhaap, crunch). Agli reel ka pehla second wahi pal banao, aur phone pe scroll karke dekho: kya aap khud rukoge?' }
     ],
     related: [{ slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
+  },
+  {
+    day: 8, slug: 'missed-call-auto-reply-message', keyword: 'MISSED', release: '2026-11-02T18:30',
+    title: 'Missed call = gira hua note',
+    h1: 'Missed Call Auto Reply Message + 10-Minute Call-Back Script (missed call = gira hua note)',
+    seoTitle: 'Missed Call Auto Reply Message + Call-Back Script (Free PDF)',
+    description: 'Missed call = gira hua note. 3 WhatsApp auto-reply messages (day, night, holiday), a 10-minute call-back script, a missed call log and a free printable PDF.',
+    summary: 'Missed call recovery kit: 10-minute call-back script, 3 WhatsApp auto-replies + call log.',
+    blocks: [
+      { type: 'why', title: 'Missed call = gira hua note', text: 'Sadak pe ₹500 ka note gira dikhe, toh aap turant uthaoge. Missed call bhi wahi note hai: koi customer khud chal ke aapke paas aaya tha. Example (Smile Dental clinic): raat 10 baje ek patient daant ke dard mein clinic ko call karta hai. Ghanti bajti rehti hai. Woh doosre clinic ko call karta hai, wahan koi uthata hai, aur subah 9 baje ka appointment wahin book ho jaata hai. Agli subah doctor sochte hain "wrong number hoga". Niyam: missed call, gira hua note hai. Das minute mein uthao.' },
+      { type: 'steps', title: 'Din ka niyam: 10-minute call-back script', items: [
+        ['10 minute ke andar call back', 'Missed call dikhe, haath ka kaam rok ke wapas lagao. Customer abhi bhi usi sawaal ke saath baitha hai.'],
+        ['Pehle apna naam + business', '"Namaste, main {Naam} bol raha hoon, {Business} se. Aapka call aaya tha, utha nahi paaye."'],
+        ['Seedha poocho', '"Bataiye, kis cheez ke liye call kiya tha?" Phir dhyaan se suno, beech mein mat kaato.'],
+        ['Do time ke option do', '"Kal subah 10 baje ya shaam 5 baje, kaunsa theek rahega?" "Kabhi bhi aa jaao" se baat latakti hai.'],
+        ['WhatsApp pe confirm', '"Main abhi WhatsApp pe time aur address bhej deta hoon." Aur turant bhej do.'],
+        ['Na uthaye toh', 'Ek baar aur try karo, phir neeche wala "Din" message WhatsApp pe bhejo.'],
+        ['Log mein likho', 'Call kab aaya, call back kab kiya, kya chahiye tha, kya hua. Shaam ko 2 minute mein dekh lo.']
+      ] },
+      { type: 'templates', title: '3 WhatsApp auto-reply messages (copy karo)', items: [
+        ['Din: missed call ke baad (call back na ho sake toh khud bhejo)', 'Namaste 🙏 {Business} se {Naam}. Aapka call miss ho gaya, maaf kijiye. 10 minute mein call back karte hain. Jaldi ho toh yahin likh dijiye, kis cheez ke liye call kiya tha?'],
+        ['Raat: WhatsApp Business away message ("Outside of business hours")', 'Namaste 🙏 {Business} abhi band hai (timing: {subah 9 – raat 8}). Apna naam aur kaam yahan likh dijiye, kal subah sabse pehle hum aapko call karenge. Appointment ke liye: {booking link}'],
+        ['Chhutti: away message ("Custom schedule")', 'Namaste 🙏 {Business} {date} ko band hai, {date} se phir khula. Apna naam aur kaam likh dijiye, khulte hi sabse pehle aapko call karenge. Shukriya!']
+      ] },
+      { type: 'note', text: 'Raat ka niyam: WhatsApp away message sirf WhatsApp messages ka jawab deta hai, phone call ka nahi. Call ke liye do raaste: (1) number forward karo: phone ki call settings mein "Call forwarding → jab na uthe" kisi aise number pe jo raat ko uthata ho. (2) AI receptionist rakho jo call uthaye, naam aur kaam note kare, aur appointment ka time le. Subah sabse pehle raat ki saari list ko call back.' },
+      { type: 'table', title: 'Missed call log', head: ['Call kab aaya', 'Naam / number', 'Call back kab', 'Kya chahiye tha', 'Kya hua'], rows: [
+        ['Example: 11:40 am', 'Example: Priya, 98XXX XXXXX', '11:47 am (7 min)', 'Cleaning ka time', 'Sat 11 am booked'],
+        ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', '']
+      ] },
+      { type: 'note', text: 'Clinic ho toh: phone, call back aur auto-reply mein sirf timing, appointment aur address ki baat. Ilaaj ki salah phone ya message pe nahi. Raat ke message mein ek line jod do: "Emergency ho toh turant nearest hospital jaayein." Upar Smile Dental aur log ki entry example hain: apne business ke naam aur timing daalo.' },
+      { type: 'task', text: 'Aaj ka kaam: din mein, har missed call ka das minute mein call back. Shaam ko phone ki call list kholo: aaj kitne missed call aaye, kitno ko 10 minute mein call back kiya? Log mein likho.' }
+    ],
+    related: [{ slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }]
   }
 ];
 
