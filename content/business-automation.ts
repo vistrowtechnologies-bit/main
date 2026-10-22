@@ -51,7 +51,7 @@ export const businessAutomationOverview: OverviewContent = {
 export const businessAutomationServices: Record<string, ServiceContent> = {
   "crm-lead-management": {
     slug: "crm-lead-management",
-    image: { src: "/images/services/svc-crm-lead-management.webp", alt: "Sales manager reviewing the ArthaLeads lead pipeline on an iMac with a telecaller" },
+    image: { src: "/images/services/svc-crm-lead-management.webp", alt: "Real estate sales manager walking telecallers through the ArthaLeads lead pipeline on a wall screen" },
     title: "CRM & Lead Management",
     eyebrow: "AI Automation",
     subtitle:
@@ -163,7 +163,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "sales-automation": {
     slug: "sales-automation",
-    image: { src: "/images/services/svc-sales-automation.webp", alt: "Sales executive reviewing a lead record in ArthaLeads before a follow-up call" },
+    image: { src: "/images/services/svc-sales-automation.webp", alt: "Field sales executive walking out of a Pune project site office, checking his next follow-up on his phone" },
     title: "Sales Automation",
     eyebrow: "AI Automation",
     subtitle:
@@ -212,7 +212,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "communication-automation": {
     slug: "communication-automation",
-    image: { src: "/images/services/svc-communication-automation.webp", alt: "Customer success executive managing WhatsApp conversations in the ArthaLeads inbox and on his phone" },
+    image: { src: "/images/services/svc-communication-automation.webp", alt: "Furniture showroom owner in Pune serving a customer while an automated WhatsApp reply goes to a new enquiry on his phone" },
     title: "WhatsApp, Email & SMS Automation",
     eyebrow: "AI Automation",
     subtitle:
@@ -262,7 +262,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "lead-follow-up": {
     slug: "lead-follow-up",
-    image: { src: "/images/services/svc-lead-follow-up.webp", alt: "Telecaller team lead checking overdue follow-ups and hot leads in ArthaLeads on an iMac" },
+    image: { src: "/images/services/svc-lead-follow-up.webp", alt: "Telecaller ticking off a follow-up list beside the ArthaLeads dashboard showing overdue follow-ups and hot leads" },
     title: "Lead Follow-Up Systems",
     eyebrow: "AI Automation",
     subtitle:

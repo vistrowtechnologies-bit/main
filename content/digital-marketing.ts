@@ -114,7 +114,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "lead-generation": {
     slug: "lead-generation",
-    image: { src: "/images/services/svc-lead-generation.webp", alt: "Two sales professionals reviewing new property leads on the ArthaLeads dashboard" },
+    image: { src: "/images/services/svc-lead-generation.webp", alt: "Home buyer filling in an example site-visit lead form for a Pune real estate project on a phone" },
     title: "Lead Generation",
     eyebrow: "Digital Marketing",
     subtitle:
@@ -163,7 +163,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "website-development": {
     slug: "website-development",
-    image: { src: "/images/services/svc-website-development.webp", alt: "Designer and developer reviewing a client website Vistrow built, on a blue iMac" },
+    image: { src: "/images/services/svc-website-development.webp", alt: "Prophunt website built by Vistrow, shown on an iMac with its mobile version on an iPhone beside it" },
     title: "Website Development",
     heroTitle: "Website development company in",
     highlight: "Pune",
@@ -230,7 +230,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "landing-pages": {
     slug: "landing-pages",
-    image: { src: "/images/services/svc-landing-pages.webp", alt: "Marketer checking a landing page on a MacBook Air before launching an ad campaign" },
+    image: { src: "/images/services/svc-landing-pages.webp", alt: "Vistrow Growth Audit landing page on a MacBook Air with its mobile version on a phone, on a cafe table" },
     title: "Landing Pages & Funnels",
     eyebrow: "Digital Marketing",
     subtitle:
