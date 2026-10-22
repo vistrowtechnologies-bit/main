@@ -124,14 +124,14 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
           className="pointer-events-none absolute -right-32 top-10 h-[420px] w-[420px] rounded-full bg-accent/10 blur-[100px]"
         />
 
-        <div className="container-edge relative py-14 sm:py-16 lg:py-20">
+        <div className="container-edge relative py-8 sm:py-16 lg:py-20">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-sans text-sm text-muted">
             <Link href="/" className="transition-colors hover:text-ink">Home</Link>
             <span aria-hidden className="text-line">/</span>
             <span className="text-ink">Blog</span>
           </nav>
 
-          <div className="mt-10 grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.7fr)] lg:gap-16">
+          <div className="mt-6 grid items-end gap-6 sm:mt-10 sm:gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.7fr)] lg:gap-16">
             <div className="max-w-4xl">
               <div className="flex items-center gap-3">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-ink shadow-[0_0_28px_rgb(var(--accent)/0.28)]">
@@ -139,19 +139,19 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
                 </span>
                 <p className="eyebrow">Vistrow Intelligence</p>
               </div>
-              <h1 className="mt-6 max-w-4xl font-display text-[clamp(2.7rem,6vw,5.5rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-ink">
+              <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.2rem,6vw,5.5rem)] sm:mt-6 font-extrabold leading-[0.98] tracking-[-0.055em] text-ink">
                 Practical ideas for <span className="text-accent-strong">measurable growth.</span>
               </h1>
-              <p className="mt-6 max-w-2xl font-sans text-lg leading-relaxed text-muted sm:text-xl">
+              <p className="mt-4 max-w-2xl font-sans text-base leading-relaxed text-muted sm:mt-6 sm:text-xl">
                 Clear thinking on marketing, CRM, AI voice and automation for teams building a connected revenue system.
               </p>
             </div>
 
-            <div className="glass rounded-xl p-5 sm:p-6">
-              <label htmlFor="blog-search" className="font-display text-base font-bold text-ink">
+            <div className="glass rounded-xl p-4 sm:p-6">
+              <label htmlFor="blog-search" className="hidden font-display text-base font-bold text-ink sm:block">
                 What do you want to solve?
               </label>
-              <div className="mt-3 flex h-14 items-center gap-3 rounded-lg border border-line bg-bg/80 px-4 transition-colors focus-within:border-accent focus-within:ring-4 focus-within:ring-accent/10">
+              <div className="flex h-12 items-center gap-3 sm:mt-3 sm:h-14 rounded-lg border border-line bg-bg/80 px-4 transition-colors focus-within:border-accent focus-within:ring-4 focus-within:ring-accent/10">
                 <Search className="h-5 w-5 shrink-0 text-muted" strokeWidth={1.8} />
                 <input
                   ref={searchRef}
@@ -177,7 +177,7 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
                   </kbd>
                 )}
               </div>
-              <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-5">
+              <div className="mt-5 hidden grid-cols-2 gap-4 border-t border-line pt-5 sm:grid">
                 <div>
                   <p className="font-display text-2xl font-extrabold text-ink">{posts.length}</p>
                   <p className="mt-0.5 font-sans text-xs text-muted">Field notes</p>
@@ -200,7 +200,7 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
       </TopicStrip>
 
       {showFeatured && (
-        <section className="py-14 sm:py-16 lg:py-20">
+        <section className="py-10 sm:py-16 lg:py-20">
           <div className="container-edge">
             <div className="mb-7 flex items-end justify-between gap-4">
               <div>
@@ -256,7 +256,7 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
         </section>
       )}
 
-      <section id="article-results" className="scroll-mt-36 border-t border-line bg-surface/55 py-14 sm:py-16 lg:py-20">
+      <section id="article-results" className="scroll-mt-36 border-t border-line bg-surface/55 py-10 sm:py-16 lg:py-20">
         <div className="container-edge">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
@@ -278,7 +278,7 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
           </div>
 
           {gridPosts.length > 0 ? (
-            <div className="mt-9 grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
+            <div className="mt-7 grid grid-cols-1 gap-x-7 divide-y divide-line sm:mt-9 sm:gap-y-12 sm:divide-y-0 md:grid-cols-2 xl:grid-cols-3">
               {gridPosts.map((post) => (
                 <ArticleCard key={post.slug} post={post} />
               ))}
@@ -483,17 +483,19 @@ function Pagination({
 
 function ArticleCard({ post }: { post: BlogPost }) {
   return (
-    <Link href={`/blog/${post.slug}`} className="group flex flex-col">
-      <CoverImage post={post} sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, 100vw" className="rounded-xl transition-shadow duration-300 group-hover:shadow-lift" />
-      <div className="mt-5 flex items-center justify-between gap-3">
-        <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">{post.category}</span>
-        <span className="font-sans text-xs text-muted">{post.readTime}</span>
+    <Link href={`/blog/${post.slug}`} className="group grid grid-cols-[132px_minmax(0,1fr)] items-center gap-4 py-5 sm:flex sm:flex-col sm:items-stretch sm:gap-0 sm:py-0">
+      <CoverImage post={post} sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, (min-width: 640px) 100vw, 132px" className="rounded-lg transition-shadow duration-300 group-hover:shadow-lift sm:rounded-xl" />
+      <div className="min-w-0 sm:mt-5">
+        <div className="flex items-center justify-between gap-3">
+          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">{post.category}</span>
+          <span className="hidden font-sans text-xs text-muted sm:inline">{post.readTime}</span>
+        </div>
+        <h3 className="mt-1.5 line-clamp-3 font-display text-[15px] font-bold leading-snug tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-strong sm:mt-2.5 sm:line-clamp-none sm:text-xl sm:leading-[1.22] sm:tracking-[-0.02em]">
+          {post.title}
+        </h3>
+        <div className="hidden sm:block"><p className="mt-2.5 line-clamp-2 font-sans text-sm leading-relaxed text-muted">{post.excerpt}</p></div>
+        <time className="mt-1.5 block font-sans text-xs text-muted sm:mt-3" dateTime={post.date}>{formatDate(post.date)}</time>
       </div>
-      <h3 className="mt-2.5 font-display text-xl font-bold leading-[1.22] tracking-[-0.02em] text-ink transition-colors group-hover:text-accent-strong">
-        {post.title}
-      </h3>
-      <p className="mt-2.5 line-clamp-2 font-sans text-sm leading-relaxed text-muted">{post.excerpt}</p>
-      <time className="mt-3 font-sans text-xs text-muted" dateTime={post.date}>{formatDate(post.date)}</time>
     </Link>
   );
 }
