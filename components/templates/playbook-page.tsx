@@ -290,7 +290,7 @@ export function PlaybookChapterPage({ chapter, preview = false, live = null }: {
                 <Chip><Clock className="h-3.5 w-3.5" /> 5 min</Chip>
                 <Chip>Free</Chip>
               </div>
-              <h1 className="mt-3 max-w-4xl font-display text-[clamp(1.6rem,4.6vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink">{chapter.h1 ?? chapter.title}</h1>
+              <h1 className="mt-3 max-w-4xl font-display text-hero-lg text-ink">{chapter.h1 ?? chapter.title}</h1>
               <p className="mt-3 max-w-2xl font-sans text-[15px] leading-relaxed text-muted sm:text-lg">{chapter.summary}</p>
               <div className="mt-6 hidden gap-3 sm:flex">
                 <a href={reel} target="_blank" rel="noopener" className="btn-primary">Day {chapter.day} reel dekho <ArrowRight className="h-4 w-4" /></a>
@@ -371,7 +371,7 @@ export function PlaybookIndexPage({ preview = false, live = null }: { preview?: 
           <div className={`relative grid grid-cols-1 items-center gap-8 ${fan.length ? "lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-12"}`}>
             <div>
               <Chip solid><Sparkles className="h-3.5 w-3.5" /> Free · 100-day challenge</Chip>
-              <h1 className="mt-4 font-display text-[clamp(2.2rem,6vw,4.5rem)] font-extrabold leading-[1] tracking-[-0.045em] text-ink">100 Din Playbook</h1>
+              <h1 className="mt-4 font-display text-hero-lg text-ink">100 Din Playbook</h1>
               <p className="mt-3 font-display text-xl font-bold text-ink sm:text-3xl">
                 Free <SwapWord words={["checklists", "WhatsApp templates", "trackers", "printable PDFs"]} className="text-accent-strong" />
               </p>

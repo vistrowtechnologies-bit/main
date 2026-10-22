@@ -128,7 +128,7 @@ export function BlogPostPage({
             <div className="mt-5 grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,760px)_300px] lg:gap-12">
               <div className="min-w-0">
                 <header>
-                <h1 className="font-display text-[clamp(2.15rem,4.4vw,3.75rem)] font-extrabold leading-[1.06] tracking-[-0.035em] text-ink">
+                <h1 className="font-display text-hero-lg text-ink">
                   <BlurText as="span" text={post.title} delay={58} stepDuration={0.3} direction="top" />
                 </h1>
 
@@ -210,7 +210,7 @@ export function BlogPostPage({
                           <span className="font-display text-sm font-bold text-accent-strong">
                             {String(headingNumber).padStart(2, "0")}
                           </span>
-                          <h2 className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
+                          <h2 className="font-display text-h3 text-ink">
                             {section.heading}
                           </h2>
                         </div>
@@ -240,7 +240,7 @@ export function BlogPostPage({
 
               {post.faqs && post.faqs.length > 0 && (
                 <section id="faqs" className="scroll-mt-32 border-t border-line py-10" aria-labelledby="faqs-heading">
-                  <h2 id="faqs-heading" className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
+                  <h2 id="faqs-heading" className="font-display text-h3 text-ink">
                     Frequently asked questions
                   </h2>
                   <div className="mt-6 divide-y divide-line rounded-xl border border-line bg-card">

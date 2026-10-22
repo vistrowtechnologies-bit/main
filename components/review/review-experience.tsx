@@ -75,7 +75,7 @@ export function ReviewExperience({ business }: { business: ReviewBusiness }) {
             </div>
           </div>
           <p className="mt-7 text-xs font-bold uppercase tracking-[0.16em] text-[#536a09]">{business.name}</p>
-          <h1 className="mx-auto mt-3 max-w-[620px] font-display text-[clamp(2rem,5vw,3.25rem)] font-extrabold leading-[1.12]">
+          <h1 className="mx-auto mt-3 max-w-[620px] font-display text-hero-lg">
             Tell us about <span className="block whitespace-nowrap decoration-[#c6ff00] decoration-[0.16em] underline-offset-[0.09em] underline">your experience.</span>
           </h1>
           <p className="mx-auto mt-4 max-w-[510px] text-base leading-7 text-[#59616a]">

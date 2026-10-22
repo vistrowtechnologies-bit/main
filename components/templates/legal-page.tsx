@@ -11,7 +11,7 @@ export function LegalPage({ content }: { content: LegalContent }) {
           <Breadcrumb
             items={[{ label: "Home", href: "/" }, { label: content.title }]}
           />
-          <h1 className="mt-6 font-display text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-[-0.03em] text-ink">
+          <h1 className="mt-6 font-display text-hero-lg text-ink">
             <BlurText as="span" text={content.title} delay={72} stepDuration={0.3} direction="top" />
           </h1>
           <p className="mt-3 font-sans text-sm text-muted">Last updated: {content.updated}</p>

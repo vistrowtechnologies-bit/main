@@ -139,7 +139,7 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
                 </span>
                 <p className="eyebrow">Vistrow Intelligence</p>
               </div>
-              <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.2rem,6vw,5.5rem)] sm:mt-6 font-extrabold leading-[0.98] tracking-[-0.055em] text-ink">
+              <h1 className="mt-4 max-w-4xl font-display text-hero-lg text-ink sm:mt-6">
                 Practical ideas for <span className="text-accent-strong">measurable growth.</span>
               </h1>
               <p className="mt-4 max-w-2xl font-sans text-base leading-relaxed text-muted sm:mt-6 sm:text-xl">
@@ -202,56 +202,52 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
       {showFeatured && (
         <section className="py-10 sm:py-16 lg:py-20">
           <div className="container-edge">
-            <div className="mb-7 flex items-end justify-between gap-4">
+            <div className="mb-7 flex items-end justify-between gap-4 sm:mb-9">
               <div>
                 <p className="eyebrow">Featured</p>
-                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">New this week</h2>
+                <h2 className="mt-3 font-display text-h2 text-ink">New this week</h2>
               </div>
               <span className="hidden font-sans text-sm text-muted sm:block">A new researched guide every day</span>
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:gap-10">
-              <Link href={`/blog/${featuredPost.slug}`} className="group block">
-                <CoverImage post={featuredPost} priority sizes="(min-width: 1024px) 58vw, 100vw" className="rounded-2xl shadow-lift" />
-                <div className="mt-6 flex items-center gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1.5 font-sans text-xs font-semibold text-ink">
+            <Link
+              href={`/blog/${featuredPost.slug}`}
+              className="group grid overflow-hidden rounded-2xl border border-line bg-card shadow-soft transition-shadow duration-300 hover:shadow-lift lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]"
+            >
+              <div className="p-3 sm:p-4 lg:pr-0">
+                <CoverImage post={featuredPost} priority sizes="(min-width: 1024px) 50vw, 100vw" className="rounded-xl" />
+              </div>
+              <div className="flex flex-col justify-center px-5 pb-6 pt-2 sm:px-8 sm:pb-8 lg:p-10">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <span className="rounded-full bg-accent px-2.5 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.14em] text-accent-ink">Latest</span>
+                  <span className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-ink">
                     <CategoryIcon category={featuredPost.category} className="h-3.5 w-3.5 text-accent-strong" />
                     {featuredPost.category}
                   </span>
-                  <span className="font-sans text-xs text-muted">{featuredPost.readTime}</span>
-                  <time className="font-sans text-xs text-muted" dateTime={featuredPost.date}>{formatDate(featuredPost.date)}</time>
                 </div>
-                <h3 className="mt-4 font-display text-[clamp(1.7rem,3vw,2.6rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-ink transition-colors group-hover:text-accent-strong">
-                  {featuredPost.title}
-                </h3>
-                <p className="mt-4 max-w-3xl font-sans text-base leading-relaxed text-muted sm:text-lg">{featuredPost.excerpt}</p>
-                <span className="mt-5 inline-flex items-center gap-2 font-sans text-sm font-semibold text-ink">
-                  Read the guide <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </Link>
+                <h3 className="mt-4 font-display text-h3 text-ink transition-colors group-hover:text-accent-strong">{featuredPost.title}</h3>
+                <p className="mt-3 line-clamp-3 font-sans text-base leading-relaxed text-muted">{featuredPost.excerpt}</p>
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5">
+                  <span className="font-sans text-xs text-muted">
+                    <time dateTime={featuredPost.date}>{formatDate(featuredPost.date)}</time> · {featuredPost.readTime}
+                  </span>
+                  <span className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-ink">
+                    Read the guide <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </div>
+            </Link>
 
-              {alsoNew.length > 0 && (
-                <div>
-                  <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-muted">Also new</p>
-                  <ul className="mt-4 divide-y divide-line border-y border-line">
-                    {alsoNew.map((post) => (
-                      <li key={post.slug}>
-                        <Link href={`/blog/${post.slug}`} className="group grid grid-cols-[150px_minmax(0,1fr)] items-center gap-4 py-5 sm:grid-cols-[190px_minmax(0,1fr)]">
-                          <CoverImage post={post} sizes="190px" className="rounded-lg" />
-                          <div className="min-w-0">
-                            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">{post.category}</span>
-                            <h3 className="mt-1.5 line-clamp-3 font-display text-base font-bold leading-snug tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-strong sm:text-[17px]">
-                              {post.title}
-                            </h3>
-                            <time className="mt-1.5 block font-sans text-xs text-muted" dateTime={post.date}>{formatDate(post.date)}</time>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+            {alsoNew.length > 0 && (
+              <div className="mt-10 sm:mt-14">
+                <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-muted">Also recent</p>
+                <div className="mt-2 grid grid-cols-1 gap-x-7 divide-y divide-line sm:mt-5 sm:gap-y-12 sm:divide-y-0 md:grid-cols-2 xl:grid-cols-3">
+                  {alsoNew.map((post) => (
+                    <ArticleCard key={post.slug} post={post} />
+                  ))}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -261,7 +257,7 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="eyebrow">{hasFilters ? "Filtered library" : page > 1 ? `Page ${page} of ${totalPages}` : "All guides"}</p>
-              <h2 className="mt-2 font-display text-3xl font-bold tracking-[-0.035em] text-ink sm:text-4xl">
+              <h2 className="mt-3 font-display text-h2 text-ink">
                 {hasFilters ? "Ideas matched to your search" : page > 1 ? "More guides" : "Keep exploring"}
               </h2>
             </div>

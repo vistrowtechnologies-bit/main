@@ -43,7 +43,7 @@ export function PageHero({
             <Breadcrumb items={breadcrumb} />
           </div>
           {eyebrow && <p className="eyebrow mt-6">{eyebrow}</p>}
-          <h1 className="mt-4 font-display text-[clamp(2.25rem,4.2vw,3.5rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-ink">
+          <h1 className="mt-4 font-display text-hero-lg text-ink">
             <BlurText
               as="span"
               text={title}
