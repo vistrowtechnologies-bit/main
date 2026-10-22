@@ -3,6 +3,7 @@ import { siteUrl } from "@/lib/seo";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
 import { submitSitemap } from "@/lib/seo-report/search-console";
 import { submitToIndexNow } from "@/lib/indexing/indexnow";
+import { getBlogPosts } from "@/lib/sanity/blog";
 
 const STATE_ID = "indexingState";
 
@@ -20,10 +21,16 @@ export async function notifySearchEngines(log: string[]): Promise<void> {
 
   const entries = await sitemap();
   const isNewDeployment = deploymentId !== state.lastDeploymentId;
+  // Scheduled posts are created days before they go live, so also count posts whose publication
+  // date is on or after the last run's date.
+  const sinceDay = lastRunAt?.toISOString().slice(0, 10);
+  const wentLive = sinceDay
+    ? new Set((await getBlogPosts()).filter((post) => post.date && post.date.slice(0, 10) >= sinceDay).map((post) => `${siteUrl}/blog/${post.slug}`))
+    : new Set<string>();
   const changed = isNewDeployment
     ? entries.map((entry) => entry.url)
     : entries
-        .filter((entry) => entry.lastModified && lastRunAt && new Date(entry.lastModified) > lastRunAt)
+        .filter((entry) => wentLive.has(entry.url) || (entry.lastModified && lastRunAt && new Date(entry.lastModified) > lastRunAt))
         .map((entry) => entry.url);
 
   log.push(isNewDeployment ? `New deployment ${deploymentId}: submitting all ${changed.length} URLs.` : `${changed.length} blog post(s) changed since the last run.`);

@@ -6,8 +6,10 @@ import { getSanityWriteClient } from "@/lib/sanity/write-client";
 // A post is only written for a calendar entry the team has added a first-hand insight to.
 // No insight, no post - this is what stops generic filler from being generated.
 const MIN_INSIGHT_LENGTH = 200;
-// At most one long-form post every few days, however many insights are waiting.
+// At most one long-form post every few days, however many insights are waiting (draft mode only).
 const MIN_DAYS_BETWEEN_POSTS = 3;
+// The scheduled daily run warns when fewer scheduled posts than this are left in the queue.
+const MIN_SCHEDULED_AHEAD = 2;
 // An entry that fails this many runs is skipped (so it can't block the queue) until someone edits it in Studio.
 const MAX_FAILED_RUNS = 3;
 
@@ -34,23 +36,51 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const force = searchParams.get("force") === "1";
+  // publishOn=YYYY-MM-DD writes a published post dated that day (hidden on the site until then).
+  // Used by the weekly batch that prepares the next 7 days of posts. entry=<id> picks the calendar entry.
+  const publishOn = searchParams.get("publishOn");
+  const entryParam = searchParams.get("entry");
+  if (publishOn && !/^\d{4}-\d{2}-\d{2}$/.test(publishOn)) {
+    return NextResponse.json({ error: "publishOn must be YYYY-MM-DD." }, { status: 400 });
+  }
 
   const log: string[] = [];
   let currentEntryId: string | null = null;
   try {
     const writeClient = getSanityWriteClient();
 
+    // The scheduled daily run no longer writes posts: batches are prepared ahead with publishOn.
+    // It only checks that enough scheduled posts are queued, and emails the team if not.
+    if (!publishOn && !force) {
+      await checkScheduledQueue(writeClient, log);
+      await recordCronRun({ startedAt, status: "ok", log, postsCreated: 0 });
+      return NextResponse.json({ ok: true, created: [], log });
+    }
+
+    if (publishOn) {
+      const taken = await writeClient.fetch<number>(
+        `count(*[_type == "blogPost" && !(_id in path("drafts.**")) && publishedAt == $day])`,
+        { day: publishOn },
+      );
+      if (taken > 0) {
+        log.push(`A post is already scheduled for ${publishOn}; nothing generated.`);
+        return NextResponse.json({ ok: false, error: `A post is already scheduled for ${publishOn}.`, log }, { status: 409 });
+      }
+    }
+
     const lastUsedAt = await writeClient.fetch<string | null>(
       `*[_type == "contentCalendarEntry" && status == "used" && defined(usedAt)] | order(usedAt desc)[0].usedAt`,
     );
     const daysSinceLast = lastUsedAt ? (Date.now() - new Date(lastUsedAt).getTime()) / 86_400_000 : Infinity;
-    if (!force && daysSinceLast < MIN_DAYS_BETWEEN_POSTS) {
+    if (!force && !publishOn && daysSinceLast < MIN_DAYS_BETWEEN_POSTS) {
       log.push(`Last post was generated ${daysSinceLast.toFixed(1)} day(s) ago; waiting until ${MIN_DAYS_BETWEEN_POSTS} days have passed.`);
       await recordCronRun({ startedAt, status: "ok", log, postsCreated: 0 });
       return NextResponse.json({ ok: true, created: [], log });
     }
 
-    const queue = await fetchReadyCalendarEntries(writeClient, 1);
+    const queue = entryParam
+      ? (await fetchReadyCalendarEntries(writeClient, 50)).filter((entry) => entry._id === entryParam)
+      : await fetchReadyCalendarEntries(writeClient, 1);
     if (queue.length === 0) {
       log.push(`No calendar entry has an insight of ${MIN_INSIGHT_LENGTH}+ characters yet - nothing generated.`);
       await remindAboutMissingInsights(writeClient, startedAt, log);
@@ -83,7 +113,7 @@ export async function GET(request: Request) {
     const created: { title: string; studioUrl: string }[] = [];
 
     for (const [index, post] of posts.entries()) {
-      const docId = `drafts.${randomUUID()}`;
+      const docId = publishOn ? randomUUID() : `drafts.${randomUUID()}`;
       const slug = await uniqueSlug(writeClient, slugify(post.title), log);
 
       await writeClient.create({
@@ -94,7 +124,7 @@ export async function GET(request: Request) {
         excerpt: stripDashes(post.excerpt),
         category: post.category,
         author: "Vistrow Team",
-        publishedAt: new Date().toISOString().slice(0, 10),
+        publishedAt: publishOn ?? new Date().toISOString().slice(0, 10),
         readTime: post.readTime,
         useRealProductScreenshot: post.useRealProductScreenshot,
         screenshotGuidance: post.screenshotGuidance,
@@ -157,7 +187,11 @@ export async function GET(request: Request) {
       if (entry) await markCalendarEntryUsed(writeClient, entry._id, docId, log);
     }
 
-    log.push(`Created ${created.length} draft document(s) in Sanity - nothing is published.`);
+    log.push(
+      publishOn
+        ? `Created ${created.length} post(s) scheduled for ${publishOn}; it goes live on the site that day.`
+        : `Created ${created.length} draft document(s) in Sanity - nothing is published.`,
+    );
 
     await recordCronRun({ startedAt, status: "ok", log, postsCreated: created.length });
     return NextResponse.json({ ok: true, created, log });
@@ -355,6 +389,38 @@ async function remindAboutMissingInsights(
     else log.push(`Insight reminder email sent to ${to}.`);
   } catch (error) {
     log.push(`Insight reminder email failed: ${String(error)}`);
+  }
+}
+
+// Safety net for the weekly batch: if fewer than MIN_SCHEDULED_AHEAD posts are scheduled after
+// today, email the team so the queue never runs dry unnoticed. Never throws.
+async function checkScheduledQueue(writeClient: ReturnType<typeof getSanityWriteClient>, log: string[]): Promise<void> {
+  try {
+    const today = new Date().toISOString().slice(0, 10);
+    const scheduled = await writeClient.fetch<{ title: string; publishedAt: string }[]>(
+      `*[_type == "blogPost" && !(_id in path("drafts.**")) && publishedAt > $today] | order(publishedAt asc){title, publishedAt}`,
+      { today },
+    );
+    log.push(`${scheduled.length} post(s) scheduled after today${scheduled.length ? `, last on ${scheduled[scheduled.length - 1].publishedAt}` : ""}.`);
+    if (scheduled.length >= MIN_SCHEDULED_AHEAD) return;
+
+    const apiKey = process.env.RESEND_API_KEY;
+    const from = process.env.CONTACT_FROM_EMAIL;
+    const to = process.env.CONTACT_TO_EMAIL || "hello@vistrow.com";
+    if (!apiKey || !from) {
+      log.push("Queue is low, but RESEND_API_KEY or CONTACT_FROM_EMAIL is not configured, so no email was sent.");
+      return;
+    }
+    const subject = `Blog queue: ${scheduled.length} post(s) left`;
+    const text = `Only ${scheduled.length} blog post(s) are scheduled after today. The weekly batch on the Mac prepares the next 7 when Claude is open. Open Claude on the Mac, or run the "Prepare next week's blog posts" task now.`;
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from, to: [to], subject, text, html: `<p>${escapeHtml(text)}</p>` }),
+    });
+    log.push(response.ok ? `Low-queue email sent to ${to}.` : `Low-queue email failed: ${response.status}`);
+  } catch (error) {
+    log.push(`Queue check failed: ${String(error)}`);
   }
 }
 

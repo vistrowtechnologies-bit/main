@@ -2,7 +2,9 @@ export const blogPostsQuery = `
   *[
     _type == "blogPost" &&
     defined(slug.current) &&
-    defined(title)
+    defined(title) &&
+    // Scheduled posts (a future publication date) stay hidden until that day.
+    (!defined(publishedAt) || publishedAt <= now())
   ] | order(publishedAt desc) {
     "slug": slug.current,
     title,
