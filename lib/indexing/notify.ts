@@ -37,8 +37,10 @@ export async function notifySearchEngines(log: string[]): Promise<void> {
 
     if (process.env.GSC_SERVICE_ACCOUNT_JSON) {
       try {
-        await submitSitemap(process.env.GSC_SITE_URL || `${siteUrl}/`, `${siteUrl}/sitemap.xml`);
-        log.push("Google: sitemap resubmitted in Search Console.");
+        const property = process.env.GSC_SITE_URL || `${siteUrl}/`;
+        await submitSitemap(property, `${siteUrl}/sitemap.xml`);
+        await submitSitemap(property, `${siteUrl}/image-sitemap.xml`);
+        log.push("Google: sitemap and image sitemap resubmitted in Search Console.");
       } catch (error) {
         log.push(`Google sitemap resubmit failed: ${String(error)}`);
       }

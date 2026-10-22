@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import { CONSENT_SETTINGS_EVENT, readConsent, saveConsent, type ConsentChoice } from "@/lib/consent";
 
 // Two layers, as consent guidance expects: a short first layer with equal-weight Accept all /
@@ -84,42 +85,50 @@ export function CookieBanner() {
           </p>
 
           <ul className="mt-4 divide-y divide-line rounded-lg border border-line">
-            <li className="flex items-start justify-between gap-4 p-4">
-              <div>
+            <li className="p-4">
+              <div className="flex items-center justify-between gap-4">
                 <p className="font-sans text-sm font-semibold text-ink">Essential</p>
-                <p className="mt-1 font-sans text-[12.5px] leading-relaxed text-muted">
-                  Needed for the site to work and to remember your theme and cookie choices. Always on.
-                </p>
+                <span className="font-sans text-xs font-semibold text-muted">Always on</span>
               </div>
-              <span className="shrink-0 pt-0.5 font-sans text-xs font-semibold text-muted">Always on</span>
+              <p className="mt-1 font-sans text-[12.5px] leading-relaxed text-muted">
+                Keep the site working and remember your theme and privacy choices.
+              </p>
             </li>
-            <li className="flex items-start justify-between gap-4 p-4">
-              <div>
+            <li className="p-4">
+              <div className="flex items-center justify-between gap-4">
                 <p className="font-sans text-sm font-semibold text-ink">Analytics</p>
-                <p className="mt-1 font-sans text-[12.5px] leading-relaxed text-muted">
-                  Google Analytics, provided by Google, measures which pages are visited and which lead to enquiries,
-                  with IP anonymisation. Off unless you turn it on.
-                </p>
+                <Toggle checked={analytics} onChange={setAnalytics} label="Analytics cookies" />
               </div>
-              <Toggle checked={analytics} onChange={setAnalytics} label="Analytics cookies" />
-            </li>
-            <li className="flex items-start justify-between gap-4 p-4">
-              <div>
-                <p className="font-sans text-sm font-semibold text-ink">Advertising</p>
-                <p className="mt-1 font-sans text-[12.5px] leading-relaxed text-muted">
-                  We do not use advertising or tracking cookies for ads on this website.
-                </p>
-              </div>
-              <span className="shrink-0 pt-0.5 font-sans text-xs font-semibold text-muted">Not used</span>
+              <p className="mt-1 font-sans text-[12.5px] leading-relaxed text-muted">
+                Help us see which pages are useful, so we can improve the site.
+              </p>
+              <details className="group mt-2">
+                <summary className="inline-flex cursor-pointer list-none items-center gap-1 font-sans text-[12.5px] font-semibold text-ink-2 underline-offset-2 hover:underline [&::-webkit-details-marker]:hidden">
+                  Cookie details
+                  <ChevronDown className="h-3.5 w-3.5 transition-transform group-open:rotate-180" strokeWidth={2.25} />
+                </summary>
+                <table className="mt-2 w-full font-sans text-[12px] text-muted">
+                  <tbody>
+                    <tr className="border-t border-line">
+                      <td className="py-1.5 pr-3 font-semibold text-ink-2">_ga, _ga_*</td>
+                      <td className="py-1.5 pr-3">Google Analytics (Google)</td>
+                      <td className="py-1.5 text-right">2 years</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </details>
             </li>
           </ul>
 
-          <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="mt-4 grid grid-cols-3 gap-2">
             <button type="button" onClick={() => choose("denied")} className={choiceButton}>
               Reject all
             </button>
             <button type="button" onClick={() => choose(analytics ? "granted" : "denied")} className={choiceButton}>
               Save choices
+            </button>
+            <button type="button" onClick={() => choose("granted")} className={choiceButton}>
+              Accept all
             </button>
           </div>
         </>

@@ -104,7 +104,7 @@ export const legalPages: Record<string, LegalContent> = {
       ]},
       { heading: "Analytics", body: [
         "With your permission, we use Google Analytics to understand how visitors use this website - usage events and limited device, browser, referral, and approximate location information. We configure IP anonymisation where supported.",
-        "Analytics cookies are only set after you choose Accept in the cookie banner. Until then, or if you decline, Google Analytics runs in a cookieless mode that sends basic, anonymous signals without identifiers that could recognise you.",
+        "Analytics cookies are only set after you allow them in the cookie banner, by choosing Accept all or turning Analytics on and saving. Until then, or if you decline, Google Analytics runs in a cookieless mode that sends basic, anonymous signals without identifiers that could recognise you.",
         "We do not currently use advertising cookies on this website.",
       ]},
       { heading: "Managing cookies", body: [
