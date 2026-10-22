@@ -9,6 +9,7 @@ import { siteUrl } from "@/lib/seo";
 import { chapters as playbookChapters } from "@/content/playbook";
 import { getLiveReels, isLive } from "@/lib/playbook-live";
 import { getBlogPosts } from "@/lib/sanity/blog";
+import { blogPageCount } from "@/lib/blog-paging";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...Object.keys(industries).map((s) => `/industries/${s}`),
     ...Object.keys(locations).map((s) => `/locations/${s}`),
     ...Object.keys(workPages).map((s) => `/work/${s}`),
+    // Paginated blog index: /blog/page/2 onwards
+    ...Array.from({ length: Math.max(0, blogPageCount(blogPosts.length) - 1) }, (_, i) => `/blog/page/${i + 2}`),
     ...blogPosts
       .filter((post) => !post.excludeFromSitemap && post.robotsIndex !== false && !post.redirectUrl)
       .map((post) => `/blog/${post.slug}`),

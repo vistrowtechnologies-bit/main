@@ -3,8 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
+  ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   Bot,
   ChartNoAxesCombined,
   Database,
@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { BlogPost } from "@/lib/content-types";
+import { FEATURED_COUNT, POSTS_PER_PAGE, blogPageCount } from "@/lib/blog-paging";
 
 const ALL_TOPICS = "All insights";
 
@@ -39,13 +40,14 @@ function CategoryIcon({ category, className = "h-5 w-5" }: { category: string; c
   return <Lightbulb className={className} strokeWidth={1.8} />;
 }
 
-export function BlogHub({ posts }: { posts: BlogPost[] }) {
+export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number }) {
   const sortedPosts = useMemo(
     () => [...posts].sort((a, b) => (a.date < b.date ? 1 : -1)),
     [posts],
   );
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(ALL_TOPICS);
+  const [filterPage, setFilterPage] = useState(1);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const categories = useMemo(() => {
@@ -87,8 +89,15 @@ export function BlogHub({ posts }: { posts: BlogPost[] }) {
   }, []);
 
   const hasFilters = query.trim().length > 0 || activeCategory !== ALL_TOPICS;
-  const featuredPost = sortedPosts[0];
-  const gridPosts = hasFilters ? filteredPosts : sortedPosts.slice(1);
+  useEffect(() => setFilterPage(1), [query, activeCategory]);
+
+  const [featuredPost, ...alsoNew] = sortedPosts.slice(0, FEATURED_COUNT);
+  const totalPages = blogPageCount(sortedPosts.length);
+  const filteredPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+  const gridPosts = hasFilters
+    ? filteredPosts.slice((filterPage - 1) * POSTS_PER_PAGE, filterPage * POSTS_PER_PAGE)
+    : sortedPosts.slice(FEATURED_COUNT + (page - 1) * POSTS_PER_PAGE, FEATURED_COUNT + page * POSTS_PER_PAGE);
+  const showFeatured = !hasFilters && page === 1 && featuredPost;
 
   const selectCategory = (category: string) => {
     setActiveCategory(category);
@@ -183,110 +192,66 @@ export function BlogHub({ posts }: { posts: BlogPost[] }) {
         </div>
       </section>
 
-      <div className="sticky top-[72px] z-30 border-b border-line bg-bg/90 backdrop-blur-xl">
-        <div className="container-edge flex items-center gap-2 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <span className="mr-2 hidden shrink-0 font-sans text-[11px] font-semibold uppercase tracking-[0.15em] text-muted lg:inline">
-            Browse
-          </span>
-          <TopicButton
-            active={activeCategory === ALL_TOPICS}
-            label={ALL_TOPICS}
-            count={posts.length}
-            onClick={() => selectCategory(ALL_TOPICS)}
-          />
-          {categories.map(([category, count]) => (
-            <TopicButton
-              key={category}
-              active={activeCategory === category}
-              label={category}
-              count={count}
-              onClick={() => selectCategory(category)}
-            />
-          ))}
-        </div>
-      </div>
+      <TopicStrip>
+        <TopicButton active={activeCategory === ALL_TOPICS} label={ALL_TOPICS} count={posts.length} onClick={() => selectCategory(ALL_TOPICS)} />
+        {categories.map(([category, count]) => (
+          <TopicButton key={category} active={activeCategory === category} label={category} count={count} onClick={() => selectCategory(category)} />
+        ))}
+      </TopicStrip>
 
-      {!hasFilters && featuredPost && (
+      {showFeatured && (
         <section className="py-14 sm:py-16 lg:py-20">
           <div className="container-edge">
-            <div className="mb-6 flex items-end justify-between gap-4">
+            <div className="mb-7 flex items-end justify-between gap-4">
               <div>
-                <p className="eyebrow">Featured insight</p>
-                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-                  Start with the latest
-                </h2>
+                <p className="eyebrow">Featured</p>
+                <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">New this week</h2>
               </div>
-              <span className="hidden font-sans text-sm text-muted sm:block">Selected by the Vistrow team</span>
+              <span className="hidden font-sans text-sm text-muted sm:block">A new researched guide every day</span>
             </div>
 
-            <Link
-              href={`/blog/${featuredPost.slug}`}
-              className="group grid overflow-hidden rounded-2xl bg-inverse shadow-lift transition-transform duration-300 ease-premium hover:-translate-y-1 lg:grid-cols-[1.15fr_0.85fr]"
-            >
-              <div className="flex min-h-[400px] flex-col p-7 sm:p-10 lg:p-12">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-inverse-ink/15 bg-inverse-ink/5 px-3 py-1.5 font-sans text-xs font-semibold text-inverse-ink">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:gap-10">
+              <Link href={`/blog/${featuredPost.slug}`} className="group block">
+                <CoverImage post={featuredPost} priority sizes="(min-width: 1024px) 58vw, 100vw" className="rounded-2xl shadow-lift" />
+                <div className="mt-6 flex items-center gap-3">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-line bg-card px-3 py-1.5 font-sans text-xs font-semibold text-ink">
                     <CategoryIcon category={featuredPost.category} className="h-3.5 w-3.5 text-accent-strong" />
                     {featuredPost.category}
                   </span>
-                  <span className="font-sans text-xs text-inverse-ink-2">{featuredPost.readTime}</span>
+                  <span className="font-sans text-xs text-muted">{featuredPost.readTime}</span>
+                  <time className="font-sans text-xs text-muted" dateTime={featuredPost.date}>{formatDate(featuredPost.date)}</time>
                 </div>
-                <h3 className="mt-8 max-w-3xl font-display text-[clamp(2rem,4vw,3.75rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-inverse-ink">
+                <h3 className="mt-4 font-display text-[clamp(1.7rem,3vw,2.6rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-ink transition-colors group-hover:text-accent-strong">
                   {featuredPost.title}
                 </h3>
-                <p className="mt-6 max-w-2xl font-sans text-base leading-relaxed text-inverse-ink-2 sm:text-lg">
-                  {featuredPost.excerpt}
-                </p>
-                <div className="mt-auto flex flex-wrap items-end justify-between gap-6 pt-10">
-                  <div className="font-sans text-xs text-inverse-ink-2">
-                    <p className="font-semibold text-inverse-ink">{featuredPost.author}</p>
-                    <time className="mt-1 block" dateTime={featuredPost.date}>{formatDate(featuredPost.date)}</time>
-                  </div>
-                  <span className="inline-flex items-center gap-2 font-sans text-sm font-semibold text-inverse-ink">
-                    Read the insight
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </div>
+                <p className="mt-4 max-w-3xl font-sans text-base leading-relaxed text-muted sm:text-lg">{featuredPost.excerpt}</p>
+                <span className="mt-5 inline-flex items-center gap-2 font-sans text-sm font-semibold text-ink">
+                  Read the guide <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
 
-              {featuredPost.featuredImage?.url ? (
-                <div className="relative min-h-[320px] overflow-hidden border-t border-inverse-ink/10 bg-inverse lg:min-h-full lg:border-l lg:border-t-0">
-                  <Image
-                    src={featuredPost.featuredImage.url}
-                    alt={featuredPost.featuredImage.alt || featuredPost.title}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 42vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.035]"
-                  />
-                  <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/5 to-black/10" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 p-7 text-white sm:p-9">
-                    <span className="font-sans text-xs font-bold uppercase tracking-[0.2em]">Featured story</span>
-                    <ArrowUpRight className="h-7 w-7 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" strokeWidth={1.5} />
-                  </div>
-                </div>
-              ) : (
-                <div className="relative min-h-[320px] overflow-hidden border-t border-inverse-ink/10 bg-accent lg:min-h-full lg:border-l lg:border-t-0">
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgb(var(--accent-ink)/0.35)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--accent-ink)/0.35)_1px,transparent_1px)] [background-size:44px_44px]"
-                  />
-                  <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full border-[42px] border-accent-ink/10" />
-                  <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full border border-accent-ink/25" />
-                  <div className="relative flex h-full min-h-[320px] flex-col justify-between p-8 text-accent-ink sm:p-10">
-                    <div className="flex items-start justify-between">
-                      <span className="font-sans text-xs font-bold uppercase tracking-[0.2em]">Vistrow / Journal</span>
-                      <ArrowUpRight className="h-8 w-8 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" strokeWidth={1.5} />
-                    </div>
-                    <CategoryIcon category={featuredPost.category} className="h-28 w-28 sm:h-36 sm:w-36" />
-                    <div className="flex items-end justify-between border-t border-accent-ink/25 pt-5">
-                      <span className="font-display text-5xl font-extrabold tracking-[-0.06em]">01</span>
-                      <span className="max-w-[140px] text-right font-sans text-xs font-semibold leading-relaxed">Ideas that connect activity to revenue</span>
-                    </div>
-                  </div>
+              {alsoNew.length > 0 && (
+                <div>
+                  <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-muted">Also new</p>
+                  <ul className="mt-4 divide-y divide-line border-y border-line">
+                    {alsoNew.map((post) => (
+                      <li key={post.slug}>
+                        <Link href={`/blog/${post.slug}`} className="group grid grid-cols-[150px_minmax(0,1fr)] items-center gap-4 py-5 sm:grid-cols-[190px_minmax(0,1fr)]">
+                          <CoverImage post={post} sizes="190px" className="rounded-lg" />
+                          <div className="min-w-0">
+                            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">{post.category}</span>
+                            <h3 className="mt-1.5 line-clamp-3 font-display text-base font-bold leading-snug tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-strong sm:text-[17px]">
+                              {post.title}
+                            </h3>
+                            <time className="mt-1.5 block font-sans text-xs text-muted" dateTime={post.date}>{formatDate(post.date)}</time>
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
-            </Link>
+            </div>
           </div>
         </section>
       )}
@@ -295,14 +260,14 @@ export function BlogHub({ posts }: { posts: BlogPost[] }) {
         <div className="container-edge">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="eyebrow">{hasFilters ? "Filtered library" : "Latest intelligence"}</p>
+              <p className="eyebrow">{hasFilters ? "Filtered library" : page > 1 ? `Page ${page} of ${totalPages}` : "All guides"}</p>
               <h2 className="mt-2 font-display text-3xl font-bold tracking-[-0.035em] text-ink sm:text-4xl">
-                {hasFilters ? "Ideas matched to your search" : "Keep exploring"}
+                {hasFilters ? "Ideas matched to your search" : page > 1 ? "More guides" : "Keep exploring"}
               </h2>
             </div>
             <div className="flex items-center gap-3">
               <p aria-live="polite" className="font-sans text-sm text-muted">
-                {gridPosts.length} {gridPosts.length === 1 ? "article" : "articles"}
+                {hasFilters ? filteredPosts.length : sortedPosts.length} {(hasFilters ? filteredPosts.length : sortedPosts.length) === 1 ? "article" : "articles"}
               </p>
               {hasFilters && (
                 <button type="button" onClick={resetFilters} className="btn-ghost px-3 py-2 text-xs">
@@ -313,11 +278,47 @@ export function BlogHub({ posts }: { posts: BlogPost[] }) {
           </div>
 
           {gridPosts.length > 0 ? (
-            <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {gridPosts.map((post, index) => (
-                <ArticleCard key={post.slug} post={post} index={index + (hasFilters ? 1 : 2)} />
+            <div className="mt-9 grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
+              {gridPosts.map((post) => (
+                <ArticleCard key={post.slug} post={post} />
               ))}
             </div>
+          ) : null}
+
+          {gridPosts.length > 0 ? (
+            hasFilters ? (
+              filteredPages > 1 && (
+                <Pagination
+                  current={filterPage}
+                  total={filteredPages}
+                  renderItem={(n, label, active) => (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFilterPage(n);
+                        document.getElementById("article-results")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      aria-current={active ? "page" : undefined}
+                      className={pageItemClass(active)}
+                    >
+                      {label}
+                    </button>
+                  )}
+                />
+              )
+            ) : (
+              totalPages > 1 && (
+                <Pagination
+                  current={page}
+                  total={totalPages}
+                  renderItem={(n, label, active) => (
+                    <Link href={n === 1 ? "/blog" : `/blog/page/${n}`} aria-current={active ? "page" : undefined} className={pageItemClass(active)}>
+                      {label}
+                    </Link>
+                  )}
+                />
+              )
+            )
           ) : (
             <div className="mt-9 rounded-2xl border border-dashed border-line bg-bg px-6 py-16 text-center sm:py-20">
               <span className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-accent/15 text-accent-strong">
@@ -335,6 +336,49 @@ export function BlogHub({ posts }: { posts: BlogPost[] }) {
         </div>
       </section>
     </>
+  );
+}
+
+// Topic pills: start aligned with the page content and scroll out to the screen edge (no hard cut),
+// with a fade and arrow buttons while more topics are off-screen.
+function TopicStrip({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ start: true, end: true });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => setEdges({ start: el.scrollLeft <= 4, end: el.scrollLeft + el.clientWidth >= el.scrollWidth - 4 });
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+  const scrollBy = (dx: number) => ref.current?.scrollBy({ left: dx, behavior: "smooth" });
+  const mask = !edges.end ? "[mask-image:linear-gradient(to_right,black_85%,transparent)]" : "";
+  return (
+    <div className="sticky top-[72px] z-30 border-b border-line bg-bg/90 backdrop-blur-xl">
+      <div className="relative">
+        <div
+          ref={ref}
+          className={`flex items-center gap-2 overflow-x-auto py-3 pl-5 pr-16 [scrollbar-width:none] sm:pl-8 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] [&::-webkit-scrollbar]:hidden ${mask}`}
+        >
+          {children}
+        </div>
+        {!edges.start && (
+          <button type="button" aria-label="Scroll topics left" onClick={() => scrollBy(-320)} className="absolute left-2 top-1/2 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-card text-ink shadow-soft lg:inline-flex">
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+        )}
+        {!edges.end && (
+          <button type="button" aria-label="More topics" onClick={() => scrollBy(320)} className="absolute right-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-card text-ink shadow-soft">
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -368,67 +412,88 @@ function TopicButton({
   );
 }
 
-function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
+// Covers are designed at 16:9, so they are always shown in a 16:9 frame (never cropped).
+function CoverImage({
+  post,
+  sizes,
+  priority = false,
+  className = "",
+}: {
+  post: BlogPost;
+  sizes: string;
+  priority?: boolean;
+  className?: string;
+}) {
   return (
-    <Link
-      href={`/blog/${post.slug}`}
-      className="group flex min-h-[420px] flex-col overflow-hidden rounded-xl border border-line bg-card transition-all duration-300 ease-premium hover:-translate-y-1 hover:border-accent/60 hover:shadow-lift"
-    >
+    <div className={`relative aspect-[16/9] overflow-hidden border border-line bg-surface ${className}`}>
       {post.featuredImage?.url ? (
-        <div className="relative min-h-[210px] overflow-hidden border-b border-line bg-bg">
-          <Image
-            src={post.featuredImage.url}
-            alt={post.featuredImage.alt || post.title}
-            fill
-            sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, 100vw"
-            className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.045]"
-          />
-          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
-          <div className="absolute inset-x-0 top-0 flex items-start justify-between p-4">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/50 bg-black/55 text-accent backdrop-blur-md">
-              <CategoryIcon category={post.category} className="h-4 w-4" />
-            </span>
-            <span className="rounded-full border border-white/35 bg-black/55 px-3 py-1.5 font-display text-sm font-bold tracking-[-0.02em] text-white backdrop-blur-md">
-              {String(index).padStart(2, "0")}
-            </span>
-          </div>
-        </div>
+        <Image
+          src={post.featuredImage.url}
+          alt={post.featuredImage.alt || post.title}
+          fill
+          priority={priority}
+          sizes={sizes}
+          className="object-cover transition-transform duration-700 ease-premium group-hover:scale-[1.03]"
+        />
       ) : (
-        <div className="relative min-h-[150px] overflow-hidden border-b border-line bg-bg p-5">
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-60 [background-image:radial-gradient(rgb(var(--muted)/0.24)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:linear-gradient(to_bottom_right,black,transparent)]"
-          />
-          <div className="relative flex h-full min-h-[110px] items-start justify-between">
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-card text-accent-strong shadow-soft transition-transform duration-300 group-hover:rotate-[-4deg] group-hover:scale-105">
-              <CategoryIcon category={post.category} />
-            </span>
-            <span className="font-display text-5xl font-extrabold tracking-[-0.07em] text-line">
-              {String(index).padStart(2, "0")}
-            </span>
-          </div>
+        <div className="absolute inset-0 flex items-center justify-center bg-inverse text-accent">
+          <CategoryIcon category={post.category} className="h-14 w-14" />
         </div>
       )}
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-center justify-between gap-3">
-          <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">
-            {post.category}
-          </span>
-          <span className="font-sans text-xs text-muted">{post.readTime}</span>
-        </div>
-        <h3 className="mt-4 font-display text-xl font-bold leading-[1.22] tracking-[-0.02em] text-ink transition-colors group-hover:text-accent-strong">
-          {post.title}
-        </h3>
-        <p className="mt-3 line-clamp-3 font-sans text-sm leading-relaxed text-muted">{post.excerpt}</p>
-        <div className="mt-auto flex items-end justify-between gap-4 border-t border-line pt-5">
-          <div className="font-sans text-[11px] text-muted">
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
-            <span aria-hidden className="mx-1.5">·</span>
-            <span>{post.author}</span>
-          </div>
-          <ArrowUpRight className="h-5 w-5 shrink-0 text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-strong" />
-        </div>
+    </div>
+  );
+}
+
+function pageItemClass(active: boolean) {
+  return `inline-flex h-11 min-w-11 items-center justify-center rounded-full border px-4 font-sans text-sm font-semibold transition-colors ${
+    active ? "border-accent bg-accent text-accent-ink" : "border-line bg-bg text-ink hover:border-accent/60"
+  }`;
+}
+
+// Numbered pagination: 1 2 3 ... with previous / next. renderItem decides link (crawlable pages) or button (filtered results).
+function Pagination({
+  current,
+  total,
+  renderItem,
+}: {
+  current: number;
+  total: number;
+  renderItem: (page: number, label: React.ReactNode, active: boolean) => React.ReactNode;
+}) {
+  const pages = Array.from({ length: total }, (_, i) => i + 1).filter((n) => n === 1 || n === total || Math.abs(n - current) <= 1);
+  const items: (number | "gap")[] = [];
+  pages.forEach((n, i) => {
+    if (i > 0 && n - pages[i - 1] > 1) items.push("gap");
+    items.push(n);
+  });
+  return (
+    <nav aria-label="Blog pages" className="mt-12 flex flex-wrap items-center justify-center gap-2">
+      {current > 1 && renderItem(current - 1, <><ArrowLeft className="h-4 w-4" /> Previous</>, false)}
+      {items.map((item, i) =>
+        item === "gap" ? (
+          <span key={`gap-${i}`} className="px-1 font-sans text-sm text-muted">…</span>
+        ) : (
+          <span key={item}>{renderItem(item, item, item === current)}</span>
+        ),
+      )}
+      {current < total && renderItem(current + 1, <>Next <ArrowRight className="h-4 w-4" /></>, false)}
+    </nav>
+  );
+}
+
+function ArticleCard({ post }: { post: BlogPost }) {
+  return (
+    <Link href={`/blog/${post.slug}`} className="group flex flex-col">
+      <CoverImage post={post} sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, 100vw" className="rounded-xl transition-shadow duration-300 group-hover:shadow-lift" />
+      <div className="mt-5 flex items-center justify-between gap-3">
+        <span className="font-sans text-[10px] font-bold uppercase tracking-[0.15em] text-accent-strong">{post.category}</span>
+        <span className="font-sans text-xs text-muted">{post.readTime}</span>
       </div>
+      <h3 className="mt-2.5 font-display text-xl font-bold leading-[1.22] tracking-[-0.02em] text-ink transition-colors group-hover:text-accent-strong">
+        {post.title}
+      </h3>
+      <p className="mt-2.5 line-clamp-2 font-sans text-sm leading-relaxed text-muted">{post.excerpt}</p>
+      <time className="mt-3 font-sans text-xs text-muted" dateTime={post.date}>{formatDate(post.date)}</time>
     </Link>
   );
 }
