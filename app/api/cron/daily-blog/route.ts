@@ -311,7 +311,7 @@ async function attachFeaturedImage(
       method: "POST",
       headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({ model: process.env.BLOG_IMAGE_MODEL || "gpt-image-2", prompt, size: "1536x1024", quality: "high", n: 1 }),
-      signal: AbortSignal.timeout(90_000),
+      signal: AbortSignal.timeout(150_000),
     });
     if (!response.ok) {
       log.push(`Featured image generation failed: ${response.status} ${await response.text()}`);
