@@ -142,6 +142,8 @@ export type BlogPost = {
   slug: string;
   title: string;
   excerpt: string;
+  keyTakeaways?: string[];
+  faqs?: { question: string; answer: string }[];
   category: string;
   author: string;
   date: string;

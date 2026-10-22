@@ -114,7 +114,9 @@ export async function GET(request: Request) {
 
     for (const [index, post] of posts.entries()) {
       const docId = publishOn ? randomUUID() : `drafts.${randomUUID()}`;
-      const slug = await uniqueSlug(writeClient, slugify(post.title), log);
+      // Short keyword URLs rank and read better than the full headline.
+      const slug = await uniqueSlug(writeClient, slugify(post.focusKeyword || post.title).slice(0, 60).replace(/-$/, ""), log);
+      await dropDeadLinks(post, log);
 
       await writeClient.create({
         _id: docId,
@@ -158,6 +160,13 @@ export async function GET(request: Request) {
           afterSection: stripDashes(visual.afterSection),
           description: stripDashes(visual.description),
           done: false,
+        })),
+        keyTakeaways: (post.keyTakeaways ?? []).map((t) => stripDashes(stripLinks(t))),
+        faqs: (post.faqs ?? []).map((f) => ({
+          _key: randomUUID(),
+          _type: "faqItem",
+          question: stripDashes(f.question),
+          answer: stripDashes(stripLinks(f.answer)),
         })),
         focusKeyword: post.focusKeyword,
         secondaryKeywords: post.secondaryKeywords,
@@ -472,8 +481,47 @@ async function uniqueSlug(writeClient: ReturnType<typeof getSanityWriteClient>, 
   return `${base}-${n}`;
 }
 
+// Official and primary sources the writer may cite with full paths (GEO: AI
+// assistants favour pages that cite regulators and the platforms themselves).
+const AUTHORITATIVE_HOSTS = [
+  /(^|\.)gov\.in$/, /(^|\.)nic\.in$/, /(^|\.)rbi\.org\.in$/, /(^|\.)sebi\.gov\.in$/,
+  /(^|\.)facebook\.com$/, /(^|\.)meta\.com$/, /(^|\.)whatsapp\.com$/, /(^|\.)google\.com$/,
+  /^docs\.sarvam\.ai$/, /^openai\.com$/, /^blog\.google$/,
+];
+
+function stripLinks(text: string): string {
+  return text.replace(MARKDOWN_LINK, (_full, label: string) => label);
+}
+
+// A cited URL that 404s is worse than no citation, so check each external one
+// before saving and unlink any that doesn't resolve.
+async function dropDeadLinks(post: Awaited<ReturnType<typeof generateDailyPosts>>[number], log: string[]) {
+  const urls = new Set<string>();
+  for (const section of post.sections) {
+    for (const text of [...section.paragraphs, ...(section.points ?? [])]) {
+      for (const m of text.matchAll(MARKDOWN_LINK)) if (/^https?:\/\//.test(m[2])) urls.add(m[2]);
+    }
+  }
+  const dead = new Set<string>();
+  await Promise.all([...urls].map(async (url) => {
+    try {
+      const res = await fetch(url, { method: "GET", redirect: "follow", signal: AbortSignal.timeout(10_000), headers: { "user-agent": "Mozilla/5.0 (VistrowLinkCheck)" } });
+      if (res.status >= 400 && res.status !== 403 && res.status !== 429) dead.add(url);
+    } catch {
+      dead.add(url);
+    }
+  }));
+  if (!dead.size) return;
+  log.push(`Unlinked ${dead.size} external link(s) that did not resolve: ${[...dead].join(", ")}`);
+  const unlink = (text: string) => text.replace(MARKDOWN_LINK, (full, label: string, href: string) => (dead.has(href) ? label : full));
+  for (const section of post.sections) {
+    section.paragraphs = section.paragraphs.map(unlink);
+    if (section.points) section.points = section.points.map(unlink);
+  }
+}
+
 // Defense-in-depth: drop any link the model produced that isn't a real internal
-// path, official AI source article, or a bare external homepage.
+// path, an official or primary source, or a bare external homepage.
 function sanitizeLinks(text: string): string {
   return text.replace(MARKDOWN_LINK, (full, label: string, href: string) => {
     if (href.startsWith("/")) {
@@ -485,7 +533,8 @@ function sanitizeLinks(text: string): string {
       const isOfficialAiSource = url.protocol === "https:" && ["openai.com", "www.openai.com", "blog.google"].includes(url.hostname);
       // Vistrow's own product sites are allowed with full paths (e.g. arthaleads.com/whatsapp-crm).
       const isOwnProduct = url.protocol === "https:" && ["www.arthaleads.com", "arthaleads.com", "www.vistrowvoice.com", "vistrowvoice.com"].includes(url.hostname);
-      return isBareHomepage || isOfficialAiSource || isOwnProduct ? full : label;
+      const isAuthoritative = url.protocol === "https:" && AUTHORITATIVE_HOSTS.some((re) => re.test(url.hostname.replace(/^www\./, "")));
+      return isBareHomepage || isOfficialAiSource || isOwnProduct || isAuthoritative ? full : label;
     } catch {
       return label;
     }

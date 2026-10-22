@@ -9,6 +9,8 @@ export const blogPostsQuery = `
     "slug": slug.current,
     title,
     excerpt,
+    "keyTakeaways": coalesce(keyTakeaways, []),
+    "faqs": coalesce(faqs[]{question, answer}, []),
     "category": coalesce(category, "Insights"),
     "author": coalesce(author, "Vistrow Team"),
     "date": string(publishedAt),

@@ -93,15 +93,47 @@ function seoIssues(post: GeneratedPost, minWords: number): string[] {
 const GENERIC_PHRASES = [
   "in today's", "imagine a", "imagine you", "game-changer", "game changer", "unlock", "leverage", "seamless",
   "in the ever-evolving", "ever-changing landscape", "it's no secret", "look no further", "delve", "embark",
-  "revolutionize", "revolutionise", "transformative", "cutting-edge", "in conclusion",
+  "revolutionize", "revolutionise", "transformative", "cutting-edge", "in conclusion", "landscape", "realm",
+  "navigate the", "harness", "elevate your", "empower", "robust", "streamline", "pivotal", "furthermore",
+  "moreover", "it's worth noting", "it is worth noting", "let's dive", "here's the thing", "tapestry", "testament to",
+  // invented first-hand experience
+  "we've seen", "we have seen", "we see ", "we keep seeing", "teams we talk to", "teams we speak to", "our clients",
+  "in our experience", "i would", "i've ",
 ];
 
 function genericPhraseIssues(post: GeneratedPost): string[] {
-  const text = [post.title, post.excerpt, ...post.sections.flatMap((s) => [s.heading ?? "", ...s.paragraphs, ...(s.points ?? [])])]
+  const text = [
+    post.title, post.excerpt, ...(post.keyTakeaways ?? []), ...(post.faqs ?? []).flatMap((f) => [f.question, f.answer]),
+    ...post.sections.flatMap((s) => [s.heading ?? "", ...s.paragraphs, ...(s.points ?? [])]),
+  ]
     .join(" ")
     .toLowerCase();
   const hits = GENERIC_PHRASES.filter((phrase) => text.includes(phrase));
-  return hits.length ? [`"${post.title}": remove generic AI phrasing (${hits.map((h) => `"${h}"`).join(", ")}) and say something specific instead.`] : [];
+  return hits.length ? [`"${post.title}": remove generic AI phrasing or invented first-hand claims (${hits.map((h) => `"${h.trim()}"`).join(", ")}) and say something specific instead.`] : [];
+}
+
+const QUESTION_START = /^(what|how|why|when|which|who|is|are|can|should|does|do|will)\b/i;
+
+// AEO/GEO: answer first, question headings, FAQs, takeaways and real citations.
+function answerEngineIssues(post: GeneratedPost): string[] {
+  const issues: string[] = [];
+  const keyword = post.focusKeyword.toLowerCase().trim();
+  const headings = post.sections.map((s) => (s.heading ?? "").trim()).filter(Boolean);
+  const questionHeadings = headings.filter((h) => QUESTION_START.test(h) || h.endsWith("?")).length;
+  const firstParagraph = post.sections[0]?.paragraphs[0] ?? "";
+  const firstWords = firstParagraph.split(/\s+/).filter(Boolean).length;
+  const body = post.sections.flatMap((s) => [...s.paragraphs, ...(s.points ?? [])]).join(" ");
+  const external = [...body.matchAll(/\]\((https?:\/\/[^)]+)\)/g)].map((m) => m[1]).filter((u) => !/vistrow\.com/.test(u));
+  if (firstWords < 25 || firstWords > 80) issues.push(`"${post.title}": the first paragraph is ${firstWords} words; it must answer the title directly in 40-70 words.`);
+  if (questionHeadings < 2) issues.push(`"${post.title}": only ${questionHeadings} heading(s) are phrased as a search question; at least 2 must be.`);
+  if (keyword && !headings.some((h) => h.toLowerCase().includes(keyword))) issues.push(`"${post.title}": no heading contains the exact focusKeyword "${post.focusKeyword}".`);
+  if ((post.faqs ?? []).length < 4 || (post.faqs ?? []).length > 6) issues.push(`"${post.title}": "faqs" must have 4-6 entries (has ${(post.faqs ?? []).length}).`);
+  const badAnswers = (post.faqs ?? []).filter((f) => { const n = f.answer.split(/\s+/).length; return n < 30 || n > 95; });
+  if (badAnswers.length) issues.push(`"${post.title}": each FAQ answer must be 40-80 words (fix: ${badAnswers.map((f) => `"${f.question}"`).join(", ")}).`);
+  if ((post.keyTakeaways ?? []).length < 3 || (post.keyTakeaways ?? []).length > 5) issues.push(`"${post.title}": "keyTakeaways" must have 3-5 entries.`);
+  if (external.length < 2) issues.push(`"${post.title}": cite at least 2 external official or primary sources as Markdown links (has ${external.length}).`);
+  if (/[\u2013\u2014]/.test(JSON.stringify(post))) issues.push(`"${post.title}": remove every em dash and en dash.`);
+  return issues;
 }
 
 // The insight is the reason the post exists. If it contains concrete numbers, at least one must
@@ -166,6 +198,8 @@ export type GeneratedPost = {
     steps?: { title: string; body: string }[];
   }[];
   visualPlan: { type: "screenshot" | "photo" | "chart" | "diagram" | "table"; afterSection: string; description: string }[];
+  keyTakeaways: string[];
+  faqs: { question: string; answer: string }[];
 };
 
 // Pages the model is allowed to link to internally - keeps generated links real.
@@ -313,6 +347,21 @@ const responseSchema = {
               type: "string",
               description: "A ready-to-use alt text for that featured image, under 125 characters, descriptive not keyword-stuffed.",
             },
+            keyTakeaways: {
+              type: "array",
+              description: "3-5 standalone takeaways shown in a box at the top. Each is one plain sentence under 25 words that states a specific fact, number or recommendation from the post, quotable on its own by an AI assistant. See ANSWER ENGINES.",
+              items: { type: "string" },
+            },
+            faqs: {
+              type: "array",
+              description: "4-6 questions people actually type into Google or ask an AI assistant about this topic, each with a direct answer of 40-80 words whose first sentence answers the question outright. See ANSWER ENGINES.",
+              items: {
+                type: "object",
+                properties: { question: { type: "string" }, answer: { type: "string" } },
+                required: ["question", "answer"],
+                additionalProperties: false,
+              },
+            },
             visualPlan: {
               type: "array",
               description: "Real visuals the Vistrow team should capture and add to the post. See VISUALS.",
@@ -397,6 +446,8 @@ const responseSchema = {
             "imageAltSuggestion",
             "sections",
             "visualPlan",
+            "keyTakeaways",
+            "faqs",
           ],
           additionalProperties: false,
         },
@@ -599,9 +650,10 @@ Do not repeat a topic close to an existing post title (listed below) - pick some
 VOICE - write like an experienced practitioner talking to a peer, not like an AI summarising a topic:
 - Vary sentence length on purpose - some short. Some longer, with a natural clause or two, the way someone actually talks.
 - Have an actual point of view. Disagree gently with a common assumption somewhere if it's honest. Don't just list pros and cons.
-- Use "you" and occasional first person plural ("we've seen...") - this is a company blog, not an encyclopedia entry.
+- Use "you". Use "we" only for what Vistrow actually builds or recommends ("we recommend", "ArthaLeads does"). NEVER invent first-hand experience or observations: no "we've seen", "we see", "we keep seeing", "teams we talk to", "our clients", "in our experience", "I", "I've". Say "a common mistake is..." instead.
 - Open with a specific observation, a number, or a real scenario - never "In today's fast-paced digital world" or any variant of that.
-- No em dashes. No generic marketing filler ("unlock", "leverage", "seamless", "game-changer"). Sentence case headings.
+- No em dashes or en dashes anywhere (use a comma, a full stop or brackets). No AI filler: never "unlock", "leverage", "seamless", "game-changer", "delve", "landscape", "realm", "navigate the", "harness", "elevate", "empower", "robust", "streamline", "cutting-edge", "pivotal", "crucial", "furthermore", "moreover", "it's worth noting", "in today's", "not just X but Y", "let's dive in", "here's the thing". Sentence case headings.
+- Sound like a person who has done the work: concrete nouns (a Rs 0.115 utility message, a Saturday 11 AM site visit slot), short plain sentences, contractions, the occasional one-line paragraph. No throat-clearing intros, no summary paragraph that repeats the post.
 - Avoid a rigid template across sections (don't make every section "benefits then challenges then how-to" - let the structure follow the actual argument).
 
 HEADLINES - the title and metaTitle are what decide whether anyone clicks. Make them sharp and specific: a concrete number, a surprising claim, a direct outcome, or a real tension ("X vs Y") - never generic ("A Guide to X", "Everything You Need to Know About X").
@@ -614,7 +666,14 @@ ${internalLinksReference}
 
 BULLET LISTS - never write a bullet list as dashes or a numbered list inside a paragraph string (no "- item one\n- item two" inside "paragraphs"). If a section needs a list, put each item as its own entry in that section's "points" array instead, and keep "paragraphs" as normal prose sentences only.
 
-${longForm ? "6-10 sections, first section has an empty heading (it's the intro, no linking needed there). 2-5 paragraphs per section, each paragraph 2-5 sentences. Include at least one practical section (steps, a checklist in \"points\", a worked example or a cost breakdown) and one section answering the questions people also ask about this keyword." : "4-6 sections, first section has an empty heading (it's the intro, no linking needed there). 2-4 paragraphs per section, each paragraph 2-4 sentences - this is not padding, it's what gets the body past the word-count requirement below."}
+${longForm ? "6-10 sections, first section has an empty heading (it's the intro, no linking needed there). 2-5 paragraphs per section, each paragraph 2-5 sentences. Include at least one practical section (steps, a checklist in \"points\", a worked example or a cost breakdown). Do NOT write a \"questions people ask\" or FAQ section in the body: those questions go in the \"faqs\" field." : "4-6 sections, first section has an empty heading (it's the intro, no linking needed there). 2-4 paragraphs per section, each paragraph 2-4 sentences - this is not padding, it's what gets the body past the word-count requirement below."}
+
+ANSWER ENGINES (AEO) AND AI ASSISTANTS (GEO) - checked automatically, a miss sends the post back:
+- The first paragraph (the intro section's first paragraph) answers the title's question directly in 40-70 words, with the key fact or number in its first two sentences. No scene-setting before the answer.
+- At least 2 section headings are phrased as the question a searcher types (e.g. "How much does the WhatsApp Business API cost in India?"), and at least one heading contains the exact focusKeyword.
+- Early in the post, define the core term in one plain sentence ("X is ...").
+- Cite 2-3 external sources as Markdown links to official or primary pages (government, regulator, Meta, Google, WhatsApp, the vendor's own pricing or docs page). Prefer the URLs given in the insight or the Official source URL. Never invent a URL; if you are not certain a deep URL exists, link the organisation's documented page you are given.
+- "keyTakeaways": 3-5 one-sentence facts or recommendations, each quotable alone. "faqs": 4-6 real search questions, each answered in 40-80 words with the direct answer first.
 
 SEO REQUIREMENTS - these are checked by an automated scorer with hard pass/fail rules, not style suggestions:
 1. Pick focusKeyword FIRST: a HARD MAXIMUM of 4 words, a real phrase someone would actually search (e.g. "AI voice calling India" or "real estate CRM software"). Never copy a topic or headline verbatim as the keyword even if it's longer - extract the short core phrase from it instead (from a topic like "Best AI voice calling agent for Indian businesses", the keyword is "AI voice calling agent" or "AI voice calling India", NOT the full 8-word topic). Then make title, metaTitle, and metaDescription each literally contain that exact short phrase, word for word - not a rephrasing or synonym.
@@ -676,6 +735,7 @@ ${fixedTopics ? "" : `TRENDING SIGNALS (raw, unfiltered - use judgement):\n${sig
       ...genericPhraseIssues(post),
       ...insightIssues(post, fixedTopics?.[index]?.insight),
       ...(longForm ? visualIssues(post) : []),
+      ...(longForm ? answerEngineIssues(post) : []),
     ]);
     // Insight-led topics were chosen by a person from the keyword plan, so a loose title overlap with an
     // old generic post must not block them forever.

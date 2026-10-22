@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/seo/json-ld";
 import BlurText from "@/components/ui/blur-text";
 import type { BlogPost } from "@/lib/content-types";
-import { articleSchema, breadcrumbSchema, graph } from "@/lib/structured-data";
+import { articleSchema, breadcrumbSchema, faqSchema, graph } from "@/lib/structured-data";
 import { BlogExplorer } from "@/components/blog/blog-explorer";
 import { ReadingProgress } from "@/components/blog/reading-progress";
 import { ShareRow } from "@/components/blog/share-row";
@@ -63,7 +63,8 @@ export function BlogPostPage({
   });
   const headings = post.sections
     .filter((section): section is typeof section & { heading: string } => Boolean(section.heading))
-    .map((section) => ({ id: headingId(section.heading), label: section.heading }));
+    .map((section) => ({ id: headingId(section.heading), label: section.heading }))
+    .concat(post.faqs && post.faqs.length > 0 ? [{ id: "faqs", label: "Frequently asked questions" }] : []);
   const explorerPosts = allPosts.map(({ slug, title, excerpt, category, date, readTime }) => ({
     slug,
     title,
@@ -107,6 +108,7 @@ export function BlogPostPage({
             ),
             articleSection: post.category,
           }),
+          ...(post.faqs && post.faqs.length > 0 ? [faqSchema(post.faqs.map((f) => ({ q: f.question, a: f.answer })))] : []),
         ])}
       />
 
@@ -168,6 +170,20 @@ export function BlogPostPage({
                 </div>
               )}
 
+              {post.keyTakeaways && post.keyTakeaways.length > 0 && (
+                <aside aria-label="Key takeaways" className="mt-9 rounded-2xl border border-accent/40 bg-accent/10 p-6 sm:p-7">
+                  <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-accent-strong">Key takeaways</p>
+                  <ul className="mt-4 space-y-3">
+                    {post.keyTakeaways.map((point) => (
+                      <li key={point} className="flex items-start gap-3 font-sans text-[16px] leading-relaxed text-ink">
+                        <span className="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-accent" />
+                        {renderInlineLinks(point)}
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+              )}
+
               <div className="mt-8 lg:hidden">
                 <BlogExplorer
                   posts={explorerPosts}
@@ -221,6 +237,25 @@ export function BlogPostPage({
                   });
                 })()}
               </div>
+
+              {post.faqs && post.faqs.length > 0 && (
+                <section id="faqs" className="scroll-mt-32 border-t border-line py-10" aria-labelledby="faqs-heading">
+                  <h2 id="faqs-heading" className="font-display text-[clamp(1.4rem,2.2vw,1.85rem)] font-bold tracking-[-0.02em] text-ink">
+                    Frequently asked questions
+                  </h2>
+                  <div className="mt-6 divide-y divide-line rounded-xl border border-line bg-card">
+                    {post.faqs.map((faq, i) => (
+                      <details key={faq.question} className="group px-5 py-4 sm:px-6" open={i === 0}>
+                        <summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-display text-[17px] font-bold leading-snug text-ink [&::-webkit-details-marker]:hidden">
+                          <h3>{faq.question}</h3>
+                          <span aria-hidden className="mt-0.5 shrink-0 text-xl leading-none text-accent-strong transition-transform group-open:rotate-45">+</span>
+                        </summary>
+                        <p className="mt-3 font-sans text-[16px] leading-[1.75] text-ink-2">{renderInlineLinks(faq.answer)}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
                 <Link href="/blog" className="btn-ghost">

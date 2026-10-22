@@ -61,6 +61,33 @@ export const blogPost = defineType({
       validation: (rule) => rule.required().min(80).max(320),
     }),
     defineField({
+      name: "keyTakeaways",
+      title: "Key takeaways",
+      description: "3 to 5 short, specific points shown in a box at the top of the article. Answer engines and AI assistants quote these.",
+      type: "array",
+      group: "content",
+      of: [{ type: "string" }],
+      validation: (rule) => rule.max(6),
+    }),
+    defineField({
+      name: "faqs",
+      title: "FAQs",
+      description: "4 to 6 questions people actually search, each with a direct 40 to 80 word answer. Shown at the end of the article with FAQ markup for Google.",
+      type: "array",
+      group: "content",
+      of: [
+        {
+          type: "object",
+          name: "faqItem",
+          fields: [
+            { name: "question", title: "Question", type: "string", validation: (rule) => rule.required() },
+            { name: "answer", title: "Answer", type: "text", rows: 4, validation: (rule) => rule.required() },
+          ],
+          preview: { select: { title: "question", subtitle: "answer" } },
+        },
+      ],
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "string",
