@@ -69,7 +69,7 @@ export const products: Record<string, ProductContent> = {
       "AI voice agents that answer, qualify and book customers in their own language, on your phone number, your website and outbound campaigns, 24/7. Talk to Artha live before you decide: 5 free calls, no signup.",
     metaTitle: "Vistrow Voice: AI Voice Calling Agent for India",
     metaDescription:
-      "Vistrow Voice provides inbound, outbound, and web-based AI calling in 130+ languages, including Hindi, English and 9 more Indian languages, with knowledge-grounded answers and CRM webhooks.",
+      "Vistrow Voice: AI voice agents for inbound, outbound and website calls in 130+ languages, including Hindi and 9 more Indian languages, with CRM webhooks.",
     useCases: [
       { icon: Phone, title: "Inbound call handling", body: "Answer every incoming call 24/7, understand the need, and route, qualify or book the next step." },
       { icon: Activity, title: "Outbound campaigns", body: "Run reminder, follow-up and collection calls at scale without manual dialling." },

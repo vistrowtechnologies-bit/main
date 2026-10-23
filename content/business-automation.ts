@@ -8,7 +8,7 @@ export const businessAutomationOverview: OverviewContent = {
   highlight: "Indian businesses",
   subtitle:
     "Vistrow builds AI voice agents, CRM automation, WhatsApp follow-up and custom workflows for businesses across India, from our office in Pune. They respond in seconds and convert more of the demand you already create, without adding headcount.",
-  metaTitle: "AI Automation Agency in India: AI Voice, CRM and WhatsApp",
+  metaTitle: "AI Automation Agency India: AI Voice, CRM, WhatsApp",
   metaDescription:
     "AI automation agency in India building AI voice agents, CRM automation, WhatsApp follow-up and custom workflows. Based in Pune. Get a free Growth Audit.",
   cardsTitle: "AI automation services",

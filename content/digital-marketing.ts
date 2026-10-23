@@ -184,7 +184,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
     eyebrow: "Digital Marketing",
     subtitle:
       "Vistrow builds fast, SEO-ready websites from our office in Baner, Pune, for businesses in Pune and across India. Lead forms go straight into your CRM and tracking is set up before launch, so the site brings in enquiries, not just visits. Websites for Indian businesses start from ₹9,999.",
-    metaTitle: "Website Development Company in Pune: Fast, SEO-Ready Sites",
+    metaTitle: "Website Development Company in Pune, SEO-Ready",
     metaDescription:
       "Website development company in Pune. Fast, SEO-ready websites with CRM and tracking built in, starting from ₹9,999 for Indian businesses.",
     problem: {

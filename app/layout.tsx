@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   ...buildMetadata({
     title: "Vistrow | AI Agency for Marketing, CRM and AI Voice",
     description:
-      "Vistrow is an AI agency in Pune: AI voice agents, WhatsApp AI agents, AI CRM, performance marketing and websites, connected into one system that turns enquiries into sales.",
+      "Vistrow is an AI agency in Pune: AI voice agents, WhatsApp AI agents, AI CRM, performance marketing and websites, connected to turn enquiries into sales.",
     path: "/",
   }),
   metadataBase: new URL("https://www.vistrow.com"),

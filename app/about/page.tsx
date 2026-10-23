@@ -16,7 +16,7 @@ import { PAGE_IMAGES } from "@/lib/page-images";
 export const metadata: Metadata = buildMetadata({
   title: "About Vistrow Technologies",
   description:
-    "Meet Vistrow Technologies, an AI agency in Baner, Pune, building AI voice agents, WhatsApp AI agents and AI CRM, and connecting them to marketing, follow-up and revenue tracking.",
+    "Meet Vistrow Technologies, an AI agency in Baner, Pune, building AI voice agents, WhatsApp AI agents and AI CRM, connected to marketing and revenue tracking.",
   path: "/about",
 });
 
