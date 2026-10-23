@@ -14,7 +14,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Owned product",
     summary: "AI voice platform for Indian businesses: 130+ languages including Hindi, English and 9 more Indian languages, a live tap-to-talk demo, and a product-led conversion funnel.",
     url: "https://www.vistrowvoice.com",
-    image: "/work/portfolio/vistrowvoice-2026.jpg",
+    image: "/work/portfolio/vistrowvoice-desk.jpg",
   },
   {
     slug: "vistrow",

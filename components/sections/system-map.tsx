@@ -1,6 +1,7 @@
-import Link from "next/link";
-import { BadgeDollarSign, ClipboardCheck, Magnet, MessageSquare, RefreshCw, Target, type LucideIcon } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { StageExplorer, type StageService } from "@/components/sections/stage-explorer";
+import { digitalMarketingServices } from "@/content/digital-marketing";
+import { businessAutomationServices } from "@/content/business-automation";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 // "Where this fits" diagram: the six stages of the Vistrow growth system (the same stages as the
@@ -9,13 +10,13 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export type Stage = "attract" | "capture" | "respond" | "qualify" | "follow-up" | "convert";
 
-const STAGES: { key: Stage; label: string; desc: string; icon: LucideIcon }[] = [
-  { key: "attract", label: "Attract", desc: "Ads, social, creative and SEO bring the right people in", icon: Magnet },
-  { key: "capture", label: "Capture", desc: "Websites, landing pages and forms turn interest into a lead", icon: Target },
-  { key: "respond", label: "Respond", desc: "AI voice and WhatsApp answer every enquiry in seconds", icon: MessageSquare },
-  { key: "qualify", label: "Qualify", desc: "The CRM scores, assigns and sorts who to call first", icon: ClipboardCheck },
-  { key: "follow-up", label: "Follow up", desc: "Reminders and sequences keep every lead moving", icon: RefreshCw },
-  { key: "convert", label: "Convert", desc: "Tracking ties each sale back to the source that paid for it", icon: BadgeDollarSign },
+const STAGES: { key: Stage; label: string; desc: string }[] = [
+  { key: "attract", label: "Attract", desc: "Ads, social, creative and SEO bring the right people in" },
+  { key: "capture", label: "Capture", desc: "Websites, landing pages and forms turn interest into a lead" },
+  { key: "respond", label: "Respond", desc: "AI voice and WhatsApp answer every enquiry in seconds" },
+  { key: "qualify", label: "Qualify", desc: "The CRM scores, assigns and sorts who to call first" },
+  { key: "follow-up", label: "Follow up", desc: "Reminders and sequences keep every lead moving" },
+  { key: "convert", label: "Convert", desc: "Tracking ties each sale back to the source that paid for it" },
 ];
 
 // Which stages each service works on, and what it does there.
@@ -36,6 +37,21 @@ export const SERVICE_STAGES: Record<string, { stages: Stage[]; note: string }> =
   "lead-follow-up": { stages: ["follow-up"], note: "A follow-up rhythm that runs on its own, so no lead goes cold because someone was busy." },
   "custom-automation": { stages: ["respond", "qualify", "follow-up", "convert"], note: "Custom workflows that connect the tools you already use across every stage after the enquiry." },
 };
+
+// The services that work at each stage, as links (shown in the stage detail panel).
+function servicesByStage(): Record<string, StageService[]> {
+  const out: Record<string, StageService[]> = {};
+  const sections: [Record<string, { title: string }>, string][] = [
+    [digitalMarketingServices, "/digital-marketing"],
+    [businessAutomationServices, "/business-automation"],
+  ];
+  for (const [services, base] of sections) {
+    for (const [slug, service] of Object.entries(services)) {
+      for (const stage of SERVICE_STAGES[slug]?.stages ?? []) (out[stage] ??= []).push({ title: service.title, href: `${base}/${slug}` });
+    }
+  }
+  return out;
+}
 
 // Which stages a set of service links covers (used on industry pages).
 export function stagesForServices(hrefs: string[]): Stage[] {
@@ -64,51 +80,7 @@ export function SystemMap({
       <div className="container-edge">
         <SectionHeading eyebrow={eyebrow} title={title} description={description} className="mb-10 max-w-3xl" />
         <Reveal>
-          <figure>
-            <ol className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6 lg:gap-0">
-              {STAGES.map((stage, index) => {
-                const active = highlight.includes(stage.key);
-                const Icon = stage.icon;
-                return (
-                  <li key={stage.key} className="relative lg:px-1.5">
-                    {/* connector between stages on the single desktop row */}
-                    {index > 0 && (
-                      <span
-                        aria-hidden="true"
-                        className={`absolute left-0 top-[34px] hidden h-px w-1.5 lg:block ${active ? "bg-accent" : "bg-line"}`}
-                      />
-                    )}
-                    <div
-                      className={`h-full rounded-lg border p-4 transition-colors ${
-                        active ? "border-accent bg-accent/10 shadow-[0_0_24px_-10px_rgb(var(--accent)/0.6)]" : "border-line bg-card opacity-70"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className={`flex h-9 w-9 items-center justify-center rounded-full ${active ? "bg-accent text-accent-ink" : "bg-surface text-muted"}`}>
-                          <Icon className="h-4 w-4" strokeWidth={2} />
-                        </span>
-                        <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-                      <p className={`mt-4 font-display text-base font-bold ${active ? "text-ink" : "text-ink-2"}`}>{stage.label}</p>
-                      <p className="mt-1 font-sans text-[13px] leading-relaxed text-muted">{stage.desc}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-            {note && (
-              <figcaption className="mt-6 flex flex-col gap-3 rounded-lg border border-line bg-card p-5 sm:flex-row sm:items-center sm:justify-between">
-                <p className="font-sans text-[15px] leading-relaxed text-ink-2">
-                  <span className="font-semibold text-ink">Highlighted:</span> {note}
-                </p>
-                <Link href="/services" className="shrink-0 font-sans text-sm font-semibold text-accent-strong hover:underline">
-                  See every stage
-                </Link>
-              </figcaption>
-            )}
-          </figure>
+          <StageExplorer stages={STAGES} highlight={highlight} note={note} services={servicesByStage()} />
         </Reveal>
       </div>
     </section>
