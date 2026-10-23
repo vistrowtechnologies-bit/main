@@ -152,8 +152,8 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Wordmark />
             <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-muted">
-              An AI-powered digital marketing and automation agency, connecting
-              campaigns to the CRM, AI voice and automation that turn leads into revenue.
+              An AI agency building AI voice agents, WhatsApp AI agents and AI CRM,
+              connected to the marketing that brings the leads in.
             </p>
             <div className="mt-5 space-y-3">
               <a

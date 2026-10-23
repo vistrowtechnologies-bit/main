@@ -36,7 +36,7 @@ export function HeroDashboard() {
         {/* KPI row */}
         <div className="mt-4 grid grid-cols-3 gap-3">
           {[
-            { label: "Languages", end: 11, decimals: 0, suffix: "", icon: Users },
+            { label: "Languages", end: 130, decimals: 0, suffix: "+", icon: Users },
             { label: "Calling channels", end: 3, decimals: 0, suffix: "", icon: TrendingUp },
             { label: "Always active", end: 24, decimals: 0, suffix: "/7", icon: Phone },
           ].map((kpi, i) => (

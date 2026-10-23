@@ -10,7 +10,7 @@ export const locationsOverview: OverviewContent = {
     "Vistrow is based in Baner, Pune, and works with businesses across Pimpri-Chinchwad, Hinjewadi, Wakad, Kothrud, and the wider city - connecting marketing, CRM, and automation into one system.",
   metaTitle: "Digital Marketing in Pune: Areas We Serve",
   metaDescription:
-    "Vistrow is a Baner-based digital marketing and automation agency serving Pune, Baner, Pimpri-Chinchwad, Hinjewadi, Wakad and Kothrud. Find your area.",
+    "Vistrow is a Baner-based AI agency for digital marketing and automation, serving Pune, Baner, Pimpri-Chinchwad, Hinjewadi, Wakad and Kothrud. Find your area.",
   cardsTitle: "Areas we serve around Pune",
   cards: [
     { label: "Pune", href: "/locations/pune", body: "Full-stack digital marketing and automation for businesses across Pune city.", icon: MapPin },
@@ -73,7 +73,7 @@ export const locations: Record<string, LocationContent> = {
     eyebrow: "Location",
     hasOffice: true,
     subtitle:
-      "Vistrow is a Pune digital marketing and business automation agency. We connect performance marketing, lead generation, CRM and AI voice calling into one system, so the enquiries your ads create are answered and followed up fast.",
+      "Vistrow is a Pune AI agency for digital marketing and business automation. We connect performance marketing, lead generation, CRM and AI voice calling into one system, so the enquiries your ads create are answered and followed up fast.",
     metaTitle: "Digital Marketing Agency in Pune: Ads, SEO and CRM",
     metaDescription:
       "Digital marketing agency in Pune for lead generation: Google and Meta ads, SEO, CRM and AI voice follow-up in one system. Get a free Growth Audit.",

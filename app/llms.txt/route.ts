@@ -42,7 +42,7 @@ export async function GET() {
 
   const body = `# Vistrow Technologies
 
-> Vistrow is an AI-powered digital marketing and automation agency in Pune that connects demand generation, CRM, AI voice agents, lead follow-up, and conversion tracking into measurable growth systems.
+> Vistrow is an AI agency in Pune. It builds AI voice agents, WhatsApp AI agents and AI CRM, runs performance marketing and builds websites, and connects them, with lead follow-up and conversion tracking, into measurable growth systems.
 
 ## Official entity information
 

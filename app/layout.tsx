@@ -29,14 +29,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   ...buildMetadata({
-    title: "Vistrow | AI-Powered Digital Marketing & Automation Agency",
+    title: "Vistrow | AI Agency for Marketing, CRM and AI Voice",
     description:
-      "Vistrow is an AI-powered digital marketing and automation agency in Pune, connecting ads, lead generation, CRM, AI voice agents and conversion tracking into one growth system.",
+      "Vistrow is an AI agency in Pune: AI voice agents, WhatsApp AI agents, AI CRM, performance marketing and websites, connected into one system that turns enquiries into sales.",
     path: "/",
   }),
   metadataBase: new URL("https://www.vistrow.com"),
   title: {
-    default: "Vistrow | AI-Powered Digital Marketing & Automation Agency",
+    default: "Vistrow | AI Agency for Marketing, CRM and AI Voice",
     template: "%s | Vistrow",
   },
 };

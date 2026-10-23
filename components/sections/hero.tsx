@@ -16,11 +16,11 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute -right-40 top-10 -z-10 h-[460px] w-[460px] rounded-full bg-accent/10 blur-[110px]" />
       <div className="container-edge grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
         <div className="max-w-2xl">
-          <p className="eyebrow mb-5">AI-powered marketing &amp; automation agency</p>
+          <p className="eyebrow mb-5">AI agency · Pune</p>
           <h1 className="font-display text-hero-lg text-ink">
             <BlurText
               as="span"
-              text="Digital marketing that connects directly to"
+              text="The AI agency that turns enquiries"
               delay={72}
               stepDuration={0.32}
               direction="top"
@@ -31,7 +31,7 @@ export function Hero() {
                   aria-hidden
                   className="absolute -inset-x-[0.04em] inset-y-[0.08em] -z-10 rotate-[-0.8deg] rounded-[0.12em] bg-accent shadow-[0_0_28px_rgb(var(--accent)/0.22)]"
                 />
-                business growth
+                into sales
               </span>
               .
             </span>
@@ -39,9 +39,9 @@ export function Hero() {
 
           <Reveal delay={0.16} direction="right" distance={24}>
             <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
-              Vistrow combines performance marketing, landing pages, CRM, AI voice,
-              automation, and conversion tracking to help businesses generate more
-              opportunities - and manage them more effectively.
+              Vistrow builds AI voice agents, WhatsApp AI agents and AI CRM, and runs the
+              performance marketing and websites that bring the leads in, so every enquiry
+              is answered, followed up and tracked to revenue.
             </p>
           </Reveal>
 

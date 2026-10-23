@@ -16,7 +16,7 @@ import { PAGE_IMAGES } from "@/lib/page-images";
 export const metadata: Metadata = buildMetadata({
   title: "About Vistrow Technologies",
   description:
-    "Meet Vistrow Technologies, an AI-powered digital marketing and automation agency in Baner, Pune, connecting campaigns, CRM, AI voice, follow-up and revenue tracking.",
+    "Meet Vistrow Technologies, an AI agency in Baner, Pune, building AI voice agents, WhatsApp AI agents and AI CRM, and connecting them to marketing, follow-up and revenue tracking.",
   path: "/about",
 });
 
@@ -47,8 +47,8 @@ const faqs = [
     a: "Vistrow connects performance marketing and lead generation to the systems that convert them - CRM, AI voice calling, automation, and conversion tracking - so a lead is captured, followed up, and tracked through to revenue instead of falling through the gaps.",
   },
   {
-    q: "Is Vistrow a marketing agency or a software company?",
-    a: "Both. Vistrow is an AI-powered digital marketing and automation agency that runs engagements for clients, and also builds and operates its own products - Vistrow Voice, ArthaLeads, and Vistrow Labs - which can be used standalone or as part of a Vistrow engagement.",
+    q: "Is Vistrow an agency or a software company?",
+    a: "Both. Vistrow is an AI agency that runs engagements for clients, and also builds and operates its own products - Vistrow Voice, ArthaLeads, and Vistrow Labs - which can be used standalone or as part of a Vistrow engagement.",
   },
   {
     q: "Where is Vistrow based, and who do you work with?",
@@ -72,8 +72,8 @@ export default function Page() {
       <PageHero
         breadcrumb={[{ label: "Home", href: "/" }, { label: "About" }]}
         eyebrow="About Vistrow"
-        title="An AI-powered digital marketing and"
-        highlight="automation agency"
+        title="An AI agency for marketing, CRM and"
+        highlight="AI voice"
         subtitle="Vistrow helps businesses generate demand and then convert it - by connecting marketing to CRM, AI voice, automation, and the tracking that ties it all to revenue."
         secondaryCta={{ label: "Our approach", href: "/approach" }}
       />
