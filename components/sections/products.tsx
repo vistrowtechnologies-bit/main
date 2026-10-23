@@ -20,11 +20,11 @@ const products = [
   {
     name: "Vistrow Voice",
     href: "/products/vistrow-voice",
-    body: "India-native AI voice agents for inbound, outbound, and web calls in 11 languages - available 24/7.",
+    body: "India-native AI voice agents for inbound, outbound, and web calls in 130+ languages, including Hindi and 9 more Indian languages - available 24/7.",
     icon: Phone,
     accent: "border-l-accent",
     status: "On call",
-    metric: "11 languages",
+    metric: "130+ languages",
     rows: [
       ["Inbound calls", "Answering"],
       ["Knowledge base", "Grounded"],

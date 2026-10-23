@@ -8,6 +8,7 @@ import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
+import { BrowserFrame, ProductTour } from "@/components/sections/product-tour";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import type { ProductContent } from "@/lib/content-types";
@@ -59,12 +60,12 @@ export function ProductPage({
             : { label: content.demoCta ?? "Book a Demo", href: "/contact" }
         }
         secondaryCta={{ label: "Book a walkthrough", href: "/contact" }}
-        aside={preview}
+        aside={content.screenshots?.length ? <ProductHeroShot screens={content.screenshots} /> : preview}
       />
 
       <AnswerSummary
         question={`What is ${content.name}?`}
-        answer={content.subtitle}
+        answer={content.metaDescription}
         groups={[
           { label: "Best-fit uses", items: content.useCases.map((item) => item.title) },
           { label: "Key capabilities", items: content.features.slice(0, 3).map((item) => item.title) },
@@ -152,56 +153,39 @@ export function ProductPage({
 }
 
 type Screen = NonNullable<ProductContent["screenshots"]>[number];
+const isPhone = (screen: Screen) => screen.height > screen.width;
 
-// Real screens from the live product, each captioned so the image and its meaning are both indexable.
-function ProductScreens({ name, screens }: { name: string; screens: Screen[] }) {
-  const isPhone = (screen: Screen) => screen.height > screen.width;
+// First screen: the real dashboard with the phone app overlapping it, so visitors see the product immediately.
+function ProductHeroShot({ screens }: { screens: Screen[] }) {
+  const desktop = screens.find((screen) => !isPhone(screen));
   const phone = screens.find(isPhone);
-  const desktop = screens.filter((screen) => !isPhone(screen));
-  const [lead, ...rest] = desktop;
-
-  const Shot = ({ screen, sizes, priority }: { screen: Screen; sizes: string; priority?: boolean }) => (
-    <figure className="h-full">
-      <div className="overflow-hidden rounded-xl border border-line bg-card shadow-sm">
-        <Image src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} sizes={sizes} priority={priority} className="h-auto w-full" />
-      </div>
-      <figcaption className="mt-3">
-        <p className="font-display text-base font-bold text-ink">{screen.title}</p>
-        <p className="mt-1 font-sans text-sm leading-relaxed text-muted">{screen.body}</p>
-      </figcaption>
-    </figure>
+  if (!desktop) return null;
+  return (
+    <div className="relative pb-10 lg:pb-0 lg:pr-10">
+      <BrowserFrame>
+        <Image src={desktop.src} alt={desktop.alt} width={desktop.width} height={desktop.height} sizes="(min-width: 1024px) 620px, 100vw" priority className="h-auto w-full" />
+      </BrowserFrame>
+      {phone && (
+        <div className="absolute -bottom-2 right-0 w-[30%] max-w-[170px] overflow-hidden rounded-[22px] border-[5px] border-ink bg-ink shadow-lift lg:-bottom-10">
+          <Image src={phone.src} alt={phone.alt} width={phone.width} height={phone.height} sizes="170px" priority className="h-auto w-full rounded-[17px]" />
+        </div>
+      )}
+    </div>
   );
+}
 
+// Real screens from the live product as a tabbed tour, each captioned so the image and its meaning are both indexable.
+function ProductScreens({ name, screens }: { name: string; screens: Screen[] }) {
   return (
     <section className="py-section">
       <div className="container-edge">
         <SectionHeading
           eyebrow="Real product screens"
           title={`See inside ${name}`}
-          description="These are screens from the live product, shown with a demo workspace."
-          className="mb-10 max-w-3xl"
+          description="Screens from the live product, shown with a demo workspace."
+          className="mb-8 max-w-3xl"
         />
-        <div className={`grid items-start gap-gutter ${phone ? "lg:grid-cols-[1fr_260px]" : ""}`}>
-          {lead && (
-            <Reveal>
-              <Shot screen={lead} sizes="(min-width: 1024px) 900px, 100vw" />
-            </Reveal>
-          )}
-          {phone && (
-            <Reveal delay={0.06} className="mx-auto w-full max-w-[260px]">
-              <Shot screen={phone} sizes="260px" />
-            </Reveal>
-          )}
-        </div>
-        {rest.length > 0 && (
-          <div className={`mt-gutter grid gap-gutter ${rest.length > 1 ? "md:grid-cols-2" : ""}`}>
-            {rest.map((screen, index) => (
-              <Reveal key={screen.src} delay={index * 0.06}>
-                <Shot screen={screen} sizes={rest.length > 1 ? "(min-width: 768px) 600px, 100vw" : "(min-width: 1024px) 1200px, 100vw"} />
-              </Reveal>
-            ))}
-          </div>
-        )}
+        <ProductTour screens={screens.filter((screen) => !isPhone(screen))} phone={screens.find(isPhone)} />
       </div>
     </section>
   );

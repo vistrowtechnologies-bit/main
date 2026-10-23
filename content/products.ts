@@ -31,7 +31,7 @@ export const productsOverview: OverviewContent = {
   metaDescription: "Explore Vistrow Voice AI calling agents, ArthaLeads real estate CRM, and custom SaaS and internal software from Vistrow Labs.",
   cardsTitle: "Our products",
   cards: [
-    { label: "Vistrow Voice", href: "/products/vistrow-voice", body: "India-native AI voice agents for inbound, outbound, and web calls in 11 languages.", icon: Phone },
+    { label: "Vistrow Voice", href: "/products/vistrow-voice", body: "India-native AI voice agents for inbound, outbound, and web calls in 130+ languages.", icon: Phone },
     { label: "ArthaLeads", href: "/products/arthaleads", body: "A real-estate CRM that brings Facebook, Google, WhatsApp, and website leads into one workspace.", icon: Database },
     { label: "Vistrow Labs", href: "/products/vistrow-labs", body: "Custom SaaS and internal tools built for your workflow.", icon: FlaskConical },
   ],
@@ -69,14 +69,14 @@ export const products: Record<string, ProductContent> = {
       "AI voice agents that answer, qualify, and book in your customers’ language - across inbound calls, outbound campaigns, and a one-tap website calling widget, live 24/7.",
     metaTitle: "Vistrow Voice: AI Voice Calling Agent for India",
     metaDescription:
-      "Vistrow Voice provides inbound, outbound, and web-based AI calling in 11 languages (Hindi, English and 9 more Indian languages), with knowledge-grounded answers and CRM webhooks.",
+      "Vistrow Voice provides inbound, outbound, and web-based AI calling in 130+ languages, including Hindi, English and 9 more Indian languages, with knowledge-grounded answers and CRM webhooks.",
     useCases: [
       { icon: Phone, title: "Inbound call handling", body: "Answer every incoming call, qualify intent, and route or book the next step." },
       { icon: Activity, title: "Outbound campaigns", body: "Run reminder, follow-up, and collection calls at scale without manual dialling." },
       { icon: Globe2, title: "Website voice widget", body: "Let visitors talk to your AI agent in the browser without sharing a phone number." },
     ],
     features: [
-      { icon: Languages, title: "11 languages", body: "Speak with customers in Hindi, English, Hinglish and 9 more Indian languages, with mid-sentence language switching." },
+      { icon: Languages, title: "130+ languages", body: "Speak with customers in 130+ languages, including Hindi, English, Hinglish and 9 more Indian languages, with mid-sentence language switching." },
       { icon: Activity, title: "Low-latency conversation", body: "Real-time, emotion-aware conversations designed to feel responsive." },
       { icon: BookOpen, title: "Knowledge base", body: "Ground answers in uploaded PDFs and documents using retrieval-based knowledge." },
       { icon: Filter, title: "No-code agent builder", body: "Configure persona, prompts, voice, language, and business rules without coding." },
@@ -101,7 +101,7 @@ export const products: Record<string, ProductContent> = {
     faqs: [
       {
         q: "What languages does Vistrow Voice support?",
-        a: "Vistrow Voice speaks Hindi, Hinglish, and eight other Indian languages, so agents can handle calls in the language your customers actually use.",
+        a: "Hindi, Marathi, Tamil, Telugu, Kannada, Malayalam, Gujarati, Bengali, Punjabi and Odia, plus English and everyday Hinglish, out of more than 130 supported languages. One agent covers them all and follows the caller when they switch language mid-call.",
       },
       {
         q: "Can Vistrow Voice handle both inbound and outbound calls?",
@@ -122,7 +122,7 @@ export const products: Record<string, ProductContent> = {
     ],
     preview: {
       stats: [
-        { value: "11", label: "Languages" },
+        { value: "130+", label: "Languages" },
         { value: "24/7", label: "Always answering" },
         { value: "3", label: "Calling channels" },
       ],
@@ -184,6 +184,22 @@ export const products: Record<string, ProductContent> = {
         body: "Replies to a buyer within seconds, shares project details and asks the first qualifying question.",
         width: 436,
         height: 896,
+      },
+      {
+        src: "/images/products/arthaleads-whatsapp-inbox.webp",
+        alt: "ArthaLeads WhatsApp inbox with buyer chats on the left and the WhatsApp AI agent replying to a new property enquiry",
+        title: "WhatsApp inbox",
+        body: "Every buyer chat in one inbox, with the AI agent's replies, lead score and the option for your team to take over any chat.",
+        width: 1356,
+        height: 762,
+      },
+      {
+        src: "/images/products/arthaleads-team-performance.webp",
+        alt: "ArthaLeads team performance board with total leads, site visits, closed bookings and call analytics for each team member",
+        title: "Team performance",
+        body: "Leads, site visits and bookings for each team member, with call analytics by day.",
+        width: 1600,
+        height: 900,
       },
       {
         src: "/images/products/arthaleads-lead-pipeline-site-visit-stages.webp",

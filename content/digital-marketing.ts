@@ -163,6 +163,17 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "website-development": {
     slug: "website-development",
+    showcase: {
+      eyebrow: "Recent work",
+      title: "Websites we've built",
+      body: "Real sites built by Vistrow for Pune businesses and our own products.",
+      shots: [
+        { src: "/work/portfolio/prophuntllp.jpg", alt: "Prophunt real estate advisory website built by Vistrow, on laptop, tablet and phone", caption: "Prophunt LLP: curated listings and a book-a-site-visit funnel.", width: 1536, height: 1024, href: "https://www.prophuntllp.com" },
+        { src: "/work/portfolio/singhsteel.jpg", alt: "Singh Steel contractor website built by Vistrow, on laptop, tablet and phone", caption: "Singh Steel: service catalogue, project gallery and quotes.", width: 1536, height: 1024, href: "https://www.singhsteel.in" },
+        { src: "/work/portfolio/mahindralife-spaces.jpg", alt: "Mahindra Citadel project microsite built by Vistrow for the channel partner Prophunt, on laptop, tablet and phone", caption: "Mahindra Citadel microsite for Prophunt, a RERA-registered channel partner.", width: 1536, height: 1024 },
+        { src: "/work/portfolio/marketixstudio.jpg", alt: "Marketix Studio agency website built by Vistrow, on laptop, tablet and phone", caption: "Marketix Studio: case studies and a lead-capture funnel.", width: 1536, height: 1024, href: "https://www.marketixstudio.com" }
+      ],
+    },
     image: { src: "/images/services/svc-website-development.webp", alt: "Prophunt website built by Vistrow, shown on an iMac with its mobile version on an iPhone beside it" },
     title: "Website Development",
     heroTitle: "Website development company in",
@@ -230,6 +241,15 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "landing-pages": {
     slug: "landing-pages",
+    showcase: {
+      eyebrow: "Recent work",
+      title: "A landing page we run ourselves",
+      body: "Our own Growth Audit page: one offer, one action, built to convert on desktop and phone.",
+      shots: [
+        { src: "/images/services/deliverables/growth-audit-landing-page.webp", alt: "Vistrow Growth Audit landing page with one headline, what you get, and a single call to action", caption: "vistrow.com/growth-audit on desktop.", width: 1600, height: 1000, frame: "browser", href: "https://www.vistrow.com/growth-audit" },
+        { src: "/images/services/deliverables/growth-audit-landing-page-mobile.webp", alt: "Vistrow Growth Audit landing page on a phone", caption: "The same page on a phone.", width: 600, height: 1298 }
+      ],
+    },
     image: { src: "/images/services/svc-landing-pages.webp", alt: "Vistrow Growth Audit landing page on a MacBook Air with its mobile version on a phone, on a cafe table" },
     title: "Landing Pages & Funnels",
     eyebrow: "Digital Marketing",
@@ -475,6 +495,15 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "marketing-automation": {
     slug: "marketing-automation",
+    showcase: {
+      eyebrow: "Real screens",
+      title: "Automation that replies while you sleep",
+      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
+      shots: [
+        { src: "/images/products/arthaleads-lead-pipeline-site-visit-stages.webp", alt: "ArthaLeads pipeline with New, Contacted, Site Visit, Negotiation, Closed Won and Closed Lost stages", caption: "Each automated reply and follow-up moves the lead to its next stage.", width: 1600, height: 900, frame: "browser" },
+        { src: "/images/products/arthaleads-whatsapp-ai-agent-chat.webp", alt: "ArthaLeads WhatsApp AI agent replying to a property buyer within seconds", caption: "An automated WhatsApp reply to a new enquiry, sent in seconds.", width: 436, height: 896 }
+      ],
+    },
     image: { src: "/images/services/svc-marketing-automation.webp", alt: "Close-up of a phone showing an automated WhatsApp reply to a new property enquiry, with a workflow on a laptop behind" },
     title: "Marketing Automation",
     eyebrow: "Digital Marketing",

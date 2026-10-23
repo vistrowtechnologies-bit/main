@@ -24,7 +24,7 @@ export const businessAutomationOverview: OverviewContent = {
     eyebrow: "Not just an integrator",
     title: "We build and run our own AI products.",
     body:
-      "Vistrow Voice (AI voice calling in 11 languages, including Hindi and English) and ArthaLeads (AI lead scoring and follow-up for real estate) are products we built and operate. When we automate your process, we bring what we've learned running them: how Indian callers respond, how WhatsApp templates get approved, and how messy CRM data really is. We map your real process first, then connect CRM, voice, messaging, calendars and reporting around it.",
+      "Vistrow Voice (AI voice calling in 130+ languages, including Hindi, English and 9 more Indian languages) and ArthaLeads (AI lead scoring and follow-up for real estate) are products we built and operate. When we automate your process, we bring what we've learned running them: how Indian callers respond, how WhatsApp templates get approved, and how messy CRM data really is. We map your real process first, then connect CRM, voice, messaging, calendars and reporting around it.",
     image: PAGE_IMAGES.businessAutomation,
     points: [
       "AI voice agents that call in Hindi, Hinglish and other Indian languages",
@@ -51,6 +51,15 @@ export const businessAutomationOverview: OverviewContent = {
 export const businessAutomationServices: Record<string, ServiceContent> = {
   "crm-lead-management": {
     slug: "crm-lead-management",
+    showcase: {
+      eyebrow: "Real screens",
+      title: "What a clean CRM looks like",
+      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
+      shots: [
+        { src: "/images/products/arthaleads-lead-pipeline-site-visit-stages.webp", alt: "ArthaLeads pipeline with New, Contacted, Site Visit, Negotiation, Closed Won and Closed Lost stages", caption: "Stages from New to Closed Won, so nothing sits untouched.", width: 1600, height: 900, frame: "browser" },
+        { src: "/images/products/arthaleads-real-estate-crm-dashboard.webp", alt: "ArthaLeads dashboard with leads by source, leads reached within an hour, site visits and overdue follow-ups", caption: "Today's hot leads and overdue follow-ups on one screen.", width: 1600, height: 900, frame: "browser" }
+      ],
+    },
     image: { src: "/images/services/svc-crm-lead-management.webp", alt: "Real estate sales manager walking telecallers through the ArthaLeads lead pipeline on a wall screen" },
     title: "CRM & Lead Management",
     eyebrow: "AI Automation",
@@ -100,16 +109,25 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "ai-voice-calling": {
     slug: "ai-voice-calling",
+    showcase: {
+      eyebrow: "Our own product",
+      title: "Vistrow Voice, the voice AI we build",
+      body: "Vistrow Voice is our own AI voice agent for Indian businesses. These are its live website and the product it runs.",
+      shots: [
+        { src: "/images/services/deliverables/vistrow-voice-website.webp", alt: "Vistrow Voice website with a live demo where visitors can talk to the Artha voice agent", caption: "The live Vistrow Voice site, where anyone can talk to the agent.", width: 1600, height: 1000, frame: "browser", href: "https://www.vistrowvoice.com/" },
+        { src: "/work/portfolio/vistrowvoice.jpg", alt: "Vistrow Voice website shown on a laptop, tablet and phone", caption: "Built and run by Vistrow across desktop, tablet and phone.", width: 1536, height: 1024 }
+      ],
+    },
     image: { src: "/images/services/svc-ai-voice-calling.webp", alt: "Telecaller in Pune with a headset mid-conversation while an example Vistrow Voice AI call transcript runs on her laptop" },
     title: "AI Voice Calling",
     heroTitle: "Multilingual AI voice assistant for",
     highlight: "Indian businesses",
     eyebrow: "AI Automation",
     subtitle:
-      "Vistrow Voice is a multilingual AI voice assistant and AI calling software that handles inbound, outbound and website calls in 11 languages - Hindi, English and 9 more Indian languages, including natural Hinglish - answering questions, qualifying intent, booking next steps and pushing outcomes into your workflow 24/7.",
+      "Vistrow Voice is a multilingual AI voice assistant and AI calling software that handles inbound, outbound and website calls in 130+ languages, including Hindi, English and 9 more Indian languages and natural Hinglish - answering questions, qualifying intent, booking next steps and pushing outcomes into your workflow 24/7.",
     metaTitle: "Multilingual AI Voice Assistant & Calling Software",
     metaDescription:
-      "Multilingual AI voice assistant and AI calling software for Indian businesses: inbound, outbound and website calls in 11 languages, with CRM webhooks.",
+      "Multilingual AI voice assistant and AI calling software for Indian businesses: inbound, outbound and website calls in 130+ languages, with CRM webhooks.",
     problem: {
       title: "Every unanswered or delayed call creates avoidable leakage.",
       body: "Teams cannot answer every enquiry, reminder, support question, or follow-up at the right moment. Vistrow Voice adds always-on coverage while keeping the rules, knowledge, and handoffs under your control.",
@@ -121,7 +139,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
       ],
     },
     features: [
-      { icon: Languages, title: "11 languages", body: "Callers speak Hindi, English, Hinglish or one of 9 more Indian languages, and the agent replies in the same language, even switching mid-sentence." },
+      { icon: Languages, title: "130+ languages", body: "Callers speak Hindi, English, Hinglish, one of 9 more Indian languages or any of 130+ supported languages, and the agent replies in the same language, even switching mid-sentence." },
       { icon: PhoneIncoming, title: "Inbound calls, 24/7", body: "Answers, qualifies and routes or books the next step, including nights, weekends and peak hours." },
       { icon: PhoneOutgoing, title: "Outbound campaigns", body: "Reminders, follow-ups and collections called at scale, with outcomes logged for every call." },
       { icon: Globe, title: "Website voice widget", body: "Visitors talk to the agent in the browser without sharing a phone number." },
@@ -129,7 +147,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
       { icon: Webhook, title: "CRM handoff", body: "Leads, outcomes and transcripts are pushed to your CRM through webhooks, with escalation to a person when needed." },
     ],
     outcomes: [
-      { stat: "11", label: "Languages", body: "Serve customers in Hindi, English and 9 more Indian languages." },
+      { stat: "130+", label: "Languages", body: "Serve customers in 130+ languages, including Hindi, English and 9 more Indian languages." },
       { stat: "24/7", label: "Coverage", body: "Nights, weekends, and peak volume handled." },
       { stat: "3", label: "Calling channels", body: "Inbound phone, outbound campaigns, and a website call widget." },
     ],
@@ -151,10 +169,10 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
     ],
     tools: ["Vistrow Voice", "Phone numbers", "Website call widget", "CRM webhooks", "PDF knowledge base", "Custom workflows"],
     faqs: [
-      { q: "What is a multilingual AI voice assistant?", a: "It is an AI agent that talks to callers by voice in more than one language. Vistrow Voice answers and makes calls in 11 languages, including Hindi, English and natural Hinglish, so customers can speak the way they normally do while the agent answers questions, qualifies the enquiry and books the next step." },
+      { q: "What is a multilingual AI voice assistant?", a: "It is an AI agent that talks to callers by voice in more than one language. Vistrow Voice answers and makes calls in 130+ languages, including Hindi, English, 9 more Indian languages and natural Hinglish, so customers can speak the way they normally do while the agent answers questions, qualifies the enquiry and books the next step." },
       { q: "Is Vistrow Voice AI calling software or a service?", a: "Both. Vistrow Voice is the AI calling software, with a no-code agent builder you can run yourself. Vistrow can also set it up for you as a service: call flows, knowledge base, CRM connection and ongoing tuning." },
       { q: "Can it call and qualify real estate leads?", a: "Yes. It can call new enquiries from your ads and portals, ask your qualification questions, book site visits and pass the lead to your sales team with a transcript. It works alongside a CRM such as ArthaLeads." },
-      { q: "Which languages does Vistrow Voice support?", a: "The current platform supports 11 languages: Hindi, English and 9 more Indian languages, with natural Hinglish and mid-sentence language switching. Confirm the exact language and voice fit during your product test." },
+      { q: "Which languages does Vistrow Voice support?", a: "More than 130 languages, including Hindi, English and 9 more Indian languages (Marathi, Tamil, Telugu, Kannada, Malayalam, Gujarati, Bengali, Punjabi and Odia), with natural Hinglish and mid-sentence language switching. Confirm the exact language and voice fit during your product test." },
       { q: "Can it handle inbound and outbound calls?", a: "Yes. Vistrow Voice supports inbound calling, outbound campaigns, and a browser-based website call widget." },
       { q: "How does it answer business-specific questions?", a: "You can upload PDFs and documents to create a retrieval-grounded knowledge base, then configure the agent's persona, prompt, language, and rules." },
       { q: "Can it connect to our CRM?", a: "Yes. Lead details, outcomes, and transcripts can be pushed to your CRM or workflow through webhooks." },
@@ -163,6 +181,15 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "sales-automation": {
     slug: "sales-automation",
+    showcase: {
+      eyebrow: "Real screens",
+      title: "Sales activity you can measure",
+      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
+      shots: [
+        { src: "/images/products/arthaleads-team-performance.webp", alt: "ArthaLeads team performance board with leads, site visits and bookings per team member", caption: "Leads, site visits and bookings for each salesperson.", width: 1600, height: 900, frame: "browser" },
+        { src: "/images/products/arthaleads-lead-pipeline-site-visit-stages.webp", alt: "ArthaLeads pipeline with New, Contacted, Site Visit, Negotiation, Closed Won and Closed Lost stages", caption: "Every deal's stage, from first call to booking.", width: 1600, height: 900, frame: "browser" }
+      ],
+    },
     image: { src: "/images/services/svc-sales-automation.webp", alt: "Field sales executive walking out of a Pune project site office, checking his next follow-up on his phone" },
     title: "Sales Automation",
     eyebrow: "AI Automation",
@@ -212,6 +239,15 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "communication-automation": {
     slug: "communication-automation",
+    showcase: {
+      eyebrow: "Real screens",
+      title: "WhatsApp conversations in one inbox",
+      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
+      shots: [
+        { src: "/images/products/arthaleads-whatsapp-inbox.webp", alt: "ArthaLeads shared WhatsApp inbox with buyer chats and the AI agent replying to an enquiry", caption: "One shared inbox for every buyer chat, with lead score and owner.", width: 1356, height: 762, frame: "browser" },
+        { src: "/images/products/arthaleads-whatsapp-ai-agent-chat.webp", alt: "ArthaLeads WhatsApp AI agent replying to a property buyer within seconds", caption: "The WhatsApp AI agent replies within seconds and asks the first question.", width: 436, height: 896 }
+      ],
+    },
     image: { src: "/images/services/svc-communication-automation.webp", alt: "Furniture showroom owner in Pune serving a customer while an automated WhatsApp reply goes to a new enquiry on his phone" },
     title: "WhatsApp, Email & SMS Automation",
     eyebrow: "AI Automation",
@@ -262,6 +298,15 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "lead-follow-up": {
     slug: "lead-follow-up",
+    showcase: {
+      eyebrow: "Real screens",
+      title: "Follow-ups you can see, not chase",
+      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
+      shots: [
+        { src: "/images/products/arthaleads-real-estate-crm-dashboard.webp", alt: "ArthaLeads dashboard with leads by source, leads reached within an hour, site visits and overdue follow-ups", caption: "How many leads were reached within an hour, and which follow-ups are overdue.", width: 1600, height: 900, frame: "browser" },
+        { src: "/images/products/arthaleads-team-performance.webp", alt: "ArthaLeads team performance board with leads, site visits and bookings per team member", caption: "Follow-up and site visit numbers for each person on the team.", width: 1600, height: 900, frame: "browser" }
+      ],
+    },
     image: { src: "/images/services/svc-lead-follow-up.webp", alt: "Telecaller ticking off a follow-up list beside the ArthaLeads dashboard showing overdue follow-ups and hot leads" },
     title: "Lead Follow-Up Systems",
     eyebrow: "AI Automation",

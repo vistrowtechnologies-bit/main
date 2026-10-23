@@ -58,7 +58,7 @@ export const workPages: Record<string, WorkContent> = {
         title: "Vistrow Voice: connected AI calling",
         tag: "Owned product",
         summary: "Inbound, outbound, and web calling connected to knowledge, qualification, scheduling, and CRM webhooks.",
-        metric: "11",
+        metric: "130+",
         metricLabel: "Supported languages",
         evidence: ["Live product walkthrough", "Call history and transcript review", "Webhook and handoff demonstration"],
         href: "/products/vistrow-voice",
