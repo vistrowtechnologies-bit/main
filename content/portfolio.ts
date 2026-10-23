@@ -14,7 +14,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Owned product",
     summary: "AI voice platform for Indian businesses: 130+ languages including Hindi, English and 9 more Indian languages, a live tap-to-talk demo, and a product-led conversion funnel.",
     url: "https://www.vistrowvoice.com",
-    image: "/work/portfolio/vistrowvoice-desk.jpg",
+    image: "/work/portfolio/vistrowvoice-apple.jpg",
   },
   {
     slug: "vistrow",
@@ -22,7 +22,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "First-party build",
     summary: "Vistrow's own site — content, product, conversion, and enquiry-handoff system built and run end-to-end by the team.",
     url: "https://www.vistrow.com",
-    image: "/work/portfolio/vistrow.jpg",
+    image: "/work/portfolio/vistrow-apple.jpg",
   },
   {
     slug: "arthaleads",
@@ -30,7 +30,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Owned product",
     summary: "Lead management CRM for real estate — Facebook, Instagram, WhatsApp and website leads in one workspace, AI lead scoring, and a 24/7 WhatsApp AI agent.",
     url: "https://www.arthaleads.com",
-    image: "/work/portfolio/arthaleads.jpg",
+    image: "/work/portfolio/arthaleads-apple.jpg",
   },
   {
     slug: "marketixstudio",
@@ -38,7 +38,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Client build",
     summary: "Performance marketing agency site for real estate, startups, and eCommerce clients — case studies and a lead-capture funnel.",
     url: "https://www.marketixstudio.com",
-    image: "/work/portfolio/marketixstudio.jpg",
+    image: "/work/portfolio/marketixstudio-apple.jpg",
   },
   {
     slug: "prophuntllp",
@@ -46,7 +46,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Client build",
     summary: "Real estate advisory site for Pune buyers — curated listings, a developer trust bar, and a book-a-site-visit funnel.",
     url: "https://www.prophuntllp.com",
-    image: "/work/portfolio/prophuntllp.jpg",
+    image: "/work/portfolio/prophuntllp-apple.jpg",
   },
   {
     slug: "singhsteel",
@@ -54,7 +54,7 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Client build",
     summary: "Steel, glass, and façade contractor site — a full service catalogue, project gallery, and a get-a-quote funnel.",
     url: "https://www.singhsteel.in",
-    image: "/work/portfolio/singhsteel.jpg",
+    image: "/work/portfolio/singhsteel-apple.jpg",
   },
   {
     slug: "mahindra-citadel",
@@ -62,6 +62,6 @@ export const websitePortfolio: PortfolioSite[] = [
     tag: "Client build",
     summary: "Project microsite built for Prophunt, a RERA-registered channel partner marketing Mahindra Citadel in Pimpri — plans, location advantage, and a schedule-a-visit funnel. Built for the agent, not the developer.",
     url: "https://www.mahindralife-spaces.com",
-    image: "/work/portfolio/mahindralife-spaces.jpg",
+    image: "/work/portfolio/mahindra-citadel-apple.jpg",
   },
 ];

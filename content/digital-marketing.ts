@@ -171,10 +171,10 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
       title: "Websites we've built",
       body: "Real sites built by Vistrow for Pune businesses and our own products.",
       shots: [
-        { src: "/work/portfolio/prophuntllp.jpg", alt: "Prophunt real estate advisory website built by Vistrow, on laptop, tablet and phone", caption: "Prophunt LLP: curated listings and a book-a-site-visit funnel.", width: 1536, height: 1024, href: "https://www.prophuntllp.com" },
-        { src: "/work/portfolio/singhsteel.jpg", alt: "Singh Steel contractor website built by Vistrow, on laptop, tablet and phone", caption: "Singh Steel: service catalogue, project gallery and quotes.", width: 1536, height: 1024, href: "https://www.singhsteel.in" },
-        { src: "/work/portfolio/mahindralife-spaces.jpg", alt: "Mahindra Citadel project microsite built by Vistrow for the channel partner Prophunt, on laptop, tablet and phone", caption: "Mahindra Citadel microsite for Prophunt, a RERA-registered channel partner.", width: 1536, height: 1024 },
-        { src: "/work/portfolio/marketixstudio.jpg", alt: "Marketix Studio agency website built by Vistrow, on laptop, tablet and phone", caption: "Marketix Studio: case studies and a lead-capture funnel.", width: 1536, height: 1024, href: "https://www.marketixstudio.com" }
+        { src: "/work/portfolio/prophuntllp-apple.jpg", alt: "Prophunt real estate advisory website built by Vistrow, on laptop, tablet and phone", caption: "Prophunt LLP: curated listings and a book-a-site-visit funnel.", width: 1536, height: 1024, href: "https://www.prophuntllp.com" },
+        { src: "/work/portfolio/singhsteel-apple.jpg", alt: "Singh Steel contractor website built by Vistrow, on laptop, tablet and phone", caption: "Singh Steel: service catalogue, project gallery and quotes.", width: 1536, height: 1024, href: "https://www.singhsteel.in" },
+        { src: "/work/portfolio/mahindra-citadel-apple.jpg", alt: "Mahindra Citadel project microsite built by Vistrow for the channel partner Prophunt, on laptop, tablet and phone", caption: "Mahindra Citadel microsite for Prophunt, a RERA-registered channel partner.", width: 1536, height: 1024 },
+        { src: "/work/portfolio/marketixstudio-apple.jpg", alt: "Marketix Studio agency website built by Vistrow, on laptop, tablet and phone", caption: "Marketix Studio: case studies and a lead-capture funnel.", width: 1536, height: 1024, href: "https://www.marketixstudio.com" }
       ],
     },
     image: { src: "/images/services/svc-website-development.webp", alt: "Prophunt website built by Vistrow, shown on an iMac with its mobile version on an iPhone beside it" },
