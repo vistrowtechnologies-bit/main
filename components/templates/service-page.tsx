@@ -10,7 +10,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/seo/json-ld";
-import { ServiceShowcase } from "@/components/sections/service-showcase";
+import { HeroScreen, ServiceShowcase } from "@/components/sections/service-showcase";
 import Image from "next/image";
 import type { ServiceContent } from "@/lib/content-types";
 import { breadcrumbSchema, faqSchema, graph, serviceSchema } from "@/lib/structured-data";
@@ -23,6 +23,9 @@ export function ServicePage({
   section: { label: string; href: string };
 }) {
   const path = `${section.href}/${content.slug}`;
+  // Product-led hero: a real screen leads; the showcase section below shows the rest.
+  const heroShot = content.heroShot ?? content.showcase?.shots[0];
+  const showcaseRest = (content.showcase?.shots ?? []).filter((shot) => shot.src !== heroShot?.src);
 
   return (
     <>
@@ -53,7 +56,7 @@ export function ServicePage({
         highlight={content.highlight}
         subtitle={content.subtitle}
         secondaryCta={{ label: `All ${section.label}`, href: section.href }}
-        aside={content.image ? <HeroPhoto src={content.image.src} alt={content.image.alt} /> : undefined}
+        aside={heroShot ? <HeroScreen shot={heroShot} /> : content.image ? <HeroPhoto src={content.image.src} alt={content.image.alt} /> : undefined}
       />
 
       <AnswerSummary
@@ -84,7 +87,7 @@ export function ServicePage({
         </div>
       </section>
 
-      {content.showcase && <ServiceShowcase {...content.showcase} />}
+      {content.showcase && showcaseRest.length > 0 && <ServiceShowcase {...content.showcase} shots={showcaseRest} />}
 
       <Outcomes items={content.outcomes} />
 

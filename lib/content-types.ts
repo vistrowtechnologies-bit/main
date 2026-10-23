@@ -6,7 +6,7 @@ import type { QA } from "@/components/sections/faq";
 
 export type { Feature, Step, Outcome, QA };
 
-export type ShowcaseShot = { src: string; alt: string; caption: string; width: number; height: number; href?: string; /** "browser" wraps a raw app screen; device photos and phone screens are shown as they are. */ frame?: "browser" };
+export type ShowcaseShot = { src: string; alt: string; caption: string; width: number; height: number; href?: string; /** "browser" wraps a raw app screen, "none" shows an image that already has its own device frame; otherwise a rounded card. */ frame?: "browser" | "none" };
 
 export type ServiceContent = {
   slug: string;
@@ -26,6 +26,8 @@ export type ServiceContent = {
   image?: { src: string; alt: string };
   /** Real screens or real client work for this service (never mockups): the first is shown large. */
   showcase?: { eyebrow: string; title: string; body: string; shots: ShowcaseShot[] };
+  /** Real screen for the hero; defaults to the first showcase shot. */
+  heroShot?: ShowcaseShot;
   /** H1 text when it should differ from the short title used in breadcrumbs and headings. */
   heroTitle?: string;
   costGuide?: CostGuide;

@@ -54,7 +54,9 @@ function Shot({ shot, sizes }: { shot: ShowcaseShot; sizes: string }) {
     />
   );
   const framed =
-    shot.frame === "browser" ? (
+    shot.frame === "none" ? (
+      image
+    ) : shot.frame === "browser" ? (
       <BrowserFrame>{image}</BrowserFrame>
     ) : phone ? (
       <div className="overflow-hidden rounded-[22px] border-[5px] border-ink bg-ink shadow-lift">{image}</div>
@@ -74,5 +76,36 @@ function Shot({ shot, sizes }: { shot: ShowcaseShot; sizes: string }) {
         )}
       </figcaption>
     </figure>
+  );
+}
+
+// Product-led hero: one real screen in a clean frame, with a soft accent glow behind it.
+export function HeroScreen({ shot }: { shot: ShowcaseShot }) {
+  const phone = shot.height > shot.width;
+  const image = (
+    <Image
+      src={shot.src}
+      alt={shot.alt}
+      width={shot.width}
+      height={shot.height}
+      sizes={phone ? "280px" : "(min-width: 1024px) 640px, 100vw"}
+      priority
+      className={`h-auto w-full ${phone ? "rounded-[22px]" : ""}`}
+    />
+  );
+  return (
+    <div className="relative">
+      <div aria-hidden className="absolute -inset-6 -z-10 rounded-[40px] bg-accent/15 blur-3xl" />
+      {shot.frame === "none" ? (
+        <div className="lg:-mr-20 xl:-mr-32">{image}</div>
+      ) : shot.frame === "browser" ? (
+        // App screens run large and off the right edge, the way product sites show their UI.
+        <BrowserFrame className="lg:-mr-40 xl:-mr-64">{image}</BrowserFrame>
+      ) : phone ? (
+        <div className="mx-auto max-w-[280px] overflow-hidden rounded-[28px] border-[6px] border-ink bg-ink shadow-lift">{image}</div>
+      ) : (
+        <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-lift">{image}</div>
+      )}
+    </div>
   );
 }

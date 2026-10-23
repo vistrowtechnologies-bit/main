@@ -495,6 +495,7 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "marketing-automation": {
     slug: "marketing-automation",
+    heroShot: { src: "/images/products/arthaleads-whatsapp-ai-agent-chat.webp", alt: "ArthaLeads WhatsApp AI agent replying to a property buyer within seconds", caption: "An automated WhatsApp reply to a new enquiry.", width: 436, height: 896 },
     showcase: {
       eyebrow: "Real screens",
       title: "Automation that replies while you sleep",

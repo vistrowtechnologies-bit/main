@@ -109,6 +109,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "ai-voice-calling": {
     slug: "ai-voice-calling",
+    heroShot: { src: "/images/products/vistrow-voice-dashboard-overview.webp", alt: "Vistrow Voice dashboard with sample data: calls handled, minutes left, qualified leads, appointments and recent calls", caption: "The Vistrow Voice dashboard.", width: 1576, height: 982, frame: "none" },
     showcase: {
       eyebrow: "Our own product",
       title: "Vistrow Voice, the voice AI we build",
