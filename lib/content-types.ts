@@ -87,7 +87,19 @@ export type ProductContent = {
   externalLabel?: string;
   faqs?: QA[];
   /** Real product screens: the first is shown large, a portrait phone screen sits beside it. */
-  screenshots?: { src: string; alt: string; title: string; body: string; width: number; height: number }[];
+  screenshots?: { src: string; alt: string; title: string; body: string; width: number; height: number; /** Image already includes a device frame. */ bare?: boolean }[];
+  /** A sample call shown as a transcript; must be labelled when it is a written script, not a recording. */
+  demoCall?: {
+    title: string;
+    body: string;
+    language: string;
+    label: string;
+    turns: { speaker: "agent" | "caller"; text: string }[];
+    saved: { label: string; value: string }[];
+    href?: string;
+  };
+  languages?: { title: string; body: string; items: { native: string; name: string }[] };
+  plans?: { title: string; body: string; note: string; items: { name: string; summary: string; features: string[] }[] };
   preview?: {
     stats: { value: string; label: string }[];
     rows: { label: string; value: string }[];

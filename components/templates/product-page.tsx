@@ -9,6 +9,7 @@ import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
 import { Reveal } from "@/components/ui/reveal";
 import { BrowserFrame, ProductTour } from "@/components/sections/product-tour";
+import { ProductDemoCall, ProductLanguages, ProductPlans } from "@/components/sections/product-extras";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import type { ProductContent } from "@/lib/content-types";
@@ -75,7 +76,11 @@ export function ProductPage({
 
       {content.screenshots && content.screenshots.length > 0 && <ProductScreens name={content.name} screens={content.screenshots} />}
 
-      <FeatureCards eyebrow="Use cases" title="Where it earns its place" items={content.useCases} surface />
+      {content.demoCall && <ProductDemoCall call={content.demoCall} />}
+
+      {content.languages && <ProductLanguages languages={content.languages} />}
+
+      <FeatureCards eyebrow="Use cases" title="Where it earns its place" items={content.useCases} surface={!content.languages} />
 
       <FeatureCards eyebrow="Features" title="Built for real workflows" items={content.features} />
 
@@ -83,26 +88,7 @@ export function ProductPage({
 
       <Chips eyebrow="Integrations" title="Connects to your stack" items={content.integrations} />
 
-      <section className="border-y border-line bg-surface py-section">
-        <div className="container-edge">
-          <SectionHeading eyebrow="Evaluation clarity" title={`Questions to settle before choosing ${content.name}`} align="center" className="mb-12" />
-          <div className="grid gap-gutter md:grid-cols-3">
-            {[
-              ["Workflow fit", "Define the use case, exception path, human owner, and measurable acceptance criteria for a pilot."],
-              ["Data and control", "Confirm data sources, access, retention, permissions, monitoring, and the human review required."],
-              ["Commercial scope", "Agree implementation, usage, integration, support, and any third-party costs before rollout."],
-            ].map(([title, body], index) => (
-              <Reveal key={title} delay={index * 0.06}>
-                <article className="h-full rounded-lg border border-line bg-card p-6">
-                  <span className="font-display text-sm font-bold text-accent-strong">0{index + 1}</span>
-                  <h3 className="mt-4 font-display text-xl font-bold text-ink">{title}</h3>
-                  <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{body}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {content.plans && <ProductPlans plans={content.plans} />}
 
       {/* Trust / reliability */}
       <section className="py-section">
@@ -113,7 +99,7 @@ export function ProductPage({
             align="center"
             className="mb-12"
           />
-          <div className="grid grid-cols-1 gap-gutter sm:grid-cols-3">
+          <div className={`grid grid-cols-1 gap-gutter sm:grid-cols-2 ${content.security.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
             {content.security.map((item, i) => (
               <Reveal key={item.title} delay={i * 0.07}>
                 <div className="h-full rounded-lg border border-line bg-card p-7">
@@ -161,10 +147,14 @@ function ProductHeroShot({ screens }: { screens: Screen[] }) {
   const phone = screens.find(isPhone);
   if (!desktop) return null;
   return (
-    <div className="relative pb-10 lg:pb-0 lg:pr-10">
-      <BrowserFrame>
+    <div className={`relative ${phone ? "pb-10 lg:pb-0 lg:pr-10" : ""}`}>
+      {desktop.bare ? (
         <Image src={desktop.src} alt={desktop.alt} width={desktop.width} height={desktop.height} sizes="(min-width: 1024px) 620px, 100vw" priority className="h-auto w-full" />
-      </BrowserFrame>
+      ) : (
+        <BrowserFrame>
+          <Image src={desktop.src} alt={desktop.alt} width={desktop.width} height={desktop.height} sizes="(min-width: 1024px) 620px, 100vw" priority className="h-auto w-full" />
+        </BrowserFrame>
+      )}
       {phone && (
         <div className="absolute -bottom-2 right-0 w-[30%] max-w-[170px] overflow-hidden rounded-[22px] border-[5px] border-ink bg-ink shadow-lift lg:-bottom-10">
           <Image src={phone.src} alt={phone.alt} width={phone.width} height={phone.height} sizes="170px" priority className="h-auto w-full rounded-[17px]" />

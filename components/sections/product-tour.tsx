@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export type TourScreen = { src: string; alt: string; title: string; body: string; width: number; height: number };
+export type TourScreen = { src: string; alt: string; title: string; body: string; width: number; height: number; bare?: boolean };
 
 // Real product screens as tabs. Every screen stays in the HTML (inactive ones are hidden with CSS)
 // so all images and captions remain indexable.
@@ -41,9 +41,13 @@ export function ProductTour({ screens, phone }: { screens: TourScreen[]; phone?:
               aria-labelledby={`tour-tab-${index}`}
               className={active === index ? "block" : "hidden"}
             >
-              <BrowserFrame>
-                <Image src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} sizes="(min-width: 1024px) 960px, 100vw" className="h-auto w-full" />
-              </BrowserFrame>
+              {screen.bare ? (
+                <Image src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} sizes="(min-width: 1024px) 960px, 100vw" className="mx-auto h-auto w-full max-w-4xl" />
+              ) : (
+                <BrowserFrame>
+                  <Image src={screen.src} alt={screen.alt} width={screen.width} height={screen.height} sizes="(min-width: 1024px) 960px, 100vw" className="h-auto w-full" />
+                </BrowserFrame>
+              )}
               <figcaption className="mt-4 max-w-2xl">
                 <p className="font-display text-lg font-bold text-ink">{screen.title}</p>
                 <p className="mt-1 font-sans text-[15px] leading-relaxed text-muted">{screen.body}</p>
