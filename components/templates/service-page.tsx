@@ -8,6 +8,7 @@ import { LocalAreas } from "@/components/sections/local-areas";
 import { SERVICE_STAGES, SystemMap } from "@/components/sections/system-map";
 import { CtaBand } from "@/components/sections/cta-band";
 import { AnswerSummary } from "@/components/sections/answer-summary";
+import { X } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { JsonLd } from "@/components/seo/json-ld";
 import { HeroScreen, ServiceShowcase } from "@/components/sections/service-showcase";
@@ -25,6 +26,9 @@ export function ServicePage({
   const path = `${section.href}/${content.slug}`;
   // Product-led hero: a real screen leads; the showcase section below shows the rest.
   const heroShot = content.heroShot ?? content.showcase?.shots[0];
+  const problemPhoto = content.photos?.problem;
+  // Pages whose hero is a screen reuse their photo beside "What's included"; photo-hero pages use their outcome photo.
+  const includedPhoto = content.photos?.outcome ?? (heroShot ? content.image : undefined);
   const showcaseRest = (content.showcase?.shots ?? []).filter((shot) => shot.src !== heroShot?.src);
 
   return (
@@ -69,6 +73,30 @@ export function ServicePage({
         ]}
       />
 
+      {problemPhoto ? (
+        <section className="py-section">
+          <div className="container-edge grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <Reveal>
+              <figure className="relative overflow-hidden rounded-2xl border border-line bg-card shadow-lift">
+                <Image src={problemPhoto.src} alt={problemPhoto.alt} width={1536} height={1024} sizes="(min-width: 1024px) 600px, 100vw" className="aspect-[4/3] h-auto w-full object-cover" />
+                <figcaption className="absolute left-4 top-4 rounded-full bg-ink/85 px-3.5 py-1.5 font-sans text-xs font-semibold text-white backdrop-blur">Sound familiar?</figcaption>
+              </figure>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h2 className="font-display text-h2 text-ink">{content.problem.title}</h2>
+              <p className="mt-5 max-w-xl font-sans text-lg leading-relaxed text-muted">{content.problem.body}</p>
+              <ul className="mt-7 space-y-3">
+                {content.problem.points.map((point) => (
+                  <li key={point} className="flex items-start gap-3 font-sans text-[15px] text-ink-2">
+                    <X className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-error/10 p-1 text-error" strokeWidth={3} />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+      ) : (
       <section className="py-section">
         <div className="container-edge grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <Reveal>
@@ -86,6 +114,8 @@ export function ServicePage({
           </Reveal>
         </div>
       </section>
+
+      )}
 
       {content.showcase && showcaseRest.length > 0 && <ServiceShowcase {...content.showcase} shots={showcaseRest} />}
 
@@ -109,7 +139,7 @@ export function ServicePage({
         />
       )}
 
-      <Included title="What's included" items={content.included} surface={!content.features} />
+      <Included title="What's included" items={content.included} surface={!content.features} image={includedPhoto} />
 
       {content.costGuide && (
         <section className="border-t border-line py-section">

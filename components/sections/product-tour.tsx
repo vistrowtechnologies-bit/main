@@ -71,13 +71,18 @@ export function ProductTour({ screens, phone }: { screens: TourScreen[]; phone?:
   );
 }
 
-export function BrowserFrame({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+export function BrowserFrame({ children, className = "", url }: { children: React.ReactNode; className?: string; url?: string }) {
   return (
     <div className={`overflow-hidden rounded-xl border border-line bg-card shadow-lift ${className}`}>
-      <div aria-hidden className="flex items-center gap-1.5 border-b border-line bg-surface px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-line" />
-        <span className="h-2.5 w-2.5 rounded-full bg-line" />
-        <span className="h-2.5 w-2.5 rounded-full bg-line" />
+      <div aria-hidden className="relative flex items-center gap-1.5 border-b border-line bg-surface px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+        {url && (
+          <span className="absolute left-1/2 top-1/2 max-w-[60%] -translate-x-1/2 -translate-y-1/2 truncate rounded-md bg-card px-3 py-1 font-sans text-[11px] text-muted ring-1 ring-line">
+            {url}
+          </span>
+        )}
       </div>
       {children}
     </div>

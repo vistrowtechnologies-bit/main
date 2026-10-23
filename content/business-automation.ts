@@ -51,6 +51,7 @@ export const businessAutomationOverview: OverviewContent = {
 export const businessAutomationServices: Record<string, ServiceContent> = {
   "crm-lead-management": {
     slug: "crm-lead-management",
+    photos: { problem: { src: "/images/services/more/svc-pain-crm-lead-management.webp", alt: "A cluttered real estate desk with paper diaries, printed spreadsheets and sticky notes" } },
     showcase: {
       eyebrow: "Real screens",
       title: "What a clean CRM looks like",
@@ -109,14 +110,16 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "ai-voice-calling": {
     slug: "ai-voice-calling",
+    photos: { problem: { src: "/images/services/more/svc-pain-ai-voice-calling.webp", alt: "A desk phone ringing unanswered at an empty clinic reception after hours" } },
     heroShot: { src: "/images/products/vistrow-voice-dashboard-overview.webp", alt: "Vistrow Voice dashboard with sample data: calls handled, minutes left, qualified leads, appointments and recent calls", caption: "The Vistrow Voice dashboard.", width: 1576, height: 982, frame: "none" },
     showcase: {
       eyebrow: "Our own product",
       title: "Vistrow Voice, the voice AI we build",
       body: "Vistrow Voice is our own AI voice agent for Indian businesses. These are its live website and the product it runs.",
       shots: [
-        { src: "/images/services/deliverables/vistrow-voice-website.webp", alt: "Vistrow Voice website with a live demo where visitors can talk to the Artha voice agent", caption: "The live Vistrow Voice site, where anyone can talk to the agent.", width: 1600, height: 1000, frame: "browser", href: "https://www.vistrowvoice.com/" },
-        { src: "/work/portfolio/vistrowvoice.jpg", alt: "Vistrow Voice website shown on a laptop, tablet and phone", caption: "Built and run by Vistrow across desktop, tablet and phone.", width: 1536, height: 1024 }
+        { src: "/images/services/deliverables/vistrow-voice-website.webp", alt: "Vistrow Voice website with a live demo where visitors can talk to the Artha voice agent", caption: "The live Vistrow Voice site, where anyone can talk to the agent.", width: 1600, height: 930, frame: "browser", url: "vistrowvoice.com", href: "https://www.vistrowvoice.com/" },
+        { src: "/images/products/vistrow-voice-agents.webp", alt: "Three Vistrow Voice agent cards: a clinic front desk, a property enquiries agent and an EMI reminder agent", caption: "One agent per job, each with its own voice and language.", width: 1200, height: 526, frame: "browser" },
+        { src: "/images/products/vistrow-voice-usage.webp", alt: "Vistrow Voice usage page with sample data: plan minutes by day, channel, agent and voice tier", caption: "Where the minutes go, by channel, agent and voice.", width: 1600, height: 797, frame: "browser" }
       ],
     },
     image: { src: "/images/services/svc-ai-voice-calling.webp", alt: "Telecaller in Pune with a headset mid-conversation while an example Vistrow Voice AI call transcript runs on her laptop" },
@@ -182,6 +185,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "sales-automation": {
     slug: "sales-automation",
+    photos: { problem: { src: "/images/services/more/svc-pain-sales-automation.webp", alt: "A field sales executive filling in a paper form in his car outside a project site in the evening" } },
     showcase: {
       eyebrow: "Real screens",
       title: "Sales activity you can measure",
@@ -240,6 +244,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "communication-automation": {
     slug: "communication-automation",
+    photos: { problem: { src: "/images/services/more/svc-pain-communication-automation.webp", alt: "A showroom owner on one phone while a second phone buzzes and customers wait at the counter" } },
     showcase: {
       eyebrow: "Real screens",
       title: "WhatsApp conversations in one inbox",
@@ -299,6 +304,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "lead-follow-up": {
     slug: "lead-follow-up",
+    photos: { problem: { src: "/images/services/more/svc-pain-lead-follow-up.webp", alt: "A telecaller looking at a wall planner of crossed-out callback notes, unsure who to call first" } },
     showcase: {
       eyebrow: "Real screens",
       title: "Follow-ups you can see, not chase",
@@ -357,6 +363,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "custom-automation": {
     slug: "custom-automation",
+    photos: { problem: { src: "/images/services/more/svc-pain-custom-automation.webp", alt: "An operations executive copying figures from a stack of paper invoices by hand" }, outcome: { src: "/images/services/more/svc-win-custom-automation.webp", alt: "An operations manager relaxing with tea at a tidy desk with an empty in-tray, chatting with a colleague" } },
     image: { src: "/images/services/svc-custom-automation.webp", alt: "Operations team mapping a workflow on a whiteboard beside an iMac showing an example order-desk automation" },
     title: "Custom Automation",
     eyebrow: "AI Automation",
