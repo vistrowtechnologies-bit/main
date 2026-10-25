@@ -24,7 +24,7 @@ export const playbook = {
 
 export const chapters: PlaybookChapter[] = [
   {
-    day: 1, slug: 'online-presence-checklist', keyword: 'START', release: '2026-10-26T18:30',
+    day: 1, slug: 'online-presence-checklist', keyword: 'START', release: '2026-10-26T10:00',
     title: 'Apna online chehra check karo',
     h1: 'Aapka Business Online Kaisa Dikhta Hai? 10-Point Online Presence Checklist',
     seoTitle: 'Online Presence Checklist for Small Business (Free PDF)',
