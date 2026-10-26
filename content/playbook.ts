@@ -50,7 +50,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   },
   {
-    day: 2, slug: 'google-business-profile-checklist', keyword: 'BOARD', release: '2026-10-27T13:00',
+    day: 2, slug: 'google-business-profile-checklist', keyword: 'BOARD', release: '2026-10-27T10:00',
     title: 'Google Business Profile kaise banaye (free)',
     h1: 'Google Business Profile Kaise Banaye: 10 Steps Ki Free Checklist (PDF)',
     seoTitle: 'Google Business Profile Kaise Banaye: Free 10-Step Checklist',
@@ -76,7 +76,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
-    day: 3, slug: 'website-must-haves-checklist', keyword: 'SHOWROOM', release: '2026-10-28T09:30',
+    day: 3, slug: 'website-must-haves-checklist', keyword: 'SHOWROOM', release: '2026-10-28T10:00',
     title: 'Website ke 10 must-haves',
     h1: 'Small Business Website Checklist: 10 Cheezein Jo Har Website Mein Honi Chahiye',
     seoTitle: 'Small Business Website Checklist India: 10 Must-Haves (PDF)',
@@ -102,7 +102,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   },
   {
-    day: 4, slug: 'google-review-request-templates', keyword: 'REVIEWS', release: '2026-10-29T17:30',
+    day: 4, slug: 'google-review-request-templates', keyword: 'REVIEWS', release: '2026-10-29T10:00',
     title: '5 WhatsApp templates: Google review kaise maangein',
     h1: 'Google Review Kaise Badhaye: 5 WhatsApp Messages Jo Customer Ko Bhejo',
     seoTitle: 'Google Review Request Message for WhatsApp (Hindi + English)',
@@ -124,7 +124,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
-    day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-30T12:00',
+    day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-30T10:00',
     title: 'Lead tracker: garam jawab + follow-up',
     h1: 'Free Lead Tracker + Follow-Up Schedule (lead = garam chai)',
     seoTitle: 'Free Lead Tracker (Google Sheets) + Follow-Up Schedule',
@@ -146,7 +146,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   },
   {
-    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-11-01T16:00',
+    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-11-01T10:00',
     title: 'Pehle second ke 10 hook ideas',
     h1: 'Reel Hook Ideas for Product Ads: Pehle Second Ki 10-Point Checklist',
     seoTitle: 'Product Reel Hook Ideas + First-Second Checklist (Free PDF)',
@@ -184,7 +184,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   },
   {
-    day: 8, slug: 'missed-call-auto-reply-message', keyword: 'MISSED', release: '2026-11-02T18:30',
+    day: 8, slug: 'missed-call-auto-reply-message', keyword: 'MISSED', release: '2026-11-02T10:00',
     title: 'Missed call = gira hua note',
     h1: 'Missed Call Auto Reply Message + 10-Minute Call-Back Script (missed call = gira hua note)',
     seoTitle: 'Missed Call Auto Reply Message + Call-Back Script (Free PDF)',
