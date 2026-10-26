@@ -57,7 +57,8 @@ export function Footer() {
   return (
     <footer className="border-t border-line bg-surface">
       <div className="container-edge pb-8 pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-xl bg-[#111315] px-6 py-8 text-white sm:px-10 sm:py-10 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-12">
+        {/* Hidden on pages that already end with a CtaBand, so the call to action never appears twice in a row. */}
+        <div className="footer-cta relative overflow-hidden rounded-xl bg-[#111315] px-6 py-8 text-white sm:px-10 sm:py-10 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-12">
           <div aria-hidden className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
           <div className="relative max-w-2xl">
             <p className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-accent">Start a conversation</p>
@@ -75,7 +76,7 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <Wordmark height={42} />
             <p className="mt-5 max-w-sm font-sans text-sm leading-relaxed text-ink-2">
-              Digital marketing, AI calling and CRM connected to help businesses respond to every enquiry.
+              An AI agency for Indian businesses: AI voice agents, WhatsApp AI and AI CRM, connected to the marketing that brings enquiries in.
             </p>
             <div className="mt-6 space-y-3 font-sans text-sm">
               <a href={`tel:${businessPhone.replace(/\s+/g, "")}`} className="flex items-center gap-2.5 font-semibold text-ink hover:text-accent-strong">

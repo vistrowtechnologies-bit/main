@@ -5,8 +5,8 @@ import { ScrollParallax } from "@/components/ui/motion-primitives";
 
 export function FinalCta() {
   return (
-    <section className="px-5 pb-section sm:px-8">
-      <div className="mx-auto max-w-container">
+    <section className="cta-band pb-section">
+      <div className="container-edge">
         <Reveal>
           <ScrollParallax distance={16}>
           <div className="glass relative overflow-hidden rounded-2xl border-2 border-accent/20 p-10 sm:p-14 lg:p-20">

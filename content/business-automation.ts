@@ -185,16 +185,7 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "sales-automation": {
     slug: "sales-automation",
-    photos: { problem: { src: "/images/services/more/svc-pain-sales-automation.webp", alt: "A field sales executive filling in a paper form in his car outside a project site in the evening" } },
-    showcase: {
-      eyebrow: "Real screens",
-      title: "Sales activity you can measure",
-      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
-      shots: [
-        { src: "/images/products/arthaleads-team-performance.webp", alt: "ArthaLeads team performance board with leads, site visits and bookings per team member", caption: "Leads, site visits and bookings for each salesperson.", width: 1600, height: 900, frame: "browser" },
-        { src: "/images/products/arthaleads-lead-pipeline-site-visit-stages.webp", alt: "ArthaLeads pipeline with New, Contacted, Site Visit, Negotiation, Closed Won and Closed Lost stages", caption: "Every deal's stage, from first call to booking.", width: 1600, height: 900, frame: "browser" }
-      ],
-    },
+    photos: { problem: { src: "/images/services/more/svc-pain-sales-automation.webp", alt: "A field sales executive filling in a paper form in his car outside a project site in the evening" }, outcome: { src: "/images/services/more/svc-win-sales-automation.webp", alt: "A sales manager and two salespeople at a glass wall pipeline of sticky notes, pointing at the won column" } },
     image: { src: "/images/services/svc-sales-automation.webp", alt: "Field sales executive walking out of a Pune project site office, checking his next follow-up on his phone" },
     title: "Sales Automation",
     eyebrow: "AI Automation",
@@ -244,17 +235,8 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "communication-automation": {
     slug: "communication-automation",
-    photos: { problem: { src: "/images/services/more/svc-pain-communication-automation.webp", alt: "A showroom owner on one phone while a second phone buzzes and customers wait at the counter" } },
-    showcase: {
-      eyebrow: "Real screens",
-      title: "WhatsApp conversations in one inbox",
-      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
-      shots: [
-        { src: "/images/products/arthaleads-whatsapp-inbox.webp", alt: "ArthaLeads shared WhatsApp inbox with buyer chats and the AI agent replying to an enquiry", caption: "One shared inbox for every buyer chat, with lead score and owner.", width: 1356, height: 762, frame: "browser" },
-        { src: "/images/products/arthaleads-whatsapp-ai-agent-chat.webp", alt: "ArthaLeads WhatsApp AI agent replying to a property buyer within seconds", caption: "The WhatsApp AI agent replies within seconds and asks the first question.", width: 436, height: 896 }
-      ],
-    },
-    image: { src: "/images/services/svc-communication-automation.webp", alt: "Furniture showroom owner in Pune serving a customer while an automated WhatsApp reply goes to a new enquiry on his phone" },
+    photos: { problem: { src: "/images/services/more/svc-pain-communication-automation.webp", alt: "A showroom owner on one phone while a second phone buzzes and customers wait at the counter" }, outcome: { src: "/images/services/more/svc-win-communication-automation.webp", alt: "A customer at home smiling at her phone after a business replied to her question within seconds" } },
+    image: { src: "/images/services/svc-communication-automation-v2.webp", alt: "A Pune furniture showroom owner giving his full attention to a customer couple while his phone lies face down on the counter" },
     title: "WhatsApp, Email & SMS Automation",
     eyebrow: "AI Automation",
     subtitle:
@@ -304,17 +286,8 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "lead-follow-up": {
     slug: "lead-follow-up",
-    photos: { problem: { src: "/images/services/more/svc-pain-lead-follow-up.webp", alt: "A telecaller looking at a wall planner of crossed-out callback notes, unsure who to call first" } },
-    showcase: {
-      eyebrow: "Real screens",
-      title: "Follow-ups you can see, not chase",
-      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
-      shots: [
-        { src: "/images/products/arthaleads-real-estate-crm-dashboard.webp", alt: "ArthaLeads dashboard with leads by source, leads reached within an hour, site visits and overdue follow-ups", caption: "How many leads were reached within an hour, and which follow-ups are overdue.", width: 1600, height: 900, frame: "browser" },
-        { src: "/images/products/arthaleads-team-performance.webp", alt: "ArthaLeads team performance board with leads, site visits and bookings per team member", caption: "Follow-up and site visit numbers for each person on the team.", width: 1600, height: 900, frame: "browser" }
-      ],
-    },
-    image: { src: "/images/services/svc-lead-follow-up.webp", alt: "Telecaller ticking off a follow-up list beside the ArthaLeads dashboard showing overdue follow-ups and hot leads" },
+    photos: { problem: { src: "/images/services/more/svc-pain-lead-follow-up.webp", alt: "A telecaller looking at a wall planner of crossed-out callback notes, unsure who to call first" }, outcome: { src: "/images/services/more/svc-win-lead-follow-up.webp", alt: "A telecaller smiling as he ticks the last name on his follow-up list in the early evening" } },
+    image: { src: "/images/services/svc-lead-follow-up-v2.webp", alt: "A telecaller with a headset mid-call, smiling and ticking a name on her call list" },
     title: "Lead Follow-Up Systems",
     eyebrow: "AI Automation",
     subtitle:

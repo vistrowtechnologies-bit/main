@@ -163,6 +163,11 @@ body:has(.review-experience) .vistrow-shell-tools {
 }
 
 @layer components {
+  /* One call to action at the end of a page: the footer's block steps aside when the page has its own CtaBand. */
+  body:has(.cta-band) .footer-cta {
+    display: none;
+  }
+
   .container-edge {
     @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-10;
   }

@@ -503,18 +503,8 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "marketing-automation": {
     slug: "marketing-automation",
-    photos: { problem: { src: "/images/services/more/svc-pain-marketing-automation.webp", alt: "A marketing executive working late, ticking names one by one on a long printed contact list" } },
-    heroShot: { src: "/images/products/arthaleads-whatsapp-ai-agent-chat.webp", alt: "ArthaLeads WhatsApp AI agent replying to a property buyer within seconds", caption: "An automated WhatsApp reply to a new enquiry.", width: 436, height: 896 },
-    showcase: {
-      eyebrow: "Real screens",
-      title: "Automation that replies while you sleep",
-      body: "Real screens from ArthaLeads, the real estate CRM Vistrow builds and runs, shown with a demo workspace.",
-      shots: [
-        { src: "/images/products/arthaleads-lead-pipeline-site-visit-stages.webp", alt: "ArthaLeads pipeline with New, Contacted, Site Visit, Negotiation, Closed Won and Closed Lost stages", caption: "Each automated reply and follow-up moves the lead to its next stage.", width: 1600, height: 900, frame: "browser" },
-        { src: "/images/products/arthaleads-whatsapp-ai-agent-chat.webp", alt: "ArthaLeads WhatsApp AI agent replying to a property buyer within seconds", caption: "An automated WhatsApp reply to a new enquiry, sent in seconds.", width: 436, height: 896 }
-      ],
-    },
-    image: { src: "/images/services/svc-marketing-automation.webp", alt: "Close-up of a phone showing an automated WhatsApp reply to a new property enquiry, with a workflow on a laptop behind" },
+    photos: { problem: { src: "/images/services/more/svc-pain-marketing-automation.webp", alt: "A marketing executive working late, ticking names one by one on a long printed contact list" }, outcome: { src: "/images/services/more/svc-win-marketing-automation.webp", alt: "A marketing executive closing his laptop and leaving the office on time while a colleague waves goodbye" } },
+    image: { src: "/images/services/svc-marketing-automation-v2.webp", alt: "A marketing strategist mapping an automated customer journey with sticky notes and arrows on a whiteboard" },
     title: "Marketing Automation",
     eyebrow: "Digital Marketing",
     subtitle:

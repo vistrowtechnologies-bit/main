@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useRef, useState } from "react";
+import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight, BadgeDollarSign, ChevronDown, ChevronLeft, ChevronRight, ClipboardCheck, Magnet, MessageSquare, MousePointerClick, RefreshCw, Target, type LucideIcon } from "lucide-react";
 
 export type ExplorerStage = { key: string; label: string; desc: string };
@@ -36,11 +36,24 @@ export function StageExplorer({
   const [open, setOpen] = useState<number | null>(first === -1 ? 0 : first);
   const lit = (index: number) => highlight.includes(stages[index].key);
   const allLit = stages.every((_, index) => lit(index));
-  const litIdx = stages.map((_, index) => index).filter(lit);
-  const firstLit = litIdx[0] ?? 0;
-  const lastLit = litIdx[litIdx.length - 1] ?? 0;
-  // node centres sit at the middle of each of the six grid columns
-  const pos = (index: number) => `${((index + 0.5) / stages.length) * 100}%`;
+  const n = stages.length;
+  // Desktop is scroll-driven: the block sticks while the page scrolls through it, and progress picks the stage.
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const STICK = 112; // px from the top of the viewport (below the header)
+  const { scrollYProgress } = useScroll({ target: scrollRef, offset: [`start ${STICK}px`, "end end"] });
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (!reduce) setActive(Math.min(n - 1, Math.max(0, Math.floor(v * n))));
+  });
+  // the lime fill runs from the first node to the current one (track spans 8.33% to 91.67%)
+  const fill = useTransform(scrollYProgress, (v) => `${Math.min(1, Math.max(0, (v * n) / (n - 1))) * 83.34}%`);
+  const goTo = (index: number) => {
+    const el = scrollRef.current;
+    if (reduce || !el) return setActive(index);
+    const rect = el.getBoundingClientRect();
+    const start = window.scrollY + rect.top - STICK;
+    const end = window.scrollY + rect.bottom - window.innerHeight;
+    window.scrollTo({ top: start + ((index + 0.5) / n) * (end - start), behavior: "smooth" });
+  };
 
   const detail = (index: number) => {
     const stage = stages[index];
@@ -80,29 +93,24 @@ export function StageExplorer({
 
   return (
     <div>
-      {/* Desktop and tablet: connected track + detail panel */}
-      <div className="hidden md:block">
+      {/* Desktop and tablet: sticky, scroll-driven track + detail panel */}
+      <div ref={scrollRef} className="relative hidden md:block" style={reduce ? undefined : { height: `${n * 45 + 60}vh` }}>
+        <div
+          className={reduce ? "" : "sticky flex flex-col justify-center"}
+          style={reduce ? undefined : { top: STICK, height: `calc(100vh - ${STICK}px)` }}
+        >
         <div className="relative">
-          {/* the track behind the nodes */}
           <div aria-hidden className="absolute left-[8.33%] right-[8.33%] top-7 h-[3px] rounded-full bg-line" />
-          <div aria-hidden className="absolute left-[8.33%] right-[8.33%] top-7 flex h-[3px]">
-            {stages.slice(1).map((_, index) => (
-              <span key={index} className={`h-full flex-1 ${lit(index) && lit(index + 1) ? "bg-accent" : ""}`} />
-            ))}
-          </div>
-          {!reduce && lastLit > firstLit && (
-            <motion.span
-              aria-hidden
-              className="absolute top-[25px] -ml-1 h-2 w-2 rounded-full bg-accent shadow-[0_0_12px_rgb(var(--accent))]"
-              initial={{ left: pos(firstLit) }}
-              animate={{ left: [pos(firstLit), pos(lastLit)] }}
-              transition={{ duration: 1.4 * (lastLit - firstLit), repeat: Infinity, ease: "easeInOut" }}
-            />
-          )}
+          <motion.div
+            aria-hidden
+            className="absolute left-[8.33%] top-7 h-[3px] rounded-full bg-accent shadow-[0_0_12px_rgb(var(--accent)/0.6)]"
+            style={{ width: reduce ? `${(active / (n - 1)) * 83.34}%` : fill }}
+          />
           <ol role="tablist" aria-label="Growth system stages" className="relative grid grid-cols-6">
             {stages.map((stage, index) => {
               const Icon = ICONS[stage.key] ?? Magnet;
               const selected = active === index;
+              const reached = index <= active;
               return (
                 <li key={stage.key} className="flex justify-center">
                   <button
@@ -110,22 +118,18 @@ export function StageExplorer({
                     role="tab"
                     aria-selected={selected}
                     aria-controls="stage-detail"
-                    onClick={() => setActive(index)}
-                    onMouseEnter={() => setActive(index)}
-                    onFocus={() => setActive(index)}
+                    onClick={() => goTo(index)}
                     className="group flex flex-col items-center gap-3 rounded-xl px-2 pb-2 outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     <span
-                      className={`relative isolate flex h-14 w-14 items-center justify-center rounded-full border-2 transition-all duration-300 ${
-                        lit(index) ? "border-accent bg-accent text-accent-ink" : "border-line bg-card text-muted group-hover:border-accent/60 group-hover:text-ink"
-                      } ${selected ? "scale-110 shadow-[0_0_0_6px_rgb(var(--accent)/0.18)]" : "group-hover:scale-105"}`}
+                      className={`relative flex h-14 w-14 items-center justify-center rounded-full border-2 transition-all duration-500 ${
+                        reached ? "border-accent bg-accent text-accent-ink" : lit(index) && !allLit ? "border-accent bg-card text-ink" : "border-line bg-card text-muted group-hover:border-accent/60 group-hover:text-ink"
+                      } ${selected ? "scale-110 shadow-[0_0_0_7px_rgb(var(--accent)/0.2)]" : "group-hover:scale-105"}`}
                     >
-                      {lit(index) && litIdx.length === 1 && !reduce && (
-                        <span aria-hidden className="absolute inset-0 -z-10 animate-ping rounded-full bg-accent/40 [animation-duration:2.4s]" />
-                      )}
                       <Icon className="h-5 w-5" strokeWidth={2} />
                     </span>
-                    <span className={`font-display text-[15px] font-bold transition-colors ${selected ? "text-ink" : lit(index) ? "text-ink-2" : "text-muted"}`}>
+                    <span className={`flex items-center gap-1.5 font-display text-[15px] font-bold transition-colors duration-500 ${selected || reached ? "text-ink" : "text-muted"}`}>
+                      {lit(index) && !allLit && <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />}
                       {stage.label}
                     </span>
                     <span aria-hidden className={`h-1 w-6 rounded-full transition-colors ${selected ? "bg-accent" : "bg-transparent"}`} />
@@ -135,7 +139,8 @@ export function StageExplorer({
             })}
           </ol>
           <p className="mt-2 flex items-center justify-center gap-1.5 font-sans text-xs text-muted">
-            <MousePointerClick className="h-3.5 w-3.5" /> Click any stage to see what happens there
+            <MousePointerClick className="h-3.5 w-3.5" /> {reduce ? "Click any stage to see what happens there" : "Scroll to move through the stages, or click one"}
+            {!allLit && <><span aria-hidden className="ml-3 h-1.5 w-1.5 rounded-full bg-accent" /> marks where this page works</>}
           </p>
         </div>
 
@@ -164,7 +169,7 @@ export function StageExplorer({
                 <div className="mt-auto flex items-center gap-2 pt-6">
                   <button
                     type="button"
-                    onClick={() => setActive(Math.max(0, active - 1))}
+                    onClick={() => goTo(Math.max(0, active - 1))}
                     disabled={active === 0}
                     aria-label="Previous stage"
                     className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink/30 disabled:opacity-30"
@@ -173,7 +178,7 @@ export function StageExplorer({
                   </button>
                   <button
                     type="button"
-                    onClick={() => setActive(Math.min(stages.length - 1, active + 1))}
+                    onClick={() => goTo(Math.min(stages.length - 1, active + 1))}
                     disabled={active === stages.length - 1}
                     className="inline-flex h-9 items-center gap-1.5 rounded-full border border-line px-3.5 font-sans text-sm font-semibold text-ink transition-colors hover:border-ink/30 disabled:opacity-30"
                   >
@@ -197,6 +202,7 @@ export function StageExplorer({
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
         </div>
       </div>
 
