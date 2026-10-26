@@ -1,135 +1,48 @@
 import Link from "next/link";
+import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { CookieSettingsButton } from "@/components/analytics/cookie-banner";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-} from "lucide-react";
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { Wordmark } from "@/components/ui/wordmark";
 import { socialProfiles } from "@/lib/social-links";
-import { businessPhone, serviceLocalities } from "@/lib/structured-data";
+import { businessPhone } from "@/lib/structured-data";
 
-type FooterLink = { label: string; href: string; external?: boolean };
-// A column can be one flat list, or (for Products/Industries) two short
-// sub-lists stacked under one heading-less pair of labels - this is what
-// lets six cramped columns collapse into five well-proportioned ones without
-// dropping a single link (every one of these is still crawlable elsewhere -
-// mainly the header mega-menu - except /locations, which only lives here).
-type FooterColumn = { title: string; links: FooterLink[]; groups?: never } | { title: string; groups: { heading: string; links: FooterLink[] }[]; links?: never };
+type FooterLink = { label: string; href: string };
+type FooterColumn = { title: string; links: FooterLink[] };
 
 const columns: FooterColumn[] = [
-  {
-    title: "Digital Marketing",
-    links: [
-      { label: "All Digital Marketing", href: "/digital-marketing" },
-      { label: "Performance Advertising", href: "/digital-marketing/performance-advertising" },
-      { label: "Lead Generation", href: "/digital-marketing/lead-generation" },
-      { label: "Website Development", href: "/digital-marketing/website-development" },
-      { label: "Landing Pages & Funnels", href: "/digital-marketing/landing-pages" },
-      { label: "Creative Strategy", href: "/digital-marketing/creative-strategy" },
-      { label: "Social Media Marketing", href: "/digital-marketing/social-media" },
-      { label: "SEO & Content", href: "/digital-marketing/seo-content" },
-      { label: "Conversion Tracking", href: "/digital-marketing/conversion-tracking" },
-      { label: "Marketing Automation", href: "/digital-marketing/marketing-automation" },
-    ],
-  },
-  {
-    title: "AI Automation",
-    links: [
-      { label: "All AI Automation", href: "/business-automation" },
-      { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
-      { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },
-      { label: "Sales Automation", href: "/business-automation/sales-automation" },
-      { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
-      { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up" },
-      { label: "Custom Automation", href: "/business-automation/custom-automation" },
-    ],
-  },
-  {
-    title: "Products & Industries",
-    groups: [
-      {
-        heading: "Products",
-        links: [
-          { label: "All Products", href: "/products" },
-          { label: "Vistrow Voice", href: "/products/vistrow-voice" },
-          { label: "ArthaLeads", href: "/products/arthaleads" },
-          { label: "Vistrow Labs", href: "/products/vistrow-labs" },
-        ],
-      },
-      {
-        heading: "Industries",
-        links: [
-          { label: "All Industries", href: "/industries" },
-          { label: "Real Estate", href: "/industries/real-estate" },
-          { label: "Local Businesses", href: "/industries/local-businesses" },
-          { label: "B2B Companies", href: "/industries/b2b-companies" },
-          { label: "Startups & SaaS", href: "/industries/startups-saas" },
-          { label: "Agencies", href: "/industries/agencies" },
-          { label: "Education", href: "/industries/education" },
-          { label: "Roofing (US)", href: "/us/roofing" },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Company",
-    groups: [
-      {
-        heading: "Company",
-        links: [
-          { label: "About", href: "/about" },
-          { label: "Our Approach", href: "/approach" },
-          { label: "Services", href: "/services" },
-          { label: "Work", href: "/work" },
-          { label: "Website Portfolio", href: "/work/website-portfolio" },
-          { label: "Blog", href: "/blog" },
-          { label: "100 Din Playbook", href: "/playbook" },
-          { label: "Careers", href: "/careers" },
-          { label: "Partners", href: "/partners" },
-          { label: "Contact", href: "/contact" },
-          { label: "Book a Growth Audit", href: "/growth-audit" },
-        ],
-      },
-      {
-        heading: "Digital Marketing in Pune",
-        links: [
-          { label: "Pune", href: "/locations/pune" },
-          { label: "Baner", href: "/locations/baner" },
-          { label: "Pimpri-Chinchwad", href: "/locations/pimpri-chinchwad" },
-          { label: "Hinjewadi", href: "/locations/hinjewadi" },
-          { label: "Wakad", href: "/locations/wakad" },
-          { label: "Kothrud", href: "/locations/kothrud" },
-        ],
-      },
-    ],
-  },
+  { title: "Services", links: [
+    { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },
+    { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
+    { label: "Performance Advertising", href: "/digital-marketing/performance-advertising" },
+    { label: "Website Development", href: "/digital-marketing/website-development" },
+    { label: "SEO & Content", href: "/digital-marketing/seo-content" },
+    { label: "Explore all services", href: "/services" },
+  ] },
+  { title: "Products", links: [
+    { label: "Vistrow Voice", href: "/products/vistrow-voice" },
+    { label: "ArthaLeads", href: "/products/arthaleads" },
+    { label: "Vistrow Labs", href: "/products/vistrow-labs" },
+    { label: "Explore all products", href: "/products" },
+  ] },
+  { title: "Resources", links: [
+    { label: "Our Work", href: "/work" },
+    { label: "Website Portfolio", href: "/work/website-portfolio" },
+    { label: "Blog", href: "/blog" },
+    { label: "100 Din Playbook", href: "/playbook" },
+    { label: "Industries", href: "/industries" },
+  ] },
+  { title: "Company", links: [
+    { label: "About Vistrow", href: "/about" },
+    { label: "Our Approach", href: "/approach" },
+    { label: "Careers", href: "/careers" },
+    { label: "Partners", href: "/partners" },
+    { label: "Contact", href: "/contact" },
+  ] },
 ];
 
-function FooterLinkItem({ link }: { link: FooterLink }) {
-  const className = "inline-flex items-center font-sans text-sm text-muted transition-colors hover:text-accent-strong";
-  return (
-    <li>
-      {link.external ? (
-        <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
-          {link.label}
-        </a>
-      ) : (
-        <Link href={link.href} className={className}>
-          {link.label}
-        </Link>
-      )}
-    </li>
-  );
-}
-
-const legal = [
-  { label: "Privacy Policy", href: "/privacy-policy" },
-  { label: "Terms & Conditions", href: "/terms" },
+const legal: FooterLink[] = [
+  { label: "Privacy", href: "/privacy-policy" },
+  { label: "Terms", href: "/terms" },
   { label: "Cookie Policy", href: "/cookie-policy" },
   { label: "Disclaimer", href: "/disclaimer" },
 ];
@@ -137,121 +50,70 @@ const legal = [
 export function Footer() {
   const socialIcons = { WhatsApp: WhatsappIcon, Instagram, Facebook, LinkedIn: Linkedin };
   const socialLinks = [
-    ...socialProfiles.map((profile) => ({
-      icon: socialIcons[profile.platform],
-      label: profile.label,
-      href: profile.href,
-    })),
+    ...socialProfiles.map((profile) => ({ icon: socialIcons[profile.platform], label: profile.label, href: profile.href })),
     { icon: Mail, label: "Email Vistrow", href: "mailto:hello@vistrow.com" },
   ];
 
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="container-edge py-20">
-        <div className="grid grid-cols-2 gap-x-10 gap-y-12 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr]">
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Wordmark />
-            <p className="mt-5 max-w-xs font-sans text-sm leading-relaxed text-muted">
-              An AI agency building AI voice agents, WhatsApp AI agents and AI CRM,
-              connected to the marketing that brings the leads in.
+      <div className="container-edge pb-8 pt-10 sm:pt-14">
+        <div className="relative overflow-hidden rounded-xl bg-[#111315] px-6 py-8 text-white sm:px-10 sm:py-10 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-12">
+          <div aria-hidden className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
+          <div className="relative max-w-2xl">
+            <p className="font-sans text-xs font-semibold uppercase tracking-[0.16em] text-accent">Start a conversation</p>
+            <h2 className="mt-3 font-display text-2xl font-bold tracking-tight sm:text-3xl">Let&apos;s connect your marketing to what happens next.</h2>
+            <p className="mt-3 max-w-xl font-sans text-sm leading-relaxed text-[#BBC0C8] sm:text-base">
+              Tell us where enquiries slow down. We&apos;ll review the gaps across your campaigns, calls, CRM and follow-up.
             </p>
-            <div className="mt-5 space-y-3">
-              <a
-                href={`tel:${businessPhone.replace(/\s+/g, "")}`}
-                className="flex items-center gap-2.5 font-sans text-sm font-semibold text-ink transition-colors hover:text-accent-strong"
-              >
-                <Phone className="h-4 w-4 shrink-0 text-accent-strong" strokeWidth={1.75} />
-                {businessPhone}
+          </div>
+          <Link href="/growth-audit" className="relative mt-6 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-sm bg-accent px-6 font-sans text-sm font-bold text-accent-ink transition-transform hover:-translate-y-0.5 lg:mt-0">
+            Request a Growth Audit <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-8 gap-y-11 py-14 sm:gap-x-10 lg:grid-cols-[1.5fr_repeat(4,minmax(0,1fr))] lg:gap-x-7 lg:py-16">
+          <div className="col-span-2 lg:col-span-1">
+            <Wordmark height={42} />
+            <p className="mt-5 max-w-sm font-sans text-sm leading-relaxed text-ink-2">
+              Digital marketing, AI calling and CRM connected to help businesses respond to every enquiry.
+            </p>
+            <div className="mt-6 space-y-3 font-sans text-sm">
+              <a href={`tel:${businessPhone.replace(/\s+/g, "")}`} className="flex items-center gap-2.5 font-semibold text-ink hover:text-accent-strong">
+                <Phone className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />{businessPhone}
               </a>
-              <p className="flex items-start gap-2.5 font-sans text-[13px] leading-relaxed text-muted">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-strong" strokeWidth={1.75} />
-                <span>
-                  Baner, Pune - also serving{" "}
-                  {serviceLocalities
-                    .filter((area) => area !== "Pune" && area !== "Baner")
-                    .map((area, i, arr) => (
-                      <span key={area}>
-                        <Link
-                          href={`/locations/${area.toLowerCase().replace(/\s+/g, "-")}`}
-                          className="underline-offset-2 hover:text-accent-strong hover:underline"
-                        >
-                          {area}
-                        </Link>
-                        {i < arr.length - 1 ? ", " : ""}
-                      </span>
-                    ))}
-                </span>
-              </p>
+              <a href="mailto:hello@vistrow.com" className="flex items-center gap-2.5 text-ink-2 hover:text-accent-strong">
+                <Mail className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />hello@vistrow.com
+              </a>
+              <Link href="/locations" className="flex items-center gap-2.5 text-ink-2 hover:text-accent-strong">
+                <MapPin className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />Baner, Pune · View service areas
+              </Link>
             </div>
-            <div className="mt-7">
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">
-                Follow Vistrow
-              </p>
-              <div className="mt-3 flex items-center gap-2">
-                {socialLinks.map(({ icon: Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    aria-label={label}
-                    title={label}
-                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent hover:bg-accent/10 hover:text-ink"
-                  >
-                    <Icon className="h-4 w-4" strokeWidth={1.75} />
-                  </a>
-                ))}
-              </div>
+            <div className="mt-6 flex items-center gap-2">
+              {socialLinks.map(({ icon: Icon, label, href }) => (
+                <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined} aria-label={label} title={label} className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-line text-ink-2 transition-colors hover:border-accent-strong hover:text-accent-strong">
+                  <Icon className="h-4 w-4" strokeWidth={1.75} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {columns.map((col) => (
-            <div key={col.title} className="col-span-1">
-              <h3 className="font-sans text-sm font-semibold text-ink">{col.title}</h3>
-              {col.groups ? (
-                <div className="mt-5 space-y-6">
-                  {col.groups.map((group) => (
-                    <div key={group.heading}>
-                      <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">
-                        {group.heading}
-                      </p>
-                      <ul className="mt-3 space-y-3">
-                        {group.links.map((link) => (
-                          <FooterLinkItem key={link.href} link={link} />
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((link) => (
-                    <FooterLinkItem key={link.href} link={link} />
-                  ))}
-                </ul>
-              )}
-            </div>
+          {columns.map((column) => (
+            <nav key={column.title} aria-label={`${column.title} footer links`}>
+              <h3 className="font-sans text-sm font-bold text-ink">{column.title}</h3>
+              <ul className="mt-5 space-y-3.5">
+                {column.links.map((link) => (
+                  <li key={link.href}><Link href={link.href} className="inline-flex font-sans text-sm leading-snug text-ink-2 transition-colors hover:text-accent-strong hover:underline hover:underline-offset-4">{link.label}</Link></li>
+                ))}
+              </ul>
+            </nav>
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 md:flex-row md:items-center">
-          <p className="font-sans text-[13px] text-muted">
-            © {new Date().getFullYear()} Vistrow Technologies. All rights reserved.
-          </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            {legal.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="inline-flex items-center font-sans text-[13px] text-muted transition-colors hover:text-accent-strong"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <CookieSettingsButton className="inline-flex items-center font-sans text-[13px] text-muted transition-colors hover:text-accent-strong" />
-            </li>
+        <div className="flex flex-col gap-4 border-t border-line pt-6 font-sans text-xs text-muted md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Vistrow Technologies. All rights reserved.</p>
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {legal.map((link) => <li key={link.href}><Link href={link.href} className="hover:text-ink hover:underline hover:underline-offset-4">{link.label}</Link></li>)}
+            <li><CookieSettingsButton className="hover:text-ink hover:underline hover:underline-offset-4" /></li>
           </ul>
         </div>
       </div>
