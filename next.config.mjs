@@ -36,7 +36,9 @@ const nextConfig = {
   },
   async headers() {
     const noindex = [{ key: "X-Robots-Tag", value: "noindex, nofollow" }];
-    return ["/demo/arthaaspire", "/demo/arthaspire", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html", "/demo/asma-travel", "/asma-travel-demo.html"].map((source) => ({ source, headers: noindex }));
+    // playbook PDFs download instead of opening in the browser (Instagram's in-app browser ignores <a download>)
+    const pdfDownload = { source: "/playbook/pdf/:file(.*\\.pdf)", headers: [{ key: "Content-Disposition", value: "attachment" }] };
+    return [...["/demo/arthaaspire", "/demo/arthaspire", "/demo/xceedbeyond", "/xceedbeyond-demo.html", "/arth-aspire-demo.html", "/demo/asma-travel", "/asma-travel-demo.html"].map((source) => ({ source, headers: noindex })), pdfDownload];
   },
 };
 
