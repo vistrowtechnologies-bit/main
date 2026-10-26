@@ -2,6 +2,7 @@
 // "denied" (no cookies, anonymous pings only) until the visitor accepts.
 export const CONSENT_KEY = "vistrow-consent";
 export const CONSENT_SETTINGS_EVENT = "vistrow:cookie-settings";
+export const CONSENT_CHANGED_EVENT = "vistrow:consent-changed";
 
 export type ConsentChoice = "granted" | "denied";
 
@@ -21,6 +22,7 @@ export function saveConsent(choice: ConsentChoice) {
     // Storage blocked: the choice still applies for this page view.
   }
   window.gtag?.("consent", "update", { analytics_storage: choice });
+  window.dispatchEvent(new Event(CONSENT_CHANGED_EVENT));
 }
 
 export function openCookieSettings() {

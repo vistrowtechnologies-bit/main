@@ -19,7 +19,7 @@ export const legalPages: Record<string, LegalContent> = {
         "We process information for the stated purpose, with consent where required, or where it is reasonably necessary to respond to a request, operate the site, protect the service, or comply with law. We do not sell personal information.",
       ]},
       { heading: "Cookies and analytics", body: [
-        "Essential browser storage remembers choices such as theme and accent colour. With your permission, we use Google Analytics to understand how visitors use this website. Analytics cookies are only set after you accept them in the cookie banner.",
+        "Essential browser storage remembers choices such as theme and accent colour. With your permission, we use Google Analytics and Microsoft Clarity to understand how visitors use this website. Analytics cookies are only set after you accept them in the cookie banner.",
         "You can change your choice at any time through \"Cookie settings\" in the website footer, or block and clear cookies through your browser. See the Cookie Policy for more detail.",
       ]},
       { heading: "Service providers and international processing", body: [
@@ -104,6 +104,7 @@ export const legalPages: Record<string, LegalContent> = {
       ]},
       { heading: "Analytics", body: [
         "With your permission, we use Google Analytics to understand how visitors use this website - usage events and limited device, browser, referral, and approximate location information. We configure IP anonymisation where supported.",
+        "With the same permission we use Microsoft Clarity, which records how pages are used (clicks, scrolling and mouse movement) as heatmaps and session replays so we can find and fix confusing parts of the site. Clarity masks text you type into forms, and it does not load at all unless you accept analytics.",
         "Analytics cookies are only set after you allow them in the cookie banner, by choosing Accept all or turning Analytics on and saving. Until then, or if you decline, Google Analytics runs in a cookieless mode that sends basic, anonymous signals without identifiers that could recognise you.",
         "We do not currently use advertising cookies on this website.",
       ]},

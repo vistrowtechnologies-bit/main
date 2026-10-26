@@ -12,6 +12,7 @@ import { ChatWidget } from "@/components/chat/chat-widget";
 import { AccentSwitcher } from "@/components/accent-switcher";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { CookieBanner } from "@/components/analytics/cookie-banner";
+import { MicrosoftClarity } from "@/components/analytics/microsoft-clarity";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -80,6 +81,7 @@ export default function RootLayout({
         </noscript>
         <JsonLd data={graph([websiteSchema])} />
         <GoogleAnalytics />
+        <MicrosoftClarity />
       </head>
       <body className="font-sans antialiased">
         <div className="vistrow-shell-tools"><ScrollProgress /></div>
