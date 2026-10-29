@@ -124,7 +124,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }]
   },
   {
-    day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-30T10:00',
+    day: 5, slug: 'lead-tracker-follow-up', keyword: 'CHAI', release: '2026-10-30T11:00',
     title: 'Lead tracker: garam jawab + follow-up',
     h1: 'Free Lead Tracker + Follow-Up Schedule (lead = garam chai)',
     seoTitle: 'Free Lead Tracker (Google Sheets) + Follow-Up Schedule',
@@ -146,7 +146,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }, { slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   },
   {
-    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-11-01T10:00',
+    day: 7, slug: 'product-reel-hook-ideas', keyword: 'HOOK', release: '2026-11-01T11:00',
     title: 'Pehle second ke 10 hook ideas',
     h1: 'Reel Hook Ideas for Product Ads: Pehle Second Ki 10-Point Checklist',
     seoTitle: 'Product Reel Hook Ideas + First-Second Checklist (Free PDF)',
@@ -184,7 +184,7 @@ export const chapters: PlaybookChapter[] = [
     related: [{ slug: 'website-must-haves-checklist', anchor: 'small business website checklist' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'online-presence-checklist', anchor: '10-point online presence checklist' }]
   },
   {
-    day: 8, slug: 'missed-call-auto-reply-message', keyword: 'MISSED', release: '2026-11-02T10:00',
+    day: 8, slug: 'missed-call-auto-reply-message', keyword: 'MISSED', release: '2026-11-02T11:00',
     title: 'Missed call = gira hua note',
     h1: 'Missed Call Auto Reply Message + 10-Minute Call-Back Script (missed call = gira hua note)',
     seoTitle: 'Missed Call Auto Reply Message + Call-Back Script (Free PDF)',
