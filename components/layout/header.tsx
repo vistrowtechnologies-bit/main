@@ -62,11 +62,12 @@ export function Header() {
     <>
     <header
       className={`sticky top-0 z-50 border-b transition-all duration-300 ease-premium ${
-        scrolled
-          ? "glass border-line/60 shadow-soft"
-          : "border-transparent bg-bg/60 backdrop-blur-md"
+        scrolled ? "border-line/60 shadow-soft" : "border-transparent"
       }`}
     >
+      {/* The bar's frosted background lives on its own layer: a backdrop-filter on the header itself would stop
+          the dropdown menus inside it from blurring the page behind them. */}
+      <span aria-hidden className={`header-glass ${scrolled ? "header-glass-scrolled" : ""}`} />
       <nav
         className="container-edge grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-4 xl:grid-cols-[1fr_auto_1fr]"
         aria-label="Primary"
