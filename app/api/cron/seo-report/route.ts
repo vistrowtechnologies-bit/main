@@ -92,7 +92,9 @@ export async function GET(request: Request) {
       .then((doc) => (doc ? { updatedAt: doc.updatedAt, ...(JSON.parse(doc.json) as SocialStats) } : null))
       .catch(() => null);
     if (social) await writeClient.patch(docId).set({ socialJson: JSON.stringify(social) }).commit();
-    const emailStatus = await emailReport(report, traffic, social, start, end, docId);
+    const crawlers = await aiCrawlerSummary(writeClient, start).catch(() => null);
+    if (crawlers) await writeClient.patch(docId).set({ aiCrawlers: crawlers }).commit();
+    const emailStatus = await emailReport(report, traffic, social, crawlers, start, end, docId);
     return NextResponse.json({ ok: true, indexing: log, docId, emailStatus, totals: report.totals, traffic: traffic?.totals ?? null });
   } catch (error) {
     console.error("SEO report failed", error);
@@ -161,6 +163,7 @@ async function emailReport(
   report: ReturnType<typeof buildReport>,
   traffic: Awaited<ReturnType<typeof getTraffic>> | null,
   social: (SocialStats & { updatedAt: string }) | null,
+  crawlers: Awaited<ReturnType<typeof aiCrawlerSummary>> | null,
   start: string,
   end: string,
   docId: string,
@@ -189,6 +192,12 @@ ${table(["Channel", "Sessions", "Users"], traffic.channels.map((r) => row([r.cha
       : ""
   }
 ${social ? socialHtml(social, table, row) : ""}
+<h3>AI crawlers reading the site</h3>${
+    crawlers && crawlers.total
+      ? `<p>${crawlers.total} visits by AI bots (not counted in Google Analytics).</p>${table(["Bot", "Company", "Type", "Visits", "Pages"], crawlers.bots.map((r) => row([r.bot, r.owner, r.kind, r.hits, r.pages])).join(""))}
+${table(["Page", "AI bot visits"], crawlers.topPages.slice(0, 15).map((r) => row([r.path, r.hits])).join(""))}`
+      : "<p>No AI crawler visits recorded yet (tracking started 30 Oct 2026).</p>"
+  }
 <h3>Quick wins (positions 5-30)</h3>${table(["Search", "Monthly volume", "Position", "Impressions", "Page"], report.strikingDistance.map((r) => row([r.query, r.volume ?? "-", r.position, r.impressions, r.page])).join(""))}
 <h3>Pages to improve</h3>${table(["Page", "Impressions", "Position", "Clicks", "Why"], report.pagesToImprove.map((r) => row([r.page, r.impressions, r.position, r.clicks, r.reason])).join(""))}
 <h3>Researched keywords not showing yet</h3><p>${report.plannedKeywordsNotRanking.map(escapeHtml).join(", ") || "None"}</p>
@@ -200,6 +209,27 @@ ${social ? socialHtml(social, table, row) : ""}
     body: JSON.stringify({ from, to: [to], subject: `Vistrow SEO report: ${report.totals.clicks} clicks, position ${report.totals.averagePosition}`, html }),
   });
   return response.ok ? `sent to ${to}` : `failed: ${response.status}`;
+}
+
+type CrawlerHit = { bot: string; owner: string; kind: string; path: string };
+
+// Sums the per-day AI crawler documents written by middleware.ts since the start of the period.
+async function aiCrawlerSummary(client: ReturnType<typeof getSanityWriteClient>, start: string) {
+  const hits = await client.fetch<CrawlerHit[]>(`*[_type == "aiCrawlerDay" && day >= $start].hits[]{bot, owner, kind, path}`, { start });
+  const bots = new Map<string, { bot: string; owner: string; kind: string; hits: number; paths: Set<string> }>();
+  const pages = new Map<string, number>();
+  for (const hit of hits) {
+    const entry = bots.get(hit.bot) ?? { bot: hit.bot, owner: hit.owner, kind: hit.kind, hits: 0, paths: new Set<string>() };
+    entry.hits += 1;
+    entry.paths.add(hit.path);
+    bots.set(hit.bot, entry);
+    pages.set(hit.path, (pages.get(hit.path) ?? 0) + 1);
+  }
+  return {
+    total: hits.length,
+    bots: [...bots.values()].sort((a, b) => b.hits - a.hits).map(({ paths, ...rest }) => ({ _key: randomUUID(), ...rest, pages: paths.size })),
+    topPages: [...pages.entries()].sort((a, b) => b[1] - a[1]).slice(0, 25).map(([path, count]) => ({ _key: randomUUID(), path, hits: count })),
+  };
 }
 
 type InstagramStats = { account: string; followers: number; postsInPeriod: number; last28: Record<string, number>; topPosts: { title: string; views: number; reach: number; likes: number; link: string }[] };
