@@ -62,26 +62,22 @@ const builds = [
 const packages = [
   {
     name: "Roofing website",
-    price: "$1,500–$3,500",
-    unit: "one-time",
+    unit: "One-time project",
     body: "5–8 page lead-capture site: services, storm and insurance, service areas, financing, inspection form, tracking.",
   },
   {
     name: "Follow-up system",
-    price: "$150–$300",
-    unit: "per month + setup",
+    unit: "Monthly, with a setup",
     body: "CRM pipeline, instant text and email replies, reminders, and review requests after every job.",
   },
   {
     name: "AI call answering",
-    price: "$200–$500",
-    unit: "per month",
+    unit: "Monthly",
     body: "Vistrow Voice for after-hours and storm-surge calls: qualifies the job and books an inspection.",
   },
   {
     name: "Care plan",
-    price: "$99–$199",
-    unit: "per month",
+    unit: "Monthly",
     body: "Hosting, backups, updates, small content edits, and a monthly lead report.",
   },
 ];
@@ -118,8 +114,8 @@ const faqs = [
     a: "Usually, yes. We connect forms and calls to the tools you already use where they allow it, or set up a simple pipeline if you don't have one.",
   },
   {
-    q: "Are the prices on this page final?",
-    a: "They're typical ranges. Your quote depends on page count, content, integrations and whether you add follow-up or call answering.",
+    q: "How much does it cost?",
+    a: "We quote after a free audit, because the price depends on page count, content, integrations and whether you add follow-up or call answering. The quote is fixed in writing, in US dollars, before any work starts.",
   },
 ];
 
@@ -185,7 +181,7 @@ export default function Page() {
           <SectionHeading
             eyebrow="Packages"
             title="Start with the website. Add the system when you're ready."
-            description="Typical ranges in USD. Your quote is fixed in writing after the audit."
+            description="Every quote is fixed in writing, in USD, after your free audit."
             className="mb-12"
           />
           <div className="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-4">
@@ -193,8 +189,7 @@ export default function Page() {
               <Reveal key={pkg.name} delay={(i % 4) * 0.06}>
                 <div className="glass flex h-full flex-col rounded-lg p-7">
                   <h3 className="font-display text-lg font-bold text-ink">{pkg.name}</h3>
-                  <p className="mt-4 font-display text-3xl font-extrabold tracking-[-0.02em] text-ink">{pkg.price}</p>
-                  <p className="font-sans text-sm text-muted">{pkg.unit}</p>
+                  <p className="mt-3 font-sans text-xs font-bold uppercase tracking-[0.14em] text-accent-strong">{pkg.unit}</p>
                   <p className="mt-4 font-sans text-sm leading-relaxed text-muted">{pkg.body}</p>
                 </div>
               </Reveal>
