@@ -150,10 +150,10 @@ export const industries: Record<string, IndustryContent> = {
     title: "Clinics",
     eyebrow: "Industry",
     subtitle:
-      "A clinic's phone rings while the team is with patients. We set up AI call answering, booking and follow-up so new enquiries are not lost, for dental, aesthetic and physio clinics in India and overseas.",
-    metaTitle: "AI Call Answering and Booking for Clinics",
+      "A clinic's phone rings while the team is with patients. Our AI receptionist answers, books and follows up, so new enquiries are not lost, for dental, aesthetic and physio clinics in India and overseas.",
+    metaTitle: "AI Receptionist and Booking for Dental Clinics",
     metaDescription:
-      "AI call answering, appointment booking and enquiry follow-up for dental, aesthetic and physio clinics. Fewer missed calls, fuller diaries. Book a free audit.",
+      "An AI receptionist for dental, aesthetic and physio clinics: answers calls, books appointments and follows up on enquiries. Book a free audit.",
     challenges: [
       { title: "Calls missed during treatment", body: "The front desk is with a patient, so new enquiries go to voicemail and then to the next clinic." },
       { title: "After-hours enquiries wait", body: "People look for a clinic in the evening, and the reply arrives the next afternoon." },
@@ -185,6 +185,7 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Followed up", body: "Reminders and follow-ups go out until the visit happens or the enquiry closes." },
     ],
     faqs: [
+      { q: "Can an AI receptionist replace our front desk?", a: "No. It covers the calls your team cannot take, such as during treatment and after hours, and passes anything that needs a person to your staff. Your reception team stays in charge." },
       { q: "Does the AI give medical or dental advice?", a: "No. It answers practical questions such as opening times, services and booking, and passes anything clinical, urgent or sensitive to your team. You agree what it can and cannot say before it goes live." },
       { q: "Can it work with our booking system?", a: "Often, yes. We connect to the tools you already use where they allow it, or send booking requests to your reception when they do not. We confirm what is possible during the audit." },
       { q: "What about patient data and call recording?", a: "Rules on call recording and patient data differ by country and by type of clinic, so we agree the consent wording and what is recorded with you before launch. Please check the local requirements with your own adviser." },
@@ -199,9 +200,9 @@ export const industries: Record<string, IndustryContent> = {
     eyebrow: "Industry",
     subtitle:
       "Trades lose jobs when nobody answers. We set up call answering, quote follow-up and review requests for HVAC, solar, roofing and renovation businesses in India and overseas.",
-    metaTitle: "Lead Follow-Up for HVAC, Solar and Roofing",
+    metaTitle: "AI Answering Service for HVAC, Solar and Roofing",
     metaDescription:
-      "AI call answering, instant replies and quote follow-up for HVAC, solar, roofing and renovation businesses. Book more jobs from the enquiries you already get.",
+      "An after-hours AI answering service for HVAC, solar, roofing and renovation businesses, with instant replies and quote follow-up. Book a free audit.",
     challenges: [
       { title: "Calls missed on the job", body: "You are up a ladder or under a unit when a new customer rings, and they call the next trader." },
       { title: "Seasonal surges", body: "Demand arrives in waves, and the phone cannot keep up when it matters most." },
@@ -234,6 +235,7 @@ export const industries: Record<string, IndustryContent> = {
     ],
     faqs: [
       { q: "Which trades is this for?", a: "HVAC and heating, solar installers, roofers, kitchen and bathroom renovation, plumbing and similar businesses that win work from calls and quotes." },
+      { q: "Do you offer an after-hours answering service?", a: "Yes. The AI answers after hours and during busy periods, takes the job details, and passes urgent or complicated calls to your team. You choose the rules." },
       { q: "Can the AI give a price?", a: "Only if you set it to. Most trades prefer it to collect the job details and request a visit, with your team giving the quote. You decide what it can say." },
       { q: "We are a small team. Is this too much?", a: "The aim is to cover what you cannot do while you are on a job: answering, replying and chasing quotes." },
       { q: "Do you work outside India?", a: "Yes. We work with businesses in India and overseas, schedule calls in your time zone, and quote in writing after a free audit." },
@@ -343,7 +345,7 @@ export const industries: Record<string, IndustryContent> = {
       "Agencies grow by delivering more without hiring more. We provide the automation, systems, and white-label capabilities to scale delivery.",
     metaTitle: "White-Label Digital Marketing for Agencies",
     metaDescription:
-      "White-label automation, CRM, and AI voice systems that help agencies deliver more for clients without adding headcount.",
+      "White-label AI, automation, CRM and AI voice systems that help agencies deliver more for clients without adding headcount. Ask about white-label SEO too.",
     challenges: [
       { title: "Delivery bottlenecks", body: "Growth capped by manual delivery work." },
       { title: "Hiring to scale", body: "Margins squeezed by adding headcount." },

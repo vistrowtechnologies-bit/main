@@ -1,5 +1,6 @@
 // Google Keyword Planner monthly search ranges (Sep 2025 - Aug 2026), pulled on 2026-10-13/14.
-// Planner only gives ranges for accounts without spend. India unless marked US.
+// Planner only gives ranges for accounts without spend. India unless marked US. Entries with several markets
+// (US, UK, AU, CA, IN) were pulled per country on 2026-10-30; the first range listed is the biggest market.
 // Update this list when volumes are refreshed; the monthly SEO report reads it.
 export const KEYWORD_VOLUMES: Record<string, string> = {
   "digital marketing agency in pune": "1K-10K",
@@ -45,7 +46,28 @@ export const KEYWORD_VOLUMES: Record<string, string> = {
   "crm for real estate agents india": "10-100",
   "ai telecaller india": "10-100",
   "marketing automation agency india": "10-100",
-  "roofing leads": "1K-10K (US)",
+  "roofing leads": "1K-10K (US); 100-1K (UK); 10-100 (AU, CA, IN)",
+  "ai receptionist": "10K-100K (US); 1K-10K (UK, CA, IN); 100-1K (AU)",
+  "dental receptionist": "1K-10K (US); 100-1K (UK, AU, CA, IN)",
+  "ai answering service": "1K-10K (US); 100-1K (AU); 10-100 (UK, CA, IN)",
+  "after hours answering service": "1K-10K (US); 100-1K (AU); 10-100 (UK, CA, IN)",
+  "dental answering service": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "dental marketing agency": "100-1K (US, UK, IN); 10-100 (AU, CA)",
+  "dental practice marketing": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "dental appointment reminders": "100-1K (US, IN); 10-100 (UK, AU, CA)",
+  "med spa marketing": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "physiotherapy marketing": "100-1K (UK); 10-100 (US, AU, CA, IN)",
+  "answering service for contractors": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "hvac marketing": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "hvac lead generation": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "hvac answering service": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "plumber answering service": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "solar lead generation": "100-1K (US, UK, AU, IN); 10-100 (CA)",
+  "solar marketing": "100-1K (IN); 10-100 (US, UK, AU, CA)",
+  "white label seo": "100-1K (US, UK, AU, IN); 10-100 (CA)",
+  "white label digital marketing": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "white label ai": "100-1K (US); 10-100 (UK, AU, CA, IN)",
+  "ai receptionist for dentists": "10-100 (US, UK, AU, CA, IN)",
   "roofing website design": "100-1K (US)",
   "how to get roofing leads": "100-1K (US)",
   "roofing marketing": "100-1K (US)",

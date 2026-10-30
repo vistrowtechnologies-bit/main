@@ -39,7 +39,7 @@ const DEMO_URL = "";
 export const metadata: Metadata = buildMetadata({
   title: "Roofing Website Design & Lead Follow-Up for US Roofers",
   description:
-    "Websites for US roofing companies that capture storm and replacement leads, then follow up instantly with text, email, and AI call answering. Free website audit.",
+    "Websites for US roofers that turn roofing leads into booked inspections: instant text and email replies plus AI call answering. Free website audit.",
   path,
 });
 
