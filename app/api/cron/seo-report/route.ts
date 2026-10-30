@@ -81,10 +81,18 @@ export async function GET(request: Request) {
           totals: traffic.totals,
           channels: traffic.channels.map((row) => ({ _key: randomUUID(), ...row })),
           topPages: traffic.pages.slice(0, 25).map((row) => ({ _key: randomUUID(), ...row })),
+          aiAssistants: traffic.ai.byAssistant.map((row) => ({ _key: randomUUID(), ...row })),
+          aiLandingPages: traffic.ai.landings.map((row) => ({ _key: randomUUID(), ...row })),
         },
       }),
     });
-    const emailStatus = await emailReport(report, traffic, start, end, docId);
+    // Instagram, Facebook and YouTube numbers, refreshed daily from the Mac (the social tokens stay there).
+    const social = await writeClient
+      .fetch<{ updatedAt: string; json: string } | null>(`*[_id == "socialStats"][0]{updatedAt, json}`)
+      .then((doc) => (doc ? { updatedAt: doc.updatedAt, ...(JSON.parse(doc.json) as SocialStats) } : null))
+      .catch(() => null);
+    if (social) await writeClient.patch(docId).set({ socialJson: JSON.stringify(social) }).commit();
+    const emailStatus = await emailReport(report, traffic, social, start, end, docId);
     return NextResponse.json({ ok: true, indexing: log, docId, emailStatus, totals: report.totals, traffic: traffic?.totals ?? null });
   } catch (error) {
     console.error("SEO report failed", error);
@@ -152,6 +160,7 @@ function buildReport(queryPageRows: SearchRow[], pageRows: SearchRow[]) {
 async function emailReport(
   report: ReturnType<typeof buildReport>,
   traffic: Awaited<ReturnType<typeof getTraffic>> | null,
+  social: (SocialStats & { updatedAt: string }) | null,
   start: string,
   end: string,
   docId: string,
@@ -170,9 +179,16 @@ ${
     traffic
       ? `<h3>All visitors (Google Analytics)</h3><p>${traffic.totals.users} users · ${traffic.totals.sessions} sessions · ${traffic.totals.views} page views · ${traffic.totals.engagementRate}% engaged</p>
 ${table(["Channel", "Sessions", "Users"], traffic.channels.map((r) => row([r.channel, r.sessions, r.users])).join(""))}
+<h3>Visits from AI assistants</h3>${
+          traffic.ai.byAssistant.length
+            ? table(["Assistant", "Sessions", "Users"], traffic.ai.byAssistant.map((r) => row([r.assistant, r.sessions, r.users])).join("")) +
+              table(["Assistant", "Landing page", "Sessions"], traffic.ai.landings.slice(0, 10).map((r) => row([r.assistant, r.landingPage, r.sessions])).join(""))
+            : "<p>None this period.</p>"
+        }
 <h3>Most viewed pages</h3>${table(["Page", "Views", "Users"], traffic.pages.slice(0, 15).map((r) => row([r.page, r.views, r.users])).join(""))}`
       : ""
   }
+${social ? socialHtml(social, table, row) : ""}
 <h3>Quick wins (positions 5-30)</h3>${table(["Search", "Monthly volume", "Position", "Impressions", "Page"], report.strikingDistance.map((r) => row([r.query, r.volume ?? "-", r.position, r.impressions, r.page])).join(""))}
 <h3>Pages to improve</h3>${table(["Page", "Impressions", "Position", "Clicks", "Why"], report.pagesToImprove.map((r) => row([r.page, r.impressions, r.position, r.clicks, r.reason])).join(""))}
 <h3>Researched keywords not showing yet</h3><p>${report.plannedKeywordsNotRanking.map(escapeHtml).join(", ") || "None"}</p>
@@ -184,6 +200,29 @@ ${table(["Channel", "Sessions", "Users"], traffic.channels.map((r) => row([r.cha
     body: JSON.stringify({ from, to: [to], subject: `Vistrow SEO report: ${report.totals.clicks} clicks, position ${report.totals.averagePosition}`, html }),
   });
   return response.ok ? `sent to ${to}` : `failed: ${response.status}`;
+}
+
+type InstagramStats = { account: string; followers: number; postsInPeriod: number; last28: Record<string, number>; topPosts: { title: string; views: number; reach: number; likes: number; link: string }[] };
+type FacebookStats = { page: string; followers: number; postsInPeriod: number; last28: Record<string, number> };
+type YoutubeStats = { channel: string; subscribers: number; totalViews: number; videosInPeriod: number; viewsOnVideosInPeriod: number; topVideos: { title: string; views: number; link: string }[] };
+type Maybe<T> = T | { error: string };
+type SocialStats = Record<string, { instagram?: Maybe<InstagramStats>; facebook?: Maybe<FacebookStats>; youtube?: Maybe<YoutubeStats> }>;
+
+function socialHtml(
+  social: SocialStats & { updatedAt: string },
+  table: (head: string[], body: string) => string,
+  row: (cells: (string | number)[]) => string,
+) {
+  const ok = <T,>(value: Maybe<T> | undefined): value is T => !!value && !("error" in (value as object));
+  const brands = Object.entries(social).filter(([key]) => key !== "updatedAt") as [string, SocialStats[string]][];
+  const rows = brands.flatMap(([, b]) => [
+    ok(b.instagram) ? row(["Instagram", b.instagram.account, b.instagram.followers, b.instagram.postsInPeriod, b.instagram.last28.reach ?? 0, b.instagram.last28.views ?? 0, b.instagram.last28.total_interactions ?? 0]) : "",
+    ok(b.facebook) ? row(["Facebook", b.facebook.page, b.facebook.followers, b.facebook.postsInPeriod, "-", b.facebook.last28.page_media_view ?? 0, b.facebook.last28.page_post_engagements ?? 0]) : "",
+    ok(b.youtube) ? row(["YouTube", b.youtube.channel, b.youtube.subscribers, b.youtube.videosInPeriod, "-", b.youtube.viewsOnVideosInPeriod, "-"]) : "",
+  ]);
+  const top = brands.flatMap(([, b]) => (ok(b.instagram) ? b.instagram.topPosts.slice(0, 3).map((p) => row([b.instagram && ok(b.instagram) ? b.instagram.account : "", p.title, p.views, p.reach, p.likes])) : []));
+  return `<h3>Social (last 28 days, updated ${social.updatedAt.slice(0, 10)})</h3>${table(["Platform", "Account", "Followers", "Posts", "Reach", "Views", "Interactions"], rows.join(""))}
+${top.length ? `<h3>Top Instagram posts</h3>${table(["Account", "Post", "Views", "Reach", "Likes"], top.join(""))}` : ""}`;
 }
 
 const VOLUME_ORDER = ["10K-100K", "1K-10K", "100-1K", "10-100"];

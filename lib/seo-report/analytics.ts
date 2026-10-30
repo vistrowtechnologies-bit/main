@@ -25,11 +25,27 @@ const dim = (row: ReportRow, index: number) => row.dimensionValues?.[index]?.val
 
 export type PageTraffic = { page: string; views: number; users: number };
 export type ChannelTraffic = { channel: string; sessions: number; users: number };
+export type AiTraffic = { assistant: string; source: string; landingPage: string; sessions: number; users: number };
+
+// Referrers of AI assistants, matched on the session source so each one is counted separately
+// (GA4's own "AI Assistant" channel lumps them together and misses some, e.g. Gemini or Copilot).
+const AI_SOURCES: [RegExp, string][] = [
+  [/chatgpt|openai/i, "ChatGPT"],
+  [/perplexity/i, "Perplexity"],
+  [/gemini|bard/i, "Gemini"],
+  [/claude|anthropic/i, "Claude"],
+  [/copilot|bing\.com\/chat/i, "Copilot"],
+  [/deepseek/i, "DeepSeek"],
+  [/grok|x\.ai/i, "Grok"],
+  [/meta\.ai/i, "Meta AI"],
+  [/you\.com|phind|poe\.com|mistral|kimi|qwen/i, "Other AI"],
+];
+const assistantFor = (source: string) => AI_SOURCES.find(([pattern]) => pattern.test(source))?.[1];
 
 // Site totals, sessions by channel and views per page for a date range (YYYY-MM-DD or "28daysAgo").
 export async function getTraffic(startDate: string, endDate: string) {
   const dateRanges = [{ startDate, endDate }];
-  const [totalRows, channelRows, pageRows] = await Promise.all([
+  const [totalRows, channelRows, pageRows, sourceRows] = await Promise.all([
     runReport({ dateRanges, metrics: [{ name: "activeUsers" }, { name: "sessions" }, { name: "screenPageViews" }, { name: "engagementRate" }] }),
     runReport({
       dateRanges,
@@ -44,7 +60,28 @@ export async function getTraffic(startDate: string, endDate: string) {
       orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
       limit: 500,
     }),
+    runReport({
+      dateRanges,
+      dimensions: [{ name: "sessionSource" }, { name: "landingPage" }],
+      metrics: [{ name: "sessions" }, { name: "activeUsers" }],
+      orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+      limit: 1000,
+    }),
   ]);
+  const ai = sourceRows
+    .map((row) => ({ source: dim(row, 0), landingPage: dim(row, 1), sessions: num(row, 0), users: num(row, 1) }))
+    .flatMap((row) => {
+      const assistant = assistantFor(row.source);
+      return assistant ? [{ assistant, ...row } as AiTraffic] : [];
+    });
+  const byAssistant = Object.values(
+    ai.reduce<Record<string, { assistant: string; sessions: number; users: number }>>((acc, row) => {
+      const entry = (acc[row.assistant] ??= { assistant: row.assistant, sessions: 0, users: 0 });
+      entry.sessions += row.sessions;
+      entry.users += row.users;
+      return acc;
+    }, {}),
+  ).sort((a, b) => b.sessions - a.sessions);
   const total = totalRows[0];
   return {
     totals: {
@@ -55,5 +92,6 @@ export async function getTraffic(startDate: string, endDate: string) {
     },
     channels: channelRows.map((row): ChannelTraffic => ({ channel: dim(row, 0), sessions: num(row, 0), users: num(row, 1) })),
     pages: pageRows.map((row): PageTraffic => ({ page: dim(row, 0), views: num(row, 0), users: num(row, 1) })),
+    ai: { byAssistant, landings: ai.slice(0, 30) },
   };
 }
