@@ -7,6 +7,7 @@ import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { primaryNav, type NavItem } from "@/lib/nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Wordmark } from "@/components/ui/wordmark";
+import { MarketSwitcher, currentMarket, markets } from "@/components/layout/market-switcher";
 
 export function Header() {
   const pathname = usePathname();
@@ -69,10 +70,10 @@ export function Header() {
           the dropdown menus inside it from blurring the page behind them. */}
       <span aria-hidden className={`header-glass ${scrolled ? "header-glass-scrolled" : ""}`} />
       <nav
-        className="container-edge grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-4 xl:grid-cols-[1fr_auto_1fr]"
+        className="container-edge grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-4"
         aria-label="Primary"
       >
-        <div className="flex min-w-0 items-center">
+        <div className="flex min-w-[7.5rem] items-center">
           <Wordmark className="shrink-0" priority />
         </div>
 
@@ -104,10 +105,11 @@ export function Header() {
         </ul>
 
         <div className="flex items-center justify-self-end gap-1.5 sm:gap-2">
+          <MarketSwitcher />
           <ThemeToggle />
           <Link
             href="/contact"
-            className="btn-secondary hidden whitespace-nowrap xl:inline-flex"
+            className="btn-secondary hidden whitespace-nowrap 2xl:inline-flex"
           >
             Contact Us
           </Link>
@@ -265,6 +267,7 @@ function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
 }
 
 function MobileDrawer({ onClose }: { onClose: () => void }) {
+  const activeMarket = currentMarket(usePathname());
   return (
     <div className="fixed inset-0 z-[60] lg:hidden">
       <div
@@ -290,6 +293,25 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
               <MobileNavItem key={item.label} item={item} onClose={onClose} />
             ))}
           </ul>
+          <div className="mt-4 border-t border-line pt-4">
+            <p className="px-3 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted">Market</p>
+            <ul className="mt-2 grid grid-cols-3 gap-2">
+              {markets.map((m) => (
+                <li key={m.code}>
+                  <Link
+                    href={m.href}
+                    onClick={onClose}
+                    aria-current={m.code === activeMarket.code ? "true" : undefined}
+                    className={`flex h-11 items-center justify-center rounded-md border font-sans text-sm font-semibold ${
+                      m.code === activeMarket.code ? "border-accent bg-accent/10 text-ink" : "border-line text-ink-2"
+                    }`}
+                  >
+                    {m.code}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="space-y-2 border-t border-line p-4">
           <Link href="/growth-audit" onClick={onClose} className="btn-primary w-full">

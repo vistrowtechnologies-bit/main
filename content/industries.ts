@@ -1,5 +1,6 @@
 import { Building2, Store, Briefcase, Rocket, Users, GraduationCap, Stethoscope, Wrench } from "lucide-react";
 import type { IndustryContent, OverviewContent } from "@/lib/content-types";
+import { dentalHreflang, homeServicesHreflang } from "@/content/market-pages";
 
 export const industriesOverview: OverviewContent = {
   eyebrow: "Industries",
@@ -9,7 +10,7 @@ export const industriesOverview: OverviewContent = {
     "The same connected engine - marketing, CRM, AI voice, and automation - shaped around the way your industry actually generates and closes business.",
   metaTitle: "Digital Marketing and Automation by Industry",
   metaDescription:
-    "Vistrow growth systems for real estate, clinics, home services, local businesses, B2B, startups & SaaS, agencies, and education, in India and overseas.",
+    "Vistrow growth systems for real estate, clinics, home services, local businesses, B2B, startups & SaaS, agencies, and education, in India, the US and the UK.",
   cardsTitle: "Industries we serve",
   cards: [
     { label: "Real Estate", href: "/industries/real-estate", body: "Speed-to-lead and follow-up that win more listings and buyers.", icon: Building2 },
@@ -147,13 +148,14 @@ export const industries: Record<string, IndustryContent> = {
 
   clinics: {
     slug: "clinics",
+    hreflang: dentalHreflang,
     title: "Clinics",
     eyebrow: "Industry",
     subtitle:
-      "A clinic's phone rings while the team is with patients. Our AI receptionist answers, books and follows up, so new enquiries are not lost, for dental, aesthetic and physio clinics in India and overseas.",
-    metaTitle: "AI Receptionist and Booking for Dental Clinics",
+      "A clinic's phone rings while the team is with patients. Our AI receptionist answers calls and WhatsApp, books appointments and follows up, in the language your patients use, for dental, aesthetic and physio clinics across India.",
+    metaTitle: "AI Receptionist for Dental Clinics in India",
     metaDescription:
-      "An AI receptionist for dental, aesthetic and physio clinics: answers calls, books appointments and follows up on enquiries. Book a free audit.",
+      "An AI receptionist for dental, aesthetic and physio clinics in India: answers calls and WhatsApp, books appointments and follows up. Free audit.",
     challenges: [
       { title: "Calls missed during treatment", body: "The front desk is with a patient, so new enquiries go to voicemail and then to the next clinic." },
       { title: "After-hours enquiries wait", body: "People look for a clinic in the evening, and the reply arrives the next afternoon." },
@@ -177,6 +179,8 @@ export const industries: Record<string, IndustryContent> = {
       { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
       { label: "Website Development", href: "/digital-marketing/website-development" },
       { label: "Performance Advertising", href: "/digital-marketing/performance-advertising" },
+      { label: "Dental practices in the US", href: "/us/dental-clinics" },
+      { label: "Dental practices in the UK", href: "/uk/dental-clinics" },
     ],
     workflow: [
       { title: "Enquiry arrives", body: "A call, web form or message reaches the clinic, day or night." },
@@ -189,20 +193,22 @@ export const industries: Record<string, IndustryContent> = {
       { q: "Does the AI give medical or dental advice?", a: "No. It answers practical questions such as opening times, services and booking, and passes anything clinical, urgent or sensitive to your team. You agree what it can and cannot say before it goes live." },
       { q: "Can it work with our booking system?", a: "Often, yes. We connect to the tools you already use where they allow it, or send booking requests to your reception when they do not. We confirm what is possible during the audit." },
       { q: "What about patient data and call recording?", a: "Rules on call recording and patient data differ by country and by type of clinic, so we agree the consent wording and what is recorded with you before launch. Please check the local requirements with your own adviser." },
-      { q: "Which countries and languages do you cover?", a: "We work with clinics in India and overseas. Vistrow Voice supports 130+ languages, including Hindi, English and 9 more Indian languages, and we test the languages you need during the audit." },
+      { q: "Which languages can the AI use?", a: "Vistrow Voice supports 130+ languages, including Hindi, English and 9 more Indian languages, and we test the ones your patients use during the audit." },
+      { q: "Is there a version for clinics outside India?", a: "Yes. We have separate pages for dental practices in the US and the UK, with local wording, currency and rules." },
       { q: "How much does it cost?", a: "It depends on call volume, the tools you use and whether you add follow-up. We quote in writing after a free audit." },
     ],
   },
 
   "home-services": {
     slug: "home-services",
+    hreflang: homeServicesHreflang,
     title: "Home Services",
     eyebrow: "Industry",
     subtitle:
-      "Trades lose jobs when nobody answers. We set up call answering, quote follow-up and review requests for HVAC, solar, roofing and renovation businesses in India and overseas.",
-    metaTitle: "AI Answering Service for HVAC, Solar and Roofing",
+      "Trades lose jobs when nobody answers. We set up call answering, quote follow-up and review requests for HVAC, solar, roofing and renovation businesses across India.",
+    metaTitle: "AI Answering Service for HVAC and Solar in India",
     metaDescription:
-      "An after-hours AI answering service for HVAC, solar, roofing and renovation businesses, with instant replies and quote follow-up. Book a free audit.",
+      "An after-hours AI answering service for HVAC, solar, roofing and renovation businesses in India, with instant replies and quote follow-up. Free audit.",
     challenges: [
       { title: "Calls missed on the job", body: "You are up a ladder or under a unit when a new customer rings, and they call the next trader." },
       { title: "Seasonal surges", body: "Demand arrives in waves, and the phone cannot keep up when it matters most." },
@@ -225,7 +231,8 @@ export const industries: Record<string, IndustryContent> = {
       { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
       { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
       { label: "Website Development", href: "/digital-marketing/website-development" },
-      { label: "Websites and follow-up for US roofers", href: "/us/roofing" },
+      { label: "Contractors in the US", href: "/us/home-services" },
+      { label: "Trades in the UK", href: "/uk/home-services" },
     ],
     workflow: [
       { title: "Enquiry arrives", body: "A call, form or message comes in, day or night." },
@@ -238,7 +245,7 @@ export const industries: Record<string, IndustryContent> = {
       { q: "Do you offer an after-hours answering service?", a: "Yes. The AI answers after hours and during busy periods, takes the job details, and passes urgent or complicated calls to your team. You choose the rules." },
       { q: "Can the AI give a price?", a: "Only if you set it to. Most trades prefer it to collect the job details and request a visit, with your team giving the quote. You decide what it can say." },
       { q: "We are a small team. Is this too much?", a: "The aim is to cover what you cannot do while you are on a job: answering, replying and chasing quotes." },
-      { q: "Do you work outside India?", a: "Yes. We work with businesses in India and overseas, schedule calls in your time zone, and quote in writing after a free audit." },
+      { q: "Do you work outside India?", a: "Yes. We have separate pages for contractors in the US and trades in the UK, with local wording, currency and rules." },
       { q: "How much does it cost?", a: "It depends on call volume, the tools you use and what you add. We quote in writing after a free audit." },
     ],
   },

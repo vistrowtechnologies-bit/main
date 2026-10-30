@@ -1,3 +1,4 @@
+import { FooterTagline } from "@/components/layout/footer-tagline";
 import Link from "next/link";
 import { ArrowRight, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { CookieSettingsButton } from "@/components/analytics/cookie-banner";
@@ -30,6 +31,8 @@ const columns: FooterColumn[] = [
     { label: "Blog", href: "/blog" },
     { label: "100 Din Playbook", href: "/playbook" },
     { label: "Industries", href: "/industries" },
+    { label: "For US businesses", href: "/us" },
+    { label: "For UK businesses", href: "/uk" },
   ] },
   { title: "Company", links: [
     { label: "About Vistrow", href: "/about" },
@@ -76,7 +79,7 @@ export function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <Wordmark height={42} />
             <p className="mt-5 max-w-sm font-sans text-sm leading-relaxed text-ink-2">
-              An AI agency for Indian businesses: AI voice agents, WhatsApp AI and AI CRM, connected to the marketing that brings enquiries in.
+              <FooterTagline />
             </p>
             <div className="mt-6 space-y-3 font-sans text-sm">
               <a href={`tel:${businessPhone.replace(/\s+/g, "")}`} className="flex items-center gap-2.5 font-semibold text-ink hover:text-accent-strong">

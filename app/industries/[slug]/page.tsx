@@ -15,6 +15,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: c.metaTitle,
     description: c.metaDescription,
     path: `/industries/${c.slug}`,
+    hreflang: c.hreflang,
   });
 }
 

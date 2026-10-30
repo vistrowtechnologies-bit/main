@@ -15,19 +15,27 @@ import type { IndustryContent } from "@/lib/content-types";
 import { breadcrumbSchema, faqSchema, graph, serviceSchema } from "@/lib/structured-data";
 
 export function IndustryPage({ content }: { content: IndustryContent }) {
-  const path = `/industries/${content.slug}`;
+  const path = content.path ?? `/industries/${content.slug}`;
+  const market = Boolean(content.path);
 
   return (
     <>
       <JsonLd
         data={graph([
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Industries", path: "/industries" },
-            { name: content.title, path },
-          ]),
+          breadcrumbSchema(
+            market
+              ? [
+                  { name: "Home", path: "/" },
+                  { name: content.title, path },
+                ]
+              : [
+                  { name: "Home", path: "/" },
+                  { name: "Industries", path: "/industries" },
+                  { name: content.title, path },
+                ],
+          ),
           serviceSchema({
-            name: `${content.title} growth systems`,
+            name: content.schemaName ?? `${content.title} growth systems`,
             description: content.metaDescription,
             path,
             category: `${content.title} digital marketing and automation`,
@@ -36,20 +44,24 @@ export function IndustryPage({ content }: { content: IndustryContent }) {
         ])}
       />
       <PageHero
-        breadcrumb={[
-          { label: "Home", href: "/" },
-          { label: "Industries", href: "/industries" },
-          { label: content.title },
-        ]}
+        breadcrumb={
+          market
+            ? [{ label: "Home", href: "/" }, { label: content.title }]
+            : [
+                { label: "Home", href: "/" },
+                { label: "Industries", href: "/industries" },
+                { label: content.title },
+              ]
+        }
         eyebrow={content.eyebrow}
         title={content.title}
         highlight={content.highlight}
         subtitle={content.subtitle}
-        secondaryCta={{ label: "All industries", href: "/industries" }}
+        secondaryCta={market ? { label: "Talk to Vistrow", href: "/contact" } : { label: "All industries", href: "/industries" }}
       />
 
       <AnswerSummary
-        question={`How does Vistrow help teams in ${content.title.toLowerCase()} grow?`}
+        question={content.audience ? `How does Vistrow help ${content.audience} grow?` : `How does Vistrow help teams in ${content.title.toLowerCase()} grow?`}
         answer={content.solution.body}
         groups={[
           { label: "Common growth gaps", items: content.challenges.slice(0, 3).map((item) => item.title) },
@@ -103,7 +115,7 @@ export function IndustryPage({ content }: { content: IndustryContent }) {
       </section>
 
       <SystemMap
-        title={`Where Vistrow usually starts for ${content.title.toLowerCase()}`}
+        title={`Where Vistrow usually starts for ${content.audience ?? content.title.toLowerCase()}`}
         description="The highlighted stages are where teams in this industry most often lose enquiries, and where we start."
         highlight={stagesForServices(content.services.map((service) => service.href))}
       />

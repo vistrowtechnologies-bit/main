@@ -9,6 +9,8 @@ type SeoMetadata = {
   description: string;
   path: string;
   canonicalUrl?: string;
+  /** Regional equivalents of this page (hreflang code -> path). Include this page itself. */
+  hreflang?: Record<string, string>;
   keywords?: string[];
   openGraph?: {
     title?: string;
@@ -43,6 +45,7 @@ export function buildMetadata({
   description,
   path,
   canonicalUrl,
+  hreflang,
   keywords,
   openGraph,
   twitter,
@@ -86,7 +89,14 @@ export function buildMetadata({
     title,
     description,
     keywords,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      ...(hreflang && {
+        languages: Object.fromEntries(
+          [...Object.entries(hreflang), ["x-default", Object.values(hreflang)[0]] as [string, string]].map(([code, path]) => [code, `${siteUrl}${path}`]),
+        ),
+      }),
+    },
     openGraph: openGraphMetadata,
     twitter: {
       card: twitter?.card || "summary_large_image",

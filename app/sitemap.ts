@@ -3,6 +3,7 @@ import { digitalMarketingServices } from "@/content/digital-marketing";
 import { businessAutomationServices } from "@/content/business-automation";
 import { products } from "@/content/products";
 import { industries } from "@/content/industries";
+import { marketPages } from "@/content/market-pages";
 import { locations } from "@/content/locations";
 import { workPages } from "@/content/work";
 import { siteUrl } from "@/lib/seo";
@@ -34,7 +35,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/partners",
     "/contact",
     "/growth-audit",
+    "/us",
     "/us/roofing",
+    "/uk",
     "/privacy-policy",
     "/terms",
     "/cookie-policy",
@@ -46,6 +49,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...Object.keys(businessAutomationServices).map((s) => `/business-automation/${s}`),
     ...Object.keys(products).map((s) => `/products/${s}`),
     ...Object.keys(industries).map((s) => `/industries/${s}`),
+    ...Object.keys(marketPages.us).map((s) => `/us/${s}`),
+    ...Object.keys(marketPages.uk).map((s) => `/uk/${s}`),
     ...Object.keys(locations).map((s) => `/locations/${s}`),
     ...Object.keys(workPages).map((s) => `/work/${s}`),
     // Paginated blog index: /blog/page/2 onwards

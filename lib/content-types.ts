@@ -51,6 +51,12 @@ export type IndustryContent = {
   workflow: Step[];
   faqs: QA[];
   image?: { src: string; alt: string };
+  /** Market pages (US, UK) live outside /industries: their own path, and how the audience is named in headings. */
+  path?: string;
+  audience?: string;
+  schemaName?: string;
+  /** Regional equivalents for hreflang, e.g. { "en-IN": "/industries/clinics", "en-US": "/us/dental-clinics" }. */
+  hreflang?: Record<string, string>;
 };
 
 export type LocationContent = {
