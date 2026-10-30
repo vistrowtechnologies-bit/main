@@ -17,14 +17,17 @@ function readServiceAccount(): ServiceAccount {
   return account;
 }
 
-async function getAccessToken(): Promise<string> {
+const WEBMASTERS_SCOPE = "https://www.googleapis.com/auth/webmasters";
+
+// The same service account also reads Google Analytics (it is a Viewer on the GA4 property).
+export async function getAccessToken(scope: string = WEBMASTERS_SCOPE): Promise<string> {
   const account = readServiceAccount();
   const now = Math.floor(Date.now() / 1000);
   const encode = (value: object) => Buffer.from(JSON.stringify(value)).toString("base64url");
   const unsigned = `${encode({ alg: "RS256", typ: "JWT" })}.${encode({
     iss: account.client_email,
-    // Read/write scope: reading reports plus resubmitting the sitemap (needs Full permission in Search Console).
-    scope: "https://www.googleapis.com/auth/webmasters",
+    // Webmasters is read/write: reading reports plus resubmitting the sitemap (needs Full permission in Search Console).
+    scope,
     aud: "https://oauth2.googleapis.com/token",
     iat: now,
     exp: now + 3600,

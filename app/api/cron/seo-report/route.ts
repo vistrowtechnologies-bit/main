@@ -4,6 +4,7 @@ import { querySearchAnalytics, type SearchRow } from "@/lib/seo-report/search-co
 import { KEYWORD_VOLUMES, volumeFor } from "@/lib/seo-report/keyword-volumes";
 import { getSanityWriteClient } from "@/lib/sanity/write-client";
 import { notifySearchEngines } from "@/lib/indexing/notify";
+import { getTraffic } from "@/lib/seo-report/analytics";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -11,7 +12,8 @@ export const maxDuration = 120;
 const STUDIO_URL = "https://vistrow.sanity.studio";
 const SITE_URL = process.env.GSC_SITE_URL || "https://www.vistrow.com/";
 
-// Runs daily. Every run tells search engines about changed pages (see lib/indexing/notify.ts).
+// Runs daily. Every run tells search engines about changed pages (see lib/indexing/notify.ts) and saves
+// the last 28 days of GA4 views per page to Sanity (gaPageStats, read by the blog sheet sync).
 // On the 1st of the month (or with ?report=1) it also builds the SEO report: the last 4 weeks of
 // Search Console data, matched with Keyword Planner volumes, saved to Sanity and emailed.
 export async function GET(request: Request) {
@@ -28,6 +30,20 @@ export async function GET(request: Request) {
     log.push(`Indexing notification failed: ${String(error)}`);
   }
 
+  try {
+    const traffic = await getTraffic("28daysAgo", "yesterday");
+    await getSanityWriteClient().createOrReplace({
+      _id: "gaPageStats",
+      _type: "gaPageStats",
+      updatedAt: new Date().toISOString(),
+      totals: traffic.totals,
+      pages: traffic.pages.map((row) => ({ _key: randomUUID(), ...row })),
+    });
+    log.push(`GA4: saved views for ${traffic.pages.length} pages.`);
+  } catch (error) {
+    log.push(`GA4 page stats failed: ${String(error)}`);
+  }
+
   const wantsReport = new URL(request.url).searchParams.get("report") === "1" || new Date().getUTCDate() === 1;
   if (!wantsReport) return NextResponse.json({ ok: true, indexing: log });
   if (!process.env.GSC_SERVICE_ACCOUNT_JSON) return NextResponse.json({ ok: true, indexing: log, report: "skipped: GSC_SERVICE_ACCOUNT_JSON is not configured" });
@@ -42,6 +58,11 @@ export async function GET(request: Request) {
     ]);
 
     const report = buildReport(queryPageRows, pageRows);
+    // Visitors from every source, not only Google Search. Optional: the report still runs if GA4 is unavailable.
+    const traffic = await getTraffic(start, end).catch((error) => {
+      log.push(`GA4 traffic failed: ${String(error)}`);
+      return null;
+    });
     const writeClient = getSanityWriteClient();
     const docId = `seoReport-${end}`;
     await writeClient.createOrReplace({
@@ -55,9 +76,16 @@ export async function GET(request: Request) {
       strikingDistance: report.strikingDistance.map((row) => ({ _key: randomUUID(), _type: "seoQueryRow", ...row })),
       pagesToImprove: report.pagesToImprove.map((row) => ({ _key: randomUUID(), _type: "seoPageRow", ...row })),
       plannedKeywordsNotRanking: report.plannedKeywordsNotRanking,
+      ...(traffic && {
+        traffic: {
+          totals: traffic.totals,
+          channels: traffic.channels.map((row) => ({ _key: randomUUID(), ...row })),
+          topPages: traffic.pages.slice(0, 25).map((row) => ({ _key: randomUUID(), ...row })),
+        },
+      }),
     });
-    const emailStatus = await emailReport(report, start, end, docId);
-    return NextResponse.json({ ok: true, indexing: log, docId, emailStatus, totals: report.totals });
+    const emailStatus = await emailReport(report, traffic, start, end, docId);
+    return NextResponse.json({ ok: true, indexing: log, docId, emailStatus, totals: report.totals, traffic: traffic?.totals ?? null });
   } catch (error) {
     console.error("SEO report failed", error);
     return NextResponse.json({ ok: false, indexing: log, error: String(error) }, { status: 500 });
@@ -121,7 +149,13 @@ function buildReport(queryPageRows: SearchRow[], pageRows: SearchRow[]) {
   return { totals, topQueries, strikingDistance, pagesToImprove, plannedKeywordsNotRanking };
 }
 
-async function emailReport(report: ReturnType<typeof buildReport>, start: string, end: string, docId: string) {
+async function emailReport(
+  report: ReturnType<typeof buildReport>,
+  traffic: Awaited<ReturnType<typeof getTraffic>> | null,
+  start: string,
+  end: string,
+  docId: string,
+) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.CONTACT_FROM_EMAIL;
   const to = process.env.CONTACT_TO_EMAIL || "hello@vistrow.com";
@@ -132,6 +166,13 @@ async function emailReport(report: ReturnType<typeof buildReport>, start: string
     `<table style="border-collapse:collapse;font:13px sans-serif"><tr>${head.map((h) => `<th align="left" style="padding:4px 8px">${h}</th>`).join("")}</tr>${body}</table>`;
   const html = `<h2>Vistrow SEO report: ${start} to ${end}</h2>
 <p>${report.totals.clicks} clicks · ${report.totals.impressions} impressions · average position ${report.totals.averagePosition} · ${report.totals.pages} pages shown</p>
+${
+    traffic
+      ? `<h3>All visitors (Google Analytics)</h3><p>${traffic.totals.users} users · ${traffic.totals.sessions} sessions · ${traffic.totals.views} page views · ${traffic.totals.engagementRate}% engaged</p>
+${table(["Channel", "Sessions", "Users"], traffic.channels.map((r) => row([r.channel, r.sessions, r.users])).join(""))}
+<h3>Most viewed pages</h3>${table(["Page", "Views", "Users"], traffic.pages.slice(0, 15).map((r) => row([r.page, r.views, r.users])).join(""))}`
+      : ""
+  }
 <h3>Quick wins (positions 5-30)</h3>${table(["Search", "Monthly volume", "Position", "Impressions", "Page"], report.strikingDistance.map((r) => row([r.query, r.volume ?? "-", r.position, r.impressions, r.page])).join(""))}
 <h3>Pages to improve</h3>${table(["Page", "Impressions", "Position", "Clicks", "Why"], report.pagesToImprove.map((r) => row([r.page, r.impressions, r.position, r.clicks, r.reason])).join(""))}
 <h3>Researched keywords not showing yet</h3><p>${report.plannedKeywordsNotRanking.map(escapeHtml).join(", ") || "None"}</p>
