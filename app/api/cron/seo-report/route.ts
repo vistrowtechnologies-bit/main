@@ -81,6 +81,8 @@ export async function GET(request: Request) {
           totals: traffic.totals,
           channels: traffic.channels.map((row) => ({ _key: randomUUID(), ...row })),
           topPages: traffic.pages.slice(0, 25).map((row) => ({ _key: randomUUID(), ...row })),
+          countries: traffic.countries.map((row) => ({ _key: randomUUID(), ...row })),
+          campaigns: traffic.campaigns.map((row) => ({ _key: randomUUID(), ...row })),
           aiAssistants: traffic.ai.byAssistant.map((row) => ({ _key: randomUUID(), ...row })),
           aiLandingPages: traffic.ai.landings.map((row) => ({ _key: randomUUID(), ...row })),
         },
@@ -182,6 +184,12 @@ ${
     traffic
       ? `<h3>All visitors (Google Analytics)</h3><p>${traffic.totals.users} users · ${traffic.totals.sessions} sessions · ${traffic.totals.views} page views · ${traffic.totals.engagementRate}% engaged</p>
 ${table(["Channel", "Sessions", "Users"], traffic.channels.map((r) => row([r.channel, r.sessions, r.users])).join(""))}
+<h3>Visitors by country</h3>${table(["Country", "Sessions", "Users"], traffic.countries.slice(0, 12).map((r) => row([r.country, r.sessions, r.users])).join(""))}
+<h3>Outreach and campaign links (utm_campaign)</h3>${
+          traffic.campaigns.length
+            ? table(["Campaign", "Landing page", "Sessions", "Users"], traffic.campaigns.slice(0, 15).map((r) => row([r.campaign, r.landingPage, r.sessions, r.users])).join(""))
+            : "<p>None yet. Add ?utm_source=outreach&amp;utm_campaign=clinics to links in outreach messages.</p>"
+        }
 <h3>Visits from AI assistants</h3>${
           traffic.ai.byAssistant.length
             ? table(["Assistant", "Sessions", "Users"], traffic.ai.byAssistant.map((r) => row([r.assistant, r.sessions, r.users])).join("")) +

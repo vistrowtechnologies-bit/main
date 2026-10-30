@@ -25,6 +25,8 @@ const dim = (row: ReportRow, index: number) => row.dimensionValues?.[index]?.val
 
 export type PageTraffic = { page: string; views: number; users: number };
 export type ChannelTraffic = { channel: string; sessions: number; users: number };
+export type CountryTraffic = { country: string; sessions: number; users: number };
+export type CampaignTraffic = { campaign: string; landingPage: string; sessions: number; users: number };
 export type AiTraffic = { assistant: string; source: string; landingPage: string; sessions: number; users: number };
 
 // Referrers of AI assistants, matched on the session source so each one is counted separately
@@ -45,7 +47,7 @@ const assistantFor = (source: string) => AI_SOURCES.find(([pattern]) => pattern.
 // Site totals, sessions by channel and views per page for a date range (YYYY-MM-DD or "28daysAgo").
 export async function getTraffic(startDate: string, endDate: string) {
   const dateRanges = [{ startDate, endDate }];
-  const [totalRows, channelRows, pageRows, sourceRows] = await Promise.all([
+  const [totalRows, channelRows, pageRows, sourceRows, countryRows, campaignRows] = await Promise.all([
     runReport({ dateRanges, metrics: [{ name: "activeUsers" }, { name: "sessions" }, { name: "screenPageViews" }, { name: "engagementRate" }] }),
     runReport({
       dateRanges,
@@ -66,6 +68,22 @@ export async function getTraffic(startDate: string, endDate: string) {
       metrics: [{ name: "sessions" }, { name: "activeUsers" }],
       orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
       limit: 1000,
+    }),
+    runReport({
+      dateRanges,
+      dimensions: [{ name: "country" }],
+      metrics: [{ name: "sessions" }, { name: "activeUsers" }],
+      orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+      limit: 25,
+    }),
+    // Outreach and campaign links carry a utm_campaign tag (for example ?utm_source=outreach&utm_campaign=clinics).
+    runReport({
+      dateRanges,
+      dimensions: [{ name: "sessionCampaignName" }, { name: "landingPage" }],
+      metrics: [{ name: "sessions" }, { name: "activeUsers" }],
+      dimensionFilter: { notExpression: { filter: { fieldName: "sessionCampaignName", stringFilter: { matchType: "EXACT", value: "(not set)" } } } },
+      orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+      limit: 50,
     }),
   ]);
   const ai = sourceRows
@@ -93,5 +111,9 @@ export async function getTraffic(startDate: string, endDate: string) {
     channels: channelRows.map((row): ChannelTraffic => ({ channel: dim(row, 0), sessions: num(row, 0), users: num(row, 1) })),
     pages: pageRows.map((row): PageTraffic => ({ page: dim(row, 0), views: num(row, 0), users: num(row, 1) })),
     ai: { byAssistant, landings: ai.slice(0, 30) },
+    countries: countryRows.map((row): CountryTraffic => ({ country: dim(row, 0), sessions: num(row, 0), users: num(row, 1) })),
+    campaigns: campaignRows
+      .map((row): CampaignTraffic => ({ campaign: dim(row, 0), landingPage: dim(row, 1), sessions: num(row, 0), users: num(row, 1) }))
+      .filter((row) => row.campaign && row.campaign !== "(direct)" && row.campaign !== "(organic)" && row.campaign !== "(referral)"),
   };
 }

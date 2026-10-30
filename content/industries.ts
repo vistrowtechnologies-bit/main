@@ -1,4 +1,4 @@
-import { Building2, Store, Briefcase, Rocket, Users, GraduationCap } from "lucide-react";
+import { Building2, Store, Briefcase, Rocket, Users, GraduationCap, Stethoscope, Wrench } from "lucide-react";
 import type { IndustryContent, OverviewContent } from "@/lib/content-types";
 
 export const industriesOverview: OverviewContent = {
@@ -9,10 +9,12 @@ export const industriesOverview: OverviewContent = {
     "The same connected engine - marketing, CRM, AI voice, and automation - shaped around the way your industry actually generates and closes business.",
   metaTitle: "Digital Marketing and Automation by Industry",
   metaDescription:
-    "Vistrow growth systems for real estate, local businesses, B2B, startups & SaaS, agencies, and education.",
+    "Vistrow growth systems for real estate, clinics, home services, local businesses, B2B, startups & SaaS, agencies, and education, in India and overseas.",
   cardsTitle: "Industries we serve",
   cards: [
     { label: "Real Estate", href: "/industries/real-estate", body: "Speed-to-lead and follow-up that win more listings and buyers.", icon: Building2 },
+    { label: "Clinics", href: "/industries/clinics", body: "Every call answered and every enquiry booked for dental, aesthetic and physio clinics.", icon: Stethoscope },
+    { label: "Home Services", href: "/industries/home-services", body: "Calls answered and quotes chased for HVAC, solar, roofing and renovation.", icon: Wrench },
     { label: "Local Businesses", href: "/industries/local-businesses", body: "Steady enquiries and booked jobs from your local market.", icon: Store },
     { label: "B2B Companies", href: "/industries/b2b-companies", body: "Qualified pipeline for longer, considered sales cycles.", icon: Briefcase },
     { label: "Startups & SaaS", href: "/industries/startups-saas", body: "Efficient demand and activation that scale with you.", icon: Rocket },
@@ -140,6 +142,102 @@ export const industries: Record<string, IndustryContent> = {
       { q: "We're a small team - is this too much?", a: "No - the point is to do the work you can't, like answering and following up while you're busy on jobs." },
       { q: "What kinds of local business fit?", a: "Trades, clinics, salons, home services, and similar appointment- or quote-driven businesses." },
       { q: "Can it help with reviews?", a: "Yes - automated review requests after jobs help build your local reputation." },
+    ],
+  },
+
+  clinics: {
+    slug: "clinics",
+    title: "Clinics",
+    eyebrow: "Industry",
+    subtitle:
+      "A clinic's phone rings while the team is with patients. We set up AI call answering, booking and follow-up so new enquiries are not lost, for dental, aesthetic and physio clinics in India and overseas.",
+    metaTitle: "AI Call Answering and Booking for Clinics",
+    metaDescription:
+      "AI call answering, appointment booking and enquiry follow-up for dental, aesthetic and physio clinics. Fewer missed calls, fuller diaries. Book a free audit.",
+    challenges: [
+      { title: "Calls missed during treatment", body: "The front desk is with a patient, so new enquiries go to voicemail and then to the next clinic." },
+      { title: "After-hours enquiries wait", body: "People look for a clinic in the evening, and the reply arrives the next afternoon." },
+      { title: "No-shows and empty slots", body: "Patients forget, and a gap in the diary is hard to refill at short notice." },
+      { title: "Enquiries that go quiet", body: "Treatment questions and quote requests are not chased once the first reply is sent." },
+    ],
+    solution: {
+      title: "Answer every enquiry, book the visit, and follow up until it is decided.",
+      body: "We set up AI call answering and follow-up around your diary. It picks up when the team cannot, asks what the patient needs, books or requests a slot, and hands anything clinical or sensitive to your staff.",
+      points: [
+        "AI call answering for busy and after-hours periods",
+        "Appointment booking into your diary, or a booking request to your team",
+        "Reminders that cut no-shows",
+        "A clear handoff to staff for anything clinical, urgent or sensitive",
+      ],
+    },
+    services: [
+      { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },
+      { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up" },
+      { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
+      { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
+      { label: "Website Development", href: "/digital-marketing/website-development" },
+      { label: "Performance Advertising", href: "/digital-marketing/performance-advertising" },
+    ],
+    workflow: [
+      { title: "Enquiry arrives", body: "A call, web form or message reaches the clinic, day or night." },
+      { title: "Answered straight away", body: "The AI picks up, asks what the person needs and notes the details." },
+      { title: "Booked or handed over", body: "A slot is booked or requested, or a staff member takes over." },
+      { title: "Followed up", body: "Reminders and follow-ups go out until the visit happens or the enquiry closes." },
+    ],
+    faqs: [
+      { q: "Does the AI give medical or dental advice?", a: "No. It answers practical questions such as opening times, services and booking, and passes anything clinical, urgent or sensitive to your team. You agree what it can and cannot say before it goes live." },
+      { q: "Can it work with our booking system?", a: "Often, yes. We connect to the tools you already use where they allow it, or send booking requests to your reception when they do not. We confirm what is possible during the audit." },
+      { q: "What about patient data and call recording?", a: "Rules on call recording and patient data differ by country and by type of clinic, so we agree the consent wording and what is recorded with you before launch. Please check the local requirements with your own adviser." },
+      { q: "Which countries and languages do you cover?", a: "We work with clinics in India and overseas. Vistrow Voice supports 130+ languages, including Hindi, English and 9 more Indian languages, and we test the languages you need during the audit." },
+      { q: "How much does it cost?", a: "It depends on call volume, the tools you use and whether you add follow-up. We quote in writing after a free audit." },
+    ],
+  },
+
+  "home-services": {
+    slug: "home-services",
+    title: "Home Services",
+    eyebrow: "Industry",
+    subtitle:
+      "Trades lose jobs when nobody answers. We set up call answering, quote follow-up and review requests for HVAC, solar, roofing and renovation businesses in India and overseas.",
+    metaTitle: "Lead Follow-Up for HVAC, Solar and Roofing",
+    metaDescription:
+      "AI call answering, instant replies and quote follow-up for HVAC, solar, roofing and renovation businesses. Book more jobs from the enquiries you already get.",
+    challenges: [
+      { title: "Calls missed on the job", body: "You are up a ladder or under a unit when a new customer rings, and they call the next trader." },
+      { title: "Seasonal surges", body: "Demand arrives in waves, and the phone cannot keep up when it matters most." },
+      { title: "Quotes that go quiet", body: "Estimates are sent and never chased, so the job goes to whoever followed up." },
+      { title: "Slow replies to web enquiries", body: "Forms and ads bring leads that wait hours for an answer." },
+    ],
+    solution: {
+      title: "Answer fast, quote clearly, and keep following up.",
+      body: "We connect your phone, forms and ads to one follow-up system. New enquiries get an instant reply, the AI qualifies the job and requests an inspection or site visit, and quotes are chased until the customer decides.",
+      points: [
+        "AI call answering for after-hours and busy periods",
+        "An instant text or email reply to every new enquiry",
+        "Inspection and site-visit booking requests",
+        "Quote follow-up and review requests after each job",
+      ],
+    },
+    services: [
+      { label: "AI Voice Calling", href: "/business-automation/ai-voice-calling" },
+      { label: "Lead Follow-Up Systems", href: "/business-automation/lead-follow-up" },
+      { label: "WhatsApp, Email & SMS", href: "/business-automation/communication-automation" },
+      { label: "CRM & Lead Management", href: "/business-automation/crm-lead-management" },
+      { label: "Website Development", href: "/digital-marketing/website-development" },
+      { label: "Websites and follow-up for US roofers", href: "/us/roofing" },
+    ],
+    workflow: [
+      { title: "Enquiry arrives", body: "A call, form or message comes in, day or night." },
+      { title: "Replied to at once", body: "The customer gets an instant answer and the job details are captured." },
+      { title: "Visit requested", body: "A site visit or inspection is booked or requested for your team." },
+      { title: "Quote chased", body: "Quotes and follow-ups go out until the job is won or closed, then a review is requested." },
+    ],
+    faqs: [
+      { q: "Which trades is this for?", a: "HVAC and heating, solar installers, roofers, kitchen and bathroom renovation, plumbing and similar businesses that win work from calls and quotes." },
+      { q: "Can the AI give a price?", a: "Only if you set it to. Most trades prefer it to collect the job details and request a visit, with your team giving the quote. You decide what it can say." },
+      { q: "We are a small team. Is this too much?", a: "The aim is to cover what you cannot do while you are on a job: answering, replying and chasing quotes." },
+      { q: "Do you work outside India?", a: "Yes. We work with businesses in India and overseas, schedule calls in your time zone, and quote in writing after a free audit." },
+      { q: "How much does it cost?", a: "It depends on call volume, the tools you use and what you add. We quote in writing after a free audit." },
     ],
   },
 
@@ -281,6 +379,7 @@ export const industries: Record<string, IndustryContent> = {
       { q: "Is this truly white-label?", a: "Yes - systems run under your brand; we operate behind the scenes as your partner." },
       { q: "Can we resell AI voice to clients?", a: "Yes - many agency partners add AI calling and automation as premium services." },
       { q: "How do partnerships work?", a: "Flexible - project, retainer, or ongoing partner arrangements. See our Partners page." },
+      { q: "Do you partner with agencies outside India?", a: "Yes. We work with agencies in India and overseas, including the UK, Australia, Canada, New Zealand and Europe. Everything runs under your brand, and calls are scheduled in your time zone." },
     ],
   },
 
