@@ -189,7 +189,8 @@ export const industries: Record<string, IndustryContent> = {
       { title: "Followed up", body: "Reminders and follow-ups go out until the visit happens or the enquiry closes." },
     ],
     faqs: [
-      { q: "Can an AI receptionist replace our front desk?", a: "No. It covers the calls your team cannot take, such as during treatment and after hours, and passes anything that needs a person to your staff. Your reception team stays in charge." },
+      { q: "Can an AI receptionist replace our front desk?", a: "No. It works alongside your dental receptionist or front desk, covering the calls your team cannot take, such as during treatment and after hours, and passes anything that needs a person to your staff. Your reception team stays in charge." },
+      { q: "Can you also market our dental clinic?", a: "Yes. Besides the AI receptionist, we can work as your dental marketing agency: Google Ads, SEO and website work that bring in new patient enquiries, with every enquiry answered and followed up on WhatsApp and calls. Quotes are written after a free audit." },
       { q: "Does the AI give medical or dental advice?", a: "No. It answers practical questions such as opening times, services and booking, and passes anything clinical, urgent or sensitive to your team. You agree what it can and cannot say before it goes live." },
       { q: "Can it work with our booking system?", a: "Often, yes. We connect to the tools you already use where they allow it, or send booking requests to your reception when they do not. We confirm what is possible during the audit." },
       { q: "What about patient data and call recording?", a: "Rules on call recording and patient data differ by country and by type of clinic, so we agree the consent wording and what is recorded with you before launch. Please check the local requirements with your own adviser." },
@@ -244,6 +245,7 @@ export const industries: Record<string, IndustryContent> = {
       { q: "Which trades is this for?", a: "HVAC and heating, solar installers, roofers, kitchen and bathroom renovation, plumbing and similar businesses that win work from calls and quotes." },
       { q: "Do you offer an after-hours answering service?", a: "Yes. The AI answers after hours and during busy periods, takes the job details, and passes urgent or complicated calls to your team. You choose the rules." },
       { q: "Can the AI give a price?", a: "Only if you set it to. Most trades prefer it to collect the job details and request a visit, with your team giving the quote. You decide what it can say." },
+      { q: "Can you also bring in leads, not only answer them?", a: "Yes. We can run solar lead generation and HVAC lead generation campaigns on Google, Meta and your website, and the AI answers and follows up on every enquiry that arrives. Quotes are written after a free audit." },
       { q: "We are a small team. Is this too much?", a: "The aim is to cover what you cannot do while you are on a job: answering, replying and chasing quotes." },
       { q: "Do you work outside India?", a: "Yes. We have separate pages for contractors in the US and trades in the UK, with local wording, currency and rules." },
       { q: "How much does it cost?", a: "It depends on call volume, the tools you use and what you add. We quote in writing after a free audit." },
