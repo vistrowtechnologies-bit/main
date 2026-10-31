@@ -58,10 +58,24 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
     return [...counts.entries()].sort(([a], [b]) => a.localeCompare(b));
   }, [sortedPosts]);
 
+  // US and UK guides get their own topic buttons once any exist (they appear from the first overseas post).
+  const marketTopics = useMemo(
+    () =>
+      [
+        { label: "US businesses", market: "US" as const },
+        { label: "UK businesses", market: "UK" as const },
+      ]
+        .map((topic) => ({ ...topic, count: sortedPosts.filter((post) => post.markets?.includes(topic.market)).length }))
+        .filter((topic) => topic.count > 0),
+    [sortedPosts],
+  );
+
   const filteredPosts = useMemo(() => {
     const term = query.trim().toLowerCase();
     return sortedPosts.filter((post) => {
-      const matchesCategory = activeCategory === ALL_TOPICS || post.category === activeCategory;
+      const topic = marketTopics.find((t) => t.label === activeCategory);
+      const matchesCategory =
+        activeCategory === ALL_TOPICS || (topic ? Boolean(post.markets?.includes(topic.market)) : post.category === activeCategory);
       const haystack = [
         post.title,
         post.excerpt,
@@ -196,6 +210,9 @@ export function BlogHub({ posts, page = 1 }: { posts: BlogPost[]; page?: number 
         <TopicButton active={activeCategory === ALL_TOPICS} label={ALL_TOPICS} count={posts.length} onClick={() => selectCategory(ALL_TOPICS)} />
         {categories.map(([category, count]) => (
           <TopicButton key={category} active={activeCategory === category} label={category} count={count} onClick={() => selectCategory(category)} />
+        ))}
+        {marketTopics.map((topic) => (
+          <TopicButton key={topic.label} active={activeCategory === topic.label} label={topic.label} count={topic.count} onClick={() => selectCategory(topic.label)} />
         ))}
       </TopicStrip>
 

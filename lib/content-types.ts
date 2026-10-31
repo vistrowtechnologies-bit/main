@@ -166,6 +166,10 @@ export type BlogSeoImage = {
 
 export type BlogPost = {
   slug: string;
+  /** Raw note from the content calendar entry the post was written from; used to work out its market. */
+  marketAngle?: string | null;
+  /** Markets a post is written for. Empty or missing means India. */
+  markets?: ("US" | "UK" | "IN")[];
   title: string;
   excerpt: string;
   keyTakeaways?: string[];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IndustryPage } from "@/components/templates/industry-page";
+import { MarketGuides } from "@/components/sections/market-guides";
 import { marketPages } from "@/content/market-pages";
 import { buildMetadata } from "@/lib/seo";
 
@@ -11,6 +12,9 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
+// Refresh every few minutes so new guides appear without a redeploy.
+export const revalidate = 300;
+
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const c = marketPages.us[params.slug];
   if (!c) return {};
@@ -20,5 +24,5 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function Page({ params }: { params: { slug: string } }) {
   const content = marketPages.us[params.slug];
   if (!content) notFound();
-  return <IndustryPage content={content} />;
+  return <IndustryPage content={content} extra={<MarketGuides market="US" label="US businesses" />} />;
 }

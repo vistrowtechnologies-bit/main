@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -14,9 +15,11 @@ import { breadcrumbSchema, collectionSchema, faqSchema, graph } from "@/lib/stru
 export function OverviewPage({
   content,
   parent,
+  extra,
 }: {
   content: OverviewContent;
   parent?: { label: string; href: string };
+  extra?: ReactNode;
 }) {
   const path = parent?.href ?? "/";
   const breadcrumb = parent
@@ -109,6 +112,8 @@ export function OverviewPage({
           steps={content.process}
         />
       )}
+
+      {extra}
 
       {content.faqs && <Faq items={content.faqs} />}
 

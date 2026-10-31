@@ -15,10 +15,17 @@ const fetchPublishedBlogPosts = unstable_cache(
   { revalidate: 60, tags: ["sanity-blog-posts"] },
 );
 
+// The content calendar marks overseas topics with "INTERNATIONAL: market US." (or UK, or "US, UK and India").
+function marketsFromAngle(angle: string | null | undefined): BlogPost["markets"] {
+  const segment = angle?.match(/market ([A-Za-z, ]+?)\./)?.[1];
+  if (!segment) return [];
+  return (["US", "UK"] as const).filter((m) => new RegExp(`\\b${m}\\b`).test(segment)).concat(/India/.test(segment) ? ["IN" as never] : []);
+}
+
 async function getAllBlogPosts(): Promise<BlogPost[]> {
   try {
     const posts = await fetchPublishedBlogPosts();
-    if (posts.length > 0) return posts;
+    if (posts.length > 0) return posts.map((post) => ({ ...post, markets: marketsFromAngle(post.marketAngle) }));
   } catch {
     // Keep the public blog available if Sanity is temporarily unreachable.
   }
@@ -30,6 +37,12 @@ async function getAllBlogPosts(): Promise<BlogPost[]> {
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const posts = await getAllBlogPosts();
   return posts.filter((post) => !post.redirectUrl && !(post.slug in blogMerges));
+}
+
+// Latest posts written for one market, used to link guides from that market's pages.
+export async function getMarketPosts(market: "US" | "UK", limit = 3): Promise<BlogPost[]> {
+  const posts = await getBlogPosts();
+  return posts.filter((post) => post.markets?.includes(market)).slice(0, limit);
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | undefined> {

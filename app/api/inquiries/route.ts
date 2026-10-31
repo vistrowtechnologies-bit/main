@@ -18,6 +18,7 @@ type Inquiry = {
   message?: string;
   website?: string;
   industry?: string;
+  country?: string;
   channels?: string[];
   services?: string[];
   preferredContact?: string;
@@ -95,6 +96,7 @@ export async function POST(request: Request) {
       ["Company", company],
       ["Website", clean(data.website, 200)],
       ["Service", clean(data.service, 160)],
+      ["Country", clean(data.country, 80)],
       ["Industry", clean(data.industry, 120)],
       ["Budget", clean(data.budget, 120)],
       ["Channels", cleanList(data.channels)],
@@ -103,9 +105,11 @@ export async function POST(request: Request) {
     ] satisfies [string, string][]
   ).filter(([, value]) => value);
 
+  const country = clean(data.country, 80);
+  const where = country && country !== "India" ? ` (${country})` : "";
   const subject =
     type === "growth-audit"
-      ? `Growth Audit request - ${company || name}`
+      ? `Growth Audit request - ${company || name}${where}`
       : `Website enquiry - ${company || name}`;
   const text = `${subject}\n\n${[["Name", name], ...details, [type === "growth-audit" ? "Main challenge" : "Message", message]].map(([label, value]) => `${label}: ${value}`).join("\n\n")}`;
   const html = renderInternalEmail({ type, subject, name, email, phone, message, details });

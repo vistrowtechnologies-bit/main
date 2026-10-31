@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { AlertCircle, ArrowRight, ArrowLeft, Loader2, Search, Link2, ListChecks } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
+import { budgetsFor, countries, countryForMarket, readMarket } from "@/lib/market";
 import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
 import { postJson } from "@/lib/forms/post-json";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const industries = ["Real Estate", "Local Business", "B2B", "Startup / SaaS", "Agency", "Education", "Other"];
-const budgets = ["< ₹50k / month", "₹50k–₹1L / month", "₹1L–₹3L / month", "₹3L–₹10L / month", "₹10L+ / month"];
+const industries = ["Real Estate", "Clinic / Dental", "Home Services (HVAC, solar, roofing)", "Local Business", "B2B", "Startup / SaaS", "Agency", "Education", "Other"];
 const channelOptions = ["Google Ads", "Meta Ads", "LinkedIn", "SEO / Content", "Email", "Referral / Word of mouth", "Not running yet"];
 const serviceOptions = ["Performance Advertising", "Lead Generation", "CRM & Lead Management", "AI Voice Calling", "Automation", "Custom SaaS"];
 
@@ -26,6 +26,13 @@ export function GrowthAuditForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
+
+  // Start from the market the visitor was browsing (/us, /uk or India); they can change it.
+  useEffect(() => {
+    setValues((p) => (p.country ? p : { ...p, country: countryForMarket(readMarket()) }));
+  }, []);
+  const country = values.country ?? "India";
+  const budgets = budgetsFor(country);
 
   const set = (k: string, v: string) => setValues((p) => ({ ...p, [k]: v }));
 
@@ -64,7 +71,7 @@ export function GrowthAuditForm() {
           consent,
           ...readSpamGuard(form),
       });
-      trackLead("growth_audit_form");
+      trackLead("growth_audit_form", { country });
       setSubmitted(true);
     } catch (error) {
       setServerError(
@@ -127,7 +134,18 @@ export function GrowthAuditForm() {
 
       {step === 1 && (
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="Phone" htmlFor="phone">
+          <Field label="Country" htmlFor="country">
+            <Select
+              id="country"
+              value={country}
+              onChange={(e) => setValues((p) => ({ ...p, country: e.target.value, budget: "" }))}
+            >
+              {countries.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </Select>
+          </Field>
+          <Field label="Phone (with country code)" htmlFor="phone">
             <Input id="phone" type="tel" value={values.phone ?? ""} onChange={(e) => set("phone", e.target.value)} placeholder="Optional" />
           </Field>
           <Field label="Industry" htmlFor="industry">

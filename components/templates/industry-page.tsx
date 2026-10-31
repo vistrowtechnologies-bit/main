@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
@@ -14,7 +15,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import type { IndustryContent } from "@/lib/content-types";
 import { breadcrumbSchema, faqSchema, graph, serviceSchema } from "@/lib/structured-data";
 
-export function IndustryPage({ content }: { content: IndustryContent }) {
+export function IndustryPage({ content, extra }: { content: IndustryContent; extra?: ReactNode }) {
   const path = content.path ?? `/industries/${content.slug}`;
   const market = Boolean(content.path);
 
@@ -144,6 +145,8 @@ export function IndustryPage({ content }: { content: IndustryContent }) {
       </section>
 
       <Steps eyebrow="Example workflow" title="How a lead moves through the system" steps={content.workflow} />
+
+      {extra}
 
       <Faq items={content.faqs} />
 

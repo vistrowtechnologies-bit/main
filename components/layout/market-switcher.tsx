@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown, Globe } from "lucide-react";
+import { rememberMarket } from "@/lib/market";
 
 export const markets = [
   { code: "IN", label: "India", href: "/", hint: "Home" },
@@ -24,7 +25,10 @@ export function MarketSwitcher() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    setOpen(false);
+    rememberMarket(pathname);
+  }, [pathname]);
   useEffect(() => {
     if (!open) return;
     const onDown = (e: MouseEvent) => {

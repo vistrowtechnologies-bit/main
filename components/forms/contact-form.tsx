@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { AlertCircle, Loader2, Search, MessageCircle, Compass, Send } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Field, Input, Select, Textarea } from "@/components/forms/fields";
@@ -8,6 +8,7 @@ import { trackLead } from "@/lib/analytics";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
 import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
 import { postJson } from "@/lib/forms/post-json";
+import { budgetsFor, countries, countryForMarket, readMarket } from "@/lib/market";
 
 type Errors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -18,6 +19,7 @@ const services = [
   "Digital marketing",
   "CRM & lead management",
   "Vistrow Voice / AI calling",
+  "AI receptionist / answering service",
   "ArthaLeads",
   "Business automation",
   "Vistrow Labs / custom software",
@@ -26,6 +28,9 @@ const services = [
 ];
 
 export function ContactForm() {
+  // Start from the market the visitor was browsing (/us, /uk or India); they can change it.
+  const [country, setCountry] = useState("India");
+  useEffect(() => setCountry(countryForMarket(readMarket())), []);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState("");
@@ -58,6 +63,7 @@ export function ContactForm() {
           email,
           company: String(data.get("company") || ""),
           phone: String(data.get("phone") || ""),
+          country,
           service: String(data.get("service") || ""),
           budget: String(data.get("budget") || ""),
           message,
@@ -65,7 +71,7 @@ export function ContactForm() {
           consent,
           ...readSpamGuard(form),
       });
-      trackLead("contact_form");
+      trackLead("contact_form", { country });
       form.reset();
       setStatus("success");
     } catch (error) {
@@ -102,7 +108,14 @@ export function ContactForm() {
         <Field label="Company" htmlFor="company">
           <Input id="company" name="company" autoComplete="organization" placeholder="Company name" />
         </Field>
-        <Field label="Phone / WhatsApp" htmlFor="phone">
+        <Field label="Country" htmlFor="country">
+          <Select id="country" name="country" value={country} onChange={(e) => setCountry(e.target.value)}>
+            {countries.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
+          </Select>
+        </Field>
+        <Field label="Phone / WhatsApp (with country code)" htmlFor="phone">
           <Input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="Optional" />
         </Field>
         <Field label="What can we help with?" htmlFor="service" className="sm:col-span-2">
@@ -114,13 +127,11 @@ export function ContactForm() {
           </Select>
         </Field>
         <Field label="Approximate monthly budget" htmlFor="budget">
-          <Select id="budget" name="budget" defaultValue="">
+          <Select id="budget" name="budget" key={country} defaultValue="">
             <option value="">Prefer not to say</option>
-            <option>Under ₹50,000</option>
-            <option>₹50,000–₹1 lakh</option>
-            <option>₹1–₹3 lakh</option>
-            <option>₹3–₹10 lakh</option>
-            <option>₹10 lakh+</option>
+            {budgetsFor(country).map((b) => (
+              <option key={b}>{b}</option>
+            ))}
             <option>Project-based enquiry</option>
           </Select>
         </Field>

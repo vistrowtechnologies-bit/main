@@ -7,6 +7,7 @@ export const blogPostsQuery = `
     (!defined(publishedAt) || publishedAt <= now())
   ] | order(publishedAt desc) {
     "slug": slug.current,
+    "marketAngle": *[_type == "contentCalendarEntry" && blogPostId == ^._id][0].angle,
     title,
     excerpt,
     "keyTakeaways": coalesce(keyTakeaways, []),
