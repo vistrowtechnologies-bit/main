@@ -215,6 +215,44 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: din mein, har missed call ka das minute mein call back. Shaam ko phone ki call list kholo: aaj kitne missed call aaye, kitno ko 10 minute mein call back kiya? Log mein likho.' }
     ],
     related: [{ slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'google-review-request-templates', anchor: 'Google review maangne ke WhatsApp templates' }]
+  },
+  {
+    day: 9, slug: 'whatsapp-business-setup-checklist', keyword: 'COUNTER', release: '2026-11-03T11:00',
+    title: 'WhatsApp: bedroom ya counter?',
+    h1: 'WhatsApp Business Setup Checklist: Catalogue, Greeting Message, Labels (personal WhatsApp = bedroom, Business = counter)',
+    seoTitle: 'WhatsApp Business Setup Checklist: Catalogue, Greeting, Labels (Free PDF)',
+    description: 'Personal WhatsApp = bedroom, WhatsApp Business = counter. A 10-point WhatsApp Business setup checklist: business profile, catalogue, greeting and away messages, quick replies, labels, with copy-paste messages and a free printable PDF.',
+    summary: 'WhatsApp Business counter set karo: profile, catalogue, greeting, quick replies + order labels.',
+    blocks: [
+      { type: 'why', title: 'Personal WhatsApp = bedroom, Business WhatsApp = counter', text: 'Koi customer dukaan mein aaye aur seedha aapke bedroom mein ghus jaaye, ajeeb lagega na? Personal WhatsApp pe business chalana wahi hai: Mummy ka message, family group, school group aur customer ka order, sab ek hi list mein. Example: Diwali se pehle ek customer ₹4,800 ke lehenga ka order bhejta hai. Shaam tak family group mein 200 message aa jaate hain aur order neeche dab jaata hai. Agle din customer kahin aur se khareed leta hai. WhatsApp Business ek counter hai: catalogue saja hua, aate hi namaste, aur har order pe label.' },
+      { type: 'check', title: 'WhatsApp Business setup: 10-point checklist', items: [
+        ['WhatsApp Business app lo', 'Play Store / App Store se "WhatsApp Business" (free). Wahi number use kar sakte ho: setup ke time purani chats bhi aa jaati hain. Backup pehle le lo.'],
+        ['Business profile poora bharo', 'Settings → Business tools → Business profile: dukaan ka naam, category, address, timing, website / Google link. Logo ko profile photo banao.'],
+        ['Catalogue banao', 'Business tools → Catalogue: har product ki saaf photo, naam, daam aur 1 line. Customer ko 40 photo alag-alag bhejne ki zaroorat nahi, ek link kaafi.'],
+        ['Greeting message ON', 'Business tools → Greeting message: naye customer ko turant namaste + catalogue ka link.'],
+        ['Away message ON', 'Business tools → Away message: dukaan band ho toh timing batao aur kab reply karoge.'],
+        ['Quick replies banao', 'Business tools → Quick replies: daam, address, delivery, payment jaise roz ke sawaalon ke jawab "/" shortcut se.'],
+        ['Labels lagao', 'Chat pe long-press → Label: New customer, New order, Pending payment, Paid, Order complete. Apne label bhi bana sakte ho.'],
+        ['Roz label se list dekho', 'Chats → filter / Labels: subah "New order" aur "Pending payment" kholo. Koi order dabega nahi.'],
+        ['Personal chats alag', 'Family aur doston ke liye personal WhatsApp alag number pe. Counter pe sirf customer.'],
+        ['Number har jagah ek', 'Google profile, Instagram bio, visiting card aur board pe yahi WhatsApp Business number.']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages (apna naam aur timing daalo)', items: [
+        ['Greeting message', 'Namaste 🙏 {Business} mein aapka swagat hai! Hamara catalogue yahan dekhiye: {catalogue link}. Jo pasand aaye uska photo bhej dijiye, hum turant daam aur delivery bata denge.'],
+        ['Away message', 'Namaste 🙏 Abhi dukaan band hai (timing: {subah 10 – raat 9}). Aapka message mil gaya hai, khulte hi sabse pehle reply karenge.'],
+        ['Quick reply /order', 'Order confirm ✅ {Product} · {Daam} · Delivery {din}. Payment: {UPI ID}. Payment ka screenshot bhej dijiye, order pack kar dete hain.']
+      ] },
+      { type: 'table', title: 'Order labels: kab kaunsa label', head: ['Label', 'Kab lagao', 'Agla kaam'], rows: [
+        ['New customer', 'Pehli baar message aaya', '10 minute mein reply + catalogue'],
+        ['New order', 'Customer ne product aur size bata diya', 'Daam + delivery confirm karo'],
+        ['Pending payment', 'Order confirm, payment baaki', 'Shaam ko ek polite yaad dilao'],
+        ['Paid', 'Payment aa gaya', 'Pack karo, delivery date bhejo'],
+        ['Order complete', 'Delivery ho gayi', '2 din baad review ka link bhejo']
+      ] },
+      { type: 'note', text: 'Upar ka lehenga order aur ₹4,800 example hain. Menu ke naam phone aur app version ke hisaab se thode alag ho sakte hain (kuch phone mein "Tools" tab). Personal WhatsApp ko Business mein badalne se pehle chat backup zaroor lo.' },
+      { type: 'task', text: 'Aaj ka kaam: greeting message ON karo aur 5 sabse zyada bikne wale products catalogue mein daalo. Phir apne kisi dost se message karwa ke dekho: kya counter pe namaste hua?' }
+    ],
+    related: [{ slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }]
   }
 ];
 
