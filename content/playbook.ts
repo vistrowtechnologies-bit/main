@@ -253,6 +253,42 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: greeting message ON karo aur 5 sabse zyada bikne wale products catalogue mein daalo. Phir apne kisi dost se message karwa ke dekho: kya counter pe namaste hua?' }
     ],
     related: [{ slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }]
+  },
+  {
+    day: 10, slug: 'nap-consistency-checklist', keyword: 'NAAM', release: '2026-11-04T11:00',
+    title: 'Ek dukaan, teen naam',
+    h1: 'NAP Consistency Checklist: Same Business Name, Address and Phone Everywhere (ek dukaan, teen naam = customer gaya)',
+    seoTitle: 'NAP Consistency Checklist: Same Name, Address, Phone Everywhere (Free PDF)',
+    description: 'Ek dukaan, teen naam = customer confuse. A NAP consistency checklist for small businesses: the 10 places where your business name, address and phone number must match, a master NAP card and a free printable PDF.',
+    summary: 'Naam, number, address: har jagah ek. 10 jagah ki checklist + master NAP card.',
+    blocks: [
+      { type: 'why', title: 'Ek dukaan, teen naam', text: 'Ghar ka address teen jagah teen alag likha ho, toh courier kahan pahunchega? Kahin nahi. Dukaan ke saath bhi yahi hota hai. Example: Riya ko shaam ka birthday cake chahiye. Woh Google pe "Sharma Bakers" dhoondhti hai. Google pe naam hai "Sharma Cake Shop", Instagram pe "cakes by sharma", board pe "Sharma Bakers". Riya confuse: yeh teen dukaan hain ya ek? Google wala number lagati hai, woh purana number hai, koi nahi uthata. Cake bagal wali bakery se jaata hai. Naam mein hi customer rakha hai. Isi ko NAP consistency kehte hain: Name, Address, Phone har jagah bilkul ek.' },
+      { type: 'check', title: '10 jagah jahan naam, number aur address ek hona chahiye', items: [
+        ['Google Business Profile', 'Naam bilkul board jaisa, wahi phone number jo sach mein uthta hai, poora address aur sahi map pin.'],
+        ['Google Maps pin', 'Pin dukaan ke darwaze pe ho, gali ke kone pe nahi. Do listing dikhen toh purani wali hatwao.'],
+        ['Instagram', 'Profile name + bio mein wahi naam, wahi number, wahi area. Username alag ho sakta hai, naam nahi.'],
+        ['Facebook page', 'Page ka naam, phone aur address wahi. Purana page ho toh band karo ya naya wala link karo.'],
+        ['WhatsApp Business profile', 'Business name, address, timing aur website wahi jo Google pe hai.'],
+        ['Justdial / IndiaMART / Sulekha', 'Purani listing mein purana number sabse zyada milta hai. Ek baar sab check karo.'],
+        ['Website', 'Footer aur contact page pe wahi naam, address, number. Har page pe ek jaisa.'],
+        ['Zomato / Swiggy / Practo jaise apps', 'Agar aap wahan ho: naam aur number wahi. Customer wahan se bhi call karta hai.'],
+        ['Visiting card, bill, packaging', 'Print pe purana number sabse lamba chalta hai. Naya print ho toh naya number.'],
+        ['Shop board', 'Board ka naam hi master naam hai. Baaki sab jagah isi spelling mein.']
+      ] },
+      { type: 'templates', title: 'Master NAP card (ek baar likho, har jagah copy karo)', items: [
+        ['Naam (exact spelling)', '{Sharma Bakers}: board wali spelling. Na "Sharma Cake Shop", na "cakes by sharma".'],
+        ['Address (ek hi format)', '{Shop no.}, {building}, {road}, {area}, {city} {PIN}. Har jagah isi kram mein.'],
+        ['Phone + WhatsApp', '{98XXX XXXXX}: wahi number jo din bhar koi uthata hai. Number badle toh aaj hi har jagah badlo.']
+      ] },
+      { type: 'table', title: 'NAP check table: kahan kya likha hai', head: ['Jagah', 'Naam', 'Phone', 'Address', 'Match?'], rows: [
+        ['Example: Google', 'Sharma Cake Shop', 'purana number', 'sahi', '✗ naam + number'],
+        ['Example: Instagram', 'cakes by sharma', 'nahi diya', 'nahi diya', '✗'],
+        ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', ''], ['', '', '', '', '']
+      ] },
+      { type: 'note', text: 'Upar Riya, Sharma Bakers aur table ki entries example hain: apne business ka naam aur number daalo. Naam chhota-bada ya spelling ka farak bhi customer ko alag dukaan lagta hai. Google pe koi aur "edit suggest" karke naam ya number badal de, toh Business Profile mein dekhte raho.' },
+      { type: 'task', text: 'Aaj ka kaam: apni dukaan ka naam Google, Google Maps, Instagram aur Justdial pe search karo. Table mein likho kahan kaunsa naam aur number dikh raha hai. Jahan bhi ✗ aaye, wahi kal ka kaam hai.' }
+    ],
+    related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }]
   }
 ];
 
