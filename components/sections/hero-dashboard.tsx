@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { Phone, TrendingUp, Users, CheckCircle2 } from "lucide-react";
 import { CountUp } from "@/components/ui/motion-primitives";
+import { HeroSwarm } from "@/components/sections/hero-swarm";
 
 /**
  * Connected marketing + lead-management interface mock.
@@ -21,53 +22,55 @@ export function HeroDashboard() {
 
       <div className="glass rounded-xl p-4 shadow-lift sm:p-5">
         {/* header row */}
-        <div className="flex items-center justify-between border-b border-line/70 pb-3">
+        <div data-swarm-block={0} className="swarm-block flex items-center justify-between border-b border-line/70 pb-3">
           <div className="flex items-center gap-2">
-            <span className="h-2.5 w-2.5 rounded-full bg-accent" />
-            <span className="font-sans text-[13px] font-semibold text-ink">
+            <span data-swarm-part="dot" className="h-2.5 w-2.5 rounded-full bg-accent" />
+            <span data-swarm-part="text" className="font-sans text-[13px] font-semibold text-ink">
               Connected Growth Demo
             </span>
           </div>
-          <span className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-ink">
+          <span data-swarm-part="pill" className="rounded-full bg-accent-tint px-2.5 py-1 font-sans text-[11px] font-semibold text-accent-ink">
             Illustrative
           </span>
         </div>
 
         {/* KPI row */}
-        <div className="mt-4 grid grid-cols-3 gap-3">
+        <div data-swarm-block={1} className="swarm-block mt-4 grid grid-cols-3 gap-3">
           {[
             { label: "Languages", end: 130, decimals: 0, suffix: "+", icon: Users },
             { label: "Calling channels", end: 3, decimals: 0, suffix: "", icon: TrendingUp },
             { label: "Always active", end: 24, decimals: 0, suffix: "/7", icon: Phone },
           ].map((kpi, i) => (
+            <div key={kpi.label} data-swarm-part="card" {...(i > 0 ? { "data-swarm-dup": "" } : {})}>
             <motion.div
-              key={kpi.label}
-              className="rounded-sm border border-line/70 bg-card/70 p-3"
+              className="h-full rounded-sm border border-line/70 bg-card/70 p-3"
               initial={reduce ? false : { opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : undefined}
               transition={{ delay: 0.28 + i * 0.08, duration: 0.45 }}
             >
-              <kpi.icon className="h-4 w-4 text-accent-strong" strokeWidth={1.75} />
-              <p className="mt-2 font-display text-lg font-extrabold text-ink">
+              <kpi.icon data-swarm-part="icon" className="h-4 w-4 text-accent-strong" strokeWidth={1.75} />
+              <p data-swarm-part="text" className="mt-2 font-display text-lg font-extrabold text-ink">
                 <CountUp end={kpi.end} decimals={kpi.decimals} suffix={kpi.suffix} />
               </p>
-              <p className="font-sans text-[11px] text-muted">{kpi.label}</p>
+              <p data-swarm-part="text" className="font-sans text-[11px] text-muted">{kpi.label}</p>
             </motion.div>
+            </div>
           ))}
         </div>
 
         {/* chart */}
-        <div className="mt-3 rounded-sm border border-line/70 bg-card/70 p-4">
+        <div data-swarm-block={2} className="swarm-block mt-3 rounded-sm border border-line/70 bg-card/70 p-4">
           <div className="flex items-center justify-between">
-            <span className="font-sans text-[12px] font-medium text-ink-2">
+            <span data-swarm-part="text" className="font-sans text-[12px] font-medium text-ink-2">
               Connected workflow activity
             </span>
-            <span className="font-sans text-[11px] font-semibold text-success">All systems connected</span>
+            <span data-swarm-part="text" className="font-sans text-[11px] font-semibold text-success">All systems connected</span>
           </div>
           <div className="mt-4 flex h-24 items-end gap-1.5">
             {bars.map((h, i) => (
               <motion.div
                 key={i}
+                data-swarm-part="bar"
                 className={`flex-1 rounded-t-[3px] ${
                   i === bars.length - 1 ? "bg-accent" : "bg-accent/25"
                 }`}
@@ -85,8 +88,8 @@ export function HeroDashboard() {
 
         {/* pipeline / follow-up row */}
         <div className="mt-3 grid grid-cols-2 gap-3">
-          <div className="rounded-sm border border-line/70 bg-card/70 p-3">
-            <p className="font-sans text-[11px] text-muted">Pipeline</p>
+          <div data-swarm-block={3} className="swarm-block rounded-sm border border-line/70 bg-card/70 p-3">
+            <p data-swarm-part="text" className="font-sans text-[11px] text-muted">Pipeline</p>
             <div className="mt-2 space-y-2">
               {[
                 { stage: "Inbound", w: "82%" },
@@ -95,10 +98,11 @@ export function HeroDashboard() {
               ].map((row) => (
                 <div key={row.stage}>
                   <div className="flex justify-between">
-                    <span className="font-sans text-[11px] text-ink-2">{row.stage}</span>
+                    <span data-swarm-part="text" className="font-sans text-[11px] text-ink-2">{row.stage}</span>
                   </div>
                   <div className="mt-1 h-1.5 w-full rounded-full bg-line/70">
                     <motion.div
+                      data-swarm-part="fill"
                       className="h-full rounded-full bg-accent-strong"
                       initial={reduce ? false : { width: 0 }}
                       animate={inView ? { width: row.w } : undefined}
@@ -109,13 +113,13 @@ export function HeroDashboard() {
               ))}
             </div>
           </div>
-          <div className="rounded-sm border border-line/70 bg-card/70 p-3">
-            <p className="font-sans text-[11px] text-muted">Follow-up status</p>
+          <div data-swarm-block={4} className="swarm-block rounded-sm border border-line/70 bg-card/70 p-3">
+            <p data-swarm-part="text" className="font-sans text-[11px] text-muted">Follow-up status</p>
             <ul className="mt-2 space-y-2">
               {["Auto SMS sent", "Call booked", "Email nurture"].map((item) => (
                 <li key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-success" strokeWidth={2} />
-                  <span className="font-sans text-[11px] text-ink-2">{item}</span>
+                  <CheckCircle2 data-swarm-part="icon" className="h-3.5 w-3.5 text-success" strokeWidth={2} />
+                  <span data-swarm-part="text" className="font-sans text-[11px] text-ink-2">{item}</span>
                 </li>
               ))}
             </ul>
@@ -124,15 +128,17 @@ export function HeroDashboard() {
       </div>
 
       {/* floating conversion chip */}
-      <div className="absolute -bottom-5 -left-3 hidden animate-float items-center gap-3 rounded-lg glass p-3 shadow-soft sm:flex">
-        <div className="flex h-9 w-9 items-center justify-center rounded-sm bg-accent">
+      <div data-swarm-block={5} className="swarm-block absolute -bottom-5 -left-3 hidden animate-float items-center gap-3 rounded-lg glass p-3 shadow-soft sm:flex">
+        <div data-swarm-part="icon" className="flex h-9 w-9 items-center justify-center rounded-sm bg-accent">
           <TrendingUp className="h-5 w-5 text-accent-ink" strokeWidth={2} />
         </div>
         <div>
-          <p className="font-sans text-[11px] text-muted">Always-on response</p>
-          <p className="font-display text-base font-extrabold text-ink">24/7 coverage</p>
+          <p data-swarm-part="text" className="font-sans text-[11px] text-muted">Always-on response</p>
+          <p data-swarm-part="text" className="font-display text-base font-extrabold text-ink">24/7 coverage</p>
         </div>
       </div>
+
+      <HeroSwarm />
     </div>
   );
 }

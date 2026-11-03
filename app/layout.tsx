@@ -58,6 +58,12 @@ const themeScript = `
     var isDark = stored ? stored === 'dark' : systemDark;
     document.documentElement.classList.toggle('dark', isDark);
 
+    // Homepage first-impression animation: tablet and desktop, once per session, never with reduced motion.
+    if (location.pathname === '/' && window.innerWidth >= 768 &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('vistrow-swarm')) {
+      document.documentElement.setAttribute('data-swarm', '1');
+    }
+
     var accent = localStorage.getItem('vistrow-accent');
     if (accent && accent !== 'lime') {
       document.documentElement.setAttribute('data-accent', accent);
