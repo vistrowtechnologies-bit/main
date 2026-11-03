@@ -4,6 +4,7 @@ import { HeroDashboard } from "@/components/sections/hero-dashboard";
 import { Reveal } from "@/components/ui/reveal";
 import { ScrollParallax } from "@/components/ui/motion-primitives";
 import BlurText from "@/components/ui/blur-text";
+import { SwarmText } from "@/components/ui/swarm-text";
 
 export function Hero() {
   return (
@@ -16,8 +17,8 @@ export function Hero() {
       <div aria-hidden className="pointer-events-none absolute -right-40 top-10 -z-10 h-[460px] w-[460px] rounded-full bg-accent/10 blur-[110px]" />
       <div className="container-edge grid grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
         <div className="max-w-2xl">
-          <p className="eyebrow mb-5">AI agency · Pune</p>
-          <h1 className="font-display text-hero-lg text-ink">
+          <p data-swarm-text="eyebrow" className="eyebrow mb-5">AI agency · Pune</p>
+          <h1 data-swarm-text="title" className="font-display text-hero-lg text-ink">
             <BlurText
               as="span"
               text="The AI agency that turns enquiries"
@@ -38,7 +39,7 @@ export function Hero() {
           </h1>
 
           <Reveal delay={0.16} direction="right" distance={24}>
-            <p className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
+            <p data-swarm-text="subtitle" className="mt-6 max-w-[620px] font-sans text-lg leading-[1.65] text-muted">
               Vistrow builds AI voice agents, WhatsApp AI agents and AI CRM, and runs the
               performance marketing and websites that bring the leads in, so every enquiry
               is answered, followed up and tracked to revenue.
@@ -46,7 +47,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.24} direction="right" distance={18}>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div data-swarm-text="cta" className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link href="/growth-audit" className="btn-primary px-8 py-4 text-base">
                 Request a Growth Audit
                 <ArrowRight className="h-5 w-5" strokeWidth={2} />
@@ -64,6 +65,7 @@ export function Hero() {
           </ScrollParallax>
         </Reveal>
       </div>
+      <SwarmText />
     </section>
   );
 }

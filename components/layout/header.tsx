@@ -7,7 +7,7 @@ import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import { primaryNav, type NavItem } from "@/lib/nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Wordmark } from "@/components/ui/wordmark";
-import { MarketSwitcher, currentMarket, markets } from "@/components/layout/market-switcher";
+import { Flag, MarketSwitcher, currentMarket, markets } from "@/components/layout/market-switcher";
 
 export function Header() {
   const pathname = usePathname();
@@ -302,10 +302,11 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                     href={m.href}
                     onClick={onClose}
                     aria-current={m.code === activeMarket.code ? "true" : undefined}
-                    className={`flex h-11 items-center justify-center rounded-md border font-sans text-sm font-semibold ${
+                    className={`flex h-11 items-center justify-center gap-2 rounded-md border font-sans text-sm font-semibold ${
                       m.code === activeMarket.code ? "border-accent bg-accent/10 text-ink" : "border-line text-ink-2"
                     }`}
                   >
+                    <Flag code={m.code} size={18} />
                     {m.code}
                   </Link>
                 </li>

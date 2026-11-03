@@ -227,6 +227,12 @@ body:has(.review-experience) .vistrow-shell-tools {
   html[data-swarm="1"] [data-swarm-part]:not(.swarm-in) {
     animation: swarm-failsafe 0.01s linear 10s forwards;
   }
+  /* Hero text: hidden only while html[data-swarm-text] is set; the failsafe is short so a slow script never delays it. */
+  html[data-swarm-text="1"] [data-swarm-text]:not(.swarm-in) {
+    opacity: 0;
+    animation: swarm-failsafe 0.01s linear 1.5s forwards;
+  }
+
   @keyframes swarm-failsafe {
     to {
       opacity: 1;

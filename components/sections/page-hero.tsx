@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Breadcrumb, type Crumb } from "@/components/ui/breadcrumb";
 import BlurText from "@/components/ui/blur-text";
+import { SwarmText } from "@/components/ui/swarm-text";
 
 export type CtaLink = { label: string; href: string; external?: boolean };
 
@@ -42,8 +43,8 @@ export function PageHero({
           <div className={aside ? "" : "flex justify-center"}>
             <Breadcrumb items={breadcrumb} />
           </div>
-          {eyebrow && <p className="eyebrow mt-6">{eyebrow}</p>}
-          <h1 className="mt-4 font-display text-hero-lg text-ink">
+          {eyebrow && <p data-swarm-text="eyebrow" className="eyebrow mt-6">{eyebrow}</p>}
+          <h1 data-swarm-text="title" className="mt-4 font-display text-hero-lg text-ink">
             <BlurText
               as="span"
               text={title}
@@ -74,13 +75,14 @@ export function PageHero({
             )}
           </h1>
           <p
+            data-swarm-text="subtitle"
             className={`mt-5 font-sans text-lg leading-[1.65] text-muted ${
               aside ? "max-w-xl" : "mx-auto max-w-2xl"
             }`}
           >
             {subtitle}
           </p>
-          <div className={`mt-8 flex flex-col gap-3 sm:flex-row ${aside ? "" : "justify-center"}`}>
+          <div data-swarm-text="cta" className={`mt-8 flex flex-col gap-3 sm:flex-row ${aside ? "" : "justify-center"}`}>
             <ActionLink cta={primaryCta} className="btn-primary px-7 py-3.5 text-base" />
             {secondaryCta && (
               <ActionLink cta={secondaryCta} className="btn-secondary px-7 py-3.5 text-base" />
@@ -89,6 +91,7 @@ export function PageHero({
         </div>
         {aside && <div className="relative lg:pl-4">{aside}</div>}
       </div>
+      <SwarmText />
     </section>
   );
 }

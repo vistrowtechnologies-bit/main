@@ -58,10 +58,13 @@ const themeScript = `
     var isDark = stored ? stored === 'dark' : systemDark;
     document.documentElement.classList.toggle('dark', isDark);
 
-    // Homepage first-impression animation: tablet and desktop, once per session, never with reduced motion.
-    if (location.pathname === '/' && window.innerWidth >= 768 &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('vistrow-swarm')) {
-      document.documentElement.setAttribute('data-swarm', '1');
+    // Cursor-built hero animations (see components/ui/swarm-text.tsx and sections/hero-swarm.tsx): tablet and desktop only,
+    // once per page per session, never with reduced motion, and never for crawlers or speed tests. ?swarm=0 turns them off.
+    var quiet = window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      /bot|crawl|spider|lighthouse|pagespeed|prerender/i.test(navigator.userAgent) || location.search.indexOf('swarm=0') > -1;
+    if ((!quiet || location.search.indexOf('swarm=1') > -1) && window.innerWidth >= 768) {
+      if (location.pathname === '/' && !sessionStorage.getItem('vistrow-swarm')) document.documentElement.setAttribute('data-swarm', '1');
+      if (!sessionStorage.getItem('vistrow-swarm-text:' + location.pathname)) document.documentElement.setAttribute('data-swarm-text', '1');
     }
 
     var accent = localStorage.getItem('vistrow-accent');

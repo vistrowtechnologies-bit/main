@@ -84,7 +84,12 @@ export function HeroSwarm() {
 
     const run = async () => {
       // Let the page paint and settle before the effect starts, so it never competes with the headline.
-      await sleep(500);
+      if (root.dataset.swarmText === "1") {
+        await Promise.race([new Promise<void>((resolve) => window.addEventListener("swarm-text-done", () => resolve(), { once: true })), sleep(3500)]);
+        await sleep(150);
+      } else {
+        await sleep(500);
+      }
       if (stopped) return;
       setRunning(true);
 
