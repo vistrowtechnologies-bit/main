@@ -173,23 +173,55 @@ export function serviceSchema(input: {
   };
 }
 
+// Google only accepts a Product when it carries an offer, a review or a rating. A product with a published price
+// (ArthaLeads) is described as a Product with that offer; one without a public price (Vistrow Voice, Vistrow Labs)
+// is described as a Service instead, so no price is ever invented.
 export function productSchema(input: {
   name: string;
   description: string;
   path: string;
   externalUrl?: string;
+  offers?: JsonLdValue;
 }): JsonLdValue {
-  return {
-    "@type": "Product",
-    "@id": `${siteUrl}${input.path}#product`,
+  const base = {
     name: input.name,
     description: input.description,
     url: `${siteUrl}${input.path}`,
     brand: { "@type": "Brand", name: siteName },
-    manufacturer: { "@id": `${siteUrl}/#organization` },
     ...(input.externalUrl ? { sameAs: input.externalUrl } : {}),
   };
+  if (!input.offers) {
+    return {
+      "@type": "Service",
+      "@id": `${siteUrl}${input.path}#service`,
+      serviceType: "Software",
+      provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: ["India", "Worldwide"],
+      ...base,
+    };
+  }
+  return {
+    "@type": "Product",
+    "@id": `${siteUrl}${input.path}#product`,
+    manufacturer: { "@id": `${siteUrl}/#organization` },
+    offers: input.offers,
+    ...base,
+  };
 }
+
+// ArthaLeads list prices, as published on its pricing page (per user per month, plus 18% GST, five-seat minimum).
+export const arthaLeadsOffers: JsonLdValue = {
+  "@type": "AggregateOffer",
+  priceCurrency: "INR",
+  lowPrice: "599",
+  highPrice: "999",
+  offerCount: 2,
+  url: "https://www.arthaleads.com/pricing",
+  offers: [
+    { "@type": "Offer", name: "Starter", price: "599", priceCurrency: "INR", description: "Per user per month plus 18% GST, five-seat minimum, 14-day free trial", url: "https://www.arthaleads.com/pricing" },
+    { "@type": "Offer", name: "Growth", price: "999", priceCurrency: "INR", description: "Per user per month plus 18% GST, five-seat minimum, 14-day free trial", url: "https://www.arthaleads.com/pricing" },
+  ],
+};
 
 export function articleSchema(input: {
   title: string;

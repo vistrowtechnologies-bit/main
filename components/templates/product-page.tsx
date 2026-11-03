@@ -13,7 +13,7 @@ import { ProductDemoCall, ProductLanguages, ProductPlans } from "@/components/se
 import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import type { ProductContent } from "@/lib/content-types";
-import { breadcrumbSchema, faqSchema, graph, productSchema } from "@/lib/structured-data";
+import { arthaLeadsOffers, breadcrumbSchema, faqSchema, graph, productSchema } from "@/lib/structured-data";
 
 export function ProductPage({
   content,
@@ -38,6 +38,7 @@ export function ProductPage({
             description: content.metaDescription,
             path,
             externalUrl: content.externalUrl,
+            ...(content.slug === "arthaleads" ? { offers: arthaLeadsOffers } : {}),
           }),
           ...(content.faqs && content.faqs.length > 0 ? [faqSchema(content.faqs)] : []),
         ])}
