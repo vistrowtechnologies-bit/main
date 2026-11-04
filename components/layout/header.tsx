@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
@@ -78,7 +78,7 @@ export function Header() {
         </div>
 
         <ul className="hidden items-center justify-self-center gap-0.5 lg:flex xl:gap-1">
-          {primaryNav.map((item) => (
+          {primaryNav.filter((item) => item.href !== "/").map((item) => (
             <li
               key={item.label}
               className="relative"
@@ -186,11 +186,41 @@ function NavTrigger({
   );
 }
 
+// Anchors a dropdown under its trigger, then slides it back inside the page edges so it is never cut off.
+function DropdownFrame({ width, children }: { width: number; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shift, setShift] = useState(0);
+
+  useLayoutEffect(() => {
+    const place = () => {
+      const el = ref.current;
+      const li = el?.parentElement;
+      const nav = li?.closest("nav");
+      if (!el || !li || !nav) return;
+      const box = nav.getBoundingClientRect();
+      const pad = parseFloat(getComputedStyle(nav).paddingLeft) || 0;
+      const w = Math.min(width, window.innerWidth * 0.92);
+      const triggerLeft = li.getBoundingClientRect().left;
+      const left = Math.max(box.left + pad, Math.min(triggerLeft, box.right - pad - w));
+      setShift(left - triggerLeft);
+    };
+    place();
+    window.addEventListener("resize", place);
+    return () => window.removeEventListener("resize", place);
+  }, [width]);
+
+  return (
+    <div ref={ref} style={{ left: shift }} className="absolute top-full z-50 pt-3">
+      {children}
+    </div>
+  );
+}
+
 function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
   if (item.groups) {
     return (
-      <div className="absolute left-0 top-full z-50 pt-3">
-        <div className="dropdown-glass w-[min(92vw,580px)] overflow-hidden rounded-lg p-5 animate-rise-in">
+      <DropdownFrame width={640}>
+        <div className="dropdown-glass w-[min(92vw,640px)] overflow-hidden rounded-lg p-5 animate-rise-in">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {item.groups.map((group) => (
               <div key={group.title}>
@@ -214,27 +244,29 @@ function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
             ))}
           </div>
           {item.linkRows && (
-            <div className="mt-5 space-y-2">
+            <div className="mt-5 grid gap-2 border-t border-line/50 pt-4 sm:grid-cols-3">
               {item.linkRows.map((row) => (
-                <div
+                <Link
                   key={row.href}
-                  className="flex items-center justify-between rounded-sm border border-line/50 bg-surface/75 px-4 py-3"
+                  href={row.href}
+                  onClick={onClose}
+                  className="group flex h-full flex-col justify-between gap-1.5 rounded-sm border border-line/50 bg-surface/75 px-3.5 py-3 transition-colors hover:border-accent/60"
                 >
-                  <span className="font-sans text-[13px] text-muted">{row.label}</span>
-                  <Link href={row.href} onClick={onClose} className="btn-ghost">
+                  <span className="font-sans text-[13px] leading-snug text-muted">{row.label}</span>
+                  <span className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-ink group-hover:text-accent-strong">
                     {row.cta} <ArrowRight className="h-4 w-4" strokeWidth={2} />
-                  </Link>
-                </div>
+                  </span>
+                </Link>
               ))}
             </div>
           )}
         </div>
-      </div>
+      </DropdownFrame>
     );
   }
 
   return (
-    <div className="absolute left-0 top-full z-50 pt-3">
+    <DropdownFrame width={560}>
       <div className="dropdown-glass w-[min(92vw,560px)] overflow-hidden rounded-lg p-2 animate-rise-in">
         <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
           {item.children!.map((child) => (
@@ -262,7 +294,7 @@ function MegaMenu({ item, onClose }: { item: NavItem; onClose: () => void }) {
           </Link>
         </div>
       </div>
-    </div>
+    </DropdownFrame>
   );
 }
 
