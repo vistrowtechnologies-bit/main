@@ -1,13 +1,11 @@
 import Image from "next/image";
 import { ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/sections/page-hero";
-import { FeatureCards } from "@/components/sections/feature-cards";
-import { Steps } from "@/components/sections/steps";
 import { Chips } from "@/components/sections/outcomes";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
-import { AnswerSummary } from "@/components/sections/answer-summary";
-import { Reveal } from "@/components/ui/reveal";
+import { ChallengeGrid, FactStrip, Timeline } from "@/components/sections/service-blocks";
+import { Section } from "@/components/ui/section";
 import { BrowserFrame, ProductTour } from "@/components/sections/product-tour";
 import { ProductDemoCall, ProductLanguages, ProductPlans } from "@/components/sections/product-extras";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -65,61 +63,45 @@ export function ProductPage({
         aside={content.screenshots?.length ? <ProductHeroShot screens={content.screenshots} /> : preview}
       />
 
-      <AnswerSummary
-        question={`What is ${content.name}?`}
+      <FactStrip
         answer={content.metaDescription}
-        groups={[
-          { label: "Best-fit uses", items: content.useCases.map((item) => item.title) },
-          { label: "Key capabilities", items: content.features.slice(0, 3).map((item) => item.title) },
-          { label: "Connects with", items: content.integrations.slice(0, 3) },
+        facts={[
+          { label: "Best for", value: content.useCases[0]?.title ?? content.name },
+          { label: "Connects with", value: content.integrations.slice(0, 3).join(", ") },
+          { label: "Capabilities", value: `${content.features.length} core features` },
         ]}
       />
 
       {content.screenshots && content.screenshots.length > 0 && <ProductScreens name={content.name} screens={content.screenshots} />}
 
-      {content.demoCall && <ProductDemoCall call={content.demoCall} />}
+      <div className="[&>section]:py-block">
+        {content.demoCall && <ProductDemoCall call={content.demoCall} />}
+        {content.languages && <ProductLanguages languages={content.languages} />}
+      </div>
 
-      {content.languages && <ProductLanguages languages={content.languages} />}
+      <ChallengeGrid eyebrow="Use cases" title="Where it earns its place" items={content.useCases} tone={content.languages ? "plain" : "surface"} />
 
-      <FeatureCards eyebrow="Use cases" title="Where it earns its place" items={content.useCases} surface={!content.languages} />
+      <ChallengeGrid eyebrow="Features" title="Built for real workflows" items={content.features} tone={content.languages ? "surface" : "plain"} />
 
-      <FeatureCards eyebrow="Features" title="Built for real workflows" items={content.features} />
+      <Timeline steps={content.howItWorks} tone="plain" />
 
-      <Steps steps={content.howItWorks} surface />
+      <div className="[&>section]:py-block">
+        <Chips eyebrow="Integrations" title="Connects to your stack" items={content.integrations} />
+        {content.plans && <ProductPlans plans={content.plans} />}
+      </div>
 
-      <Chips eyebrow="Integrations" title="Connects to your stack" items={content.integrations} />
+      <ChallengeGrid
+        eyebrow="Trust & control"
+        title="Built to stay observable, governed, and dependable"
+        items={content.security.map((item) => ({ ...item, icon: item.icon ?? ShieldCheck }))}
+        tone="surface"
+      />
 
-      {content.plans && <ProductPlans plans={content.plans} />}
-
-      {/* Trust / reliability */}
-      <section className="py-section">
-        <div className="container-edge">
-          <SectionHeading
-            eyebrow="Trust & control"
-            title="Built to stay observable, governed, and dependable"
-            align="center"
-            className="mb-12"
-          />
-          <div className={`grid grid-cols-1 gap-gutter sm:grid-cols-2 ${content.security.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
-            {content.security.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.07}>
-                <div className="h-full rounded-lg border border-line bg-card p-7">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-sm bg-accent-tint">
-                    {(() => {
-                      const Icon = item.icon ?? ShieldCheck;
-                      return <Icon className="h-5 w-5 text-accent-ink" strokeWidth={1.75} />;
-                    })()}
-                  </div>
-                  <h3 className="mt-4 font-display text-lg font-bold text-ink">{item.title}</h3>
-                  <p className="mt-2 font-sans text-sm leading-relaxed text-muted">{item.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+      {content.faqs && content.faqs.length > 0 && (
+        <div className="[&>section]:py-block">
+          <Faq items={content.faqs} />
         </div>
-      </section>
-
-      {content.faqs && content.faqs.length > 0 && <Faq items={content.faqs} />}
+      )}
 
       <CtaBand
         title={`See ${content.name} in action.`}
@@ -168,16 +150,14 @@ function ProductHeroShot({ screens }: { screens: Screen[] }) {
 // Real screens from the live product as a tabbed tour, each captioned so the image and its meaning are both indexable.
 function ProductScreens({ name, screens }: { name: string; screens: Screen[] }) {
   return (
-    <section className="py-section">
-      <div className="container-edge">
-        <SectionHeading
-          eyebrow="Real product screens"
-          title={`See inside ${name}`}
-          description="Screens from the live product, shown with a demo workspace."
-          className="mb-8 max-w-3xl"
-        />
-        <ProductTour screens={screens.filter((screen) => !isPhone(screen))} phone={screens.find(isPhone)} />
-      </div>
-    </section>
+    <Section>
+      <SectionHeading
+        eyebrow="Real product screens"
+        title={`See inside ${name}`}
+        description="Screens from the live product, shown with a demo workspace."
+        className="mb-8 max-w-3xl"
+      />
+      <ProductTour screens={screens.filter((screen) => !isPhone(screen))} phone={screens.find(isPhone)} />
+    </Section>
   );
 }

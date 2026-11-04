@@ -164,10 +164,10 @@ export function Deliverables({
 }
 
 /** What slows growth: one card per challenge, with its icon when it has one. */
-export function ChallengeGrid({ eyebrow = "Common challenges", title, items }: { eyebrow?: string; title: string; items: Feature[] }) {
+export function ChallengeGrid({ eyebrow = "Common challenges", title, items, tone = "plain" }: { eyebrow?: string; title: string; items: Feature[]; tone?: "plain" | "surface" }) {
   const cols = items.length === 3 ? "md:grid-cols-3" : items.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3";
   return (
-    <Section>
+    <Section tone={tone}>
       <SectionHeading eyebrow={eyebrow} title={title} align="center" className="mb-12" />
       <div className={`grid grid-cols-1 gap-6 ${cols}`}>
         {items.map((item, i) => (
