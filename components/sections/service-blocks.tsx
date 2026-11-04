@@ -1,5 +1,7 @@
 import Image from "next/image";
-import { CheckCircle2, X } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CheckCircle2, X } from "lucide-react";
+import type { Feature } from "@/components/sections/feature-cards";
 import { Reveal } from "@/components/ui/reveal";
 import { Card, Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -78,10 +80,20 @@ export function ProblemOutcome({
 }
 
 /** Numbered steps joined by a line: across on desktop, down the left on phones. */
-export function Timeline({ steps }: { steps: Step[] }) {
+export function Timeline({
+  steps,
+  eyebrow = "How it works",
+  title = "A clear, repeatable process",
+  tone = "surface",
+}: {
+  steps: Step[];
+  eyebrow?: string;
+  title?: string;
+  tone?: "plain" | "surface";
+}) {
   return (
-    <Section tone="surface">
-      <SectionHeading eyebrow="How it works" title="A clear, repeatable process" align="center" className="mb-12" />
+    <Section tone={tone}>
+      <SectionHeading eyebrow={eyebrow} title={title} align="center" className="mb-12" />
       <ol className="grid gap-10 lg:grid-cols-4 lg:gap-8">
         {steps.map((step, i) => (
           <Reveal key={step.title} delay={i * 0.07}>
@@ -146,6 +158,76 @@ export function Deliverables({
             </div>
           </Reveal>
         </div>
+      </div>
+    </Section>
+  );
+}
+
+/** What slows growth: one card per challenge, with its icon when it has one. */
+export function ChallengeGrid({ eyebrow = "Common challenges", title, items }: { eyebrow?: string; title: string; items: Feature[] }) {
+  const cols = items.length === 3 ? "md:grid-cols-3" : items.length === 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3";
+  return (
+    <Section>
+      <SectionHeading eyebrow={eyebrow} title={title} align="center" className="mb-12" />
+      <div className={`grid grid-cols-1 gap-6 ${cols}`}>
+        {items.map((item, i) => (
+          <Reveal key={item.title} delay={(i % 4) * 0.06} className="h-full">
+            <Card>
+              {item.icon && (
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-sm bg-accent-tint">
+                  <item.icon className="h-6 w-6 text-accent-ink" strokeWidth={1.75} />
+                </div>
+              )}
+              <h3 className="font-display text-lg font-bold text-ink">{item.title}</h3>
+              <p className="mt-2 font-sans text-base leading-relaxed text-muted">{item.body}</p>
+            </Card>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/** The solution: heading and copy on the left, the points as one accent card on the right. */
+export function SolutionSplit({ eyebrow = "The Vistrow solution", title, body, points }: { eyebrow?: string; title: string; body: string; points: string[] }) {
+  return (
+    <Section tone="surface">
+      <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <SectionHeading eyebrow={eyebrow} title={title} description={body} />
+        <Reveal delay={0.08}>
+          <Card accent>
+            <ul className="space-y-4">
+              {points.map((point) => (
+                <li key={point} className="flex items-start gap-3 font-sans text-base text-ink-2">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" strokeWidth={2} />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
+
+/** Links to the services that matter for this page. */
+export function ServiceLinkGrid({ eyebrow = "Relevant services", title, services }: { eyebrow?: string; title: string; services: { label: string; href: string }[] }) {
+  return (
+    <Section tone="surface">
+      <SectionHeading eyebrow={eyebrow} title={title} align="center" className="mb-12" />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((service, i) => (
+          <Reveal key={service.href} delay={(i % 3) * 0.06} className="h-full">
+            <Link
+              href={service.href}
+              className="group flex h-full items-center justify-between gap-3 rounded-lg border border-line bg-card p-6 transition-colors hover:border-accent/60"
+            >
+              <span className="font-display text-lg font-bold text-ink">{service.label}</span>
+              <ArrowRight className="h-5 w-5 shrink-0 text-muted transition-transform group-hover:translate-x-1" strokeWidth={2} />
+            </Link>
+          </Reveal>
+        ))}
       </div>
     </Section>
   );
