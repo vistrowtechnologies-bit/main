@@ -18,10 +18,10 @@ export function ServiceShowcase({ eyebrow, title, body, shots }: { eyebrow: stri
   // A single phone screen sits beside the copy instead of filling the width.
   if (shots.length === 1 && isPhone(shots[0])) {
     return (
-      <section className="border-y border-line bg-surface py-section">
-        <div className="container-edge grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-20">
+      <section className="border-y border-line bg-surface py-block">
+        <div className="container-edge grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {heading}
-          <Reveal className="mx-auto w-full max-w-[260px]">
+          <Reveal className="mx-auto w-full max-w-[280px] lg:justify-self-center">
             <Shot shot={shots[0]} sizes="260px" />
           </Reveal>
         </div>
@@ -36,7 +36,7 @@ export function ServiceShowcase({ eyebrow, title, body, shots }: { eyebrow: stri
   const grid = shots.length === 4;
 
   return (
-    <section className="border-y border-line bg-surface py-section">
+    <section className="border-y border-line bg-surface py-block">
       <div className="container-edge">
         {heading}
         {pairs || grid ? (
@@ -131,10 +131,9 @@ export function HeroScreen({ shot }: { shot: ShowcaseShot }) {
     <div className="relative">
       <div aria-hidden className="absolute -inset-6 -z-10 rounded-[40px] bg-accent/15 blur-3xl" />
       {shot.frame === "none" ? (
-        <div className="lg:-mr-20 xl:-mr-32">{image}</div>
+        <div>{image}</div>
       ) : shot.frame === "browser" ? (
-        // App screens run large and off the right edge, the way product sites show their UI.
-        <BrowserFrame className="lg:-mr-40 xl:-mr-64" url={shot.url}>{image}</BrowserFrame>
+        <BrowserFrame url={shot.url}>{image}</BrowserFrame>
       ) : phone ? (
         <div className="mx-auto max-w-[280px] overflow-hidden rounded-[28px] border-[6px] border-ink bg-ink shadow-lift">{image}</div>
       ) : (

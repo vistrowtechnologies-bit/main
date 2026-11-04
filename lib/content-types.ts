@@ -33,6 +33,8 @@ export type ServiceContent = {
   /** H1 text when it should differ from the short title used in breadcrumbs and headings. */
   heroTitle?: string;
   costGuide?: CostGuide;
+  /** Three plain facts under the hero, true for this service (no invented numbers). */
+  facts?: { label: string; value: string }[];
 };
 
 export type CostGuide = { title: string; body: string; factors: { label: string; body: string }[] };

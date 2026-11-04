@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ServicePage } from "@/components/templates/service-page";
+import { ServicePage } from "@/components/templates/service-page-v2";
 import { digitalMarketingServices } from "@/content/digital-marketing";
 import { buildMetadata } from "@/lib/seo";
 

@@ -58,6 +58,7 @@ const config: Config = {
       spacing: {
         gutter: "24px",
         section: "clamp(4rem, 9vw, 8rem)",
+        block: "clamp(3.5rem, 6vw, 5rem)",
       },
       borderRadius: {
         sm: "10px",

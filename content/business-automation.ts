@@ -51,6 +51,11 @@ export const businessAutomationOverview: OverviewContent = {
 export const businessAutomationServices: Record<string, ServiceContent> = {
   "crm-lead-management": {
     slug: "crm-lead-management",
+    facts: [
+      { label: "Works with", value: "HubSpot, Pipedrive, Zoho" },
+      { label: "Covers", value: "Every lead and deal" },
+      { label: "Built around", value: "Your sales process" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-crm-lead-management.webp", alt: "A cluttered real estate desk with paper diaries, printed spreadsheets and sticky notes" } },
     showcase: {
       eyebrow: "Real screens",
@@ -110,6 +115,11 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "ai-voice-calling": {
     slug: "ai-voice-calling",
+    facts: [
+      { label: "Languages", value: "130+" },
+      { label: "Calls", value: "Inbound, outbound, website" },
+      { label: "Product", value: "Vistrow Voice" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-ai-voice-calling.webp", alt: "A desk phone ringing unanswered at an empty clinic reception after hours" } },
     heroShot: { src: "/images/products/vistrow-voice-dashboard-overview.webp", alt: "Vistrow Voice dashboard with sample data: calls handled, minutes left, qualified leads, appointments and recent calls", caption: "The Vistrow Voice dashboard.", width: 1576, height: 982, frame: "none" },
     showcase: {
@@ -186,6 +196,11 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "sales-automation": {
     slug: "sales-automation",
+    facts: [
+      { label: "Removes", value: "Manual, repetitive admin" },
+      { label: "Works with", value: "HubSpot, Pipedrive, Apollo" },
+      { label: "Frees up", value: "Your team to sell" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-sales-automation.webp", alt: "A field sales executive filling in a paper form in his car outside a project site in the evening" }, outcome: { src: "/images/services/more/svc-win-sales-automation.webp", alt: "A sales manager and two salespeople at a glass wall pipeline of sticky notes, pointing at the won column" } },
     image: { src: "/images/services/svc-sales-automation.webp", alt: "Field sales executive walking out of a Pune project site office, checking his next follow-up on his phone" },
     title: "Sales Automation",
@@ -236,6 +251,11 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "communication-automation": {
     slug: "communication-automation",
+    facts: [
+      { label: "Channels", value: "WhatsApp, email, SMS" },
+      { label: "Triggered by", value: "Lead behaviour" },
+      { label: "Powered by", value: "WhatsApp Business API" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-communication-automation.webp", alt: "A showroom owner on one phone while a second phone buzzes and customers wait at the counter" }, outcome: { src: "/images/services/more/svc-win-communication-automation.webp", alt: "A customer at home smiling at her phone after a business replied to her question within seconds" } },
     image: { src: "/images/services/svc-communication-automation-v2.webp", alt: "A Pune furniture showroom owner giving his full attention to a customer couple while his phone lies face down on the counter" },
     title: "WhatsApp, Email & SMS Automation",
@@ -287,6 +307,11 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "lead-follow-up": {
     slug: "lead-follow-up",
+    facts: [
+      { label: "Keeps going", value: "Until reply, booking or opt-out" },
+      { label: "Channels", value: "WhatsApp, voice, email" },
+      { label: "Runs", value: "Automatically" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-lead-follow-up.webp", alt: "A telecaller looking at a wall planner of crossed-out callback notes, unsure who to call first" }, outcome: { src: "/images/services/more/svc-win-lead-follow-up.webp", alt: "A telecaller smiling as he ticks the last name on his follow-up list in the early evening" } },
     image: { src: "/images/services/svc-lead-follow-up-v2.webp", alt: "A telecaller with a headset mid-call, smiling and ticking a name on her call list" },
     title: "Lead Follow-Up Systems",
@@ -337,6 +362,11 @@ export const businessAutomationServices: Record<string, ServiceContent> = {
 
   "custom-automation": {
     slug: "custom-automation",
+    facts: [
+      { label: "Built for", value: "Where off-the-shelf tools don't fit" },
+      { label: "Tools", value: "Zapier, Make, n8n" },
+      { label: "Includes", value: "Custom APIs and webhooks" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-custom-automation.webp", alt: "An operations executive copying figures from a stack of paper invoices by hand" }, outcome: { src: "/images/services/more/svc-win-custom-automation.webp", alt: "An operations manager relaxing with tea at a tidy desk with an empty in-tray, chatting with a colleague" } },
     image: { src: "/images/services/svc-custom-automation.webp", alt: "Operations team mapping a workflow on a whiteboard beside an iMac showing an example order-desk automation" },
     title: "Custom Automation",

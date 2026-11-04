@@ -64,6 +64,11 @@ const cta = "Request a Growth Audit";
 export const digitalMarketingServices: Record<string, ServiceContent> = {
   "performance-advertising": {
     slug: "performance-advertising",
+    facts: [
+      { label: "Channels", value: "Google, Meta, LinkedIn" },
+      { label: "Reporting", value: "Weekly, tied to your CRM" },
+      { label: "Built for", value: "Lead-driven businesses" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-performance-advertising.webp", alt: "A Pune business owner frowning at a thick printed ad invoice at his desk" }, outcome: { src: "/images/services/more/svc-win-performance-advertising.webp", alt: "A Vistrow strategist walking a business owner through a printed campaign plan with a rising bar chart" } },
     image: { src: "/images/services/svc-performance-advertising.webp", alt: "Overhead view of a marketer's desk with an example Google Ads and Meta campaign dashboard showing cost per lead and site visits, beside a printed ad report" },
     title: "Performance Advertising",
@@ -115,6 +120,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "lead-generation": {
     slug: "lead-generation",
+    facts: [
+      { label: "Channels", value: "Meta Lead Ads, Google Ads" },
+      { label: "Qualified", value: "Before it reaches sales" },
+      { label: "Delivered to", value: "Your CRM" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-lead-generation.webp", alt: "A real estate sales executive waiting at an empty sales office reception beside untouched brochures" }, outcome: { src: "/images/services/more/svc-win-lead-generation.webp", alt: "A sales executive shaking hands with a young couple holding a project brochure at a Pune site office" } },
     image: { src: "/images/services/svc-lead-generation.webp", alt: "Home buyer filling in an example site-visit lead form for a Pune real estate project on a phone" },
     title: "Lead Generation",
@@ -165,6 +175,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "website-development": {
     slug: "website-development",
+    facts: [
+      { label: "Built with", value: "Next.js, Sanity, Tailwind" },
+      { label: "Based in", value: "Baner, Pune" },
+      { label: "Lead forms", value: "Straight into your CRM" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-website-development.webp", alt: "A young woman at a cafe losing patience with a slow website on her phone" } },
     showcase: {
       eyebrow: "Recent work",
@@ -244,6 +259,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "landing-pages": {
     slug: "landing-pages",
+    facts: [
+      { label: "Built for", value: "Campaign traffic" },
+      { label: "Stack", value: "Next.js, Webflow, Unbounce" },
+      { label: "Tracked with", value: "GA4 and Hotjar" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-landing-pages.webp", alt: "A commuter on a Pune metro platform glancing at his phone, about to put it away" } },
     showcase: {
       eyebrow: "Recent work",
@@ -303,6 +323,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "creative-strategy": {
     slug: "creative-strategy",
+    facts: [
+      { label: "Made for", value: "Meta, Google, TikTok" },
+      { label: "Based on", value: "What your buyers respond to" },
+      { label: "Tools", value: "Figma, Adobe CC, CapCut" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-creative-strategy.webp", alt: "Marketers puzzled in front of a wall of printed ads that all look the same" }, outcome: { src: "/images/services/more/svc-win-creative-strategy.webp", alt: "A photographer shooting a product in a studio while a creative director gives a thumbs up" } },
     image: { src: "/images/services/svc-creative-strategy.webp", alt: "Creative team in Pune pinning printed ad concepts to a board while an example creative testing board shows hook rate and cost per lead on an iMac" },
     title: "Creative Strategy",
@@ -353,6 +378,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "social-media": {
     slug: "social-media",
+    facts: [
+      { label: "Platforms", value: "Meta, LinkedIn, YouTube" },
+      { label: "Approach", value: "Organic and paid together" },
+      { label: "Goal", value: "Demand and trust" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-social-media.webp", alt: "A Pune bakery owner looking disappointed at her phone behind the counter" }, outcome: { src: "/images/services/more/svc-win-social-media.webp", alt: "A content creator filming the smiling bakery owner holding a tray of croissants for a reel" } },
     image: { src: "/images/services/svc-social-media.webp", alt: "Close-up of a phone showing an example sponsored Instagram post for a Pune dental clinic, with a reel being shot behind" },
     title: "Social Media Marketing",
@@ -403,6 +433,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "seo-content": {
     slug: "seo-content",
+    facts: [
+      { label: "Covers", value: "Technical SEO, content, links" },
+      { label: "Measured in", value: "Search Console and GA4" },
+      { label: "Payoff", value: "Compounds over time" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-seo-content.webp", alt: "A founder looking concerned at a printed report with a falling line graph" }, outcome: { src: "/images/services/more/svc-win-seo-content.webp", alt: "An SEO strategist and a content writer mapping topic clusters with sticky notes on a whiteboard" } },
     image: { src: "/images/services/svc-seo-content.webp", alt: "iMac on a desk showing an example Google search performance report with keywords moving up the rankings, beside a printed keyword list" },
     title: "SEO & Content Marketing",
@@ -453,6 +488,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "conversion-tracking": {
     slug: "conversion-tracking",
+    facts: [
+      { label: "Stack", value: "GA4, GTM, Meta CAPI" },
+      { label: "Connects", value: "Marketing to pipeline" },
+      { label: "Reports in", value: "Looker Studio" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-conversion-tracking.webp", alt: "Two colleagues disagreeing over printed reports with charts that do not match" }, outcome: { src: "/images/services/more/svc-win-conversion-tracking.webp", alt: "A Vistrow analyst showing a business owner a clean funnel chart" } },
     image: { src: "/images/services/svc-conversion-tracking.webp", alt: "Analyst walking a business owner through an example lead-to-revenue tracking report showing which ad sources produce bookings" },
     title: "Conversion Tracking",
@@ -503,6 +543,11 @@ export const digitalMarketingServices: Record<string, ServiceContent> = {
 
   "marketing-automation": {
     slug: "marketing-automation",
+    facts: [
+      { label: "Handles", value: "Nurture, scoring, routing" },
+      { label: "Platforms", value: "HubSpot, ActiveCampaign" },
+      { label: "Triggered by", value: "What the lead does" },
+    ],
     photos: { problem: { src: "/images/services/more/svc-pain-marketing-automation.webp", alt: "A marketing executive working late, ticking names one by one on a long printed contact list" }, outcome: { src: "/images/services/more/svc-win-marketing-automation.webp", alt: "A marketing executive closing his laptop and leaving the office on time while a colleague waves goodbye" } },
     image: { src: "/images/services/svc-marketing-automation-v2.webp", alt: "A marketing strategist mapping an automated customer journey with sticky notes and arrows on a whiteboard" },
     title: "Marketing Automation",
