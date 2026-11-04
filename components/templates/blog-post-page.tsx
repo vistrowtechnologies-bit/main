@@ -11,6 +11,7 @@ import { articleSchema, breadcrumbSchema, faqSchema, graph } from "@/lib/structu
 import { BlogExplorer } from "@/components/blog/blog-explorer";
 import { ReadingProgress } from "@/components/blog/reading-progress";
 import { ShareRow } from "@/components/blog/share-row";
+import { BlogComments } from "@/components/blog/blog-comments";
 import { SectionVisuals } from "@/components/blog/section-visuals";
 import { siteUrl } from "@/lib/seo";
 
@@ -252,7 +253,12 @@ export function BlogPostPage({
                 </section>
               )}
 
-              <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-line pt-7 sm:flex-row sm:items-center">
+              <div className="mt-4 flex items-center gap-3 border-t border-line pt-7">
+                <span className="font-sans text-sm text-muted">Share this article</span>
+                <ShareRow url={articleUrl} title={post.title} />
+              </div>
+
+              <div className="mt-6 flex flex-col items-start justify-between gap-4 pt-2 sm:flex-row sm:items-center">
                 <Link href="/blog" className="btn-ghost">
                   <ArrowLeft className="h-4 w-4" strokeWidth={2} />
                   Back to all posts
@@ -273,6 +279,8 @@ export function BlogPostPage({
                   based on your business, data, or jurisdiction.
                 </p>
               </aside>
+
+              <BlogComments slug={post.slug} />
               </div>
 
               <aside className="hidden lg:sticky lg:top-28 lg:block" aria-label="Blog navigation">
