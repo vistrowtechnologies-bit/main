@@ -323,6 +323,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apni dukaan Google pe search karo aur dekho Dhanteras se Bhai Dooj tak kya timing dikh rahi hai. Jahan galat hai, wahan special hours daalo, aur ek story bhi daal do.' }
     ],
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'nap-consistency-checklist', anchor: 'NAP consistency checklist: naam, number, address har jagah ek' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }]
+  },
+  {
+    day: 12, slug: 'rate-card-auto-reply-kit', keyword: 'RATE', release: '2026-11-06T11:00',
+    title: 'Price DM karo = sikka bagal mein',
+    h1: 'Instagram & WhatsApp Auto Reply for Price Enquiries: Rate-Card Message Kit for Jewellers and Shops (Price DM karo = customer gaya)',
+    seoTitle: 'Auto Reply Message for Price Enquiry on Instagram & WhatsApp (Free Rate-Card Kit)',
+    description: '"Price DM karo" loses customers who ask 3 shops at once: the first reply wins. Free rate-card auto-reply kit: daily-rate message, booking-link reply, festival rush checklist and a printable PDF.',
+    summary: 'Pehla reply = sale. Aaj ka rate + booking link, turant, bina insaan ke.',
+    blocks: [
+      { type: 'why', title: 'Price DM karo = sikka bagal mein', text: 'Example: Dhanteras ki shaam. Priya ne teen jewellers ko ek saath DM kiya: "sone ka sikka, rate kya hai?" Ravi ji ki dukaan mein bheed thi, phone drawer mein bajta raha. Sona Jewellers ka reply turant aaya: aaj ka rate aur booking link. Priya ne wahin booking kar li. Aaj customer intezaar nahi karta, comparison karta hai: jo pehle reply kare, sale wahi karta hai. Isliye "Price DM karo" likhna aur phir der se reply karna, dono nuksaan hain. Hal: instant auto-reply, jo aaj ka rate aur booking link turant bhej de, chahe aap counter pe hon.' },
+      { type: 'check', title: 'Rate-card auto-reply checklist', items: [
+        ['Ek rate-card message taiyaar rakho', 'Aaj ka rate, making charges kaise lagte hain, aur booking ya visit ka link: ek hi message mein.'],
+        ['Rate roz update karo', 'Sona-chandi ka rate roz badalta hai. Subah 10 baje ek baar message update karo, ya "aaj ka rate yahan dekhein" wala link do.'],
+        ['Instagram DM auto-reply', 'Instagram ke saved replies / automated responses mein rate-card message daalo, taaki DM ka jawab turant jaaye.'],
+        ['WhatsApp Business quick reply', 'Quick reply "/rate" banao. Greeting message mein bhi likho: "Aaj ka rate jaanne ke liye RATE likhiye."'],
+        ['Post mein "Price DM karo" mat likho', 'Uski jagah: "Rate ke liye RATE comment karo, turant DM milega." Aur auto-reply on rakho.'],
+        ['Booking link ya call button', 'Customer ko agla step do: "Book karein" link, store location, ya call. Sirf rate bhejna kaafi nahi.'],
+        ['Rush time ka plan', 'Festival ke din ek insaan sirf phone/DM sambhale, ya auto-reply on rahe. Counter aur DM dono chalte rahein.'],
+        ['Har DM ka follow-up', 'Jisne rate poocha par aaya nahi, shaam ko ek chhota message: "Aapka sikka reserve kar dein?"']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages', items: [
+        ['Auto-reply: rate-card', 'Namaste 🙏 {Dukaan ka naam} mein swagat hai! Aaj ka rate yahan dekhiye: {rate link / photo}. Making charges product ke hisaab se. Booking ke liye: {booking link} ya call {number}.'],
+        ['Rush-day auto-reply', 'Namaste 🙏 Dhanteras ki bheed ke kaaran 15 minute mein call karenge. Tab tak aaj ka rate-card: {link}. Sikka/jewellery reserve karni ho toh yahin "RESERVE" likh dijiye.'],
+        ['Follow-up (shaam ko)', 'Namaste {naam} ji, aapne sone ke sikke ka rate poocha tha. Kal subah tak aapke liye reserve kar dein? 🙏']
+      ] },
+      { type: 'note', text: 'Upar Priya, Ravi ji, Sona Jewellers example hain. Rate kabhi galat mat bhejo: roz update karo, ya live rate ka link do. Menu ke naam app version ke hisaab se thode alag ho sakte hain.' },
+      { type: 'task', text: 'Aaj ka kaam: apna rate-card message likho aur Instagram + WhatsApp dono pe auto-reply / quick reply mein daalo. Phir kisi dost se "rate?" DM karwa ke time check karo: jawab kitne second mein aaya?' }
+    ],
+    related: [{ slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'diwali-special-hours-checklist', anchor: 'Diwali special hours checklist' }]
   }
 ];
 

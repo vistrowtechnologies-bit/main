@@ -78,5 +78,13 @@
     "card": "/playbook/pdf/card-day-11-fa3c2deed3.jpg",
     "pages": 4,
     "kb": 453
+  },
+  "12": {
+    "file": "/playbook/pdf/vistrow-day-12-rate-card-auto-reply-kit-b22a053a54.pdf",
+    "cover": "/playbook/pdf/cover-day-12-b22a053a54.jpg",
+    "reel": "/playbook/pdf/reel-day-12-b22a053a54.jpg",
+    "card": "/playbook/pdf/card-day-12-b22a053a54.jpg",
+    "pages": 4,
+    "kb": 413
   }
 }
