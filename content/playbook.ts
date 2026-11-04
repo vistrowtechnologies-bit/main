@@ -289,6 +289,40 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apni dukaan ka naam Google, Google Maps, Instagram aur Justdial pe search karo. Table mein likho kahan kaunsa naam aur number dikh raha hai. Jahan bhi ✗ aaye, wahi kal ka kaam hai.' }
     ],
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }]
+  },
+  {
+    day: 11, slug: 'diwali-special-hours-checklist', keyword: 'DIYA', release: '2026-11-05T11:00',
+    title: 'Dukaan khuli, Google pe Closed',
+    h1: 'Diwali Special Hours on Google: Holiday Hours Checklist for Shops (dukaan khuli, Google pe Closed)',
+    seoTitle: 'Diwali Special Hours on Google Business Profile: Holiday Hours Checklist (Free PDF)',
+    description: 'Dukaan khuli, Google pe Closed? Set Diwali special hours on your Google Business Profile so customers see the right timing. Festival calendar, away message, Instagram story text and a free printable PDF.',
+    summary: 'Tyohaar ki timing Google pe pehle se: Dhanteras se Bhai Dooj tak + away message + story.',
+    blocks: [
+      { type: 'why', title: 'Dukaan khuli, Google pe Closed', text: 'Example: Diwali ki raat, nau baje. Gupta Mithai khuli hai, mithai taaza, aur ek bhi customer nahi. Kyunki Google pe roz ki timing likhi thi: subah 9 se shaam 7. Shaam 7 ke baad Google sabko "Closed" dikhata raha. Meera ne ghar se dekha "Closed", aur bagal wali dukaan se mithai le li. Board pe "OPEN" likhne se kuch nahi hota: board gali mein dikhta hai, customer ghar pe Google dekhta hai. Isko special hours kehte hain: kisi khaas din ki alag timing, jo Google pe pehle se daalni hoti hai.' },
+      { type: 'check', title: 'Festival timing checklist (Diwali week)', items: [
+        ['Dhanteras ki timing', 'Agar der tak khule ho, Google Business Profile mein special hours daalo: us din ka khulne aur band hone ka time.'],
+        ['Choti Diwali + Diwali', 'Lakshmi Puja ke din jaldi band ya der tak khule? Dono din alag-alag time daalo.'],
+        ['Padwa + Bhai Dooj', 'Chhutti ho toh "Closed" mark karo, taaki koi bekaar na aaye. Khule ho toh time likho.'],
+        ['Pehle se, last minute nahi', 'Special hours tyohaar se 2–3 din pehle daalo. Customer pehle se plan karta hai.'],
+        ['Roz ki timing bhi check karo', 'Regular hours sahi hain? Purani timing sabse zyada nuksaan karti hai.'],
+        ['WhatsApp away message', 'Band ho toh away message mein tyohaar ki timing aur khulne ka din likho.'],
+        ['Instagram / WhatsApp story', 'Ek story: "Diwali timing: 9 am – 11 pm. Bhai Dooj: band." Customer screenshot leta hai.'],
+        ['Dukaan ke bahar note', 'Shutter ya darwaze pe wahi timing jo Google pe hai. Dono jagah ek hi baat.'],
+        ['Phone uthao ya forward karo', 'Tyohaar pe call zyada aate hain. Koi uthaye, ya call forward ho.'],
+        ['Tyohaar ke baad wapas', 'Special hours sirf us din ke liye hote hain. Agle din roz ki timing apne aap wapas aa jaati hai, phir bhi ek baar dekh lo.']
+      ] },
+      { type: 'table', title: 'Diwali week timing planner', head: ['Din', 'Khulega', 'Band', 'Google pe daala?'], rows: [
+        ['Example: Dhanteras', '9 am', '10 pm', '✓'],
+        ['Dhanteras', '', '', ''], ['Choti Diwali', '', '', ''], ['Diwali (Lakshmi Puja)', '', '', ''], ['Padwa', '', '', ''], ['Bhai Dooj', '', '', '']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages', items: [
+        ['WhatsApp away message', 'Namaste 🙏 Diwali ki shubhkamnayein! Hamari tyohaar timing: {Dhanteras 9 am – 10 pm, Diwali 9 am – 11 pm, Bhai Dooj band}. Apna order yahan likh dijiye, khulte hi reply karenge.'],
+        ['Instagram / WhatsApp story', '🪔 Diwali timing · {Dukaan ka naam}\nDhanteras: {9 am – 10 pm}\nDiwali: {9 am – 11 pm}\nBhai Dooj: band\nOrder ke liye WhatsApp: {number}']
+      ] },
+      { type: 'note', text: 'Upar Gupta Mithai, Meera aur timing example hain: apni dukaan ki timing daalo. Special hours Google Business Profile mein "Hours" ke andar milte hain; menu ka naam app ke version ke hisaab se thoda alag ho sakta hai.' },
+      { type: 'task', text: 'Aaj ka kaam: apni dukaan Google pe search karo aur dekho Dhanteras se Bhai Dooj tak kya timing dikh rahi hai. Jahan galat hai, wahan special hours daalo, aur ek story bhi daal do.' }
+    ],
+    related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile kaise banaye (free checklist)' }, { slug: 'nap-consistency-checklist', anchor: 'NAP consistency checklist: naam, number, address har jagah ek' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }]
   }
 ];
 
