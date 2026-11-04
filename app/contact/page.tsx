@@ -25,7 +25,7 @@ const details = [
   { icon: WhatsappIcon, label: "WhatsApp", value: businessPhone, href: businessWhatsapp },
   { icon: Phone, label: "Call", value: businessPhone, href: `tel:${businessPhone.replace(/\s+/g, "")}` },
   { icon: Mail, label: "Email", value: "hello@vistrow.com", href: "mailto:hello@vistrow.com" },
-  { icon: MapPin, label: "Based in", value: "Baner, Pune, Maharashtra 411045" },
+  { icon: MapPin, label: "Based in", value: "Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045" },
   { icon: Clock3, label: "Typical response", value: "Within one business day" },
   { icon: Globe2, label: "Delivery", value: "Pune office · India and global" },
 ];
@@ -39,7 +39,7 @@ const nextSteps = [
 const faqs = [
   { q: "How do I chat with Vistrow on WhatsApp?", a: `Tap the WhatsApp icon on this page or message ${businessPhone} directly on WhatsApp. We use it for quick questions, sharing a proposal, or following up on an enquiry - the same team that answers email answers WhatsApp.` },
   { q: "What is Vistrow's phone number?", a: `You can call or WhatsApp Vistrow Technologies on ${businessPhone}. You can also email hello@vistrow.com, and we typically reply within one business day.` },
-  { q: "Where is Vistrow located?", a: "Vistrow Technologies is based in Baner, Pune, Maharashtra 411045, India, and works with businesses across Pune, Pimpri-Chinchwad, Hinjewadi, Wakad, Kothrud, the rest of India, and globally, with online meetings for clients outside Pune." },
+  { q: "Where is Vistrow located?", a: "Vistrow Technologies is based at Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045, India, and works with businesses across Pune, Pimpri-Chinchwad, Hinjewadi, Wakad, Kothrud, the rest of India, and globally, with online meetings for clients outside Pune." },
   { q: "Should I use this form or request a Growth Audit?", a: "Use this form for product questions, partnerships, custom software, or a general conversation. Request the Growth Audit when you want a structured review of marketing, CRM, follow-up, and tracking." },
   { q: "Can I ask about ArthaLeads or Vistrow Voice here?", a: "Yes. Select the product in the form and describe your use case. We can help with the product itself, implementation, or integration into your wider workflow." },
   { q: "Do you work with businesses outside India?", a: "Yes. We work with clients outside India online from our Pune office. Product availability, calling rules, channels, and integrations are confirmed for each market during scoping." },
@@ -145,7 +145,7 @@ export default function Page() {
               </p>
               <ul className="mt-6 space-y-3 font-sans text-[15px] text-ink-2">
                 <li className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 shrink-0 text-accent-strong" strokeWidth={1.75} /> Baner, Pune, Maharashtra 411045
+                  <MapPin className="h-5 w-5 shrink-0 text-accent-strong" strokeWidth={1.75} /> Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="h-5 w-5 shrink-0 text-accent-strong" strokeWidth={1.75} />

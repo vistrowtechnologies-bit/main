@@ -198,12 +198,12 @@ export function LocationPage({ content }: { content: LocationContent }) {
               <h2 className="mt-3 font-display text-h3 text-ink">Vistrow Technologies, Baner, Pune</h2>
               <p className="mt-3 font-sans leading-relaxed text-muted">
                 {content.hasOffice
-                  ? `Our office is in Baner, Pune, Maharashtra 411045. Call, message or book a meeting about your ${content.area} business.`
+                  ? `Our office is at Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045. Call, message or book a meeting about your ${content.area} business.`
                   : `We serve ${content.area} businesses from our Baner, Pune office, with online calls and in-person meetings when useful.`}
               </p>
               <ul className="mt-6 space-y-3 font-sans text-[15px] text-ink-2">
                 <li className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-accent-strong" strokeWidth={1.75} /> Baner, Pune, Maharashtra 411045
+                  <MapPin className="h-5 w-5 text-accent-strong" strokeWidth={1.75} /> Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-accent-strong" strokeWidth={1.75} />

@@ -37,7 +37,7 @@ export function buildChatKnowledge(): string {
   if (Array.isArray(areaServed)) lines.push(`Areas served: ${areaServed.join(", ")}`);
   if (organizationSchema.email) lines.push(`Contact email: ${organizationSchema.email}`);
   lines.push(`Contact phone / WhatsApp: ${businessPhone}`);
-  lines.push("Based in Baner, Pune, Maharashtra 411045, India.");
+  lines.push("Based at Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045, India.");
   lines.push("");
 
   for (const group of overviewGroups) {

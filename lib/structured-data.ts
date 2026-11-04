@@ -14,6 +14,7 @@ export const businessWhatsapp = `${WHATSAPP_BASE_URL}?text=${encodeURIComponent(
 
 export const businessAddress: JsonLdValue = {
   "@type": "PostalAddress",
+  streetAddress: "Office No. 702, Icon Tower, Baner Road",
   addressLocality: "Baner",
   addressRegion: "Maharashtra",
   postalCode: "411045",
