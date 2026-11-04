@@ -150,7 +150,7 @@ export const locations: Record<string, LocationContent> = {
     metaDescription:
       "Baner-based digital marketing agency: Google and Meta ads, local SEO, lead generation, CRM and AI voice follow-up for Baner businesses. Free Growth Audit.",
     reasons: [
-      { title: "Our office is in Baner", body: "Walk-in or call-in access, same-day replies and a team that knows the area, not a remote vendor." },
+      { title: "Our office is in Baner", body: "Meetings by appointment, same-day replies on call or WhatsApp and a team that knows the area, not a remote vendor." },
       { title: "Startup and service-business friendly", body: "Engagements are scoped to fit a growing business, and can start with marketing alone." },
       { title: "Faster response wins", body: "Baner buyers compare quickly. Instant WhatsApp and AI voice follow-up keeps you ahead of slower competitors." },
       { title: "Clear reporting", body: "Weekly numbers on enquiries and cost per lead, so you can see what the spend is doing." },

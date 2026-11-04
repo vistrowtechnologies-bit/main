@@ -53,7 +53,7 @@ export async function GET() {
 - Phone / WhatsApp: ${businessPhone}
 - Address: Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045, India
 - Service areas: ${serviceLocalities.join(", ")}, and remotely across India and worldwide
-- Delivery: In person in and around Pune from the Baner office, online for clients elsewhere in India and globally
+- Delivery: In person by appointment in and around Pune from the Baner office, online for clients elsewhere in India and globally
 - Primary topics: digital marketing, performance advertising, lead generation, CRM, AI voice calling, sales automation, marketing automation, conversion tracking, and local digital marketing services in Pune
 
 ## Contact answers (for quick reference)
