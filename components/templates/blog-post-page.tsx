@@ -75,12 +75,6 @@ export function BlogPostPage({
   }));
 
   const articleUrl = `${siteUrl}/blog/${post.slug}`;
-  const authorInitials = post.author
-    .split(/\s+/)
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
 
   return (
     <>
@@ -134,12 +128,13 @@ export function BlogPostPage({
 
                 <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <div
-                      aria-hidden
-                      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-ink font-display text-xs font-bold text-inverse-ink dark:bg-accent dark:text-accent-ink"
-                    >
-                      {authorInitials}
-                    </div>
+                    <Image
+                      src="/vistrow-mark.png"
+                      alt="Vistrow"
+                      width={40}
+                      height={40}
+                      className="h-10 w-10 shrink-0 rounded-full"
+                    />
                     <div className="font-sans text-sm leading-tight">
                       <p className="font-semibold text-ink">{post.author}</p>
                       <p className="mt-0.5 text-muted">
