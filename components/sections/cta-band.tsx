@@ -15,7 +15,7 @@ export function CtaBand({
   secondaryCta?: CtaLink;
 }) {
   return (
-    <section className="cta-band pb-section">
+    <section className="cta-band pb-section pt-12 sm:pt-16 lg:pt-20">
       <div className="container-edge">
         <Reveal>
           <div className="glass relative overflow-hidden rounded-2xl border-2 border-accent/20 p-10 sm:p-14 lg:p-16">

@@ -59,7 +59,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="footer-body container-edge pb-8 pt-10 sm:pt-14">
+      <div className="container-edge pb-8 pt-10 sm:pt-14">
         {/* Hidden on pages that already end with a CtaBand, so the call to action never appears twice in a row. */}
         <div className="footer-cta relative overflow-hidden rounded-xl bg-[#111315] px-6 py-8 text-white sm:px-10 sm:py-10 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-12">
           <div aria-hidden className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
