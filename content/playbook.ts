@@ -410,6 +410,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apna Facebook Page kholo aur check karo ki WhatsApp Business number juda hai ya nahi. Phir apne pichle ad ka button dekho: "Learn more" tha ya "Send WhatsApp message"?' }
     ],
     related: [{ slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'rate-card-auto-reply-kit', anchor: 'rate-card auto-reply kit' }, { slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message' }]
+  },
+  {
+    day: 15, slug: 'website-that-books-at-night', keyword: 'ATM', release: '2026-11-09T11:00',
+    title: 'Raat ka ATM',
+    h1: 'Online Booking Website for Small Business: A Website That Takes Bookings at Night (Raat ka ATM)',
+    seoTitle: 'Online Booking Website for Small Business in India · 24x7 Booking Checklist (Free PDF)',
+    description: 'Your shop closes, your phone sleeps, but customers plan at night. A website with rates, real photos and a Book button works like an ATM: open all night. Free checklist of the 5 things a booking website needs, plus a PDF.',
+    summary: 'Bank 5 baje band. ATM raat bhar chalu. Website aapka ATM hai: aap so rahe ho, wo booking le rahi hai.',
+    blocks: [
+      { type: 'why', title: 'Dukaan band, phone band… booking kahan?', text: 'Example: Diwali ki chhutti thi. Raat dedh baje Swati ko Goa ki cab chahiye thi. Ramesh Travels ka phone band tha, toh usne doosri travels ki website kholi: rate, gaadi ki photo aur ek Book button. Booking wahin ho gayi. Bank shaam paanch baje band ho jaata hai, par ATM raat bhar chalta hai. Website aapka ATM hai: aap so rahe ho, wo booking le rahi hai. Agle hafte Ramesh ji ne bhi apni website banwa li, aur ab subah uthte hi raat ki booking dikhti hai.' },
+      { type: 'check', title: 'Booking website: 5 cheezein jo zaroori hain', items: [
+        ['Rate ya "se shuru" price', 'Customer ko andaaza chahiye. Poora rate na ho toh "₹ se shuru" likho. Bina price ke log aage badh jaate hain.'],
+        ['Asli photos', 'Gaadi, kamra, dukaan, kaam ki asli photos. Stock photo se bharosa nahi banta.'],
+        ['Ek saaf Book / WhatsApp button', 'Har page pe ek hi bada button: "Book karein" ya "WhatsApp pe poochein". Teen button mat do.'],
+        ['Turant confirmation', 'Booking ke baad turant ek message ya email: kya book hua, kab, aur aage kya hoga.'],
+        ['Mobile pe fast', 'Zyaadatar log raat ko phone se kholte hain. Phone pe 3 second mein khulna chahiye.'],
+        ['Timing aur area saaf', 'Kab se kab tak service, kis area mein. Taaki galat booking na aaye.'],
+        ['Google profile se link', 'Google Business Profile aur Instagram bio dono mein website ka link.'],
+        ['Subah ka routine', 'Roz subah raat ki bookings check karo aur 1 ghante mein confirm karo.']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages', items: [
+        ['Booking confirmation (auto)', 'Namaste {naam} ji 🙏 Aapki {service} booking mil gayi: {date}, {time}. Hum subah 9 baje tak confirm karenge. Koi sawaal ho toh is number pe WhatsApp karein.'],
+        ['Subah ka confirm message', 'Good morning {naam} ji! Aapki {date} ki booking confirm hai ✅ Driver/staff ka number {time} se pehle bhej denge.'],
+        ['Website link wala bio', '{Kaam} · {Area} · Raat ko bhi booking: {website link}']
+      ] },
+      { type: 'note', text: 'Upar Swati, Ramesh ji aur Ramesh Travels example hain; timings bhi example hain. Har business ki booking alag hoti hai. Agar aap chahte hain ki hum aapki website booking button ke saath banayein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: raat 11 baje apne business ko ek customer ki tarah dhoondo. Kya aap bina call kiye rate dekh ke booking kar sakte ho? Agar nahi, toh aapka ATM abhi band hai.' }
+    ],
+    related: [{ slug: 'website-must-haves-checklist', anchor: 'website must-haves checklist' }, { slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }]
   }
 ];
 
