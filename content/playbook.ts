@@ -381,6 +381,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apne 3 sabse purane customers ke naam likho aur unki ek-ek line ki kahani. Jo sabse achhi lage, uski 30 second ki reel ka pehla line (hook) likho.' }
     ],
     related: [{ slug: 'product-reel-hook-ideas', anchor: 'product reel hook ideas' }, { slug: 'diwali-special-hours-checklist', anchor: 'Diwali special hours checklist' }, { slug: 'rate-card-auto-reply-kit', anchor: 'rate-card auto-reply kit' }]
+  },
+  {
+    day: 14, slug: 'whatsapp-button-ad-setup', keyword: 'VENUE', release: '2026-11-08T11:00',
+    title: 'Card pe address hi nahi',
+    h1: 'Facebook & Instagram Ads with a WhatsApp Button: Click-to-WhatsApp Ad Setup for Small Shops (Card pe address hi nahi)',
+    seoTitle: 'Click-to-WhatsApp Ads Setup for Small Business (Facebook & Instagram) · Free Checklist',
+    description: 'An ad that sends people to your profile is a wedding card with no venue. Set up Facebook and Instagram ads with the WhatsApp message button: setup checklist, first auto-message, one clear offer, and what to reply in the first 5 minutes. Free PDF.',
+    summary: 'Ad sab dekhte hain. Baat tabhi hoti hai jab ad mein "address" ho: WhatsApp ka button.',
+    blocks: [
+      { type: 'why', title: 'Ad chala, log aaye… baat kahan?', text: 'Example: Imran ne Diwali pe apni toy shop ka ad chalaya. Hazaaron logon ne dekha, kuch ne click bhi kiya, aur pahunche seedha profile pe. Wahan koi message button nahi, koi offer nahi, koi agla step nahi. Ye waise hi hai jaise shaadi ka card chhapwaya ho aur venue ka address daalna bhool gaye. Meta (Facebook aur Instagram) ke ads mein ek button milta hai: "Send WhatsApp message". Jo click kare, seedha aapke WhatsApp pe pahunchta hai. Imran ne ad isi button ke saath chalaya, aur Pallavi ne Bhai Dooj ka gift seedha WhatsApp pe pooch ke pack karwa liya.' },
+      { type: 'check', title: 'WhatsApp-button ad: setup checklist', items: [
+        ['WhatsApp Business number link karo', 'Facebook Page se apna WhatsApp Business number jodo. Iske bina ad mein WhatsApp ka button nahi aata.'],
+        ['Ad ka goal: Messages / Engagement', 'Ads Manager mein aisa goal chuno jisme "Send WhatsApp message" button mile. Boost se bhi WhatsApp button mil sakta hai, bas default "Learn more" mat chhodo.'],
+        ['Ek hi offer, saaf', '"Diwali gift boxes ₹499 se" jaisa ek seedha offer. Teen offer ek saath mat daalo.'],
+        ['Pehla auto-message ready', 'Click karne wale ko turant ek message: namaste, kya chahiye, aur 2-3 options (photo, rate, timing).'],
+        ['Area aur log chuno', 'Dukaan ke aas-paas ka area aur sahi umar/interest. Poore shehar ko ad mat dikhao.'],
+        ['5 minute ka rule', 'WhatsApp pe pehla jawab 5 minute ke andar. Busy ho toh auto-reply on rakho.'],
+        ['Chhota budget, 3 din test', 'Pehle chhota daily budget, 3 din chalao, dekho kitne message aaye, phir badhao.'],
+        ['Har message ka hisaab', 'Kitne message aaye, kitne ne khareeda: ek simple sheet mein likho.']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages', items: [
+        ['Pehla auto-message (ad se aaye log)', 'Namaste 🙏 {Dukaan ka naam} mein swagat hai! Diwali ke liye kya dhoondh rahe hain? 1) Gift ideas 2) Rate list 3) Dukaan ka address'],
+        ['Product photo ke saath reply', 'Ye dekhiye 👇 {photo}. Rate: {₹}. Aaj order karein toh gift wrap free. Pack kar dein?'],
+        ['Follow-up (agle din)', 'Namaste {naam} ji, kal aapne {product} ke baare mein poocha tha. Aapke liye ek piece rakh dein? 🙏']
+      ] },
+      { type: 'note', text: 'Upar Imran, Pallavi aur toy shop example hain; views ke numbers bhi example hain. Meta ke menu ke naam aur goals waqt ke saath badal sakte hain. Agar aap chahte hain ki hum aapka ad WhatsApp button ke saath set karein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apna Facebook Page kholo aur check karo ki WhatsApp Business number juda hai ya nahi. Phir apne pichle ad ka button dekho: "Learn more" tha ya "Send WhatsApp message"?' }
+    ],
+    related: [{ slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'rate-card-auto-reply-kit', anchor: 'rate-card auto-reply kit' }, { slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message' }]
   }
 ];
 
