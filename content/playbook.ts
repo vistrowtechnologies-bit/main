@@ -352,6 +352,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apna rate-card message likho aur Instagram + WhatsApp dono pe auto-reply / quick reply mein daalo. Phir kisi dost se "rate?" DM karwa ke time check karo: jawab kitne second mein aaya?' }
     ],
     related: [{ slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'diwali-special-hours-checklist', anchor: 'Diwali special hours checklist' }]
+  },
+  {
+    day: 13, slug: 'shop-story-reel-ideas', keyword: 'KAHANI', release: '2026-11-07T11:00',
+    title: 'Sale nahi, kahani dikhao',
+    h1: 'Diwali Reel Ideas for Shops: 5 Customer Story Reels That Beat a "SALE 20% OFF" Post (Sale nahi, kahani dikhao)',
+    seoTitle: 'Diwali Reel Ideas for Small Shops: 5 Story Reel Ideas (Free PDF)',
+    description: 'Every shop posts the same "Diwali SALE 20% off" and people scroll past. On our own Instagram, a story reel got about 10x the views of a plain one. 5 story reel ideas for your shop, with hooks and shot lists, plus a PDF.',
+    summary: 'Log dukaan nahi, dukaan ki kahani yaad rakhte hain. 5 kahani ideas jo SALE post se zyada chalti hain.',
+    blocks: [
+      { type: 'why', title: 'Sale post sab daalte hain. Kahani sirf aap daal sakte ho.', text: 'Diwali aate hi feed mein har dukaan ki ek hi post hoti hai: "SALE! 20% off." Log aage scroll kar dete hain, kyunki sab same lagta hai. Humne apne hi Instagram pe dekha: bina kahani wali reel (Day 6) ko 200 views mile, aur kahani wali reel (Day 8: sadak pe gira 500 ka note aur ek missed call) ko 1,968. Phir poore hafte har reel mein ek insaan ki kahani daali, aur post ka time 11:00 se 11:45 kiya: Day 2 se 7 ka average lagbhag 900 views tha, Day 8 se 10 ka lagbhag 1,500. (Do cheezein badli thi, isliye hum sirf kahani ko credit nahi dete.) Aapki dukaan mein bhi aisi kahaniyan roz hoti hain: jaise Khanna ji ki purani mithai ki dukaan, jahan Kamla aunty bees saal se roz aati hain. Wohi aapki sabse achhi reel hai.' },
+      { type: 'check', title: '5 kahani reel ideas for your shop', items: [
+        ['1. Sabse purana customer', 'Jo 10-20 saal se aa rahe hain: unka pehla din, aaj ka din. Hook: "Ye aunty 20 saal se roz aati hain. Kyun?" (Pehle permission lo.)'],
+        ['2. Dukaan ki shuruaat', 'Purani photo ya pehla counter vs aaj. Hook: "1998 mein ek chhoti si table thi."'],
+        ['3. Ek mushkil order', 'Last-minute shaadi ka order, raat bhar ka kaam, customer ki khushi. Hook: "Raat 11 baje phone aaya…"'],
+        ['4. Banane ka process', 'Ek item kaise banta hai, haath se, kitni der mein. Hook: "Ek kaju katli ke peeche 3 ghante."'],
+        ['5. Galti jo sudhaari', 'Ek baar kya galat hua aur aapne kaise theek kiya. Hook: "Us din humse galti hui."'],
+        ['Har reel ka format', 'Pehle 3 second mein insaan + problem, beech mein kya hua, end mein natija. Sale ka zikr end mein ek line, bas.'],
+        ['Real rakho', 'Asli log, asli dukaan, asli awaaz. Customer ko dikhane se pehle unki permission lo.'],
+        ['Har reel ke end mein ek kaam', '"Comment karo", "DM karo" ya "aaj aaiye": ek hi call-to-action.']
+      ] },
+      { type: 'templates', title: 'Copy-paste hooks', items: [
+        ['Purana customer', 'Ye {naam} ji {X} saal se humare yahan aate hain. Pehli baar kya liya tha, pata hai?'],
+        ['Shuruaat', '{saal} mein humari dukaan ek chhoti si {table/thela} thi. Aaj…'],
+        ['Process', 'Ek {item} banane mein {X} ghante lagte hain. Dekhiye kyun.']
+      ] },
+      { type: 'note', text: 'Upar Khanna ji, Kamla aunty aur "20 saal" example hain. 200, 1,968, ~900 aur ~1,500 humare apne Instagram reels ke real views hain (Day 1 launch reel average mein nahi gina). Har dukaan ke results alag hote hain. Agar aap chahte ho ki hum aapki dukaan ki kahani likhein aur reel banayein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apne 3 sabse purane customers ke naam likho aur unki ek-ek line ki kahani. Jo sabse achhi lage, uski 30 second ki reel ka pehla line (hook) likho.' }
+    ],
+    related: [{ slug: 'product-reel-hook-ideas', anchor: 'product reel hook ideas' }, { slug: 'diwali-special-hours-checklist', anchor: 'Diwali special hours checklist' }, { slug: 'rate-card-auto-reply-kit', anchor: 'rate-card auto-reply kit' }]
   }
 ];
 
