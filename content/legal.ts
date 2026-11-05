@@ -6,7 +6,7 @@ export const legalPages: Record<string, LegalContent> = {
   "privacy-policy": {
     slug: "privacy-policy",
     title: "Privacy Policy",
-    updated: "17 October 2026",
+    updated: "5 November 2026",
     intro:
       "This Privacy Policy explains how Vistrow Technologies collects, uses, shares, and protects personal information submitted through this website and our business services.",
     sections: [
@@ -18,8 +18,12 @@ export const legalPages: Record<string, LegalContent> = {
         "We use information to respond to enquiries, assess Growth Audit requests, deliver and improve services, maintain business records, prevent abuse, understand site performance, and meet legal obligations.",
         "We process information for the stated purpose, with consent where required, or where it is reasonably necessary to respond to a request, operate the site, protect the service, or comply with law. We do not sell personal information.",
       ]},
+      { heading: "The site chat", body: [
+        "The chat on this site (Artha) is an automated AI assistant, not a person. Your messages are sent to an AI service provider so it can generate a reply. We do not keep a chat history on our servers.",
+        "If you share your name and a phone number or email in the chat, we receive those details together with the conversation by email so the team can follow up. Please do not share sensitive personal, financial or medical information in the chat.",
+      ]},
       { heading: "Cookies and analytics", body: [
-        "Essential browser storage remembers choices such as theme and accent colour. With your permission, we use Google Analytics and Microsoft Clarity to understand how visitors use this website. Analytics cookies are only set after you accept them in the cookie banner.",
+        "Essential browser storage remembers choices such as theme and accent colour. With your permission, we use Google Analytics cookies and Microsoft Clarity to understand how visitors use this website. Analytics cookies, and Clarity, are only used after you accept them in the cookie banner. Before you choose, Google Analytics sets no cookies but still sends a basic page-view signal to Google.",
         "You can change your choice at any time through \"Cookie settings\" in the website footer, or block and clear cookies through your browser. See the Cookie Policy for more detail.",
       ]},
       { heading: "Service providers and international processing", body: [
@@ -28,11 +32,16 @@ export const legalPages: Record<string, LegalContent> = {
       ]},
       { heading: "Retention and security", body: [
         "We retain enquiry and client information only for as long as it is useful for responding, maintaining the business relationship, resolving disputes, and meeting legal or accounting obligations. Information that is no longer required is deleted or anonymised where reasonably practicable.",
+        "In practice: we keep enquiries for as long as needed to respond and for our records, and we delete or anonymise them within 30 days of a verified request, except what the law requires us to keep (for example invoices and accounting records). Instagram, Facebook and WhatsApp comment and message records follow the 90-day period described below.",
         "We apply reasonable technical and organisational safeguards. No online service can promise absolute security, so please do not submit sensitive personal, financial, medical, or authentication information through general website forms or chat.",
       ]},
       { heading: "Your choices and rights", body: [
         "Depending on applicable law, you may ask for access to personal information, correction of inaccurate information, deletion, withdrawal of consent, or information about how a request has been handled.",
-        "To make a request or raise a grievance, email hello@vistrow.com. We may need to verify your identity before acting on a request.",
+        "To make a request or raise a grievance, email our Grievance Officer, Abhishek Gadge, at grievance@vistrow.com. We will acknowledge your message within 2 business days and aim to resolve it within 30 days. We may need to verify your identity before acting on a request.",
+        "Once the Data Protection Board of India is operational, you may also complain to it if you are not satisfied with our response.",
+      ]},
+      { heading: "Stopping messages", body: [
+        "If we follow up with you on WhatsApp, SMS or email, you can tell us to stop at any time, by replying to the message or by emailing hello@vistrow.com, and we will stop contacting you on that channel.",
       ]},
       { heading: "Instagram, Facebook and WhatsApp interactions", id: "social-media-data", body: [
         "When you comment on or message our Instagram or Facebook accounts, or message us on WhatsApp, we receive the information those platforms share with us through Meta's official APIs: your public username, an app-scoped account ID, the text of your comment or message, its time, and whether you follow our account.",
@@ -56,7 +65,7 @@ export const legalPages: Record<string, LegalContent> = {
   terms: {
     slug: "terms",
     title: "Terms & Conditions",
-    updated,
+    updated: "5 November 2026",
     intro:
       "These Terms & Conditions govern use of the Vistrow Technologies website. Client services and product subscriptions are governed by the written agreement that covers them.",
     sections: [
@@ -83,6 +92,9 @@ export const legalPages: Record<string, LegalContent> = {
       { heading: "Priority of signed agreements", body: [
         "A signed proposal, statement of work, product subscription, data-processing agreement, or other written contract takes priority over these website terms for the services it covers.",
       ]},
+      { heading: "Governing law and disputes", body: [
+        "These terms are governed by the laws of India. If a dispute arises, please write to hello@vistrow.com first so we can try to resolve it informally. If it is not resolved, the courts at Pune, Maharashtra have exclusive jurisdiction.",
+      ]},
       { heading: "Changes and contact", body: [
         "We may update these terms by publishing a revised date on this page. Questions can be sent to hello@vistrow.com or through our Contact page.",
       ]},
@@ -92,7 +104,7 @@ export const legalPages: Record<string, LegalContent> = {
   "cookie-policy": {
     slug: "cookie-policy",
     title: "Cookie Policy",
-    updated,
+    updated: "5 November 2026",
     intro:
       "This Cookie Policy explains the browser storage and analytics used on the Vistrow Technologies website.",
     sections: [
@@ -103,9 +115,9 @@ export const legalPages: Record<string, LegalContent> = {
         "The site stores choices such as light or dark theme and accent colour. These choices are used to provide the experience you requested and are not used for advertising.",
       ]},
       { heading: "Analytics", body: [
-        "With your permission, we use Google Analytics to understand how visitors use this website - usage events and limited device, browser, referral, and approximate location information. We configure IP anonymisation where supported.",
+        "With your permission, we use Google Analytics cookies to understand how visitors use this website - usage events and limited device, browser, referral, and approximate location information. We configure IP anonymisation where supported.",
         "With the same permission we use Microsoft Clarity, which records how pages are used (clicks, scrolling and mouse movement) as heatmaps and session replays so we can find and fix confusing parts of the site. Clarity masks text you type into forms, and it does not load at all unless you accept analytics.",
-        "Analytics cookies are only set after you allow them in the cookie banner, by choosing Accept all or turning Analytics on and saving. Until then, or if you decline, Google Analytics runs in a cookieless mode that sends basic, anonymous signals without identifiers that could recognise you.",
+        "Analytics cookies are only set after you allow them in the cookie banner, by choosing Accept all or turning Analytics on and saving. Until then, or if you decline, Google Analytics sets no cookies. It still sends a basic page-view signal to Google (the page address, and browser and device details; Google also receives your IP address) so that we can count visits.",
         "We do not currently use advertising cookies on this website.",
       ]},
       { heading: "Managing cookies", body: [

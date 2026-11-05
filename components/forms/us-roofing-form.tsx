@@ -6,6 +6,7 @@ import { Field, Input, Select, Textarea } from "@/components/forms/fields";
 import { trackLead } from "@/lib/analytics";
 import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
 import { postJson } from "@/lib/forms/post-json";
+import { DataNotice } from "@/components/forms/data-notice";
 
 type Errors = Partial<Record<"name" | "email" | "website" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -174,6 +175,7 @@ export function UsRoofingForm() {
               .
             </span>
           </label>
+          <DataNotice />
           {errors.consent && (
             <p className="mt-1.5 font-sans text-[13px] text-error" role="alert">
               {errors.consent}

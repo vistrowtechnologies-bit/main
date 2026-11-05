@@ -9,6 +9,7 @@ import { budgetsFor, countries, countryForMarket, readMarket } from "@/lib/marke
 import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
 import { postJson } from "@/lib/forms/post-json";
 import { SuccessCelebration } from "@/components/forms/success-celebration";
+import { DataNotice } from "@/components/forms/data-notice";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -216,6 +217,7 @@ export function GrowthAuditForm() {
                 .
               </span>
             </label>
+            <DataNotice />
             {errors.consent && (
               <p className="mt-1.5 font-sans text-[13px] text-error" role="alert">{errors.consent}</p>
             )}

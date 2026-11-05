@@ -331,8 +331,14 @@ export function ChatWidget() {
                   <Send className="h-4 w-4" />
                 </button>
               </div>
-              <p className="mt-2 text-center font-sans text-[10px] text-muted">
-                Automated guidance. For detailed advice, contact the Vistrow team.
+              <p className="mt-2 text-center font-sans text-[10px] leading-snug text-muted">
+                Artha is an AI assistant, not a person. Your messages are processed by an AI provider and we do not keep a
+                chat history. If you share your name and a phone number or email, our team receives them with the conversation by email so we can follow up. For detailed advice,
+                contact the Vistrow team. See our{" "}
+                <a href="/privacy-policy" className="underline underline-offset-2 hover:text-ink">
+                  Privacy Policy
+                </a>
+                .
               </p>
             </form>
           </motion.section>

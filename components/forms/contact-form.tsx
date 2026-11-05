@@ -9,6 +9,7 @@ import { SuccessCelebration } from "@/components/forms/success-celebration";
 import { SpamGuard, readSpamGuard } from "@/components/forms/spam-guard";
 import { postJson } from "@/lib/forms/post-json";
 import { budgetsFor, countries, countryForMarket, readMarket } from "@/lib/market";
+import { DataNotice } from "@/components/forms/data-notice";
 
 type Errors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "error";
@@ -168,6 +169,7 @@ export function ContactForm() {
               .
             </span>
           </label>
+          <DataNotice />
           {errors.consent && <p className="mt-1.5 font-sans text-[13px] text-error" role="alert">{errors.consent}</p>}
         </div>
       </div>
