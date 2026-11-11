@@ -42,7 +42,7 @@ function inside(c) {
   for (const b of c.blocks) {
     if (b.type === "check") out.push(`${b.items.length}-point tick-box checklist`);
     if (b.type === "steps") out.push(`${b.items.length} step-by-step actions`);
-    if (b.type === "templates") out.push(`${b.items.length} copy-paste WhatsApp templates`);
+    if (b.type === "templates") out.push(`${b.items.length} copy-paste ${/review-reply/.test(c.slug) ? "review reply" : "WhatsApp"} templates`);
     if (b.type === "table") out.push(b.title);
     if (b.type === "task") out.push("Aaj ka 5-minute kaam");
     if (b.type === "download") out.push("Ready-made tracker sheet");

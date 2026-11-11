@@ -110,5 +110,21 @@
     "card": "/playbook/pdf/card-day-15-877b547d53.jpg",
     "pages": 3,
     "kb": 479
+  },
+  "16": {
+    "file": "/playbook/pdf/vistrow-day-16-bad-review-reply-kit-f1790f208a.pdf",
+    "cover": "/playbook/pdf/cover-day-16-f1790f208a.jpg",
+    "reel": "/playbook/pdf/reel-day-16-f1790f208a.jpg",
+    "card": "/playbook/pdf/card-day-16-f1790f208a.jpg",
+    "pages": 4,
+    "kb": 598
+  },
+  "17": {
+    "file": "/playbook/pdf/vistrow-day-17-follow-up-after-quote-kit-848d68b8f3.pdf",
+    "cover": "/playbook/pdf/cover-day-17-848d68b8f3.jpg",
+    "reel": "/playbook/pdf/reel-day-17-848d68b8f3.jpg",
+    "card": "/playbook/pdf/card-day-17-848d68b8f3.jpg",
+    "pages": 4,
+    "kb": 598
   }
 }

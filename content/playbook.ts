@@ -439,6 +439,66 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: raat 11 baje apne business ko ek customer ki tarah dhoondo. Kya aap bina call kiye rate dekh ke booking kar sakte ho? Agar nahi, toh aapka ATM abhi band hai.' }
     ],
     related: [{ slug: 'website-must-haves-checklist', anchor: 'website must-haves checklist' }, { slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }]
+  },
+  {
+    day: 16, slug: 'bad-review-reply-kit', keyword: 'CHALK', release: '2026-11-10T11:00',
+    title: 'Shutter pe chalk',
+    h1: 'How to Reply to Negative Google Reviews: Bad-Review Reply Kit for Small Business (Shutter pe Chalk)',
+    seoTitle: 'How to Reply to a 1-Star Google Review · Reply Templates for Small Business (Free PDF)',
+    description: 'An unanswered 1-star review is like a complaint chalked on your shutter: every next customer reads it. Free kit with 3 copy-paste reply templates, what never to write, and the 24-hour rule, plus a PDF.',
+    summary: 'Bina jawab ka review shutter pe likhi shikayat jaisa hai. Jawab angry customer ke liye nahi, agle customer ke liye likha jaata hai.',
+    blocks: [
+      { type: 'why', title: 'Ek hi toh review hai… phir bhi farak kyun?', text: 'Example: Diwali ki raat Sneha ne Farhan ke restaurant se biryani mangwayi. Khana thanda pahuncha, toh usne Google pe ek star de diya. Farhan ne socha "ek hi toh hai" aur jawab nahi diya. Agle din Kabir ne order se pehle wahi review padha, aur kahin aur se mangwa liya. Bina jawab ka review shutter pe likhi shikayat jaisa hai: aap mitao nahi, toh har aane wala wahi padhta hai. Review delete nahi hota, par neeche ka jawab agle customer ko bata deta hai ki aap sunte ho. Farhan ne jawab likha, aur agli baar Kabir ne order kar diya.' },
+      { type: 'check', title: 'Bad review ka jawab: 8 rules', items: [
+        ['24 ghante ke andar', 'Jitna jaldi jawab, utna kam nuksaan. Roz ek fixed time pe reviews check karo.'],
+        ['Naam se shuru karo', '"Sneha ji" likho, "Dear customer" nahi. Isse lagta hai insaan ne padha hai.'],
+        ['Shikayat ko apne shabdon mein dohraao', '"Khana thanda pahuncha" likho. Isse customer ko lagta hai aapne sach mein samjha.'],
+        ['Ek line ka sorry, bahaana nahi', '"Sorry, galti humari thi." Rider, traffic, staff pe dosh mat daalo.'],
+        ['Baat offline le jao', '"Call karke theek karte hain" ya apna number do. Public mein discount ya refund ka vaada mat karo.'],
+        ['Chhota rakho', '3–4 line kaafi hai. Lamba jawab safai jaisa lagta hai.'],
+        ['Kabhi mat likho', 'Gussa, "aap jhooth bol rahe ho", customer ki personal detail, ya "aap pehle bhi aise the".'],
+        ['Achhe reviews ka bhi jawab', 'Har review ka jawab do, sirf bure ka nahi. Profile zinda lagti hai.']
+      ] },
+      { type: 'templates', title: 'Copy-paste reply templates', items: [
+        ['Khana / product mein problem', 'Sorry {naam} ji, {shikayat} — ye humari galti thi. Hum aapko call karke theek karna chahte hain. Kripya {number} pe WhatsApp karein. — {owner naam}, {business}'],
+        ['Late delivery / service', '{naam} ji, der ke liye maafi. Us din {wajah nahi, bas fact} hua, par aapko intezaar nahi karna chahiye tha. Agli baar ke liye humne {kya badla} kiya hai. — {owner naam}'],
+        ['Galat ya fake lagne wala review', 'Namaste {naam} ji, humein is order ka record nahi mil raha. Kripya {number} pe order detail bhejein, hum turant dekhenge. — {business}'],
+        ['5★ review ka jawab', 'Shukriya {naam} ji! 🙏 {jo pasand aaya} sun ke achha laga. Phir milte hain. — {business}']
+      ] },
+      { type: 'note', text: 'Upar Sneha, Farhan, Kabir aur Farhan\'s Biryani example hain. Google khud Business Profile owners ko reviews ka jawab dene ko kehta hai (Google Business Profile Help: "Read & reply to reviews"). Jawab dene se review hatta nahi hai. Agar aap chahte hain ki aapke reviews ka jawab hum roz likhein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apni Google profile kholo aur har bina-jawab wale review ka jawab do — sabse purane 1★ se shuru karo. 10 minute ka kaam hai.' }
+    ],
+    related: [{ slug: 'google-review-request-templates', anchor: 'Google review request templates' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }, { slug: 'website-that-books-at-night', anchor: 'website that books at night' }]
+  },
+  {
+    day: 17, slug: 'follow-up-after-quote-kit', keyword: 'RISHTA', release: '2026-11-12T11:00',
+    title: 'Rishta ek phone pe pakka nahi hota',
+    h1: 'How to Follow Up After Sending a Quote: WhatsApp Follow-Up Kit for Small Business (Rishta ek phone pe pakka nahi hota)',
+    seoTitle: 'How to Follow Up After Sending a Quote · WhatsApp Follow-Up Messages for Small Business (Free PDF)',
+    description: 'Customer asked the price, you sent the quote, then silence? Silence is usually not a no. Free follow-up kit: the Day 2 and Day 5 WhatsApp messages, what never to write, and when to stop, plus a PDF.',
+    summary: 'Reply nahi aaya matlab mana nahi kiya. Rishte ki tarah, do din baad pyaar se poochna parwah hai, pressure nahi.',
+    blocks: [
+      { type: 'why', title: 'Quote bheja… phir chup. Ab kya?', text: 'Example: shaadi ka season tha. Ananya ne photographer Varun se rate poocha. Varun ne quote bheja, reply nahi aaya, toh Varun ne socha "pasand nahi aaya". Lekin Ananya ne mana nahi kiya tha, bas shaadi ki taiyaari mein bhool gayi thi. Do din baad doosre photographer ne poocha "date block kar doon?" aur booking usko mil gayi. Rishte mein bhi ghar wale ek phone karke chup nahi baithte: do din baad pyaar se poochte hain "toh kya socha?". Wo pressure nahi, parwah hai. Follow-up bhi wahi hai: yaad dilaana, pareshaan karna nahi.' },
+      { type: 'check', title: 'Follow-up ke 8 rules', items: [
+        ['Silence matlab "na" nahi', 'Zyaadatar log busy hote hain ya bhool jaate hain. Reply na aaye toh khud se "pasand nahi aaya" mat maan lo.'],
+        ['Din 2: halka sa yaad', 'Ek chhota message: "Koi sawaal ho toh batayein." Price dobara mat bhejo.'],
+        ['Din 5: ek clear agla step', 'Ek hi sawaal: "Date block kar doon?" ya "Kal 5 min call kar sakte hain?" Haan/na mein jawab dena aasaan ho.'],
+        ['Din 10: aakhri, phir stop', '"Agar abhi zarurat nahi hai toh koi baat nahi, jab chahiye ho message kar dena." Uske baad message band.'],
+        ['Naam se shuru karo', '"Ananya ji", "Hi dear" nahi. Har message ek insaan ko likha lage.'],
+        ['Kuch naya do', 'Har follow-up mein ek nayi cheez: ek sample photo, ek review, ek available date. Sirf "?" mat bhejo.'],
+        ['Kabhi mat likho', '"Aapne reply kyun nahi kiya?", "Last chance!", ya roz-roz same message. Ye pressure hai, parwah nahi.'],
+        ['Likh ke rakho', 'Kis enquiry ko kab follow-up karna hai, ek sheet ya calendar mein. Yaad ke bharose mat raho.']
+      ] },
+      { type: 'templates', title: 'Copy-paste follow-up messages', items: [
+        ['Din 2 · halka yaad', 'Namaste {naam} ji 🙏 Kal humne {service} ka quote bheja tha. Koi sawaal ho toh yahin pooch lijiye, khushi se bata denge.'],
+        ['Din 5 · agla step', '{naam} ji, {date} ki date abhi khaali hai. Aapke liye block kar doon? Bas "haan" likh dijiye. 📅'],
+        ['Din 5 · kuch naya', '{naam} ji, aapke jaise ek {event/kaam} ka hamara recent kaam: {photo/link}. Aapka plan kaisa chal raha hai?'],
+        ['Din 10 · aakhri, respectful', '{naam} ji, shayad abhi zarurat nahi hai, koi baat nahi 😊 Jab bhi {service} chahiye ho, ek message kar dijiye.']
+      ] },
+      { type: 'note', text: 'Upar Ananya, Varun aur Aditya example hain. WhatsApp pe follow-up sirf unhi ko bhejo jinhone khud enquiry ki thi, aur koi "stop" bole toh turant band karo. Agar aap chahte hain ki aapki har enquiry ka follow-up apne aap (din 2, din 5) set ho jaye, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: pichhle 2 hafton ki un enquiries ki list banao jinhe quote bheja par reply nahi aaya. Har ek ko upar wala "Din 5" message bhejo.' }
+    ],
+    related: [{ slug: 'lead-tracker-follow-up', anchor: 'lead tracker and follow-up' }, { slug: 'rate-card-auto-reply-kit', anchor: 'rate card auto-reply kit' }, { slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }]
   }
 ];
 
