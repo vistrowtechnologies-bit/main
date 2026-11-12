@@ -528,6 +528,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apna pichhla ad kholo aur "location" breakdown dekho. Kitne log aapke 5 km ke andar se the? Agar aadhe se kam, toh agla ad pin + radius ke saath chalao.' }
     ],
     related: [{ slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }, { slug: 'follow-up-after-quote-kit', anchor: 'follow-up after the quote' }]
+  },
+  {
+    day: 19, slug: 'google-maps-pin-fix', keyword: 'GATE', release: '2026-11-14T11:00',
+    title: 'Dukaan saamne, Maps bole 2 km aage',
+    h1: 'Wrong Location on Google Maps? How to Fix Your Business Map Pin (Google Business Profile Checklist)',
+    seoTitle: 'How to Fix Wrong Business Location on Google Maps · Map Pin Checklist for Small Business (Free PDF)',
+    description: 'Customer standing outside your shop but Google Maps says 2 km ahead? Your map pin is in the wrong place. Free checklist to check and fix your Google Business Profile pin, plus a PDF.',
+    summary: 'Address sahi, pin galat. Google raasta pin dekh ke dikhata hai, jaise delivery wala gate ka number dekh ke ghanti bajata hai.',
+    blocks: [
+      { type: 'why', title: 'Customer saamne khada, phir bhi nahi pahuncha?', text: 'Example: raat ko Rohit ke bacche ko bukhaar tha. Mahesh bhai ka medical store bilkul saamne tha, par Google Maps keh raha tha 2 km aage jao. Rohit aage chala gaya, kyunki Google pe store ka pin hi galat jagah laga tha. Address sahi tha, pin galat. Jaise ghar ke gate pe galat number ho: delivery wala number dekh ke hi ghanti bajata hai. Mahesh bhai ne pin theek kiya, aur agle hafte ek papa seedha darwaze pe pahunche. (Naam aur jagah example hain.)' },
+      { type: 'check', title: 'Google Maps pin checklist', items: [
+        ['Customer ki tarah dhoondo', 'Dukaan ke bahar khade hoke Google Maps pe apna naam search karo aur "Directions" dabao. Kya raasta seedha darwaze tak aata hai?'],
+        ['Pin bilkul darwaze pe', 'Google Business Profile → Edit profile → Location. Map pe pin ko apne asli darwaze tak drag karo, sirf building ya gali tak nahi.'],
+        ['Entrance ka dhyan', 'Do taraf se raasta hai? Pin us side rakho jahan se customer andar aata hai.'],
+        ['Landmark likho', 'Address ke saath ek pehchaan wala landmark: "SBI ATM ke saamne", "mandir wali gali".'],
+        ['Photos: bahar se', 'Dukaan ke bahar ki saaf photo daalo: board, darwaza, gali. Customer pehchaan lega.'],
+        ['Har jagah same address', 'Instagram bio, WhatsApp Business, website aur Google pe ek hi address aur ek hi pin link.'],
+        ['Customers se poochho', '"Aap Google se aaye? Raasta theek mila?" Agar 2–3 log bole galat mila, turant pin check karo.'],
+        ['Har mahine ek baar', 'Mahine mein ek baar Maps pe directions khud test karo. Kabhi kabhi edits ya road changes se cheezein badal jaati hain.']
+      ] },
+      { type: 'templates', title: 'Copy-paste lines', items: [
+        ['WhatsApp: location bhejna', 'Namaste {naam} ji 🙏 Hamari dukaan ka exact location: {google maps link}. {landmark} ke bilkul saamne. Pahunch ke call kar lijiye: {number}'],
+        ['Instagram bio line', '📍 {Area} · {landmark} ke saamne · Directions 👇 {maps link}'],
+        ['Customer se feedback', '{naam} ji, aapko Google Maps se raasta theek mila? Agar kahin confusion hua ho toh bataiye, hum theek kar denge 🙏']
+      ] },
+      { type: 'note', text: 'Upar Rohit, Mahesh bhai aur store example hain. Google Business Profile mein owner map pin ki location khud badal sakta hai (kabhi kabhi Google review ke baad update hota hai). Agar aap chahte hain ki aapki listing aur pin hum check karke theek karein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apni dukaan ke bahar khade hoke Google Maps pe "Directions" dabao. Agar raasta darwaze tak nahi aata, aaj hi pin theek karo.' }
+    ],
+    related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }, { slug: 'nap-consistency-checklist', anchor: 'same name everywhere checklist' }, { slug: 'local-ad-location-targeting', anchor: 'local ad location checklist' }]
   }
 ];
 
