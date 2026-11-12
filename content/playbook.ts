@@ -499,6 +499,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: pichhle 2 hafton ki un enquiries ki list banao jinhe quote bheja par reply nahi aaya. Har ek ko upar wala "Din 5" message bhejo.' }
     ],
     related: [{ slug: 'lead-tracker-follow-up', anchor: 'lead tracker and follow-up' }, { slug: 'rate-card-auto-reply-kit', anchor: 'rate card auto-reply kit' }, { slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }]
+  },
+  {
+    day: 18, slug: 'local-ad-location-targeting', keyword: 'PINCODE', release: '2026-11-13T11:00',
+    title: '₹2,000 ka ad, Patna mein dikha',
+    h1: 'Local Ads for Small Business: How to Target Only Nearby Customers on Facebook & Instagram (Pin + Radius)',
+    seoTitle: 'Facebook & Instagram Ads Location Targeting for Local Business · Pin + Radius Checklist (Free PDF)',
+    description: 'Ran an ad, got views but zero customers? The viewers were probably far away. Free checklist: set a pin on your shop, choose a radius, and show your ad only to people who can actually come. Plus a PDF.',
+    summary: 'Zyada log nahi, paas wale. Ad bhi Zomato ki tarah: sirf utne area mein dikhao jahan se customer sach mein aa sake.',
+    blocks: [
+      { type: 'why', title: 'Views aaye, customer kyun nahi?', text: 'Example: Vikram ka gym Pune mein hai. Usne ₹2,000 ka ad chalaya, 1,900 views aaye, par gym mein ek bhi banda nahi aaya, kyunki dekhne wale bahut door ke the. Ad mein location set hi nahi ki thi. Zomato bhi aapka restaurant sirf paas walon ko dikhata hai, kyunki door wala order karega hi nahi. Ad bhi waisa hi chalao. Agli baar Vikram ne gym se 5 km chuna, aur utne hi paise mein 12 log trial pe aaye. (Numbers example hain.)' },
+      { type: 'check', title: 'Local ad location checklist', items: [
+        ['Pin apni dukaan pe', 'Ads Manager mein Locations pe jaao, apna address ya pin drop karo. Poora sheher ya poora India mat chuno.'],
+        ['Radius sahi chuno', 'Customer kitni door se aata hai? Gym, salon, clinic ke liye aksar 3–8 km. Jitna door se log sach mein aate hain, utna hi.'],
+        ['"Living in" chuno', 'Jahan ho sake, un logon ko chuno jo us area mein rehte hain, sirf ghoomne aaye logon ko nahi.'],
+        ['Ek ad, ek area', 'Do branches hain? Har branch ke liye alag pin aur alag ad, taaki pata chale kaun sa area kaam kar raha hai.'],
+        ['Results area-wise dekho', 'Ad chalne ke baad "location" breakdown dekho. Galat sheher dikhe toh turant radius theek karo.'],
+        ['Goal: message ya call', 'Views ka goal mat rakho. Messages, calls ya leads ka goal rakho, taaki Meta un logon ko dhoonde jo baat karenge.'],
+        ['Offer local rakho', 'Ad mein area ka naam likho: "Kothrud walon ke liye 3 din free trial". Paas wala turant samajhta hai ye uske liye hai.'],
+        ['Pehle chhota test', '₹300–500 se 2 din test karo, phir jo area/ad kaam kare usi pe budget badhao.']
+      ] },
+      { type: 'templates', title: 'Copy-paste ad lines (local)', items: [
+        ['Gym / fitness', '{Area} walon ke liye: 3 din FREE trial 💪 {gym naam}, {landmark} ke paas. WhatsApp karein: {number}'],
+        ['Salon / clinic', '{Area} mein ho? Is hafte {service} pe {offer}. {landmark} se 2 min. Appointment ke liye message karein.'],
+        ['Shop / restaurant', '{Area} ke paas sabse {fresh/sasta/best} {product}. Aaj order karo, {time} tak delivery {X} km tak.']
+      ] },
+      { type: 'note', text: 'Upar Vikram aur sab numbers example hain. Meta ke ads mein location ka option (pin + radius) har ad set mein milta hai. Agar aap chahte hain ki aapke ads ka area, goal aur offer hum set karein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apna pichhla ad kholo aur "location" breakdown dekho. Kitne log aapke 5 km ke andar se the? Agar aadhe se kam, toh agla ad pin + radius ke saath chalao.' }
+    ],
+    related: [{ slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }, { slug: 'follow-up-after-quote-kit', anchor: 'follow-up after the quote' }]
   }
 ];
 
