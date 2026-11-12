@@ -106,7 +106,7 @@ export function ClientDiscoveryForm() {
       await postJson("/api/client-discovery", { ...contact, ...answers, ...freeTextFields, ...readSpamGuard(form) });
       setSubmitted(true);
     } catch (error) {
-      setServerError(error instanceof Error ? error.message : "We couldn't save your response. Please email hello@vistrow.com.");
+      setServerError(error instanceof Error ? error.message : "We couldn't save your response. Please email info@vistrow.com.");
     } finally {
       setSubmitting(false);
     }
@@ -178,8 +178,8 @@ export function ClientDiscoveryForm() {
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <p className="font-sans text-sm text-ink-2">
             {serverError} You can also email{" "}
-            <a href="mailto:hello@vistrow.com" className="font-semibold text-accent-strong hover:underline">
-              hello@vistrow.com
+            <a href="mailto:info@vistrow.com" className="font-semibold text-accent-strong hover:underline">
+              info@vistrow.com
             </a>
             .
           </p>

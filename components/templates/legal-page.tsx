@@ -32,8 +32,8 @@ export function LegalPage({ content }: { content: LegalContent }) {
 
           <div className="mt-12 rounded-lg border border-line bg-surface p-5 font-sans text-sm leading-relaxed text-muted">
             Questions about this policy can be sent to{" "}
-            <a className="font-semibold text-accent-strong hover:underline" href="mailto:hello@vistrow.com">
-              hello@vistrow.com
+            <a className="font-semibold text-accent-strong hover:underline" href="mailto:info@vistrow.com">
+              info@vistrow.com
             </a>{" "}
             or through our{" "}
             <Link className="font-semibold text-accent-strong hover:underline" href="/contact">

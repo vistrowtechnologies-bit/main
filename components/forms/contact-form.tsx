@@ -79,7 +79,7 @@ export function ContactForm() {
       setServerError(
         error instanceof Error
           ? error.message
-          : "We couldn't send your message. Please email hello@vistrow.com.",
+          : "We couldn't send your message. Please email info@vistrow.com.",
       );
       setStatus("error");
     }
@@ -179,8 +179,8 @@ export function ContactForm() {
           <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-error" />
           <p className="font-sans text-sm text-ink-2">
             {serverError} You can also email{" "}
-            <a href="mailto:hello@vistrow.com" className="font-semibold text-accent-strong hover:underline">
-              hello@vistrow.com
+            <a href="mailto:info@vistrow.com" className="font-semibold text-accent-strong hover:underline">
+              info@vistrow.com
             </a>
             .
           </p>

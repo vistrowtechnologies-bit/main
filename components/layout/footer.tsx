@@ -54,7 +54,7 @@ export function Footer() {
   const socialIcons = { WhatsApp: WhatsappIcon, Instagram, Facebook, LinkedIn: Linkedin };
   const socialLinks = [
     ...socialProfiles.map((profile) => ({ icon: socialIcons[profile.platform], label: profile.label, href: profile.href })),
-    { icon: Mail, label: "Email Vistrow", href: "mailto:hello@vistrow.com" },
+    { icon: Mail, label: "Email Vistrow", href: "mailto:info@vistrow.com" },
   ];
 
   return (
@@ -85,8 +85,8 @@ export function Footer() {
               <a href={`tel:${businessPhone.replace(/\s+/g, "")}`} className="flex items-center gap-2.5 font-semibold text-ink hover:text-accent-strong">
                 <Phone className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />{businessPhone}
               </a>
-              <a href="mailto:hello@vistrow.com" className="flex items-center gap-2.5 text-ink-2 hover:text-accent-strong">
-                <Mail className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />hello@vistrow.com
+              <a href="mailto:info@vistrow.com" className="flex items-center gap-2.5 text-ink-2 hover:text-accent-strong">
+                <Mail className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />info@vistrow.com
               </a>
               <Link href="/locations" className="flex items-center gap-2.5 text-ink-2 hover:text-accent-strong">
                 <MapPin className="h-4 w-4 shrink-0 text-accent-strong" aria-hidden />Baner, Pune · View service areas

@@ -49,7 +49,7 @@ export async function GET() {
 - Official website: ${siteUrl}
 - Company name: Vistrow Technologies
 - Brand name: Vistrow
-- Contact: hello@vistrow.com
+- Contact: info@vistrow.com
 - Phone / WhatsApp: ${businessPhone}
 - Address: Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045, India
 - Service areas: ${serviceLocalities.join(", ")}, and remotely across India and worldwide
@@ -59,7 +59,7 @@ export async function GET() {
 ## Contact answers (for quick reference)
 
 - Vistrow Technologies phone number: ${businessPhone} (calls and WhatsApp)
-- Vistrow Technologies email: hello@vistrow.com
+- Vistrow Technologies email: info@vistrow.com
 - Vistrow Technologies address: Office No. 702, Icon Tower, Baner Road, Baner, Pune, Maharashtra 411045, India
 - Typical response time: within one business day
 - Contact page: ${siteUrl}/contact

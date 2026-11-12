@@ -51,12 +51,12 @@ export const organizationSchema: JsonLdValue = {
   },
   image: `${siteUrl}/icon.png`,
   telephone: businessPhone,
-  email: "hello@vistrow.com",
+  email: "info@vistrow.com",
   contactPoint: [
     {
       "@type": "ContactPoint",
       telephone: businessPhone,
-      email: "hello@vistrow.com",
+      email: "info@vistrow.com",
       contactType: "customer service",
       areaServed: ["IN", "Worldwide"],
       availableLanguage: ["English", "Hindi"],
@@ -148,7 +148,7 @@ export function localBusinessSchema(input: {
     description: input.description,
     url: `${siteUrl}${input.path}`,
     telephone: businessPhone,
-    email: "hello@vistrow.com",
+    email: "info@vistrow.com",
     ...(withOffice ? { address: businessAddress, geo: businessGeo } : {}),
     parentOrganization: { "@id": `${siteUrl}/#organization` },
     areaServed: input.areaServed.map((name) => ({ "@type": "City", name })),

@@ -1,12 +1,12 @@
 import type { LegalContent } from "@/lib/content-types";
 
-const updated = "17 October 2026";
+const updated = "12 November 2026";
 
 export const legalPages: Record<string, LegalContent> = {
   "privacy-policy": {
     slug: "privacy-policy",
     title: "Privacy Policy",
-    updated: "5 November 2026",
+    updated: "12 November 2026",
     intro:
       "This Privacy Policy explains how Vistrow Technologies collects, uses, shares, and protects personal information submitted through this website and our business services.",
     sections: [
@@ -41,7 +41,7 @@ export const legalPages: Record<string, LegalContent> = {
         "Once the Data Protection Board of India is operational, you may also complain to it if you are not satisfied with our response.",
       ]},
       { heading: "Stopping messages", body: [
-        "If we follow up with you on WhatsApp, SMS or email, you can tell us to stop at any time, by replying to the message or by emailing hello@vistrow.com, and we will stop contacting you on that channel.",
+        "If we follow up with you on WhatsApp, SMS or email, you can tell us to stop at any time, by replying to the message or by emailing info@vistrow.com, and we will stop contacting you on that channel.",
       ]},
       { heading: "Instagram, Facebook and WhatsApp interactions", id: "social-media-data", body: [
         "When you comment on or message our Instagram or Facebook accounts, or message us on WhatsApp, we receive the information those platforms share with us through Meta's official APIs: your public username, an app-scoped account ID, the text of your comment or message, its time, and whether you follow our account.",
@@ -49,7 +49,7 @@ export const legalPages: Record<string, LegalContent> = {
         "Comment and message records used for automated replies are kept for up to 90 days, then deleted. Conversations that turn into an enquiry or a client relationship are handled under 'Retention and security' above.",
       ]},
       { heading: "How to delete your data", id: "data-deletion", body: [
-        "You can ask us to delete any personal information we hold about you, including data received through Instagram, Facebook or WhatsApp. Send the request to hello@vistrow.com, or message us on WhatsApp at +91 90670 97779 or by Instagram DM to @vistrow_technologies, with the subject 'Delete my data' and your username or phone number.",
+        "You can ask us to delete any personal information we hold about you, including data received through Instagram, Facebook or WhatsApp. Send the request to info@vistrow.com, or message us on WhatsApp at +91 90670 97779 or by Instagram DM to @vistrow_technologies, with the subject 'Delete my data' and your username or phone number.",
         "We will confirm receipt and delete or anonymise the information within 30 days, unless we must keep a record by law (for example, invoices). We will tell you when it is done.",
         "You can also remove our app's access at any time from your Instagram or Facebook settings: Settings → Apps and websites (or Business integrations) → select Vistrow Publisher → Remove. Deleting a comment or message on Instagram also removes it from the platform.",
       ]},
@@ -57,7 +57,7 @@ export const legalPages: Record<string, LegalContent> = {
         "This website and our business services are not directed to children. Please do not submit a child's personal information through our forms or chat.",
       ]},
       { heading: "Contact", body: [
-        "Vistrow Technologies is the contact responsible for information submitted through this website. Privacy questions and requests can be sent to hello@vistrow.com or through our Contact page.",
+        "Vistrow Technologies is the contact responsible for information submitted through this website. Privacy questions and requests can be sent to info@vistrow.com or through our Contact page.",
       ]},
     ],
   },
@@ -65,7 +65,7 @@ export const legalPages: Record<string, LegalContent> = {
   terms: {
     slug: "terms",
     title: "Terms & Conditions",
-    updated: "5 November 2026",
+    updated: "12 November 2026",
     intro:
       "These Terms & Conditions govern use of the Vistrow Technologies website. Client services and product subscriptions are governed by the written agreement that covers them.",
     sections: [
@@ -93,10 +93,10 @@ export const legalPages: Record<string, LegalContent> = {
         "A signed proposal, statement of work, product subscription, data-processing agreement, or other written contract takes priority over these website terms for the services it covers.",
       ]},
       { heading: "Governing law and disputes", body: [
-        "These terms are governed by the laws of India. If a dispute arises, please write to hello@vistrow.com first so we can try to resolve it informally. If it is not resolved, the courts at Pune, Maharashtra have exclusive jurisdiction.",
+        "These terms are governed by the laws of India. If a dispute arises, please write to info@vistrow.com first so we can try to resolve it informally. If it is not resolved, the courts at Pune, Maharashtra have exclusive jurisdiction.",
       ]},
       { heading: "Changes and contact", body: [
-        "We may update these terms by publishing a revised date on this page. Questions can be sent to hello@vistrow.com or through our Contact page.",
+        "We may update these terms by publishing a revised date on this page. Questions can be sent to info@vistrow.com or through our Contact page.",
       ]},
     ],
   },
@@ -104,7 +104,7 @@ export const legalPages: Record<string, LegalContent> = {
   "cookie-policy": {
     slug: "cookie-policy",
     title: "Cookie Policy",
-    updated: "5 November 2026",
+    updated: "12 November 2026",
     intro:
       "This Cookie Policy explains the browser storage and analytics used on the Vistrow Technologies website.",
     sections: [
@@ -124,7 +124,7 @@ export const legalPages: Record<string, LegalContent> = {
         "You can change your choice at any time through \"Cookie settings\" in the website footer. You can also block or delete cookies through your browser settings, or use a browser extension that blocks analytics scripts. Declining or blocking cookies does not prevent use of the website.",
       ]},
       { heading: "Contact", body: [
-        "Questions about cookies or analytics can be sent to hello@vistrow.com or through our Contact page.",
+        "Questions about cookies or analytics can be sent to info@vistrow.com or through our Contact page.",
       ]},
     ],
   },
@@ -150,7 +150,7 @@ export const legalPages: Record<string, LegalContent> = {
         "Our site may link to third-party websites and products. We are not responsible for their content, availability, or practices. Platform features and policies can change independently of Vistrow.",
       ]},
       { heading: "Contact", body: [
-        "Questions about this disclaimer can be sent to hello@vistrow.com or through our Contact page.",
+        "Questions about this disclaimer can be sent to info@vistrow.com or through our Contact page.",
       ]},
     ],
   },
