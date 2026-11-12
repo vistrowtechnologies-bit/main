@@ -1,13 +1,9 @@
 import type { ReactNode } from "react";
-import { CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
-import { LinkCardGrid } from "@/components/sections/link-card-grid";
-import { Steps } from "@/components/sections/steps";
-import { NotchPhoto } from "@/components/sections/notch-photo";
+import { CardLinkGrid, SolutionSplit, Timeline } from "@/components/sections/service-blocks";
 import { Faq } from "@/components/sections/faq";
-import { Reveal } from "@/components/ui/reveal";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { JsonLd } from "@/components/seo/json-ld";
 import type { OverviewContent } from "@/lib/content-types";
 import { breadcrumbSchema, collectionSchema, faqSchema, graph } from "@/lib/structured-data";
@@ -54,59 +50,28 @@ export function OverviewPage({
         highlight={content.highlight}
         subtitle={content.subtitle}
         secondaryCta={{ label: "Talk to Vistrow", href: "/contact" }}
+        aside={
+          content.intro?.image ? (
+            <div className="relative overflow-hidden rounded-lg border border-line bg-card shadow-lift">
+              <Image src={content.intro.image.src} alt={content.intro.image.alt} width={1536} height={1024} sizes="(min-width: 1024px) 600px, 100vw" priority className="aspect-[3/2] h-auto w-full object-cover" />
+            </div>
+          ) : undefined
+        }
       />
 
-      {content.intro?.image ? (
-        <section className="py-section">
-          <div className="container-edge">
-            <SectionHeading eyebrow={content.intro.eyebrow ?? "The connected system"} title={content.intro.title} className="mb-10 max-w-3xl" />
-            <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
-              <Reveal className="max-w-2xl xl:max-w-none">
-                <NotchPhoto src={content.intro.image.src} alt={content.intro.image.alt} />
-              </Reveal>
-              <Reveal delay={0.08}>
-                <p className="max-w-xl font-sans text-lg leading-relaxed text-muted">{content.intro.body}</p>
-                <ul className={`mt-8 grid gap-3 sm:grid-cols-2 ${content.intro.body.length > 400 ? "" : "xl:grid-cols-1"}`}>
-                  {content.intro.points.map((point) => (
-                    <li key={point} className="flex items-start gap-3 rounded-lg border border-line bg-card p-4">
-                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" strokeWidth={2} />
-                      <span className="font-sans text-[15px] leading-relaxed text-ink-2">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-      ) : content.intro ? (
-        <section className="py-section">
-          <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-            <SectionHeading
-              eyebrow={content.intro.eyebrow ?? "The connected system"}
-              title={content.intro.title}
-              description={content.intro.body}
-            />
-            <Reveal delay={0.08}>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {content.intro.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex items-start gap-3 rounded-lg border border-line bg-card p-5"
-                  >
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" strokeWidth={2} />
-                    <span className="font-sans text-[15px] leading-relaxed text-ink-2">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </div>
-        </section>
-      ) : null}
+      {content.intro && (
+        <SolutionSplit
+          eyebrow={content.intro.eyebrow ?? "The connected system"}
+          title={content.intro.title}
+          body={content.intro.body}
+          points={content.intro.points}
+        />
+      )}
 
-      <LinkCardGrid title={content.cardsTitle} cards={content.cards} surface />
+      <CardLinkGrid title={content.cardsTitle} cards={content.cards} tone={content.intro ? "plain" : "plain"} />
 
       {content.process && (
-        <Steps
+        <Timeline
           eyebrow="How it comes together"
           title="A clear route from first step to measurable outcome"
           steps={content.process}
@@ -115,7 +80,11 @@ export function OverviewPage({
 
       {extra}
 
-      {content.faqs && <Faq items={content.faqs} />}
+      {content.faqs && (
+        <div className="[&>section]:py-block">
+          <Faq items={content.faqs} />
+        </div>
+      )}
 
       <CtaBand />
     </>

@@ -1,16 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Phone } from "lucide-react";
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { locations } from "@/content/locations";
 import { PageHero } from "@/components/sections/page-hero";
-import { FeatureCards } from "@/components/sections/feature-cards";
-import { Steps } from "@/components/sections/steps";
 import { Faq } from "@/components/sections/faq";
 import { CtaBand } from "@/components/sections/cta-band";
-import { AnswerSummary } from "@/components/sections/answer-summary";
-import { NotchPhoto } from "@/components/sections/notch-photo";
+import { CardLinkGrid, ChallengeGrid, FactStrip, ServiceLinkGrid, SolutionSplit, TextSplit, Timeline } from "@/components/sections/service-blocks";
 import { Reveal } from "@/components/ui/reveal";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { Card, Section } from "@/components/ui/section";
 import { JsonLd } from "@/components/seo/json-ld";
 import type { LocationContent } from "@/lib/content-types";
 import { breadcrumbSchema, businessPhone, businessWhatsapp, faqSchema, graph, localBusinessSchema } from "@/lib/structured-data";
@@ -54,146 +52,47 @@ export function LocationPage({ content }: { content: LocationContent }) {
         title={content.title}
         subtitle={content.subtitle}
         secondaryCta={{ label: "WhatsApp us", href: businessWhatsapp, external: true }}
+        aside={
+          content.image ? (
+            <div className="relative overflow-hidden rounded-lg border border-line bg-card shadow-lift">
+              <Image src={content.image.src} alt={content.image.alt} width={1536} height={1024} sizes="(min-width: 1024px) 600px, 100vw" priority className="aspect-[3/2] h-auto w-full object-cover" />
+            </div>
+          ) : undefined
+        }
       />
 
-      <AnswerSummary
-        question={`Who is the best digital marketing agency in ${content.area}?`}
-        answer={content.solution.body}
-        groups={[
-          { label: "Why local businesses choose us", items: content.reasons.slice(0, 3).map((item) => item.title) },
-          { label: "How we work", items: content.process.slice(0, 3).map((item) => item.title) },
-          { label: "Relevant services", items: content.services.slice(0, 3).map((item) => item.label) },
+      <FactStrip
+        answer={content.metaDescription}
+        facts={[
+          { label: "Area", value: content.area },
+          { label: "Based in", value: "Baner, Pune" },
+          { label: "Also serves", value: content.nearby.slice(0, 3).join(", ") || "The wider Pune region" },
         ]}
       />
 
+      <TextSplit eyebrow={`${content.area} market`} title={content.localContext.title} paragraphs={content.localContext.paragraphs} />
 
-      <section className="py-section">
-        {content.image ? (
-          <div className="container-edge">
-            <SectionHeading eyebrow={`${content.area} market`} title={content.localContext.title} className="mb-10 max-w-3xl" />
-            <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-14">
-              <Reveal className="max-w-2xl xl:max-w-none">
-                <NotchPhoto src={content.image.src} alt={content.image.alt} />
-              </Reveal>
-              <Reveal delay={0.08}>
-                <div className="max-w-2xl space-y-5 font-sans text-base leading-[1.75] text-muted xl:max-w-none">
-                  {content.localContext.paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        ) : (
-          <div className="container-edge grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
-            <SectionHeading eyebrow={`${content.area} market`} title={content.localContext.title} />
-            <Reveal delay={0.08}>
-              <div className="space-y-5 font-sans text-lg leading-relaxed text-muted">
-                {content.localContext.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        )}
-      </section>
+      <ChallengeGrid eyebrow={`Why ${content.area}`} title="Why local businesses choose Vistrow" items={content.reasons} tone="surface" />
 
-      <FeatureCards
-        eyebrow={`Why ${content.area}`}
-        title="Why local businesses choose Vistrow"
-        items={content.reasons}
-        surface
+      <CardLinkGrid
+        eyebrow="Who we help"
+        title={`Businesses we work with in ${content.area}`}
+        cards={content.businessTypes}
+        cta="Learn more"
       />
 
-      <section className="py-section">
-        <div className="container-edge">
-          <SectionHeading
-            eyebrow="Who we help"
-            title={`Businesses we work with in ${content.area}`}
-            align="center"
-            className="mb-12"
-          />
-          <div className="grid grid-cols-1 gap-gutter sm:grid-cols-2 lg:grid-cols-4">
-            {content.businessTypes.map((type, i) => (
-              <Reveal key={type.label} delay={(i % 4) * 0.06}>
-                <Link href={type.href} className="glass glass-hover group flex h-full flex-col rounded-lg p-6">
-                  <h3 className="font-display text-lg font-bold text-ink">{type.label}</h3>
-                  <p className="mt-3 flex-1 font-sans text-sm leading-relaxed text-muted">{type.body}</p>
-                  <span className="mt-4 inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-accent-strong">
-                    Learn more
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={2} />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SolutionSplit eyebrow="The Vistrow approach" title={content.solution.title} body={content.solution.body} points={content.solution.points} />
 
-      <section className="py-section">
-        <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading eyebrow="The Vistrow approach" title={content.solution.title} description={content.solution.body} />
-          <Reveal delay={0.08}>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {content.solution.points.map((point, i, all) => (
-                <li
-                  key={point}
-                  className={`rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2 ${all.length % 2 === 1 && i === all.length - 1 ? "sm:col-span-2" : ""}`}
-                >
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </section>
+      <ServiceLinkGrid title={`Services for ${content.area} businesses`} services={serviceLinks} tone="plain" />
 
-      <section className="border-t border-line bg-surface py-section">
-        <div className="container-edge">
-          <SectionHeading eyebrow="Relevant services" title={`Services for ${content.area} businesses`} align="center" className="mb-12" />
-          <div className={`grid grid-cols-1 gap-gutter sm:grid-cols-2 ${serviceCols}`}>
-            {serviceLinks.map((service, i) => (
-              <Reveal key={service.href} delay={(i % 3) * 0.06}>
-                <Link
-                  href={service.href}
-                  className="glass glass-hover group flex h-full items-center justify-between gap-3 rounded-lg p-6"
-                >
-                  <span className="font-display text-lg font-bold text-ink">{service.label}</span>
-                  <ArrowRight
-                    className="h-5 w-5 shrink-0 text-muted transition-transform group-hover:translate-x-1"
-                    strokeWidth={2}
-                  />
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SolutionSplit eyebrow="Local visibility" title={content.visibility.title} body={content.visibility.body} points={content.visibility.points} />
 
-      <section className="py-section">
-        <div className="container-edge grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHeading eyebrow="Local visibility" title={content.visibility.title} description={content.visibility.body} />
-          <Reveal delay={0.08}>
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {content.visibility.points.map((point, i, all) => (
-                <li
-                  key={point}
-                  className={`rounded-lg border border-line bg-card p-5 font-sans text-[15px] text-ink-2 ${all.length % 2 === 1 && i === all.length - 1 ? "sm:col-span-2" : ""}`}
-                >
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-      </section>
+      <Timeline tone="plain" eyebrow="How we work" title={`Getting started in ${content.area}`} steps={content.process} />
 
-      <Steps eyebrow="How we work" title={`Getting started in ${content.area}`} steps={content.process} surface />
-
-      <section className="py-section">
-        <div className="container-edge grid gap-gutter lg:grid-cols-2">
+      <Section tone="surface">
+        <div className="grid gap-6 lg:grid-cols-2">
           <Reveal>
-            <div className="glass h-full rounded-xl p-8">
+            <Card>
               <p className="eyebrow">Talk to us</p>
               <h2 className="mt-3 font-display text-h3 text-ink">Vistrow Technologies, Baner, Pune</h2>
               <p className="mt-3 font-sans leading-relaxed text-muted">
@@ -216,10 +115,10 @@ export function LocationPage({ content }: { content: LocationContent }) {
                   </a>
                 </li>
               </ul>
-            </div>
+            </Card>
           </Reveal>
           <Reveal delay={0.08}>
-            <div className="glass h-full rounded-xl p-8">
+            <Card>
               <p className="eyebrow">Areas we serve</p>
               <h2 className="mt-3 font-display text-h3 text-ink">Digital marketing across Pune</h2>
               <ul className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -247,12 +146,14 @@ export function LocationPage({ content }: { content: LocationContent }) {
               <p className="mt-5 font-sans text-sm text-muted">
                 Also serving nearby areas including {content.nearby.filter((n) => !otherAreas.some((a) => a.area === n)).join(", ") || "the wider Pune region"}.
               </p>
-            </div>
+            </Card>
           </Reveal>
         </div>
-      </section>
+      </Section>
 
-      <Faq items={content.faqs} />
+      <div className="[&>section]:py-block">
+        <Faq items={content.faqs} />
+      </div>
 
       <CtaBand
         title={`Get more enquiries from ${content.area}, and answer them first.`}

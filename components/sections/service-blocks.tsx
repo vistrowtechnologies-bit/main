@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, X } from "lucide-react";
 import type { Feature } from "@/components/sections/feature-cards";
+import type { OverviewCard } from "@/lib/content-types";
 import { Reveal } from "@/components/ui/reveal";
 import { Card, Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -189,9 +190,9 @@ export function ChallengeGrid({ eyebrow = "Common challenges", title, items, ton
 }
 
 /** The solution: heading and copy on the left, the points as one accent card on the right. */
-export function SolutionSplit({ eyebrow = "The Vistrow solution", title, body, points }: { eyebrow?: string; title: string; body: string; points: string[] }) {
+export function SolutionSplit({ eyebrow = "The Vistrow solution", title, body, points, tone = "surface" }: { eyebrow?: string; title: string; body: string; points: string[]; tone?: "plain" | "surface" }) {
   return (
-    <Section tone="surface">
+    <Section tone={tone}>
       <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
         <SectionHeading eyebrow={eyebrow} title={title} description={body} />
         <Reveal delay={0.08}>
@@ -212,9 +213,9 @@ export function SolutionSplit({ eyebrow = "The Vistrow solution", title, body, p
 }
 
 /** Links to the services that matter for this page. */
-export function ServiceLinkGrid({ eyebrow = "Relevant services", title, services }: { eyebrow?: string; title: string; services: { label: string; href: string }[] }) {
+export function ServiceLinkGrid({ eyebrow = "Relevant services", title, services, tone = "surface" }: { eyebrow?: string; title: string; services: { label: string; href: string }[]; tone?: "plain" | "surface" }) {
   return (
-    <Section tone="surface">
+    <Section tone={tone}>
       <SectionHeading eyebrow={eyebrow} title={title} align="center" className="mb-12" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service, i) => (
@@ -225,6 +226,68 @@ export function ServiceLinkGrid({ eyebrow = "Relevant services", title, services
             >
               <span className="font-display text-lg font-bold text-ink">{service.label}</span>
               <ArrowRight className="h-5 w-5 shrink-0 text-muted transition-transform group-hover:translate-x-1" strokeWidth={2} />
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/** Heading on the left, a few paragraphs on the right. */
+export function TextSplit({ eyebrow, title, paragraphs, tone = "plain" }: { eyebrow: string; title: string; paragraphs: string[]; tone?: "plain" | "surface" }) {
+  return (
+    <Section tone={tone}>
+      <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <SectionHeading eyebrow={eyebrow} title={title} />
+        <Reveal delay={0.08}>
+          <div className="space-y-5 font-sans text-lg leading-relaxed text-muted">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </Section>
+  );
+}
+
+/** Cards that link to other pages: icon (optional), title, one line, and an arrow. */
+export function CardLinkGrid({ eyebrow, title, cards, tone = "plain", cta }: { eyebrow?: string; title?: string; cards: (OverviewCard & { cta?: string })[]; tone?: "plain" | "surface"; cta?: string }) {
+  const cols =
+    cards.length === 3 || (cards.length % 3 === 0 && cards.length % 2 === 1)
+      ? "md:grid-cols-3"
+      : cards.length === 4
+        ? "sm:grid-cols-2 lg:grid-cols-4"
+        : "sm:grid-cols-2 lg:grid-cols-3";
+  return (
+    <Section tone={tone}>
+      {title && <SectionHeading eyebrow={eyebrow ?? "Explore"} title={title} align="center" className="mb-12" />}
+      <div className={`grid grid-cols-1 gap-6 ${cols}`}>
+        {cards.map((card, i) => (
+          <Reveal key={card.href} delay={(i % 3) * 0.06} className="h-full">
+            <Link
+              href={card.href}
+              className="group flex h-full flex-col rounded-lg border border-line bg-card p-6 transition-colors hover:border-accent/60 sm:p-8"
+            >
+              <div className="flex items-start justify-between">
+                {card.icon ? (
+                  <div className="flex h-12 w-12 items-center justify-center rounded-sm bg-accent-tint">
+                    <card.icon className="h-6 w-6 text-accent-ink" strokeWidth={1.75} />
+                  </div>
+                ) : (
+                  <span />
+                )}
+                <ArrowUpRight className="h-5 w-5 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+              </div>
+              <h3 className="mt-5 font-display text-lg font-bold text-ink">{card.label}</h3>
+              <p className="mt-2 flex-1 font-sans text-base leading-relaxed text-muted">{card.body}</p>
+              {(card.cta ?? cta) && (
+                <span className="mt-4 inline-flex items-center gap-1.5 font-sans text-sm font-semibold text-accent-strong">
+                  {card.cta ?? cta}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+                </span>
+              )}
             </Link>
           </Reveal>
         ))}
