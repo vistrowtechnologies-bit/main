@@ -557,6 +557,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apni dukaan ke bahar khade hoke Google Maps pe "Directions" dabao. Agar raasta darwaze tak nahi aata, aaj hi pin theek karo.' }
     ],
     related: [{ slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }, { slug: 'nap-consistency-checklist', anchor: 'same name everywhere checklist' }, { slug: 'local-ad-location-targeting', anchor: 'local ad location checklist' }]
+  },
+  {
+    day: 20, slug: 'google-review-link-whatsapp', keyword: 'LINK', release: '2026-11-16T11:00',
+    title: 'Better rating, phir bhi customer gaya?',
+    h1: 'How to Get More Google Reviews: Share Your Google Review Link on WhatsApp (Free Kit)',
+    seoTitle: 'How to Get Your Google Review Link + WhatsApp Message Templates (Free PDF)',
+    description: 'Happy customers but few Google reviews? Leaving a review takes 6 steps without a link. Get your Google Business Profile review link and send it on WhatsApp with the bill. Free checklist, templates and PDF.',
+    summary: 'Customer khush hai, par review dene mein 6 step lagte hain. Google ka review link bhejo: ek tap, seedha stars.',
+    blocks: [
+      { type: 'why', title: 'Rating better, phir bhi customer doosri dukaan kyun gaya?', text: 'Example: Nitin bhai ki mobile repair dukaan ki rating 4.9 thi, saamne wali ki 4.4. Phir bhi customer wahan gaya, kyunki unke 286 reviews the aur Nitin bhai ke sirf 11. Kaam best tha, customer khush hoke jaate the. Par review dene ke liye Google kholo, dukaan dhoondo, reviews kholo, likho… teesre step pe hi customer bolta hai "baad mein", aur baad mein kabhi nahi. Nitin bhai ne Google ka review link bill ke saath WhatsApp pe bhejna shuru kiya: ek tap, seedha stars. (Naam, dukaan aur numbers example hain.)' },
+      { type: 'check', title: 'Google review link checklist', items: [
+        ['Link nikaalo (2 minute)', 'Owner wale Google account se Google pe apni dukaan ka naam search karo → "Ask for reviews" / "Get more reviews" dabao → review link copy karo. Isi jagah se QR code bhi milta hai.'],
+        ['Quick reply mein save', 'WhatsApp Business → Quick replies → "/review" naam se link aur ek chhota thank-you message save karo. Har baar type nahi karna padega.'],
+        ['Sahi time pe bhejo', 'Bill, delivery ya kaam poora hone ke turant baad, jab customer khush hai. Agle din tak ruko mat.'],
+        ['Personal line', 'Customer ka naam aur kya kaam hua, dono likho. "Rahul ji, screen badalne ka kaam pasand aaya?" generic message se zyada review laata hai.'],
+        ['Counter pe QR', 'Review QR print karke counter pe lagao: "2 second ka review? Scan karo".'],
+        ['Badle mein kuch mat do', 'Discount ya gift ke badle review maangna Google ki policy ke khilaaf hai. Sirf request karo, sabse karo, sirf khush customers se nahi chun ke.'],
+        ['Har review ka reply', 'Achhe review pe thank you, bure pe shaanti se jawab. Agla customer reply bhi padhta hai.'],
+        ['Har hafte count dekho', 'Hafte mein ek baar reviews ki ginti dekho. Agar nahi badhi, toh link bhejna chhoot raha hai.']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages', items: [
+        ['WhatsApp: bill ke saath', '{naam} ji, {kaam} ke liye shukriya 🙏 Aapko hamara kaam kaisa laga? 2 second ka review de denge toh bahut madad hogi: {review link}'],
+        ['Ek baar yaad dilana (2 din baad)', '{naam} ji, namaste 🙏 Agar time mile toh ek chhota sa review: {review link}. Aapka feedback hamare liye bahut maayne rakhta hai.'],
+        ['Counter card', '⭐ Hamara kaam pasand aaya? QR scan karke 2 second ka Google review dijiye. Shukriya! – {dukaan ka naam}']
+      ] },
+      { type: 'note', text: 'Upar Nitin bhai, dukaan aur sab numbers example hain. Review link Google Business Profile mein owner ke liye "Ask for reviews" / "Get more reviews" option mein milta hai. Agar aap chahte hain ki aapke review system ka link, QR aur WhatsApp messages hum set karein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apna review link nikaalo, WhatsApp Business mein "/review" quick reply bana do, aur aaj ke har khush customer ko bhejo. Kal ginti dekho.' }
+    ],
+    related: [{ slug: 'google-review-request-templates', anchor: 'review request templates' }, { slug: 'bad-review-reply-kit', anchor: 'bad review reply kit' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }]
   }
 ];
 
