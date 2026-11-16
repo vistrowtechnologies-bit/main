@@ -586,6 +586,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apna review link nikaalo, WhatsApp Business mein "/review" quick reply bana do, aur aaj ke har khush customer ko bhejo. Kal ginti dekho.' }
     ],
     related: [{ slug: 'google-review-request-templates', anchor: 'review request templates' }, { slug: 'bad-review-reply-kit', anchor: 'bad review reply kit' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }]
+  },
+  {
+    day: 21, slug: 'ai-receptionist-missed-calls', keyword: 'CALL', release: '2026-11-17T11:00',
+    title: 'Raat ko 3 call, ek bhi nahi uthaya',
+    h1: 'Missing Customer Calls at Night? AI Receptionist for Small Business (Missed-Call Fix Kit)',
+    seoTitle: 'AI Receptionist for Small Business in India · Stop Missing Calls at Night (Free Kit)',
+    description: 'Customers call after hours and nobody picks up, so they call the next shop. Free missed-call checklist, call-back scripts, and how an AI receptionist answers in Hindi and books the visit.',
+    summary: 'Jo call nahi uthaya, woh kaam agli dukaan ka. AI receptionist pehli ring pe uthata hai: raat ho ya din, Hindi mein, aur booking calendar mein.',
+    blocks: [
+      { type: 'why', title: 'Raat ko call aaya, kisi ne nahi uthaya?', text: 'Example: Sandeep bhai ki AC repair dukaan pe raat ko 3 call aaye. Dukaan band thi, koi nahi uthaya. Kavya ne agli dukaan ko call kiya, wahan kisi ne uthaya, aur ₹4,500 ka kaam unhe mil gaya. Sandeep bhai bhi insaan hain, raat ko sote hain. Isiliye AI receptionist: pehli ring pe uthata hai, Hindi mein baat karta hai, aur visit book kar deta hai. Subah Sandeep bhai uthe toh raat ki bookings already calendar mein thi. (Naam, dukaan aur numbers example hain.)' },
+      { type: 'check', title: 'Missed-call checklist', items: [
+        ['Ginti karo', 'Phone ki call history kholo: pichhle 7 din mein kitne call miss hue? Khaas kar shaam 7 ke baad aur Sunday ko.'],
+        ['Kitne paise ka kaam?', 'Miss hue call × aapka average order. Yahi number aapki "chhupi hui loss" hai.'],
+        ['10 minute ka rule', 'Din mein miss hua call 10 minute ke andar wapas karo. Der hui toh customer kahin aur chala jaata hai.'],
+        ['Auto-reply on', 'WhatsApp Business mein "away message" aur missed-call ke baad turant ek SMS/WhatsApp: "Abhi busy hain, 10 min mein call karte hain".'],
+        ['Raat ka plan', 'Raat ko call kaun uthayega? Ya toh forward number, ya AI receptionist jo 24×7 uthaye aur booking le.'],
+        ['Booking seedha calendar mein', 'Jo bhi call le, booking ek hi calendar mein jaaye, taaki subah sab saaf dikhe.'],
+        ['Google pe number sahi', 'Google profile, Instagram aur website pe wahi number jo uthaya jaata hai.'],
+        ['Har hafte check', 'Har hafte missed calls ki ginti dekho. Ginti kam ho rahi hai? Plan kaam kar raha hai.']
+      ] },
+      { type: 'templates', title: 'Copy-paste messages', items: [
+        ['Missed-call auto-reply', 'Namaste 🙏 Aapka call miss ho gaya, maafi. {dukaan ka naam} se hum 10 minute mein call karte hain. Jaldi ho toh yahin likh dijiye: kya kaam hai aur kab chahiye?'],
+        ['Call-back line', '{naam} ji, namaste! {dukaan} se bol raha hoon, aapka call aaya tha. Bataiye, kaise madad karein?'],
+        ['Booking confirm', '{naam} ji, aapki booking pakki: {din}, {time}. Technician {naam} aayenge. Kuch badalna ho toh yahin reply kijiye 🙏']
+      ] },
+      { type: 'note', text: 'Upar Sandeep bhai, Kavya, dukaan aur numbers example hain. Video mein jo call hai woh Vistrow Voice ki asli demo recording hai. Vistrow Voice ka AI receptionist inbound calls uthata hai, Hindi samet 11 Indian bhashaon aur English mein baat karta hai, aur appointment book karta hai. Apni dukaan ke liye demo chahiye toh WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: pichhle 7 din ke missed calls gino aur unhe apne average order se multiply karo. Woh number likh ke rakho, yahi aapka raat ka nuksaan hai.' }
+    ],
+    related: [{ slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
   }
 ];
 
