@@ -115,16 +115,50 @@ export const workPages: Record<string, WorkContent> = {
   },
   "client-results": {
     slug: "client-results",
-    title: "Measurement Standards",
+    title: "How We Measure Client Results",
     eyebrow: "Work",
-    subtitle: "The minimum evidence required before Vistrow presents an operational or commercial outcome as a client result.",
-    metaTitle: "Client Results and How We Measure Them",
-    metaDescription: "See how Vistrow defines baselines, attribution, lead quality, response time, and evidence before publishing client outcomes.",
+    subtitle: "Before Vistrow calls anything a client result, it has to pass four tests. Here is what we measure, how, and what we refuse to claim.",
+    metaTitle: "How We Measure Client Results: Response Time, Cost per Lead and Attribution",
+    metaDescription: "How Vistrow measures lead response time, cost per qualified lead, attribution and operational scale, and what evidence it needs before publishing a client result.",
     items: [
       { title: "Lead response", tag: "Verification standard", summary: "Measure from an agreed lead-created timestamp to the first meaningful automated or human response, with channel and business-hour context.", metric: "Timestamped", metricLabel: "CRM or workflow evidence", evidence: ["Start and end event definition", "Exceptions and failed attempts", "Median and distribution, not a single best case"] },
       { title: "Qualified lead cost", tag: "Verification standard", summary: "Define qualification before the campaign starts and reconcile platform spend with CRM-qualified records.", metric: "Reconciled", metricLabel: "Spend and CRM records", evidence: ["Qualification rule", "Source and campaign fields", "Rejected and duplicate lead handling"] },
       { title: "Pipeline attribution", tag: "Verification standard", summary: "Keep first touch, last touch, sales activity, stage history, and revenue source visible instead of claiming perfect attribution.", metric: "Contextual", metricLabel: "Attribution, not certainty", evidence: ["Agreed model and limitations", "CRM stage history", "Offline and assisted-touch caveats"] },
       { title: "Operational scale", tag: "Verification standard", summary: "Compare handled volume, exceptions, human workload, and service quality over a defined period.", metric: "Comparable", metricLabel: "Before-and-after period", evidence: ["Equivalent time windows", "Volume and quality together", "Implementation and staffing changes disclosed"] },
+    ],
+    sections: [
+      {
+        heading: "Why we publish how we measure",
+        paragraphs: [
+          "Marketing and automation results are easy to inflate. A lead count can include duplicates and fake enquiries, a response time can quote the best case, and attribution can claim credit it did not earn.",
+          "So before we state an outcome for a client, we agree how it is measured, write the rule down, and keep the evidence. If we cannot show that, we do not publish the number.",
+        ],
+      },
+      {
+        heading: "What we will not claim",
+        points: [
+          "A result without a baseline, a time window and a definition",
+          "A best-case figure presented as typical",
+          "Perfect attribution when buyers touch several channels",
+          "Revenue we cannot trace to a record in your CRM",
+          "Any client outcome without that client's permission",
+        ],
+      },
+      {
+        heading: "What we ask you for at the start",
+        points: [
+          "Access to the ad accounts and CRM in read mode, so numbers can be checked, not just reported",
+          "Your own definition of a qualified lead",
+          "A baseline period before we change anything",
+          "Agreement on who counts duplicates and rejects",
+        ],
+      },
+      {
+        heading: "How to use this when you compare agencies",
+        paragraphs: [
+          "Ask any agency, including us, four questions: what is the baseline, how is a qualified lead defined, which records prove it, and what is the time window. A clear answer to each is a good sign. A vague answer is a reason to ask again.",
+        ],
+      },
     ],
   },
 };

@@ -13,6 +13,7 @@ import { AccentSwitcher } from "@/components/accent-switcher";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { CookieBanner } from "@/components/analytics/cookie-banner";
 import { MicrosoftClarity } from "@/components/analytics/microsoft-clarity";
+import { ClickTracking } from "@/components/analytics/click-tracking";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -93,6 +94,7 @@ export default function RootLayout({
         <MicrosoftClarity />
       </head>
       <body className="font-sans antialiased">
+        <ClickTracking />
         <div className="vistrow-shell-tools"><ScrollProgress /></div>
         <a
           href="#main"

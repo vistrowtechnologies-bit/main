@@ -27,6 +27,8 @@ export type WorkContent = {
   metaTitle: string;
   metaDescription: string;
   items: WorkItem[];
+  /** Longer explanatory sections shown under the cards (used where a page needs real depth). */
+  sections?: { heading: string; paragraphs?: string[]; points?: string[] }[];
 };
 
 export function WorkPage({ content }: { content: WorkContent }) {
@@ -63,7 +65,7 @@ export function WorkPage({ content }: { content: WorkContent }) {
       />
 
       <AnswerSummary
-        question={`What does Vistrow's ${content.title.toLowerCase()} show?`}
+        question={/^how\b/i.test(content.title) ? `${content.title}?` : `What does Vistrow's ${content.title.toLowerCase()} show?`}
         answer={content.subtitle}
         groups={[
           { label: "Problems addressed", items: content.items.slice(0, 3).map((item) => item.title) },
@@ -118,6 +120,33 @@ export function WorkPage({ content }: { content: WorkContent }) {
           </p>
         </div>
       </section>
+
+      {content.sections && content.sections.length > 0 && (
+        <section className="border-t border-line bg-surface py-block">
+          <div className="container-edge grid gap-10 lg:grid-cols-2 lg:gap-12">
+            {content.sections.map((section) => (
+              <Reveal key={section.heading}>
+                <h2 className="font-display text-h3 text-ink">{section.heading}</h2>
+                {section.paragraphs?.map((paragraph) => (
+                  <p key={paragraph} className="mt-4 font-sans text-base leading-relaxed text-muted">
+                    {paragraph}
+                  </p>
+                ))}
+                {section.points && (
+                  <ul className="mt-5 space-y-3">
+                    {section.points.map((point) => (
+                      <li key={point} className="flex items-start gap-3 font-sans text-base text-ink-2">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent-strong" strokeWidth={2} />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Reveal>
+            ))}
+          </div>
+        </section>
+      )}
 
       <CtaBand />
     </>

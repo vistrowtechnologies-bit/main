@@ -12,6 +12,7 @@ import { BlogExplorer } from "@/components/blog/blog-explorer";
 import { ReadingProgress } from "@/components/blog/reading-progress";
 import { ShareRow } from "@/components/blog/share-row";
 import { BlogComments } from "@/components/blog/blog-comments";
+import { RelatedPages } from "@/components/blog/related-pages";
 import { SectionVisuals } from "@/components/blog/section-visuals";
 import { siteUrl } from "@/lib/seo";
 
@@ -252,6 +253,8 @@ export function BlogPostPage({
                   </div>
                 </section>
               )}
+
+              <RelatedPages title={post.title} category={post.category} slug={post.slug} />
 
               <div className="mt-4 flex items-center gap-3 border-t border-line pt-7">
                 <span className="font-sans text-sm text-muted">Share this article</span>
