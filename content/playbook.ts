@@ -615,6 +615,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: pichhle 7 din ke missed calls gino aur unhe apne average order se multiply karo. Woh number likh ke rakho, yahi aapka raat ka nuksaan hai.' }
     ],
     related: [{ slug: 'missed-call-auto-reply-message', anchor: 'missed call auto reply message aur call-back script' }, { slug: 'whatsapp-business-setup-checklist', anchor: 'WhatsApp Business setup checklist' }, { slug: 'lead-tracker-follow-up', anchor: 'free lead tracker aur follow-up template' }]
+  },
+  {
+    day: 22, slug: 'google-search-ads-local-business', keyword: 'SEARCH', release: '2026-11-18T11:00',
+    title: 'Raat 11 baje cockroach, aapki dukaan page 2 pe',
+    h1: 'Google Search Ads for Local Business: Show Up When Customers Search "Near Me" (Starter Kit)',
+    seoTitle: 'Google Search Ads for Small Business in India · "Near Me" Starter Kit (Free PDF)',
+    description: 'Instagram ads reach people while they scroll. Google search ads reach people searching right now, like "pest control near me". Free starter checklist, keyword ideas and ad text templates.',
+    summary: 'Pet bhara ho toh golgappe wala awaaz lagaye, koi nahi rukta. Bhookh lagi ho toh khud dhoondhte ho. Google pe log "abhi chahiye" wale hote hain.',
+    blocks: [
+      { type: 'why', title: 'Instagram pe ad, phir bhi call nahi?', text: 'Example: raat 11 baje Shalini ke kitchen mein cockroach party thi. Usne Google pe "pest control near me" search kiya: upar teen dukaan "Sponsored" mein, aur Ritesh bhai ki dukaan page 2 pe. Ritesh bhai Instagram pe ₹5,000 ka ad chala rahe the, jahan log reels dekh rahe the, cockroach nahi. Pet bhara ho toh golgappe wala awaaz lagaye, koi nahi rukta; bhookh lagi ho toh khud dhoondhte ho. Google pe log bhookhe hain: abhi chahiye. Ritesh bhai ne Google search ad lagaya aur agle hafte "aaj hi aao" wale calls aaye. (Naam, dukaan aur numbers example hain.)' },
+      { type: 'check', title: 'Google search ad starter checklist', items: [
+        ['Customer ke shabd likho', 'Aapka customer Google pe kya type karta hai? "pest control near me", "{service} {area}", "{service} urgent". 10 aise phrases likho.'],
+        ['Sirf apna area', 'Ad sirf utne km mein dikhao jitni door aap service dete ho. Door wale clicks = paise barbaad.'],
+        ['Call button on', 'Mobile pe log call karna chahte hain. Ad mein call option aur sahi number lagao.'],
+        ['Sahi time', 'Jab aap call utha sakte ho, tab hi ad chalao (ya raat ke liye AI receptionist rakho).'],
+        ['Galat search hatao', '"free", "job", "course" jaise words negative mein daalo, taaki galat log click na karein.'],
+        ['Chhota test pehle', 'Pehle chhote budget se ek hafta chalao. Kaunsa search call laaya, wahi badhao.'],
+        ['Google profile taiyaar', 'Ad dekh ke log reviews aur photos bhi dekhte hain. Google Business Profile poora rakho.'],
+        ['Har hafte report', 'Kitne click, kitni call, kitni booking: har hafte dekho, galat keywords band karo.']
+      ] },
+      { type: 'templates', title: 'Ad text ideas (copy, edit, use)', items: [
+        ['Headline', '{Service} in {Area} · Aaj Hi Service · Call Now'],
+        ['Description', '{Saal} saal ka experience. {Area} mein same-day visit. Pehle inspection, phir quote. Abhi call karein.'],
+        ['Call-only line', 'Urgent {problem}? {Area} mein 1 ghante mein technician. Tap karke call karein.']
+      ] },
+      { type: 'note', text: 'Upar Shalini, Ritesh bhai, dukaan aur numbers example hain. Google search ads results ke upar "Sponsored" label ke saath dikhte hain. Instagram ads bhi kaam ke hain; dono ka moment alag hai. Agar aap chahte hain ki aapke Google ads ka setup, keywords aur tracking hum karein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apne customer ki tarah Google pe apni service + area search karo. Aap kahan dikhte ho: upar, Maps mein, ya page 2 pe? Screenshot lo.' }
+    ],
+    related: [{ slug: 'local-ad-location-targeting', anchor: 'local ad location checklist' }, { slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }]
   }
 ];
 
