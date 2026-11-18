@@ -644,6 +644,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apne customer ki tarah Google pe apni service + area search karo. Aap kahan dikhte ho: upar, Maps mein, ya page 2 pe? Screenshot lo.' }
     ],
     related: [{ slug: 'local-ad-location-targeting', anchor: 'local ad location checklist' }, { slug: 'whatsapp-button-ad-setup', anchor: 'WhatsApp-button ad setup' }, { slug: 'google-business-profile-checklist', anchor: 'Google Business Profile checklist' }]
+  },
+  {
+    day: 23, slug: 'website-speed-check-mobile', keyword: 'LIFT', release: '2026-11-19T11:45',
+    title: 'Website race: kaunsi pehle khulegi?',
+    h1: 'Is Your Website Too Slow on Mobile? Free Speed Check + Fix List for Small Business',
+    seoTitle: 'Website Speed Check for Small Business in India · Bounce Rate Fix List (Free PDF)',
+    description: 'A slow mobile website sends customers to the next shop. Check your site speed for free, understand bounce rate, and fix the 8 most common causes. Free checklist and PDF.',
+    summary: 'Lift ka button dabaya, lift nahi aayi… tum seedhiyan le lete ho. Online bhi wahi: page nahi khula, customer agli dukaan.',
+    blocks: [
+      { type: 'why', title: 'Same sofa, same daam… phir order kisko mila?', text: 'Example: do furniture dukaan, same sofa, same daam, ek customer. Shree Furniture ki website do second mein khul gayi, sofa dikh gaya, customer ne WhatsApp pe order kar diya. Harsh bhai ki website abhi bhi ghoom rahi thi. Harsh bhai race haar gaye, bina pata chale ki race thi bhi. Lift nahi aati toh hum seedhiyan le lete hain; page nahi khulta toh customer agli dukaan. Marketing mein ise bounce rate kehte hain: page khulte hi kitne log wapas chale gaye. Google aur SOASTA ki research (Think with Google, 2017) ke hisaab se, mobile page ka load time 1 se 3 second hone par bounce ka chance 32% badh jaata hai. (Naam, dukaan aur seconds example hain.)' },
+      { type: 'check', title: 'Website speed check + fix list', items: [
+        ['Pehle naapo', 'pagespeed.web.dev pe apni website daalo aur "Mobile" result dekho. Score aur "Largest Contentful Paint" (main cheez kitni der mein dikhi) likh lo.'],
+        ['Photos chhoti karo', 'Sabse bada kaaran: 3–5 MB ki photos. Upload se pehle compress karo (WebP format, 200 KB ke aas-paas).'],
+        ['Pehli screen halki', 'Upar ka hissa sabse pehle khulna chahiye: ek photo, naam, price aur WhatsApp/Call button. Bade sliders aur autoplay video hatao.'],
+        ['Faltu plugins/apps', 'Jo chat widget, popup ya plugin kaam ka nahi, use hatao. Har ek website ko dheema karta hai.'],
+        ['Achhi hosting', 'Sasta shared hosting aksar dheema hota hai. India ke customers ke liye paas ka server ya CDN use karo.'],
+        ['Fonts kam', 'Do se zyada font styles mat rakho. Har font ek extra download hai.'],
+        ['Phone pe khud kholo', 'Apne phone pe, mobile data pe (Wi-Fi nahi), website kholo. Jitni der aapko lagi, customer ko bhi utni hi lagegi.'],
+        ['Har mahine dobara check', 'Nayi photos aur changes ke baad speed gir sakti hai. Mahine mein ek baar test karo.']
+      ] },
+      { type: 'templates', title: 'Apne web developer ko bhejne wala message (copy, edit, use)', items: [
+        ['Speed request', 'Hi, hamari website mobile pe {X} second mein khulti hai (PageSpeed mobile score {Y}). Kya aap photos compress, unused plugins remove aur caching on kar sakte ho? Target: 3 second se kam.'],
+        ['Pehli screen', 'Homepage ke upar sirf main photo, naam, price aur WhatsApp button rakho. Slider aur autoplay video hata do, taaki pehli screen jaldi khule.'],
+        ['Monthly check', 'Har mahine ki 1 tarikh ko PageSpeed mobile report bhej dena, taaki speed girne pe turant pata chale.']
+      ] },
+      { type: 'note', text: 'Upar Harsh bhai, Shree Furniture aur seconds example hain. 1s → 3s = +32% bounce wala stat Google/SOASTA research (Think with Google, 2017) se hai. Agar aap chahte hain ki aapki website ki speed hum check aur fix karein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apne phone pe, mobile data pe, apni website kholo aur stopwatch se time naapo. 3 second se zyada? Upar wali list se sabse pehle photos chhoti karo.' }
+    ],
+    related: [{ slug: 'website-must-haves-checklist', anchor: 'website must-haves checklist' }, { slug: 'website-that-books-at-night', anchor: 'booking website checklist' }, { slug: 'google-search-ads-local-business', anchor: 'Google search ads starter kit' }]
   }
 ];
 
