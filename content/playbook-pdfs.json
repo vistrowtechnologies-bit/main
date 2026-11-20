@@ -174,5 +174,13 @@
     "card": "/playbook/pdf/card-day-23-7af5fa4ffd.jpg",
     "pages": 4,
     "kb": 295
+  },
+  "24": {
+    "file": "/playbook/pdf/vistrow-day-24-content-pillars-small-business-1ba1c33156.pdf",
+    "cover": "/playbook/pdf/cover-day-24-1ba1c33156.jpg",
+    "reel": "/playbook/pdf/reel-day-24-1ba1c33156.jpg",
+    "card": "/playbook/pdf/card-day-24-1ba1c33156.jpg",
+    "pages": 3,
+    "kb": 285
   }
 }

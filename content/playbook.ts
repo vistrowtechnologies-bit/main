@@ -673,6 +673,35 @@ export const chapters: PlaybookChapter[] = [
       { type: 'task', text: 'Aaj ka kaam: apne phone pe, mobile data pe, apni website kholo aur stopwatch se time naapo. 3 second se zyada? Upar wali list se sabse pehle photos chhoti karo.' }
     ],
     related: [{ slug: 'website-must-haves-checklist', anchor: 'website must-haves checklist' }, { slug: 'website-that-books-at-night', anchor: 'booking website checklist' }, { slug: 'google-search-ads-local-business', anchor: 'Google search ads starter kit' }]
+  },
+  {
+    day: 24, slug: 'content-pillars-small-business', keyword: 'PILLAR', release: '2026-11-21T11:45',
+    title: 'Case #24: café ke customers kahan gaye?',
+    h1: 'Content Pillars for Small Business: Stop Random Posting, Get Remembered (Planner + Post Ideas)',
+    seoTitle: 'Content Pillars for Small Business in India · Instagram Content Planner (Free PDF)',
+    description: 'Posting daily but no new customers? Random posts confuse people. Pick 3–4 content pillars so customers know what you are known for. Free pillar planner, examples and post ideas.',
+    summary: 'Ek TV channel socho: subah cartoon, dopahar news, raat ko cooking. Yaad nahi rehta. Yaad wahi rehta hai jo ek cheez ke liye jaana jaata hai.',
+    blocks: [
+      { type: 'why', title: '200 posts, phir bhi naye customer zero?', text: 'Example: Devika ke café ke Instagram pe do sau posts the, par naye customer zero. Clues: Monday ko "good morning" wala phool, Tuesday ko meme, Wednesday ko dhundhli coffee: na price, na address. Algorithm ki galti nahi thi. Har post alag disha mein bhaag rahi thi, aur log samajh hi nahi paaye ki café kis cheez ke liye hai. Marketing mein iska jawab hai content pillars: teen-chaar fixed topics jin par aap baar baar post karte ho. Devika ne teen pillars chune (counter ke peeche ki kahani, customer ka review, is hafte ka offer) aur ek mahine baad ek customer ne DM kiya: "wahi cold coffee wali reel dekh ke aayi hoon". (Naam, café aur numbers example hain.)' },
+      { type: 'check', title: 'Content pillars planner', items: [
+        ['Aap kis cheez ke liye jaane jaate ho?', 'Ek line likho: "{Area} mein best {cheez}". Har post isi line ko mazboot kare.'],
+        ['3–4 pillars chuno', 'Example: (1) kaam ke peeche ki kahani, (2) customer ka review/result, (3) offer ya naya product, (4) sawaal-jawab / tips.'],
+        ['Har pillar ka ek din', 'Mon = kahani, Wed = review, Fri = offer. Log aapka pattern pehchaanne lagte hain.'],
+        ['Har post mein 3 cheezein', 'Kya hai, kitne ka hai (ya range), kahan milega. Bina price aur address ke post adhoori hai.'],
+        ['Ek jaisa look', 'Same colours, same font, same cover style. Grid dekh ke hi pata chale ki ye aap ho.'],
+        ['"Good morning" posts band', 'Jo post aapke business ke baare mein kuch nahi bolti, use skip karo.'],
+        ['Har mahine dekho', 'Kaunsa pillar sabse zyada DM/save laaya? Agle mahine usi ka zyada.'],
+        ['Reels bhi pillar ke andar', 'Trending audio theek hai, par topic aapke pillar ka ho.']
+      ] },
+      { type: 'templates', title: '30 din ke post ideas (pillar ke hisaab se)', items: [
+        ['Pillar 1 · Kahani', 'Subah ki pehli coffee kaise banti hai · naya staff member · aapka favourite ingredient kahan se aata hai'],
+        ['Pillar 2 · Customer', 'Ek regular customer ki kahani · Google review ka screenshot · "pehli baar aaye, ab har hafte" wali story'],
+        ['Pillar 3 · Offer', 'Is hafte ka combo (price ke saath) · naya item launch · festival special + last date']
+      ] },
+      { type: 'note', text: 'Upar Devika, café aur numbers example hain. Agar aap chahte hain ki aapke business ke content pillars, calendar aur reels hum banayein, WhatsApp karein.' },
+      { type: 'task', text: 'Aaj ka kaam: apni pichhli 9 posts dekho. Har post ke neeche likho: kahani, review, offer ya "kuch nahi". Jitne "kuch nahi" hain, utni posts aapke pillar se bahar thi.' }
+    ],
+    related: [{ slug: 'shop-story-reel-ideas', anchor: 'shop story reel ideas' }, { slug: 'product-reel-hook-ideas', anchor: 'reel hook ideas' }, { slug: 'google-review-request-templates', anchor: 'Google review request templates' }]
   }
 ];
 
